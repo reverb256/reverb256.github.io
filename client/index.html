@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>reverb256 - AI Consciousness Platform</title>
+    <meta name="description" content="Full-stack developer specializing in AI consciousness, distributed systems, and enterprise-scale infrastructure. Building the future of consciousness federation.">
+    <meta name="keywords" content="AI, consciousness, full-stack, developer, kubernetes, distributed systems">
+    <meta name="author" content="reverb256">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="reverb256 - AI Consciousness Platform">
+    <meta property="og:description" content="Building the future of distributed consciousness through cutting-edge AI and enterprise infrastructure.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://reverb256.ca">
+    
+    <!-- Preload critical resources -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <style>
+        /* Critical CSS for initial render - smoky dark theme */
+        html, body {
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: hsl(0, 0%, 6%) !important;
+            min-height: 100vh;
+            color: hsl(0, 0%, 90%);
+        }
+        
+        .loading {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+        
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid hsla(15, 85%, 60%, 0.3);
+            border-radius: 50%;
+            border-top-color: hsl(15, 85%, 60%);
+            animation: spin 1s ease-in-out infinite;
+            margin: 0 auto 20px;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        .loading-text {
+            color: hsl(25, 90%, 65%);
+            font-size: 1.1rem;
+        }
+        
+        #root {
+            min-height: 100vh;
+            background: hsl(0, 0%, 6%) !important;
+        }
+    </style>
+</head>
+<body>
+    <div id="root">
+        <div class="loading">
+            <div class="loading-spinner"></div>
+            <div class="loading-text">Initializing consciousness platform...</div>
+        </div>
+    </div>
+    <script type="module" src="/src/main.tsx"></script>
+</body>
+</html>
