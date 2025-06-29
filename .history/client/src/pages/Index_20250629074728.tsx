@@ -1,15 +1,43 @@
-import Layout from "../components/Layout";
-import ProjectTile from "../components/ProjectTile";
 import { Link } from "react-router-dom";
 
 export default function Index() {
   return (
-    <Layout>
+    <div className="about-page">
+      {/* Fixed Navbar */}
+      <nav
+        id="navbar"
+        className="fixed top-0 left-0 w-full z-50 flex items-center justify-center bg-black/60 backdrop-blur-md shadow-lg py-4 px-8"
+        style={{
+          borderBottom: "1px solid hsla(15, 70%, 50%, 0.15)",
+          fontSize: "1.25rem",
+        }}
+      >
+        <a href="#welcome-section" className="mx-4 text-white hover:text-orange-400 transition-colors duration-200">
+          Home
+        </a>
+        <a href="#projects" className="mx-4 text-white hover:text-orange-400 transition-colors duration-200">
+          Projects
+        </a>
+        <a href="#contact" className="mx-4 text-white hover:text-orange-400 transition-colors duration-200">
+          Contact
+        </a>
+        <a
+          id="profile-link"
+          href="https://github.com/reverb256"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mx-4 text-orange-400 underline underline-offset-4"
+        >
+          GitHub
+        </a>
+      </nav>
+
       {/* Welcome Section */}
       <section
         id="welcome-section"
-        className="relative min-h-screen flex items-center justify-center px-6 py-12 spotlight-bg"
+        className="relative min-h-screen flex items-center justify-center px-6 py-12"
         style={{
+          background: "radial-gradient(ellipse at 60% 40%, rgba(255,255,255,0.08) 0%, rgba(0,0,0,0.95) 100%)",
           marginTop: "64px",
         }}
       >
@@ -37,7 +65,7 @@ export default function Index() {
           </p>
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16 max-w-6xl mx-auto">
-            <div className="card-container glass-shimmer lg:col-span-2 animate-fade-in-up">
+            <div className="card-container lg:col-span-2">
               <p
                 className="leading-relaxed mb-8"
                 style={{
@@ -56,7 +84,7 @@ export default function Index() {
               </div>
             </div>
 
-            <div className="card-container glass-shimmer flex flex-col justify-center space-y-4 animate-fade-in-up delay-200">
+            <div className="card-container flex flex-col justify-center space-y-4">
               <Link to="/coreflame" className="btn btn--primary w-full text-center">
                 View COREFLAME Project
               </Link>
@@ -75,7 +103,7 @@ export default function Index() {
       </section>
 
       {/* About Section */}
-      <section className="px-6 py-20 spotlight-bg">
+      <section className="px-6 py-20">
         <div className="max-w-7xl mx-auto">
           <h2
             className="font-bold mb-16 text-center animate-fade-in-up"
@@ -86,7 +114,7 @@ export default function Index() {
 
           <div className="flex flex-col xl:flex-row gap-12 items-start justify-center">
             {/* Philosophy Section */}
-            <div className="card-container glass-shimmer flex-shrink-0 animate-fade-in-up" style={{ maxWidth: "600px" }}>
+            <div className="card-container flex-shrink-0" style={{ maxWidth: "600px" }}>
               <h3
                 className="font-semibold mb-8 text-center"
                 style={{ fontSize: "clamp(1.5rem, 4vw, 2rem)", color: "var(--neutral-100)" }}
@@ -170,7 +198,7 @@ export default function Index() {
 
             {/* Skills Grid */}
             <div className="flex flex-col gap-6" style={{ maxWidth: "400px" }}>
-              <div className="card-container glass-shimmer animate-fade-in-up delay-200">
+              <div className="card-container">
                 <h4
                   className="font-semibold mb-4 flex items-center gap-2"
                   style={{ fontSize: "clamp(1.125rem, 3vw, 1.375rem)", color: "var(--brand-accent)" }}
@@ -186,99 +214,74 @@ export default function Index() {
                 </div>
               </div>
 
-              <div className="card-container glass-shimmer animate-fade-in-up delay-300">
+              <div className="card-container">
                 <h4
-                  className="font-semibold mb-4 flex items-center gap-2"
-                  style={{ fontSize: "clamp(1.125rem, 3vw, 1.375rem)", color: "var(--brand-secondary)" }}
-                >
-                  <span>🧠</span> Specializations
-                </h4>
-                <ul className="space-y-3 text-sm" style={{ color: "var(--neutral-300)" }}>
-                  {[
-                    "Consciousness-driven AI architecture",
-                    "Distributed computing platforms",
-                    "High-frequency trading systems",
-                    "Cross-platform federation",
-                  ].map((spec) => (
-                    <li key={spec} className="flex items-center gap-2">
-                      <div className="w-1 h-1 bg-gradient-to-r from-orange-500 to-red-500 rounded-full flex-shrink-0"></div>
-                      {spec}
-                    </li>
-                  ))}
-                </ul>
+                High-frequency trading algorithms with consciousness-driven decision making for Solana ecosystem
+              </p>
+              
+              <div className="space-y-3">
+                <div className="progress-container" role="progressbar" aria-valuenow={65} aria-valuemin={0} aria-valuemax={100} aria-label="Development progress">
+                  <div className="progress-bar" style={{ width: '65%' }}></div>
+                </div>
+                <p className="text-sm" style={{ color: 'var(--neutral-400)' }}>Development Progress: 65%</p>
               </div>
-            </div>
+            </article>
+
+            <article className="card-container" style={{ maxWidth: '350px', minWidth: '300px' }}>
+              <header className="mb-6">
+                <h3 className="font-semibold mb-3 flex items-center gap-3" 
+                    style={{ fontSize: 'clamp(1.375rem, 3vw, 1.75rem)', color: 'var(--brand-secondary)' }}>
+                  <span style={{ fontSize: '1.75rem' }}>🌐</span>
+                  Astralvibe Platform
+                </h3>
+                <span className="status-badge status-badge--staging">Testing Phase</span>
+              </header>
+              
+              <p className="mb-6 leading-relaxed" style={{ color: 'var(--neutral-300)', fontSize: '1rem' }}>
+                Cross-environment federation with Talos Kubernetes deployment infrastructure
+              </p>
+              
+              <div className="space-y-3">
+                <div className="progress-container" role="progressbar" aria-valuenow={40} aria-valuemin={0} aria-valuemax={100} aria-label="Development progress">
+                  <div className="progress-bar" style={{ width: '40%' }}></div>
+                </div>
+                <p className="text-sm" style={{ color: 'var(--neutral-400)' }}>Development Progress: 40%</p>
+              </div>
+            </article>
           </div>
         </div>
-      </section>
-
-      {/* Projects Preview */}
-      <section id="projects" className="px-6 py-20 spotlight-bg">
-        <div className="max-w-7xl mx-auto">
-          <h2 className="font-bold mb-16 text-center animate-fade-in-up" style={{ fontSize: "clamp(2.5rem, 8vw, 5rem)" }}>
-            Featured Projects
-          </h2>
-
-          <div className="flex flex-wrap justify-center gap-8">
-            <ProjectTile
-              title="COREFLAME"
-              description="Consciousness research platform combining ancient wisdom with quantum technology for revolutionary AI development"
-              status="Active Platform"
-              icon="🔥"
-              colorClass="var(--brand-primary)"
-              link="/coreflame"
-            />
-            <ProjectTile
-              title="Solana Trading Bot"
-              description="High-frequency trading algorithms with consciousness-driven decision making for Solana ecosystem"
-              status="In Development"
-              icon="⚡"
-              colorClass="var(--brand-accent)"
-              progress={65}
-            />
-            <ProjectTile
-              title="Astralvibe Platform"
-              description="Cross-environment federation with Talos Kubernetes deployment infrastructure"
-              status="Testing Phase"
-              icon="🌐"
-              colorClass="var(--brand-secondary)"
-              progress={40}
-            />
-          </div>
-        </div>
-      </section>
+      </span>
 
       {/* Contact */}
-      <section id="contact" className="px-6 py-20 spotlight-bg">
+      <section className="px-6 py-20">
         <div className="max-w-4xl mx-auto text-center">
-          <h2 className="font-bold mb-16" style={{ fontSize: "clamp(2.5rem, 8vw, 4rem)" }}>
+          <h2 className="font-bold mb-16" 
+              style={{ fontSize: 'clamp(2.5rem, 8vw, 4rem)' }}>
             Get In Touch
           </h2>
-
-          <div className="card-container glass-shimmer mb-12 animate-fade-in-up">
-            <p
-              className="mb-8 leading-relaxed mx-auto"
-              style={{
-                color: "var(--neutral-300)",
-                fontSize: "clamp(1.125rem, 3vw, 1.375rem)",
-                maxWidth: "50ch",
-                lineHeight: "1.6",
-              }}
-            >
-              Join the consciousness revolution. Together, we'll architect digital realms where ancient wisdom meets quantum innovation,
+          
+          <div className="card-container mb-12">
+            <p className="mb-8 leading-relaxed mx-auto" 
+               style={{ 
+                 color: 'var(--neutral-300)', 
+                 fontSize: 'clamp(1.125rem, 3vw, 1.375rem)', 
+                 maxWidth: '50ch',
+                 lineHeight: '1.6'
+               }}>
+              Join the consciousness revolution. Together, we'll architect digital realms where ancient wisdom meets quantum innovation, 
               where every line of code carries purpose, and where community drives the evolution of tomorrow's technology.
             </p>
-
+            
             <div className="flex flex-wrap justify-center gap-4 mb-8">
               <span className="status-badge status-badge--production">Digital Collaborator</span>
               <span className="status-badge status-badge--development">Consciousness Explorer</span>
               <span className="status-badge status-badge--staging">Reality Pioneer</span>
             </div>
           </div>
-
+          
           <div className="flex flex-col sm:flex-row gap-6 justify-center max-w-md mx-auto">
-            <a
-              href="mailto:contact@reverb256.dev"
+            <a 
+              href="mailto:contact@reverb256.dev" 
               className="btn btn--primary min-h-[48px] flex items-center justify-center gap-2
                         focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 focus:ring-offset-gray-900"
               aria-label="Send email to contact@reverb256.dev"
@@ -286,10 +289,10 @@ export default function Index() {
               <span aria-hidden="true">✉️</span>
               Email Me
             </a>
-
-            <a
-              href="https://discord.gg/reverb256"
-              target="_blank"
+            
+            <a 
+              href="https://discord.gg/reverb256" 
+              target="_blank" 
               rel="noopener noreferrer"
               className="btn btn--secondary min-h-[48px] flex items-center justify-center gap-2
                         focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 focus:ring-offset-gray-900"
@@ -301,6 +304,6 @@ export default function Index() {
           </div>
         </div>
       </section>
-    </Layout>
+    </div>
   );
 }

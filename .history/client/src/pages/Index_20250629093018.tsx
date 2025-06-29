@@ -249,13 +249,13 @@ export default function Index() {
       </section>
 
       {/* Contact */}
-      <section id="contact" className="px-6 py-20 spotlight-bg">
+      <section id="contact" className="px-6 py-20">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="font-bold mb-16" style={{ fontSize: "clamp(2.5rem, 8vw, 4rem)" }}>
             Get In Touch
           </h2>
 
-          <div className="card-container glass-shimmer mb-12 animate-fade-in-up">
+          <div className="card-container mb-12">
             <p
               className="mb-8 leading-relaxed mx-auto"
               style={{

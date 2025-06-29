@@ -170,7 +170,7 @@ export default function Index() {
 
             {/* Skills Grid */}
             <div className="flex flex-col gap-6" style={{ maxWidth: "400px" }}>
-              <div className="card-container glass-shimmer animate-fade-in-up delay-200">
+              <div className="card-container">
                 <h4
                   className="font-semibold mb-4 flex items-center gap-2"
                   style={{ fontSize: "clamp(1.125rem, 3vw, 1.375rem)", color: "var(--brand-accent)" }}
@@ -186,7 +186,7 @@ export default function Index() {
                 </div>
               </div>
 
-              <div className="card-container glass-shimmer animate-fade-in-up delay-300">
+              <div className="card-container">
                 <h4
                   className="font-semibold mb-4 flex items-center gap-2"
                   style={{ fontSize: "clamp(1.125rem, 3vw, 1.375rem)", color: "var(--brand-secondary)" }}
@@ -213,7 +213,7 @@ export default function Index() {
       </section>
 
       {/* Projects Preview */}
-      <section id="projects" className="px-6 py-20 spotlight-bg">
+      <section id="projects" className="px-6 py-20">
         <div className="max-w-7xl mx-auto">
           <h2 className="font-bold mb-16 text-center animate-fade-in-up" style={{ fontSize: "clamp(2.5rem, 8vw, 5rem)" }}>
             Featured Projects
@@ -249,13 +249,13 @@ export default function Index() {
       </section>
 
       {/* Contact */}
-      <section id="contact" className="px-6 py-20 spotlight-bg">
+      <section id="contact" className="px-6 py-20">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="font-bold mb-16" style={{ fontSize: "clamp(2.5rem, 8vw, 4rem)" }}>
             Get In Touch
           </h2>
 
-          <div className="card-container glass-shimmer mb-12 animate-fade-in-up">
+          <div className="card-container mb-12">
             <p
               className="mb-8 leading-relaxed mx-auto"
               style={{

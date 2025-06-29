@@ -1,0 +1,70 @@
+/* Fade-in animation */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(32px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 1s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+.animate-fade-in-up.delay-200 {
+  animation-delay: 0.2s;
+}
+.animate-fade-in-up.delay-300 {
+  animation-delay: 0.3s;
+}
+
+/* Glass shimmer effect */
+@keyframes glassShimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.glass-shimmer {
+  background: linear-gradient(
+    120deg,
+    rgba(255,255,255,0.05) 0%,
+    rgba(255,255,255,0.15) 50%,
+    rgba(255,255,255,0.05) 100%
+  );
+  background-size: 200% 100%;
+  animation: glassShimmer 2.5s linear infinite;
+}
+
+/* Parallax effect for backgrounds */
+.parallax-bg {
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center;
+}
+
+/* Utility for spotlight overlay */
+.spotlight-bg {
+  position: relative;
+  z-index: 1;
+}
+.spotlight-bg::before {
+  content: "";
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  width: 60vw;
+  height: 60vw;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, rgba(255,255,255,0.10) 0%, rgba(0,0,0,0) 70%);
+  z-index: 0;
+  filter: blur(32px);
+  opacity: 0.7;
+}
