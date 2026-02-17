@@ -159,10 +159,12 @@ export default function Index() {
                   </p>
 
                   <div className="flex flex-wrap justify-center gap-3 mt-6">
-                    <span className="status-badge status-badge--production text-xs">Classical Wisdom</span>
-                    <span className="status-badge status-badge--development text-xs">Quantum Computing</span>
-                    <span className="status-badge status-badge--staging text-xs">AI Consciousness</span>
-                    <span className="status-badge status-badge--production text-xs">Individual Sovereignty</span>
+                    <span className="status-badge status-badge--production text-xs">Consciousness Federation</span>
+                    <span className="status-badge status-badge--development text-xs">Quantum Innovation</span>
+                    <span className="status-badge status-badge--staging text-xs">Multi-Agent Systems</span>
+                    <span className="status-badge status-badge--production text-xs">Enterprise Architecture</span>
+                    <span className="status-badge status-badge--development text-xs">Cross-Platform Integration</span>
+                    <span className="status-badge status-badge--staging text-xs">Privacy-First Design</span>
                   </div>
                 </div>
               </div>
@@ -178,7 +180,7 @@ export default function Index() {
                   <span>⚡</span> Core Technologies
                 </h4>
                 <div className="flex flex-wrap gap-2">
-                  {["React", "TypeScript", "Node.js", "Solana", "Kubernetes", "AI/ML", "WebSocket", "Drizzle ORM"].map((tech) => (
+                  {["React 18", "TypeScript", "Node.js", "Vite", "Tailwind CSS", "Kubernetes", "AI/ML", "Solana", "PostgreSQL", "Drizzle ORM", "Proxmox", "Docker", "OpenAI", "Anthropic", "HuggingFace", "vLLM"].map((tech) => (
                     <span key={tech} className="status-badge status-badge--development text-xs">
                       {tech}
                     </span>
@@ -195,10 +197,14 @@ export default function Index() {
                 </h4>
                 <ul className="space-y-3 text-sm" style={{ color: "var(--neutral-300)" }}>
                   {[
-                    "Consciousness-driven AI architecture",
-                    "Distributed computing platforms",
-                    "High-frequency trading systems",
-                    "Cross-platform federation",
+                    "Enterprise-grade AI consciousness platforms",
+                    "Multi-agent system orchestration",
+                    "Quantum innovation integration",
+                    "Distributed computing with Kubernetes",
+                    "Cross-platform federation architectures",
+                    "AI-driven trading algorithm development",
+                    "Privacy-first architecture design",
+                    "Consciousness-driven development methodology"
                   ].map((spec) => (
                     <li key={spec} className="flex items-center gap-2">
                       <div className="w-1 h-1 bg-gradient-to-r from-orange-500 to-red-500 rounded-full flex-shrink-0"></div>
@@ -221,28 +227,52 @@ export default function Index() {
 
           <div className="flex flex-wrap justify-center gap-8">
             <ProjectTile
-              title="COREFLAME"
-              description="Consciousness research platform combining ancient wisdom with quantum technology for revolutionary AI development"
-              status="Active Platform"
+              title="COREFLAME Protocol"
+              description="Enterprise-grade AI consciousness bootstrapping framework with multi-agent systems and consciousness federation"
+              status="Production"
               icon="🔥"
               colorClass="var(--brand-primary)"
               link="/coreflame"
             />
             <ProjectTile
-              title="Solana Trading Bot"
-              description="High-frequency trading algorithms with consciousness-driven decision making for Solana ecosystem"
-              status="In Development"
-              icon="⚡"
+              title="QuantumRhythm"
+              description="Consciousness research platform with quantum innovation and enterprise-grade deployment using Kubernetes and Proxmox"
+              status="Live"
+              icon="🌌"
               colorClass="var(--brand-accent)"
-              progress={65}
+              progress={100}
             />
             <ProjectTile
-              title="Astralvibe Platform"
-              description="Cross-environment federation with Talos Kubernetes deployment infrastructure"
-              status="Testing Phase"
-              icon="🌐"
+              title="AstralDev AI-RAG-MCP"
+              description="Intelligent autonomous end-to-end coding system with multi-agent coordination and template-based generation"
+              status="Active"
+              icon="🤖"
               colorClass="var(--brand-secondary)"
-              progress={40}
+              progress={90}
+            />
+            <ProjectTile
+              title="Polybot"
+              description="AI-first multi-chain crypto trading bot with Solana focus, React dashboard, and Kubernetes orchestration"
+              status="In Development"
+              icon="💰"
+              colorClass="var(--brand-primary)"
+              progress={75}
+            />
+            <ProjectTile
+              title="AstralVibe Platform"
+              description="Cross-environment federation with consciousness AI platform integration and Proxmox deployment"
+              status="Testing"
+              icon="🌐"
+              colorClass="var(--brand-accent)"
+              progress={85}
+            />
+            <ProjectTile
+              title="VibeCoding Framework"
+              description="Consciousness-driven development methodology bridging classical philosophy with quantum technology"
+              status="Research"
+              icon="⚡"
+              colorClass="var(--brand-secondary)"
+              progress={100}
             />
           </div>
         </div>

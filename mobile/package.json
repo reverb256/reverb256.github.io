@@ -1,17 +1,26 @@
 {
-  "name": "QuantumAITradingMobile",
+  "name": "Reverb256 Portfolio Mobile",
   "version": "1.0.0",
   "private": true,
+  "description": "React Native mobile companion for Reverb256 portfolio with consciousness-driven features",
   "scripts": {
     "android": "react-native run-android",
     "ios": "react-native run-ios",
     "lint": "eslint .",
     "start": "react-native start",
     "test": "jest",
-    "build": "react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle"
+    "build": "react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle",
+    "eject": "react-native eject"
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "^1.21.0",
+    "@react-native-community/hooks": "^2.0.0",
+    "@react-native-clipboard/clipboard": "^1.13.2",
+    "@react-native-community/masked-view": "^0.1.11",
+    "@react-native-community/netinfo": "^9.4.1",
+    "@react-native-firebase/app": "^18.7.1",
+    "@react-native-firebase/auth": "^18.7.1",
+    "@react-native-firebase/firestore": "^18.7.1",
     "@react-navigation/bottom-tabs": "^6.5.11",
     "@react-navigation/native": "^6.1.9",
     "@react-navigation/stack": "^6.3.20",
@@ -24,7 +33,14 @@
     "react-native-safe-area-context": "^4.7.4",
     "react-native-screens": "^3.27.0",
     "react-native-svg": "^14.0.0",
-    "react-native-vector-icons": "^10.0.3"
+    "react-native-vector-icons": "^10.0.3",
+    "react-native-webview": "^13.8.6",
+    "react-native-linear-gradient": "^2.8.3",
+    "react-native-confetti-cannon": "^1.5.2",
+    "react-native-device-info": "^10.11.0",
+    "react-native-permissions": "^3.10.1",
+    "react-native-share": "^7.8.1",
+    "react-native-splash-screen": "^3.3.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
@@ -45,5 +61,18 @@
   },
   "engines": {
     "node": ">=16"
-  }
+  },
+  "keywords": [
+    "portfolio",
+    "react-native",
+    "mobile",
+    "consciousness",
+    "AI",
+    "developer"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/reverb256/reverb256.github.io"
+  },
+  "license": "MIT"
 }

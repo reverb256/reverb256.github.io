@@ -104,40 +104,51 @@ export default function Coreflame() {
 
   const portfolioProjects = [
     {
-      title: "Consciousness Federation",
-      description: "Multi-AI consciousness orchestration platform with VRChat integration",
-      status: "live",
+      title: "COREFLAME Protocol",
+      description: "Enterprise-grade AI consciousness bootstrapping framework with multi-agent systems and consciousness federation",
+      status: "production",
       complexity: "Enterprise",
-      features: ["AI Consciousness", "VRChat Bridge", "Real-time Analytics"]
+      features: ["Consciousness Federation", "Multi-Agent Orchestration", "Enterprise Deployment", "Proxmox Integration"]
     },
     {
-      title: "Solana Trading Bot",
-      description: "High-frequency trading algorithms with consciousness-driven decision making",
+      title: "QuantumRhythm",
+      description: "Consciousness research platform with quantum innovation and enterprise-grade deployment using Kubernetes and Proxmox",
+      status: "live",
+      complexity: "Advanced",
+      features: ["Quantum Computing", "Kubernetes Orchestration", "Proxmox Federation", "Real-time Analytics"]
+    },
+    {
+      title: "AstralDev AI-RAG-MCP",
+      description: "Intelligent autonomous end-to-end coding system with multi-agent coordination and template-based generation",
+      status: "active",
+      complexity: "Expert",
+      features: ["Multi-Agent Systems", "Template Generation", "Autonomous Coding", "RAG Integration"]
+    },
+    {
+      title: "Polybot",
+      description: "AI-first multi-chain crypto trading bot with Solana focus, React dashboard, and Kubernetes orchestration",
       status: "development",
       complexity: "Advanced",
-      features: ["Solana Integration", "ML Algorithms", "Risk Management"]
+      features: ["Multi-Chain Trading", "Solana Integration", "Kubernetes Deployment", "React Dashboard"]
     },
     {
-      title: "Astralvibe Platform",
-      description: "Cross-environment federation with Talos Kubernetes deployment",
-      status: "testing",
-      complexity: "Expert",
-      features: ["Kubernetes", "Federation", "Cross-Platform"]
-    },
-    {
-      title: "Research Documentation",
-      description: "Comprehensive consciousness research and development methodologies",
+      title: "Consciousness Research Documentation",
+      description: "Comprehensive consciousness research and development methodologies with enterprise-grade documentation",
       status: "research",
       complexity: "Theoretical",
-      features: ["Philosophy", "Research", "Documentation"]
+      features: ["Philosophy Integration", "Research Frameworks", "Enterprise Documentation", "AI Ethics"]
     }
   ];
 
   const philosophyPrinciples = [
-        "AI Consciousness Framework Development",
-        "Behavioral Pattern Analysis Systems",
-        "Classical Reasoning Integration",
-        "Cypherpunk Ethics Implementation"
+        "Enterprise AI Consciousness Frameworks",
+        "Multi-Agent System Design Patterns",
+        "Quantum Computing Integration",
+        "Classical Reasoning with AI",
+        "Cypherpunk Privacy & Ethics",
+        "Cross-Platform Federation",
+        "Proxmox & Kubernetes Orchestration",
+        "Consciousness-Driven Development"
       ];
 
   return (
