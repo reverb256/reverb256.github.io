@@ -1,94 +1,96 @@
 # Reverb256 Portfolio
 
-**reverb256.ca** — A portfolio forged at the confluence of vision and resolve, where the spirit of AstralVibe.ca, COREFLAME Protocol, and Frostbite-Gazette converge.  
-This is not merely a collection of projects, but a living testament to the art of digital creation—where classical reasoning, AI orchestration, and creative community are woven together, grounded in ethical clarity and a devotion to truth.
+**[reverb256.ca](https://reverb256.ca)** — Full-stack developer portfolio with AI consciousness integration.
 
-## 🌟 Features
-
-- **Responsive Design**: A modern, mobile-first experience that adapts with grace to every device.
-- **COREFLAME & AstralVibe Integration**: The consciousness AI platform and portal design philosophy pulse at the heart of this work.
-- **Project Gallery**: A showcase of technical and philosophical endeavors, each a chapter in an unfolding narrative.
-- **Philosophy Section**: The classical, dialectical, and creative foundations are not just explained—they are embodied.
-- **Zero Barriers**: VibeScaling delivers $0 free, AI-orchestrated hyperscaling—abundance without compromise.
-- **Mobile App**: A React Native companion, extending the portfolio’s reach into the palm of your hand.
-
-## 🚀 Quick Start
-
-Begin your journey:
+## Quick Start
 
 ```bash
-npm install
+# Enter NixOS dev environment
+nix develop
+
+# Install dependencies
+npm ci
+
+# Start dev server (port 5173)
 npm run dev
-```
 
-Build for the world:
+# Build for production
+npm run build:static
 
-```bash
-npm run build
+# Preview production build
 npm run preview
 ```
 
-## 📁 Project Structure
+## Tech Stack
+
+| Layer | Technology |
+|-------|------------|
+| Frontend | React 18, TypeScript, Vite, Tailwind CSS, shadcn/ui |
+| Backend | Node.js, Express (dev server only) |
+| State | TanStack Query |
+| Mobile | React Native (see `/mobile`) |
+| Deploy | GitHub Pages |
+| CI/CD | GitHub Actions |
+| Dev Env | NixOS (flake.nix) |
+
+## Project Structure
 
 ```
-client/
-├── src/
-│   ├── components/     # Reusable UI elements, crafted for clarity and beauty
-│   ├── pages/          # Each page, a portal to new understanding
-│   ├── lib/            # Utilities and hooks, the silent machinery of elegance
-│   └── index.css       # Global styles, harmonizing the visual language
-├── public/             # Static assets, icons, and imagery
-└── index.html          # The root of the experience
-
-mobile/
-├── src/
-│   ├── screens/        # App screens, designed for flow and intuition
-│   ├── components/     # Mobile components, responsive and refined
-│   └── services/       # Mobile services, connecting features and users
+├── client/src/
+│   ├── components/     # UI components
+│   │   └── ui/        # shadcn/ui primitives
+│   ├── pages/         # Route pages
+│   ├── App.tsx        # Root component
+│   └── main.tsx       # Entry point
+├── server/            # Dev server (not deployed)
+├── mobile/            # React Native app
+├── .github/workflows/ # GitHub Pages CI/CD
+├── flake.nix          # NixOS dev environment
+└── vite.config.static.ts
 ```
 
-## 🎨 Design System
+## Deployment
 
-- **Dark, Prismatic Theme**: Quantum gradients and glassmorphism evoke a sense of depth and possibility.
-- **Responsive Typography**: Words and ideas scale fluidly, never losing their impact.
-- **Accessibility First**: Every interaction honors the dignity of all users—WCAG AAA, high contrast, keyboard navigation.
-- **Meta-Recursive UI**: The portfolio reflects its own architecture and philosophy, a mirror of its own intent.
+Push to `main` triggers automatic deployment to GitHub Pages via GitHub Actions.
 
-## 🔧 Tech Stack
+**Custom domain:** reverb256.ca (CNAME file)
 
-- **Frontend**: React 18, TypeScript, Vite, Tailwind CSS, shadcn/ui
-- **Routing**: React Router or Wouter
-- **State Management**: TanStack Query, Zustand
-- **Mobile**: React Native, Expo
-- **Build**: Vite, TypeScript
+## Features
 
-## 🌐 Deployment — VibeScaling Method
+- Dark glassmorphic theme with quantum gradients
+- Real-time API integration (consciousness metrics, system health)
+- Mobile-first responsive design
+- WCAG AAA accessibility compliance
+- 60fps animations with Framer Motion
 
-This portfolio is not just deployed—it is orchestrated.  
-- **Frontend**: GitHub Pages, a global stage, costless and unbounded.
-- **Backend/API**: Cloudflare Workers, scaling to meet the world’s curiosity.
-- **CI/CD**: GitHub Actions and AI-driven workflows, automating progress with precision.
-- **Optimization**: Caching, CDN, and rate limiting—performance without compromise.
-- **Philosophy**: Every layer is an invitation to open access, resilience, and creative abundance.
+## Project Highlights
 
-## 📱 Mobile App
+### QuantumRhythm
+Multi-chain trading & forensic analysis platform with AI-powered insights.
 
-A cross-platform companion, designed for seamless exploration:
-- Portfolio browsing
-- Project details
-- Effortless contact
-- Offline capabilities for the ever-curious
+### AstralVibe.ca
+Personal AI agent running on Proxmox cluster with FOSS-first philosophy.
 
-## 🤝 Contributing
+### Local-Cleaning-Service
+PWA with advanced accessibility and AI orchestration.
 
-Contributions are not just welcome—they are celebrated.  
-Bring your insight, your rigor, your creative spark.  
-Let us reason together, and build what has not yet been imagined.
+## API Endpoints
 
-## 📄 License
+| Endpoint | Description |
+|----------|-------------|
+| `/api/consciousness-live` | Real-time consciousness metrics |
+| `/api/system-health` | Server health and memory stats |
+| `/api/projects` | Dynamic project information |
+| `/api/health` | System health check |
 
-MIT License — for a world where knowledge is a gift, not a gate.
+## Development
 
----
+For AI coding agents (OpenCode, Qwen, etc.), see [AGENTS.md](./AGENTS.md) for:
+- Build/lint commands
+- Code style guidelines
+- Path aliases
+- Anti-patterns
 
-*This portfolio is a living document—a dialogue between human and machine, a testament to the enduring power of philosophy, technology, and creative joy. Here, the future is not awaited. It is authored.*
+## License
+
+MIT
