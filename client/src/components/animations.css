@@ -21,8 +21,34 @@
   animation-delay: 0.3s;
 }
 
-/* Glass shimmer effect */
-@keyframes glassShimmer {
+/* Quantum pulse animation */
+@keyframes quantumPulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(255, 107, 107, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(255, 107, 107, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 107, 107, 0);
+  }
+}
+
+/* Quantum glow animation */
+@keyframes quantumGlow {
+  0% {
+    box-shadow: 0 0 5px 0 rgba(255, 107, 107, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 20px 10px rgba(255, 107, 107, 0.3);
+  }
+  100% {
+    box-shadow: 0 0 5px 0 rgba(255, 107, 107, 0.5);
+  }
+}
+
+/* Quantum shimmer animation */
+@keyframes quantumShimmer {
   0% {
     background-position: -200% 0;
   }
@@ -31,6 +57,7 @@
   }
 }
 
+/* Glass shimmer effect */
 .glass-shimmer {
   background: linear-gradient(
     120deg,
@@ -39,7 +66,17 @@
     rgba(255,255,255,0.05) 100%
   );
   background-size: 200% 100%;
-  animation: glassShimmer 2.5s linear infinite;
+  animation: quantumShimmer 3s linear infinite;
+}
+
+/* Quantum pulse effect */
+.quantum-pulse {
+  animation: quantumPulse 2s infinite;
+}
+
+/* Quantum glow effect */
+.quantum-glow {
+  animation: quantumGlow 2s infinite;
 }
 
 /* Parallax effect for backgrounds */

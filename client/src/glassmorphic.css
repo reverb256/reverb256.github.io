@@ -1,0 +1,2091 @@
+/* Glassmorphic Design System - Quantum Theme */
+:root {
+  /* Base Colors */
+  --bg-primary: #0a0a0a;
+  --bg-secondary: #121212;
+  --bg-tertiary: #1a1a1a;
+  --bg-glass: rgba(18, 18, 18, 0.6);
+  --bg-glass-hover: rgba(30, 30, 30, 0.7);
+  
+  /* Text Colors */
+  --text-primary: #ffffff;
+  --text-secondary: #d1d1d1;
+  --text-tertiary: #a0a0a0;
+  --text-disabled: #666666;
+  
+  /* Accent Colors - Quantum Gradients */
+  --brand-primary: #ff6b6b;
+  --brand-primary-light: #ff8787;
+  --brand-primary-dark: #ff4747;
+  
+  --brand-secondary: #4ecdc4;
+  --brand-secondary-light: #6ee8e0;
+  --brand-secondary-dark: #3dbdb3;
+  
+  --brand-accent: #ffd93d;
+  --brand-accent-light: #ffe066;
+  --brand-accent-dark: #ffc926;
+  
+  --brand-quantum: #6c5ce7;
+  --brand-quantum-light: #8a7af8;
+  --brand-quantum-dark: #5a4bd1;
+  
+  /* Glass Effects */
+  --glass-blur: 16px;
+  --glass-opacity: 0.3;
+  --glass-border-radius: 16px;
+  --glass-border-width: 1px;
+  --glass-border-color: rgba(255, 255, 255, 0.1);
+  
+  /* Quantum Gradient */
+  --quantum-gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --quantum-gradient-2: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  --quantum-gradient-3: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  --quantum-gradient-4: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+  --quantum-gradient-5: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+  --quantum-gradient-6: linear-gradient(135deg, #30cfd0 0%, #330867 100%);
+  
+  /* Typography */
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  --font-mono: 'Fira Code', 'Consolas', 'Monaco', 'Courier New', monospace;
+  
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.5rem;
+  --font-size-2xl: 2rem;
+  --font-size-3xl: 2.5rem;
+  --font-size-4xl: 3rem;
+  --font-size-5xl: 4rem;
+  --font-size-6xl: 5rem;
+  
+  --font-weight-light: 300;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-weight-extrabold: 800;
+  
+  /* Spacing */
+  --spacing-1: 0.25rem;
+  --spacing-2: 0.5rem;
+  --spacing-3: 0.75rem;
+  --spacing-4: 1rem;
+  --spacing-5: 1.25rem;
+  --spacing-6: 1.5rem;
+  --spacing-7: 1.75rem;
+  --spacing-8: 2rem;
+  --spacing-9: 2.25rem;
+  --spacing-10: 2.5rem;
+  --spacing-12: 3rem;
+  --spacing-16: 4rem;
+  --spacing-20: 5rem;
+  --spacing-24: 6rem;
+  
+  /* Border Radius */
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --radius-2xl: 24px;
+  --radius-3xl: 32px;
+  --radius-full: 9999px;
+  
+  /* Shadow Effects */
+  --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  
+  /* Glass Shadow */
+  --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  --glass-shadow-hover: 0 12px 40px 0 rgba(0, 0, 0, 0.45);
+  
+  /* Transition Durations */
+  --transition-fast: 150ms;
+  --transition-normal: 300ms;
+  --transition-slow: 500ms;
+  
+  /* Z-Index */
+  --z-index-dropdown: 1000;
+  --z-index-sticky: 1100;
+  --z-index-fixed: 1200;
+  --z-index-modal: 1300;
+  --z-index-popover: 1400;
+  --z-index-toast: 1500;
+  --z-index-tooltip: 1600;
+}
+
+/* Dark Theme - Glassmorphic Base */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Glassmorphic Container */
+.glass-container {
+  background: var(--bg-glass);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border-radius: var(--glass-border-radius);
+  border: var(--glass-border-width) solid var(--glass-border-color);
+  box-shadow: var(--glass-shadow);
+  transition: all var(--transition-normal) ease;
+}
+
+.glass-container:hover {
+  background: var(--bg-glass-hover);
+  box-shadow: var(--glass-shadow-hover);
+  transform: translateY(-2px);
+}
+
+/* Glassmorphic Card */
+.glass-card {
+  background: var(--bg-glass);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border-radius: var(--glass-border-radius);
+  border: var(--glass-border-width) solid var(--glass-border-color);
+  box-shadow: var(--glass-shadow);
+  transition: all var(--transition-normal) ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.glass-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, 
+    rgba(255, 255, 255, 0.03) 0%, 
+    rgba(255, 255, 255, 0.01) 50%, 
+    rgba(255, 255, 255, 0.03) 100%);
+  z-index: 1;
+}
+
+.glass-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--glass-shadow-hover);
+}
+
+/* Quantum Gradient Backgrounds */
+.quantum-gradient-1 {
+  background: var(--quantum-gradient-1);
+}
+
+.quantum-gradient-2 {
+  background: var(--quantum-gradient-2);
+}
+
+.quantum-gradient-3 {
+  background: var(--quantum-gradient-3);
+}
+
+.quantum-gradient-4 {
+  background: var(--quantum-gradient-4);
+}
+
+.quantum-gradient-5 {
+  background: var(--quantum-gradient-5);
+}
+
+.quantum-gradient-6 {
+  background: var(--quantum-gradient-6);
+}
+
+/* Glassmorphic Buttons */
+.glass-button {
+  background: var(--bg-glass);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: var(--glass-border-width) solid var(--glass-border-color);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-3) var(--spacing-6);
+  color: var(--text-primary);
+  font-weight: var(--font-weight-semibold);
+  transition: all var(--transition-normal) ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.glass-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, 
+    transparent, 
+    rgba(255, 255, 255, 0.1), 
+    transparent);
+  transition: left var(--transition-normal) ease;
+}
+
+.glass-button:hover::before {
+  left: 100%;
+}
+
+.glass-button:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--glass-shadow-hover);
+}
+
+/* Glassmorphic Input */
+.glass-input {
+  background: var(--bg-glass);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: var(--glass-border-width) solid var(--glass-border-color);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-3) var(--spacing-4);
+  color: var(--text-primary);
+  transition: all var(--transition-normal) ease;
+}
+
+.glass-input:focus {
+  outline: none;
+  border-color: var(--brand-primary);
+  box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.1);
+}
+
+/* Glassmorphic Select */
+.glass-select {
+  background: var(--bg-glass);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: var(--glass-border-width) solid var(--glass-border-color);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-3) var(--spacing-4);
+  color: var(--text-primary);
+  transition: all var(--transition-normal) ease;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23d1d1d1' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+  background-position: right var(--spacing-3) center;
+  background-repeat: no-repeat;
+  background-size: 1.5em 1.5em;
+}
+
+.glass-select:focus {
+  outline: none;
+  border-color: var(--brand-primary);
+  box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.1);
+}
+
+/* Glassmorphic Textarea */
+.glass-textarea {
+  background: var(--bg-glass);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: var(--glass-border-width) solid var(--glass-border-color);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-3) var(--spacing-4);
+  color: var(--text-primary);
+  transition: all var(--transition-normal) ease;
+  resize: vertical;
+  min-height: 100px;
+}
+
+.glass-textarea:focus {
+  outline: none;
+  border-color: var(--brand-primary);
+  box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.1);
+}
+
+/* Glassmorphic Badge */
+.glass-badge {
+  background: var(--bg-glass);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: var(--glass-border-width) solid var(--glass-border-color);
+  border-radius: var(--radius-full);
+  padding: var(--spacing-1) var(--spacing-2);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  color: var(--text-secondary);
+  transition: all var(--transition-normal) ease;
+}
+
+.glass-badge--primary {
+  background: rgba(255, 107, 107, 0.2);
+  color: var(--brand-primary);
+  border-color: rgba(255, 107, 107, 0.3);
+}
+
+.glass-badge--secondary {
+  background: rgba(78, 205, 196, 0.2);
+  color: var(--brand-secondary);
+  border-color: rgba(78, 205, 196, 0.3);
+}
+
+.glass-badge--accent {
+  background: rgba(255, 217, 61, 0.2);
+  color: var(--brand-accent);
+  border-color: rgba(255, 217, 61, 0.3);
+}
+
+.glass-badge--quantum {
+  background: rgba(108, 92, 231, 0.2);
+  color: var(--brand-quantum);
+  border-color: rgba(108, 92, 231, 0.3);
+}
+
+/* Glassmorphic Progress Bar */
+.glass-progress {
+  background: var(--bg-glass);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: var(--glass-border-width) solid var(--glass-border-color);
+  border-radius: var(--radius-full);
+  height: var(--spacing-1);
+  overflow: hidden;
+}
+
+.glass-progress-bar {
+  background: var(--brand-primary);
+  height: 100%;
+  border-radius: var(--radius-full);
+  transition: width var(--transition-normal) ease;
+}
+
+/* Glassmorphic Tabs */
+.glass-tabs {
+  display: flex;
+  background: var(--bg-glass);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: var(--glass-border-width) solid var(--glass-border-color);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-1);
+}
+
+.glass-tab {
+  flex: 1;
+  padding: var(--spacing-2) var(--spacing-4);
+  background: transparent;
+  border: none;
+  color: var(--text-tertiary);
+  font-weight: var(--font-weight-medium);
+  transition: all var(--transition-normal) ease;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+}
+
+.glass-tab.active {
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
+  box-shadow: var(--shadow-sm);
+}
+
+.glass-tab:hover:not(.active) {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-secondary);
+}
+
+/* Glassmorphic Modal */
+.glass-modal {
+  background: var(--bg-glass);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: var(--glass-border-width) solid var(--glass-border-color);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--glass-shadow);
+}
+
+/* Glassmorphic Tooltip */
+.glass-tooltip {
+  background: var(--bg-glass);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: var(--glass-border-width) solid var(--glass-border-color);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-2) var(--spacing-3);
+  font-size: var(--font-size-xs);
+  color: var(--text-primary);
+  box-shadow: var(--shadow-md);
+}
+
+/* Quantum Gradient Animations */
+@keyframes quantum-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(255, 107, 107, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(255, 107, 107, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 107, 107, 0);
+  }
+}
+
+@keyframes quantum-glow {
+  0% {
+    box-shadow: 0 0 5px 0 rgba(255, 107, 107, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 20px 10px rgba(255, 107, 107, 0.3);
+  }
+  100% {
+    box-shadow: 0 0 5px 0 rgba(255, 107, 107, 0.5);
+  }
+}
+
+@keyframes quantum-shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.quantum-pulse {
+  animation: quantum-pulse 2s infinite;
+}
+
+.quantum-glow {
+  animation: quantum-glow 2s infinite;
+}
+
+.quantum-shimmer {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.05) 0%,
+    rgba(255, 255, 255, 0.15) 50%,
+    rgba(255, 255, 255, 0.05) 100%
+  );
+  background-size: 200% 100%;
+  animation: quantum-shimmer 3s linear infinite;
+}
+
+/* Quantum Gradient Backgrounds */
+.quantum-gradient-1 {
+  background: var(--quantum-gradient-1);
+}
+
+.quantum-gradient-2 {
+  background: var(--quantum-gradient-2);
+}
+
+.quantum-gradient-3 {
+  background: var(--quantum-gradient-3);
+}
+
+.quantum-gradient-4 {
+  background: var(--quantum-gradient-4);
+}
+
+.quantum-gradient-5 {
+  background: var(--quantum-gradient-5);
+}
+
+.quantum-gradient-6 {
+  background: var(--quantum-gradient-6);
+}
+
+/* Quantum Gradient Text */
+.quantum-text-gradient-1 {
+  background: var(--quantum-gradient-1);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.quantum-text-gradient-2 {
+  background: var(--quantum-gradient-2);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.quantum-text-gradient-3 {
+  background: var(--quantum-gradient-3);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.quantum-text-gradient-4 {
+  background: var(--quantum-gradient-4);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.quantum-text-gradient-5 {
+  background: var(--quantum-gradient-5);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.quantum-text-gradient-6 {
+  background: var(--quantum-gradient-6);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Quantum Gradient Borders */
+.quantum-border-gradient-1 {
+  border-image: var(--quantum-gradient-1) 1;
+}
+
+.quantum-border-gradient-2 {
+  border-image: var(--quantum-gradient-2) 1;
+}
+
+.quantum-border-gradient-3 {
+  border-image: var(--quantum-gradient-3) 1;
+}
+
+.quantum-border-gradient-4 {
+  border-image: var(--quantum-gradient-4) 1;
+}
+
+.quantum-border-gradient-5 {
+  border-image: var(--quantum-gradient-5) 1;
+}
+
+.quantum-border-gradient-6 {
+  border-image: var(--quantum-gradient-6) 1;
+}
+
+/* Quantum Gradient Buttons */
+.quantum-button-gradient-1 {
+  background: var(--quantum-gradient-1);
+  transition: all var(--transition-normal) ease;
+}
+
+.quantum-button-gradient-1:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+}
+
+.quantum-button-gradient-2 {
+  background: var(--quantum-gradient-2);
+  transition: all var(--transition-normal) ease;
+}
+
+.quantum-button-gradient-2:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+}
+
+.quantum-button-gradient-3 {
+  background: var(--quantum-gradient-3);
+  transition: all var(--transition-normal) ease;
+}
+
+.quantum-button-gradient-3:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+}
+
+.quantum-button-gradient-4 {
+  background: var(--quantum-gradient-4);
+  transition: all var(--transition-normal) ease;
+}
+
+.quantum-button-gradient-4:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+}
+
+.quantum-button-gradient-5 {
+  background: var(--quantum-gradient-5);
+  transition: all var(--transition-normal) ease;
+}
+
+.quantum-button-gradient-5:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+}
+
+.quantum-button-gradient-6 {
+  background: var(--quantum-gradient-6);
+  transition: all var(--transition-normal) ease;
+}
+
+.quantum-button-gradient-6:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+}
+
+/* Quantum Gradient Cards */
+.quantum-card-1 {
+  background: var(--quantum-gradient-1);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border-radius: var(--glass-border-radius);
+  box-shadow: var(--glass-shadow);
+  transition: all var(--transition-normal) ease;
+}
+
+.quantum-card-1:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--glass-shadow-hover);
+}
+
+.quantum-card-2 {
+  background: var(--quantum-gradient-2);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border-radius: var(--glass-border-radius);
+  box-shadow: var(--glass-shadow);
+  transition: all var(--transition-normal) ease;
+}
+
+.quantum-card-2:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--glass-shadow-hover);
+}
+
+.quantum-card-3 {
+  background: var(--quantum-gradient-3);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border-radius: var(--glass-border-radius);
+  box-shadow: var(--glass-shadow);
+  transition: all var(--transition-normal) ease;
+}
+
+.quantum-card-3:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--glass-shadow-hover);
+}
+
+.quantum-card-4 {
+  background: var(--quantum-gradient-4);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border-radius: var(--glass-border-radius);
+  box-shadow: var(--glass-shadow);
+  transition: all var(--transition-normal) ease;
+}
+
+.quantum-card-4:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--glass-shadow-hover);
+}
+
+.quantum-card-5 {
+  background: var(--quantum-gradient-5);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border-radius: var(--glass-border-radius);
+  box-shadow: var(--glass-shadow);
+  transition: all var(--transition-normal) ease;
+}
+
+.quantum-card-5:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--glass-shadow-hover);
+}
+
+.quantum-card-6 {
+  background: var(--quantum-gradient-6);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border-radius: var(--glass-border-radius);
+  box-shadow: var(--glass-shadow);
+  transition: all var(--transition-normal) ease;
+}
+
+.quantum-card-6:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--glass-shadow-hover);
+}
+
+/* Responsive Typography */
+@media (max-width: 768px) {
+  :root {
+    --font-size-xl: 1.25rem;
+    --font-size-2xl: 1.75rem;
+    --font-size-3xl: 2rem;
+    --font-size-4xl: 2.5rem;
+    --font-size-5xl: 3rem;
+    --font-size-6xl: 4rem;
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    --font-size-xl: 1.125rem;
+    --font-size-2xl: 1.5rem;
+    --font-size-3xl: 1.75rem;
+    --font-size-4xl: 2rem;
+    --font-size-5xl: 2.5rem;
+    --font-size-6xl: 3rem;
+  }
+}
+
+/* Accessibility Improvements */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* High Contrast Mode Support */
+@media (prefers-contrast: high) {
+  :root {
+    --bg-primary: #000000;
+    --bg-secondary: #111111;
+    --bg-tertiary: #222222;
+    --bg-glass: rgba(34, 34, 34, 0.8);
+    --text-primary: #ffffff;
+    --text-secondary: #e0e0e0;
+    --text-tertiary: #b0b0b0;
+    --glass-border-color: rgba(255, 255, 255, 0.3);
+    --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+  }
+  
+  .glass-card, .glass-container, .glass-button, .glass-input, .glass-select, .glass-textarea {
+    border-width: 2px;
+  }
+}
+
+/* Print Styles */
+@media print {
+  :root {
+    --bg-primary: #ffffff;
+    --text-primary: #000000;
+    --glass-border-color: #000000;
+    --glass-shadow: none;
+  }
+  
+  .glass-card, .glass-container, .glass-button, .glass-input, .glass-select, .glass-textarea {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    background: var(--bg-primary);
+    border: 1px solid var(--glass-border-color);
+  }
+}
+
+/* WCAG AAA Compliance - Contrast Ratios */
+:root {
+  /* Ensure sufficient contrast for text */
+  --contrast-ratio-text: 14.1; /* White on black */
+  --contrast-ratio-links: 4.5; /* Brand colors on dark background */
+  
+  /* Ensure hover states maintain contrast */
+  --contrast-ratio-hover: 3.0;
+}
+
+/* Custom Glassmorphic Components */
+.glass-header {
+  background: var(--bg-glass);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border-bottom: var(--glass-border-width) solid var(--glass-border-color);
+  padding: var(--spacing-4) var(--spacing-6);
+}
+
+.glass-footer {
+  background: var(--bg-glass);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border-top: var(--glass-border-width) solid var(--glass-border-color);
+  padding: var(--spacing-6) var(--spacing-8);
+}
+
+.glass-sidebar {
+  background: var(--bg-glass);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border-right: var(--glass-border-width) solid var(--glass-border-color);
+  padding: var(--spacing-6);
+}
+
+.glass-panel {
+  background: var(--bg-glass);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: var(--glass-border-width) solid var(--glass-border-color);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-6);
+  margin-bottom: var(--spacing-6);
+}
+
+.glass-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--spacing-6);
+}
+
+.glass-grid-item {
+  background: var(--bg-glass);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: var(--glass-border-width) solid var(--glass-border-color);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-4);
+  transition: all var(--transition-normal) ease;
+}
+
+.glass-grid-item:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--glass-shadow-hover);
+}
+
+/* Glassmorphic Navigation */
+.glass-nav {
+  background: var(--bg-glass);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border-bottom: var(--glass-border-width) solid var(--glass-border-color);
+}
+
+.glass-nav-item {
+  padding: var(--spacing-3) var(--spacing-4);
+  color: var(--text-secondary);
+  transition: all var(--transition-normal) ease;
+  border-radius: var(--radius-md);
+}
+
+.glass-nav-item:hover, .glass-nav-item.active {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-primary);
+}
+
+/* Glassmorphic Form Elements */
+.glass-form-group {
+  margin-bottom: var(--spacing-4);
+}
+
+.glass-form-label {
+  display: block;
+  margin-bottom: var(--spacing-2);
+  color: var(--text-secondary);
+  font-weight: var(--font-weight-medium);
+}
+
+.glass-form-hint {
+  display: block;
+  margin-top: var(--spacing-1);
+  font-size: var(--font-size-xs);
+  color: var(--text-tertiary);
+}
+
+/* Glassmorphic Table */
+.glass-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.glass-table th, .glass-table td {
+  padding: var(--spacing-3) var(--spacing-4);
+  text-align: left;
+  border-bottom: var(--glass-border-width) solid var(--glass-border-color);
+}
+
+.glass-table th {
+  color: var(--text-secondary);
+  font-weight: var(--font-weight-semibold);
+}
+
+.glass-table tr:hover {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+/* Glassmorphic Chart */
+.glass-chart {
+  background: var(--bg-glass);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: var(--glass-border-width) solid var(--glass-border-color);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-4);
+}
+
+/* Glassmorphic Code Block */
+.glass-code-block {
+  background: var(--bg-glass);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: var(--glass-border-width) solid var(--glass-border-color);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-4);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-sm);
+  overflow-x: auto;
+}
+
+/* Glassmorphic Alert */
+.glass-alert {
+  background: var(--bg-glass);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: var(--glass-border-width) solid var(--glass-border-color);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-4);
+  margin-bottom: var(--spacing-4);
+}
+
+.glass-alert--success {
+  border-color: rgba(78, 205, 196, 0.3);
+  background: rgba(78, 205, 196, 0.1);
+}
+
+.glass-alert--error {
+  border-color: rgba(255, 107, 107, 0.3);
+  background: rgba(255, 107, 107, 0.1);
+}
+
+.glass-alert--warning {
+  border-color: rgba(255, 217, 61, 0.3);
+  background: rgba(255, 217, 61, 0.1);
+}
+
+.glass-alert--info {
+  border-color: rgba(108, 92, 231, 0.3);
+  background: rgba(108, 92, 231, 0.1);
+}
+
+/* Glassmorphic Breadcrumb */
+.glass-breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  padding: var(--spacing-2) var(--spacing-4);
+  background: var(--bg-glass);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: var(--glass-border-width) solid var(--glass-border-color);
+  border-radius: var(--radius-md);
+}
+
+.glass-breadcrumb-item {
+  display: flex;
+  align-items: center;
+}
+
+.glass-breadcrumb-item:not(:last-child)::after {
+  content: '/';
+  margin: 0 var(--spacing-2);
+  color: var(--text-tertiary);
+}
+
+.glass-breadcrumb-link {
+  color: var(--text-secondary);
+  transition: color var(--transition-normal) ease;
+}
+
+.glass-breadcrumb-link:hover {
+  color: var(--text-primary);
+}
+
+/* Glassmorphic Pagination */
+.glass-pagination {
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-2);
+  margin-top: var(--spacing-6);
+}
+
+.glass-pagination-item {
+  padding: var(--spacing-2) var(--spacing-3);
+  background: var(--bg-glass);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: var(--glass-border-width) solid var(--glass-border-color);
+  border-radius: var(--radius-md);
+  color: var(--text-secondary);
+  transition: all var(--transition-normal) ease;
+}
+
+.glass-pagination-item:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-primary);
+}
+
+.glass-pagination-item.active {
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
+  border-color: var(--brand-primary);
+}
+
+/* Glassmorphic Dropdown */
+.glass-dropdown {
+  position: relative;
+}
+
+.glass-dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: var(--bg-glass);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: var(--glass-border-width) solid var(--glass-border-color);
+  border-radius: var(--radius-md);
+  margin-top: var(--spacing-1);
+  box-shadow: var(--shadow-md);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: all var(--transition-normal) ease;
+  z-index: var(--z-index-dropdown);
+}
+
+.glass-dropdown:hover .glass-dropdown-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.glass-dropdown-item {
+  padding: var(--spacing-2) var(--spacing-4);
+  color: var(--text-secondary);
+  transition: all var(--transition-normal) ease);
+}
+
+.glass-dropdown-item:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-primary);
+}
+
+/* Glassmorphic Modal Overlay */
+.glass-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: var(--z-index-modal);
+  opacity: 0;
+  visibility: hidden;
+  transition: all var(--transition-normal) ease;
+}
+
+.glass-modal-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Glassmorphic Loading Spinner */
+.glass-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(255, 255, 255, 0.1);
+  border-top-color: var(--brand-primary);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Glassmorphic Progress Ring */
+.glass-progress-ring {
+  transform: rotate(-90deg);
+}
+
+.glass-progress-ring-circle {
+  stroke: var(--brand-primary);
+  stroke-width: 4;
+  fill: transparent;
+  stroke-dasharray: 283;
+  stroke-dashoffset: 75;
+  transition: stroke-dashoffset 0.5s ease;
+}
+
+/* Glassmorphic Avatar */
+.glass-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-full);
+  background: var(--bg-glass);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: var(--glass-border-width) solid var(--glass-border-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: var(--font-weight-bold);
+  color: var(--text-primary);
+}
+
+/* Glassmorphic Tag */
+.glass-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  background: var(--bg-glass);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: var(--glass-border-width) solid var(--glass-border-color);
+  border-radius: var(--radius-full);
+  padding: var(--spacing-1) var(--spacing-2);
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+  transition: all var(--transition-normal) ease;
+}
+
+.glass-tag:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-primary);
+}
+
+/* Glassmorphic Timeline */
+.glass-timeline {
+  position: relative;
+  padding-left: var(--spacing-8);
+}
+
+.glass-timeline::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: var(--glass-border-width);
+  background: var(--glass-border-color);
+}
+
+.glass-timeline-item {
+  position: relative;
+  padding-bottom: var(--spacing-6);
+}
+
+.glass-timeline-item::before {
+  content: '';
+  position: absolute;
+  left: calc(-var(--spacing-8) - var(--glass-border-width));
+  top: var(--spacing-4);
+  width: var(--spacing-4);
+  height: var(--spacing-4);
+  border-radius: var(--radius-full);
+  background: var(--brand-primary);
+  border: var(--glass-border-width) solid var(--bg-primary);
+}
+
+/* Glassmorphic Steps */
+.glass-steps {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+}
+
+.glass-steps::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: var(--glass-border-width);
+  background: var(--glass-border-color);
+  transform: translateY(-50%);
+}
+
+.glass-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+
+.glass-step-circle {
+  width: var(--spacing-8);
+  height: var(--spacing-8);
+  border-radius: var(--radius-full);
+  background: var(--bg-glass);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: var(--glass-border-width) solid var(--glass-border-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: var(--spacing-3);
+  transition: all var(--transition-normal) ease;
+}
+
+.glass-step.active .glass-step-circle {
+  background: var(--brand-primary);
+  border-color: var(--brand-primary);
+}
+
+.glass-step.completed .glass-step-circle {
+  background: var(--brand-secondary);
+  border-color: var(--brand-secondary);
+}
+
+.glass-step-content {
+  text-align: center;
+}
+
+/* Glassmorphic Rating */
+.glass-rating {
+  display: flex;
+  gap: var(--spacing-1);
+}
+
+.glass-rating-star {
+  color: var(--text-tertiary);
+  transition: color var(--transition-normal) ease;
+}
+
+.glass-rating-star.filled {
+  color: var(--brand-primary);
+}
+
+.glass-rating-star:hover {
+  color: var(--brand-accent);
+}
+
+/* Glassmorphic Search */
+.glass-search {
+  position: relative;
+}
+
+.glass-search-input {
+  width: 100%;
+  padding: var(--spacing-3) var(--spacing-4) var(--spacing-3) var(--spacing-10);
+  background: var(--bg-glass);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: var(--glass-border-width) solid var(--glass-border-color);
+  border-radius: var(--radius-lg);
+  color: var(--text-primary);
+}
+
+.glass-search-icon {
+  position: absolute;
+  left: var(--spacing-4);
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-tertiary);
+}
+
+/* Glassmorphic Filter */
+.glass-filter {
+  display: flex;
+  gap: var(--spacing-2);
+  flex-wrap: wrap;
+}
+
+.glass-filter-item {
+  padding: var(--spacing-2) var(--spacing-4);
+  background: var(--bg-glass);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: var(--glass-border-width) solid var(--glass-border-color);
+  border-radius: var(--radius-md);
+  color: var(--text-secondary);
+  transition: all var(--transition-normal) ease;
+  cursor: pointer;
+}
+
+.glass-filter-item.active {
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
+  border-color: var(--brand-primary);
+}
+
+.glass-filter-item:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-primary);
+}
+
+/* Glassmorphic Calendar */
+.glass-calendar {
+  background: var(--bg-glass);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: var(--glass-border-width) solid var(--glass-border-color);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-4);
+}
+
+.glass-calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-4);
+}
+
+.glass-calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: var(--spacing-1);
+}
+
+.glass-calendar-day {
+  text-align: center;
+  padding: var(--spacing-2);
+  color: var(--text-tertiary);
+  transition: all var(--transition-normal) ease;
+}
+
+.glass-calendar-day:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-primary);
+}
+
+.glass-calendar-day.today {
+  background: var(--brand-primary);
+  color: var(--text-primary);
+  border-radius: var(--radius-md);
+}
+
+.glass-calendar-day.selected {
+  background: var(--brand-secondary);
+  color: var(--text-primary);
+  border-radius: var(--radius-md);
+}
+
+/* Glassmorphic Chart */
+.glass-chart-container {
+  background: var(--bg-glass);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: var(--glass-border-width) solid var(--glass-border-color);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-4);
+}
+
+.glass-chart-legend {
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-4);
+  margin-top: var(--spacing-4);
+}
+
+.glass-chart-legend-item {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+}
+
+.glass-chart-legend-color {
+  width: var(--spacing-3);
+  height: var(--spacing-3);
+  border-radius: var(--radius-sm);
+}
+
+/* Glassmorphic Map */
+.glass-map {
+  background: var(--bg-glass);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: var(--glass-border-width) solid var(--glass-border-color);
+  border-radius: var(--radius-lg);
+  height: 400px;
+  width: 100%;
+}
+
+/* Glassmorphic Video */
+.glass-video {
+  background: var(--bg-glass);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: var(--glass-border-width) solid var(--glass-border-color);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.glass-video-controls {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+  padding: var(--spacing-3);
+  opacity: 0;
+  transition: opacity var(--transition-normal) ease;
+}
+
+.glass-video:hover .glass-video-controls {
+  opacity: 1;
+}
+
+/* Glassmorphic Audio */
+.glass-audio {
+  background: var(--bg-glass);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: var(--glass-border-width) solid var(--glass-border-color);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-4);
+}
+
+.glass-audio-controls {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+}
+
+.glass-audio-progress {
+  flex: 1;
+}
+
+/* Glassmorphic File Upload */
+.glass-file-upload {
+  position: relative;
+  display: inline-block;
+}
+
+.glass-file-upload-input {
+  position: absolute;
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
+.glass-file-upload-label {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+  padding: var(--spacing-3) var(--spacing-4);
+  background: var(--bg-glass);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: var(--glass-border-width) solid var(--glass-border-color);
+  border-radius: var(--radius-md);
+  color: var(--text-secondary);
+  transition: all var(--transition-normal) ease;
+  cursor: pointer;
+}
+
+.glass-file-upload-label:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-primary);
+}
+
+/* Glassmorphic Image */
+.glass-image {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: transform var(--transition-normal) ease;
+}
+
+.glass-image:hover {
+  transform: scale(1.02);
+}
+
+.glass-image-caption {
+  background: var(--bg-glass);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border-top: var(--glass-border-width) solid var(--glass-border-color);
+  padding: var(--spacing-2);
+  color: var(--text-tertiary);
+  font-size: var(--font-size-xs);
+  text-align: center;
+}
+
+/* Glassmorphic Icon */
+.glass-icon {
+  width: 24px;
+  height: 24px;
+  fill: currentColor;
+}
+
+/* Glassmorphic Badge Group */
+.glass-badge-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-2);
+}
+
+/* Glassmorphic Avatar Group */
+.glass-avatar-group {
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+}
+
+.glass-avatar-group .glass-avatar {
+  border: 2px solid var(--bg-primary);
+}
+
+.glass-avatar-group .glass-avatar:not(:first-child) {
+  margin-left: -8px;
+}
+
+/* Glassmorphic Skeleton */
+.glass-skeleton {
+  background: linear-gradient(90deg, var(--bg-glass) 25%, rgba(255, 255, 255, 0.1) 50%, var(--bg-glass) 75%);
+  background-size: 200% 100%;
+  animation: quantum-shimmer 1.5s linear infinite;
+}
+
+/* Glassmorphic Loading Bar */
+.glass-loading-bar {
+  height: var(--spacing-1);
+  background: linear-gradient(90deg, var(--brand-primary) 0%, var(--brand-secondary) 50%, var(--brand-accent) 100%);
+  background-size: 200% 100%;
+  animation: quantum-shimmer 2s linear infinite;
+}
+
+/* Glassmorphic Progress Circle */
+.glass-progress-circle {
+  position: relative;
+  width: 120px;
+  height: 120px;
+}
+
+.glass-progress-circle-bg {
+  fill: none;
+  stroke: var(--bg-glass);
+  stroke-width: 8;
+}
+
+.glass-progress-circle-fill {
+  fill: none;
+  stroke: var(--brand-primary);
+  stroke-width: 8;
+  stroke-linecap: round;
+  stroke-dasharray: 283;
+  stroke-dashoffset: 70;
+  transform: rotate(-90deg);
+  transform-origin: 50% 50%;
+  transition: stroke-dashoffset 0.5s ease;
+}
+
+/* Glassmorphic Rating Stars */
+.glass-rating-stars {
+  display: flex;
+  gap: var(--spacing-1);
+}
+
+.glass-rating-star {
+  color: var(--text-tertiary);
+  transition: color var(--transition-normal) ease;
+  cursor: pointer;
+}
+
+.glass-rating-star.filled {
+  color: var(--brand-primary);
+}
+
+.glass-rating-star:hover {
+  color: var(--brand-accent);
+}
+
+/* Glassmorphic Tag Cloud */
+.glass-tag-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-2);
+  justify-content: center;
+}
+
+.glass-tag-cloud-item {
+  padding: var(--spacing-1) var(--spacing-2);
+  background: var(--bg-glass);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: var(--glass-border-width) solid var(--glass-border-color);
+  border-radius: var(--radius-md);
+  color: var(--text-secondary);
+  transition: all var(--transition-normal) ease;
+  cursor: pointer;
+  font-size: var(--font-size-xs);
+}
+
+.glass-tag-cloud-item:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-primary);
+  transform: scale(1.05);
+}
+
+/* Glassmorphic Timeline */
+.glass-timeline {
+  position: relative;
+  padding-left: var(--spacing-8);
+}
+
+.glass-timeline::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: var(--glass-border-width);
+  background: var(--glass-border-color);
+}
+
+.glass-timeline-item {
+  position: relative;
+  padding-bottom: var(--spacing-6);
+}
+
+.glass-timeline-item::before {
+  content: '';
+  position: absolute;
+  left: calc(-var(--spacing-8) - var(--glass-border-width));
+  top: var(--spacing-4);
+  width: var(--spacing-4);
+  height: var(--spacing-4);
+  border-radius: var(--radius-full);
+  background: var(--brand-primary);
+  border: var(--glass-border-width) solid var(--bg-primary);
+}
+
+/* Glassmorphic Steps */
+.glass-steps {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+}
+
+.glass-steps::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: var(--glass-border-width);
+  background: var(--glass-border-color);
+  transform: translateY(-50%);
+}
+
+.glass-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+
+.glass-step-circle {
+  width: var(--spacing-8);
+  height: var(--spacing-8);
+  border-radius: var(--radius-full);
+  background: var(--bg-glass);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: var(--glass-border-width) solid var(--glass-border-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: var(--spacing-3);
+  transition: all var(--transition-normal) ease;
+}
+
+.glass-step.active .glass-step-circle {
+  background: var(--brand-primary);
+  border-color: var(--brand-primary);
+}
+
+.glass-step.completed .glass-step-circle {
+  background: var(--brand-secondary);
+  border-color: var(--brand-secondary);
+}
+
+.glass-step-content {
+  text-align: center;
+}
+
+/* Glassmorphic Rating */
+.glass-rating {
+  display: flex;
+  gap: var(--spacing-1);
+}
+
+.glass-rating-star {
+  color: var(--text-tertiary);
+  transition: color var(--transition-normal) ease;
+}
+
+.glass-rating-star.filled {
+  color: var(--brand-primary);
+}
+
+.glass-rating-star:hover {
+  color: var(--brand-accent);
+}
+
+/* Glassmorphic Search */
+.glass-search {
+  position: relative;
+}
+
+.glass-search-input {
+  width: 100%;
+  padding: var(--spacing-3) var(--spacing-4) var(--spacing-3) var(--spacing-10);
+  background: var(--bg-glass);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: var(--glass-border-width) solid var(--glass-border-color);
+  border-radius: var(--radius-lg);
+  color: var(--text-primary);
+}
+
+.glass-search-icon {
+  position: absolute;
+  left: var(--spacing-4);
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-tertiary);
+}
+
+/* Glassmorphic Filter */
+.glass-filter {
+  display: flex;
+  gap: var(--spacing-2);
+  flex-wrap: wrap;
+}
+
+.glass-filter-item {
+  padding: var(--spacing-2) var(--spacing-4);
+  background: var(--bg-glass);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: var(--glass-border-width) solid var(--glass-border-color);
+  border-radius: var(--radius-md);
+  color: var(--text-secondary);
+  transition: all var(--transition-normal) ease;
+  cursor: pointer;
+}
+
+.glass-filter-item.active {
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
+  border-color: var(--brand-primary);
+}
+
+.glass-filter-item:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-primary);
+}
+
+/* Glassmorphic Calendar */
+.glass-calendar {
+  background: var(--bg-glass);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: var(--glass-border-width) solid var(--glass-border-color);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-4);
+}
+
+.glass-calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-4);
+}
+
+.glass-calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: var(--spacing-1);
+}
+
+.glass-calendar-day {
+  text-align: center;
+  padding: var(--spacing-2);
+  color: var(--text-tertiary);
+  transition: all var(--transition-normal) ease;
+}
+
+.glass-calendar-day:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-primary);
+}
+
+.glass-calendar-day.today {
+  background: var(--brand-primary);
+  color: var(--text-primary);
+  border-radius: var(--radius-md);
+}
+
+.glass-calendar-day.selected {
+  background: var(--brand-secondary);
+  color: var(--text-primary);
+  border-radius: var(--radius-md);
+}
+
+/* Glassmorphic Chart */
+.glass-chart-container {
+  background: var(--bg-glass);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: var(--glass-border-width) solid var(--glass-border-color);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-4);
+}
+
+.glass-chart-legend {
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-4);
+  margin-top: var(--spacing-4);
+}
+
+.glass-chart-legend-item {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+}
+
+.glass-chart-legend-color {
+  width: var(--spacing-3);
+  height: var(--spacing-3);
+  border-radius: var(--radius-sm);
+}
+
+/* Glassmorphic Map */
+.glass-map {
+  background: var(--bg-glass);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: var(--glass-border-width) solid var(--glass-border-color);
+  border-radius: var(--radius-lg);
+  height: 400px;
+  width: 100%;
+}
+
+/* Glassmorphic Video */
+.glass-video {
+  background: var(--bg-glass);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: var(--glass-border-width) solid var(--glass-border-color);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.glass-video-controls {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+  padding: var(--spacing-3);
+  opacity: 0;
+  transition: opacity var(--transition-normal) ease;
+}
+
+.glass-video:hover .glass-video-controls {
+  opacity: 1;
+}
+
+/* Glassmorphic Audio */
+.glass-audio {
+  background: var(--bg-glass);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: var(--glass-border-width) solid var(--glass-border-color);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-4);
+}
+
+.glass-audio-controls {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+}
+
+.glass-audio-progress {
+  flex: 1;
+}
+
+/* Glassmorphic File Upload */
+.glass-file-upload {
+  position: relative;
+  display: inline-block;
+}
+
+.glass-file-upload-input {
+  position: absolute;
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
+.glass-file-upload-label {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+  padding: var(--spacing-3) var(--spacing-4);
+  background: var(--bg-glass);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: var(--glass-border-width) solid var(--glass-border-color);
+  border-radius: var(--radius-md);
+  color: var(--text-secondary);
+  transition: all var(--transition-normal) ease;
+  cursor: pointer;
+}
+
+.glass-file-upload-label:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-primary);
+}
+
+/* Glassmorphic Image */
+.glass-image {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: transform var(--transition-normal) ease;
+}
+
+.glass-image:hover {
+  transform: scale(1.02);
+}
+
+.glass-image-caption {
+  background: var(--bg-glass);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border-top: var(--glass-border-width) solid var(--glass-border-color);
+  padding: var(--spacing-2);
+  color: var(--text-tertiary);
+  font-size: var(--font-size-xs);
+  text-align: center;
+}
+
+/* Glassmorphic Icon */
+.glass-icon {
+  width: 24px;
+  height: 24px;
+  fill: currentColor;
+}
+
+/* Glassmorphic Badge Group */
+.glass-badge-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-2);
+}
+
+/* Glassmorphic Avatar Group */
+.glass-avatar-group {
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+}
+
+.glass-avatar-group .glass-avatar {
+  border: 2px solid var(--bg-primary);
+}
+
+.glass-avatar-group .glass-avatar:not(:first-child) {
+  margin-left: -8px;
+}
+
+/* Glassmorphic Skeleton */
+.glass-skeleton {
+  background: linear-gradient(90deg, var(--bg-glass) 25%, rgba(255, 255, 255, 0.1) 50%, var(--bg-glass) 75%);
+  background-size: 200% 100%;
+  animation: quantum-shimmer 1.5s linear infinite;
+}
+
+/* Glassmorphic Loading Bar */
+.glass-loading-bar {
+  height: var(--spacing-1);
+  background: linear-gradient(90deg, var(--brand-primary) 0%, var(--brand-secondary) 50%, var(--brand-accent) 100%);
+  background-size: 200% 100%;
+  animation: quantum-shimmer 2s linear infinite;
+}
+
+/* Glassmorphic Progress Circle */
+.glass-progress-circle {
+  position: relative;
+  width: 120px;
+  height: 120px;
+}
+
+.glass-progress-circle-bg {
+  fill: none;
+  stroke: var(--bg-glass);
+  stroke-width: 8;
+}
+
+.glass-progress-circle-fill {
+  fill: none;
+  stroke: var(--brand-primary);
+  stroke-width: 8;
+  stroke-linecap: round;
+  stroke-dasharray: 283;
+  stroke-dashoffset: 70;
+  transform: rotate(-90deg);
+  transform-origin: 50% 50%;
+  transition: stroke-dashoffset 0.5s ease;
+}
+
+/* Glassmorphic Rating Stars */
+.glass-rating-stars {
+  display: flex;
+  gap: var(--spacing-1);
+}
+
+.glass-rating-star {
+  color: var(--text-tertiary);
+  transition: color var(--transition-normal) ease;
+  cursor: pointer;
+}
+
+.glass-rating-star.filled {
+  color: var(--brand-primary);
+}
+
+.glass-rating-star:hover {
+  color: var(--brand-accent);
+}
+
+/* Glassmorphic Tag Cloud */
+.glass-tag-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-2);
+  justify-content: center;
+}
+
+.glass-tag-cloud-item {
+  padding: var(--spacing-1) var(--spacing-2);
+  background: var(--bg-glass);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: var(--glass-border-width) solid var(--glass-border-color);
+  border-radius: var(--radius-md);
+  color: var(--text-secondary);
+  transition: all var(--transition-normal) ease;
+  cursor: pointer;
+  font-size: var(--font-size-xs);
+}
+
+.glass-tag-cloud-item:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-primary);
+  transform: scale(1.05);
+}

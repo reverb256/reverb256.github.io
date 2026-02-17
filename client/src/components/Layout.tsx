@@ -3,7 +3,7 @@ import Navbar from "./Navbar";
 
 const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => (
   <div
-    className="min-h-screen w-full bg-black bg-opacity-90 relative"
+    className="min-h-screen w-full glass-container relative"
     style={{
       background: "radial-gradient(ellipse at 60% 40%, rgba(255,255,255,0.08) 0%, rgba(0,0,0,0.95) 100%)",
       overflowX: "hidden",
@@ -14,6 +14,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => (
     {/* Spotlight effect */}
     <div
       aria-hidden="true"
+      className="glass-shimmer"
       style={{
         position: "fixed",
         top: "30%",
