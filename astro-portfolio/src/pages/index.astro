@@ -1,0 +1,594 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+// Deep terminal database
+const db = {
+  subjects: [
+    { id: "HYVRS_001", title: "HOYOVERSE", category: "INSPIRATION", classification: "PUBLIC", content: ["Chinese game developer known for Genshin Impact, Honkai Star Rail, Zenless Zone Zero.", "Key design principles:", "• Non-intrusive UI with progressive disclosure", "• Anticipatory animation sequencing", "• Secondary motion polish (particles, glows)", "• Character-first special moves", "• Dynamic tooltip reveals", "Reference: UI/UX patterns studied for portfolio redesign."], related: ["GAME_DESIGN", "ANIMATION", "UI_UX"] },
+    { id: "PHIL_042", title: "PHILOSOPHY", category: "KNOWLEDGE", classification: "INTERNAL", content: ["EXISTENTIALISM: Freedom through code creation", "DETERMINISM: NixOS declarative systems", "DIALECTICS: Iterative development cycles", "PHENOMENOLOGY: User experience as lived reality", "STOICISM: Embracing technical constraints", "TRANSHUMANISM: Human-AI symbiosis", "Application: Design decisions grounded in first principles."], related: ["DESIGN_PHILOSOPHY", "DEVELOPMENT"] },
+    { id: "VRCH_107", title: "VRCHAT", category: "INSPIRATION", classification: "RESTRICTED", content: ["Social VR platform observations:", "• Avatar expression as identity projection", "• Spatial audio design for immersion", "• World-building with Unity SDK", "• Community-driven content creation", "• Performance optimization for VR", "Note: Explored avatar creation pipeline."], related: ["3D_GRAPHICS", "UNITY", "SOCIAL_DESIGN"] },
+    { id: "NIX_999", title: "NIXOS PHILOSOPHY", category: "TECHNOLOGY", classification: "TOP SECRET", content: ["DECLARATIVE CONFIGURATION MANIFESTO", "Core tenets:", "1. Reproducibility over convenience", "2. Atomic upgrades and rollbacks", "3. Declarative system configuration", "4. Reliable package management", "5. Multi-environment support", "Current deployment: Full workstation", "Lines of Nix: 50,000+", "Systems managed: 3"], related: ["DEVOPS", "DECLARATIVE_SYSTEMS"] },
+    { id: "ANIM_033", title: "ANIME", category: "INSPIRATION", classification: "PUBLIC", content: ["GHOST IN THE SHELL: Transhumanism, tech philosophy", "EVANGELION: Psychological depth, mecha aesthetics", "COWBOY BEBOP: Style, music, episodic narrative", "STEINS;GATE: Time manipulation, cause/effect", "PSYCHO-PASS: Surveillance society themes", "Serial Experiments LAIN: Internet consciousness", "Applied: Dark color schemes, cyberpunk aesthetics"], related: ["VISUAL_DESIGN", "STORYTELLING"] },
+    { id: "GAME_256", title: "GAMING HISTORY", category: "PERSONAL", classification: "PUBLIC", content: ["1998: Fallout - Choice & consequence", "2000: Deus Ex - Immersive sim design", "2004: WoW - Social systems, progression", "2011: Dark Souls - Environmental storytelling", "2017: BOTW - Emergent gameplay", "2020: Genshin - Gacha + open world", "2023: BG3 - CRPG renaissance", "Total hours: [CLASSIFIED]"], related: ["GAME_DESIGN", "STORYTELLING"] },
+    { id: "TECH_001", title: "STACK", category: "TECHNOLOGY", classification: "INTERNAL", content: ["LANGUAGES: TypeScript, Go, Python, Rust", "FRONTEND: React, Astro, Tailwind, GSAP", "BACKEND: Node.js, Express, FastAPI", "DATABASE: PostgreSQL, Redis, SQLite", "INFRA: NixOS, Docker, Kubernetes", "AI/ML: OpenAI, Anthropic, Local LLMs"], related: ["PROGRAMMING", "INFRASTRUCTURE"] },
+    { id: "TERM_GLOS", title: "GLOSSARY", category: "REFERENCE", classification: "PUBLIC", content: ["DECK: Development workstation", "ICE: Security measures / firewalls", "RUN: Active development session", "CHROME: User interface elements", "DARK: Undocumented features", "WAREZ: Open source tools", "GRID: Network / internet", "MEATSPACE: Physical reality", "WIZARD: Expert programmer"], related: ["TERMINOLOGY"] },
+    { id: "CYBR_2077", title: "CYBERPUNK", category: "INSPIRATION", classification: "RESTRICTED", content: ["High tech, low life aesthetic", "Neuromancer - William Gibson", "Snow Crash - Neal Stephenson", "Blade Runner - Visual language", "Akira - Neo-Tokyo aesthetics", "Applied: Neon accents, dark themes, terminal UIs"], related: ["VISUAL_DESIGN", "ANIME"] },
+    { id: "AI_001", title: "AI INTEGRATION", category: "TECHNOLOGY", classification: "TOP SECRET", content: ["ACTIVE SYSTEMS:", "• Claude (Anthropic) - Primary coding assistant", "• GPT-4 - Research and analysis", "• Local LLMs - Privacy-sensitive tasks", "• OpenCode - Terminal-based AI TUI", "Philosophy: AI as force multiplier, not replacement"], related: ["DEVELOPMENT", "PHILOSOPHY"] },
+    { id: "MUSC_420", title: "MUSIC", category: "PERSONAL", classification: "PUBLIC", content: ["Coding soundtracks:", "• Synthwave (Perturbator, Carpenter Brut)", "• Lo-fi hip hop (focus sessions)", "• Electronic (Daft Punk, Justice)", "• Post-rock (Explosions in the Sky)", "• J-Pop/Rock (Anime OPs)"], related: ["PERSONAL"] },
+    { id: "SEC_101", title: "SECURITY", category: "TECHNOLOGY", classification: "RESTRICTED", content: ["OPSEC Practices:", "• Full disk encryption (LUKS)", "• GPG for commits and emails", "• Hardware security keys (YubiKey)", "• Network isolation (VLANs)", "• Regular security audits"], related: ["DEVOPS", "INFRASTRUCTURE"] },
+  ],
+  categories: ["INSPIRATION", "KNOWLEDGE", "TECHNOLOGY", "PERSONAL", "REFERENCE"],
+  classifications: ["PUBLIC", "INTERNAL", "RESTRICTED", "TOP SECRET"],
+};
+
+const projects = [
+  { title: "Troves & Coves", desc: "Crystal jewelry e-commerce with AI", status: "live", icon: "💎", span: "2x2", tech: ["React", "Stripe", "AI"], metric: "7 agents" },
+  { title: "Local Cleaning", desc: "Quote calculator", status: "live", icon: "🧹", span: "1x1", tech: ["React", "TS"], metric: "30min" },
+  { title: "Hair@Home", desc: "Mobile stylist", status: "live", icon: "✂️", span: "1x1", tech: ["Hugo"], metric: "Static" },
+  { title: "Synapse", desc: "NixOS containers", status: "active", icon: "⚡", span: "2x1", tech: ["NixOS"], metric: "Repro" },
+  { title: "OpenCode", desc: "AI coding TUI", status: "active", icon: "🤖", span: "1x1", tech: ["Go", "TS"], metric: "WIP" },
+  { title: "This Site", desc: "Astro + GSAP", status: "live", icon: "🌐", span: "1x1", tech: ["Astro"], metric: "60fps" },
+];
+
+const skills = ["React", "TypeScript", "Node.js", "Go", "PostgreSQL", "Docker", "NixOS", "Tailwind", "Astro", "Python", "Redis", "K8s"];
+---
+
+<Layout title="Reverb256 | Full-Stack Developer">
+  <!-- Navigation -->
+  <nav class="fixed top-0 left-0 right-0 z-50 px-6 py-3 bg-[var(--base00)]/80 backdrop-blur-md border-b border-[var(--base02)]">
+    <div class="max-w-6xl mx-auto flex items-center justify-between">
+      <a href="#" class="font-bold text-lg text-[var(--base07)] hover:text-[var(--base09)] transition-colors">R256://</a>
+      <div class="flex items-center gap-6">
+        <a href="#projects" class="text-sm text-[var(--base05)] hover:text-[var(--base07)] link-underline">Projects</a>
+        <a href="#about" class="text-sm text-[var(--base05)] hover:text-[var(--base07)] link-underline">About</a>
+        <a href="#contact" class="text-sm text-[var(--base05)] hover:text-[var(--base07)] link-underline">Contact</a>
+        <a href="https://github.com/reverb256" target="_blank" rel="noopener" class="btn-accent text-xs py-1.5 px-4">GitHub</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero with Terminal -->
+  <section class="min-h-screen pt-16 px-6 flex items-center">
+    <div class="max-w-6xl mx-auto w-full grid lg:grid-cols-2 gap-8 items-center">
+      <!-- Left: Info -->
+      <div class="space-y-6" data-animate="fade-up">
+        <div class="inline-flex items-center gap-2 px-3 py-1 glass text-xs text-[var(--base05)]">
+          <span class="w-2 h-2 rounded-full bg-[var(--base0B)] animate-pulse"></span>
+          Systems Online
+        </div>
+        <h1 class="text-5xl md:text-6xl font-bold leading-tight" style="background: linear-gradient(135deg, #ff9f5c 0%, #6ee7de 100%); background-clip: text; -webkit-background-clip: text; color: transparent;">
+          Reverb256
+        </h1>
+        <p class="text-lg text-[var(--base05)] max-w-md">
+          Full-stack developer building <span class="text-[var(--base09)]">reproducible</span> and <span class="text-[var(--base0D)]">declarative</span> systems with a focus on developer experience.
+        </p>
+        <div class="flex gap-4">
+          <a href="#projects" class="btn-accent">View Work</a>
+          <a href="#contact" class="btn-outline">Contact</a>
+        </div>
+        <div class="flex gap-6 pt-4 text-sm">
+          <div><span class="text-2xl font-bold text-[var(--base09)]">10+</span><br><span class="text-[var(--base04)]">Years</span></div>
+          <div><span class="text-2xl font-bold text-[var(--base09)]">20+</span><br><span class="text-[var(--base04)]">Projects</span></div>
+          <div><span class="text-2xl font-bold text-[var(--base09)]">50k+</span><br><span class="text-[var(--base04)]">Nix Lines</span></div>
+        </div>
+      </div>
+      
+      <!-- Right: Terminal -->
+      <div data-animate="fade-up" data-delay="0.2" class="relative" style="z-index: 20;">
+        <div id="term-wrapper" class="glass overflow-hidden relative" style="background: linear-gradient(180deg, rgba(0,30,15,0.98) 0%, rgba(0,15,8,0.99) 100%); border: 2px solid rgba(0,255,100,0.5); z-index: 30;">
+          <!-- Scanlines -->
+          <div class="pointer-events-none absolute inset-0 opacity-5" style="background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.8) 2px, rgba(0,0,0,0.8) 4px);"></div>
+          
+<!-- Terminal header -->
+            <div class="flex items-center gap-2 px-4 py-2 border-b border-green-900/30 bg-black/30">
+              <div class="flex gap-1.5">
+                <div class="w-3 h-3 rounded-full bg-red-500/70"></div>
+                <div class="w-3 h-3 rounded-full bg-yellow-500/70"></div>
+                <div class="w-3 h-3 rounded-full bg-green-500/70"></div>
+              </div>
+              <span class="text-green-500 text-xs font-mono ml-2">DATABASE TERMINAL v2.56</span>
+              <span class="text-green-600 text-[10px] font-mono ml-auto">CLASSIFICATION: RESTRICTED</span>
+              <div class="flex gap-1 ml-auto">
+                <button onclick="setTerminalMode('widget')" class="terminal-mode-btn p-1 text-green-500 hover:text-green-300 transition-colors" title="Widget Mode">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+                    <rect x="3" y="3" width="7" height="7" rx="1" />
+                    <rect x="14" y="3" width="7" height="7" rx="1" />
+                    <rect x="3" y="14" width="7" height="7" rx="1" />
+                    <rect x="14" y="14" width="7" height="7" rx="1" />
+                  </svg>
+                </button>
+                <button onclick="setTerminalMode('fullscreen')" class="terminal-mode-btn p-1 text-green-500 hover:text-green-300 transition-colors" title="Fullscreen Mode">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M8 3H5a2 2 0 0 0-2 2v3m10.29 3.29L9 13H5v8h8v-4l4.29-4.29m0 0a2 2 0 1 0 2.83 2.83 2 2 0 0 0-2.83-2.83z" />
+                  </svg>
+                </button>
+                <button onclick="setTerminalMode('pulldown')" class="terminal-mode-btn p-1 text-green-500 hover:text-green-300 transition-colors" title="Pulldown Mode">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M19 13H5v-2h14v2z" />
+                  </svg>
+                </button>
+              </div>
+            </div>
+          
+          <!-- Terminal output -->
+          <div id="term-output" class="font-mono text-sm p-4 min-h-[320px] max-h-[400px] overflow-y-auto scrollbar-hide text-green-400">
+            <pre class="text-green-500 opacity-80 text-xs leading-tight">
+┌─────────────────────────────────────────────────────────────┐
+│                                                             │
+│   ██████╗  ██████╗ ███╗   ██╗███████╗                      │
+│   ██╔══██╗██╔═══██╗████╗  ██║██╔════╝                      │
+│   ██████╔╝██║   ██║██╔██╗ ██║█████╗                        │
+│   ██╔══██╗██║   ██║██║╚██╗██║██╔══╝                        │
+│   ██║  ██║╚██████╔╝██║ ╚████║███████╗                      │
+│   ╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═══╝╚══════╝                      │
+│                                                             │
+│   ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓   │
+│                                                             │
+└─────────────────────────────────────────────────────────────┘</pre>
+            <p class="mt-3 text-green-300">Welcome to the R256 knowledge database.</p>
+            <p class="text-green-300">Type <span class="text-green-400 font-bold">help</span> for commands.</p>
+          </div>
+          
+<!-- Terminal input -->
+            <div class="flex items-center gap-2 px-4 py-3 border-t border-green-900/30 bg-black/20">
+              <div class="text-green-500 font-mono text-sm">
+                <span class="text-green-400">📁 ~/projects/reverb256</span>
+                <span class="text-green-300"> on </span>
+                <span class="text-green-400">main</span>
+                <span class="text-green-300"> [via </span>
+                <span class="text-cyan-400">❄️ nix</span>
+                <span class="text-green-300">]</span>
+              </div>
+              <span class="text-green-500 font-mono text-sm">❯</span>
+              <input type="text" id="term-input" class="flex-grow bg-transparent border-none outline-none text-green-400 font-mono text-sm" placeholder="Enter command..." autocomplete="off" spellcheck="false" />
+              <span id="term-cursor" class="w-2 h-4 bg-green-400"></span>
+            </div>
+        </div>
+        
+        <!-- Quick commands -->
+        <div class="flex flex-wrap gap-2 mt-3">
+          <button onclick="execCmd('list')" class="text-[10px] px-2 py-1 bg-[var(--base02)]/50 text-[var(--base05)] hover:text-[var(--base09)] hover:bg-[var(--base02)] rounded font-mono transition-all hover:scale-105">LIST</button>
+          <button onclick="execCmd('read HYVRS_001')" class="text-[10px] px-2 py-1 bg-[var(--base02)]/50 text-[var(--base05)] hover:text-[var(--base09)] hover:bg-[var(--base02)] rounded font-mono transition-all hover:scale-105">HOYOVERSE</button>
+          <button onclick="execCmd('read NIX_999')" class="text-[10px] px-2 py-1 bg-[var(--base02)]/50 text-[var(--base05)] hover:text-[var(--base09)] hover:bg-[var(--base02)] rounded font-mono transition-all hover:scale-105">NIXOS</button>
+          <button onclick="execCmd('read PHIL_042')" class="text-[10px] px-2 py-1 bg-[var(--base02)]/50 text-[var(--base05)] hover:text-[var(--base09)] hover:bg-[var(--base02)] rounded font-mono transition-all hover:scale-105">PHILOSOPHY</button>
+          <button onclick="execCmd('read AI_001')" class="text-[10px] px-2 py-1 bg-[var(--base02)]/50 text-[var(--base05)] hover:text-[var(--base09)] hover:bg-[var(--base02)] rounded font-mono transition-all hover:scale-105">AI</button>
+          <button onclick="execCmd('random')" class="text-[10px] px-2 py-1 bg-[var(--base02)]/50 text-[var(--base05)] hover:text-[var(--base09)] hover:bg-[var(--base02)] rounded font-mono transition-all hover:scale-105">RANDOM</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects -->
+  <section id="projects" class="px-6 py-12">
+    <div class="max-w-6xl mx-auto">
+      <h2 class="text-2xl font-bold mb-6 text-[var(--base06)]">// Projects</h2>
+      <div data-stagger class="grid grid-cols-2 md:grid-cols-4 gap-3 auto-rows-[120px]">
+        {projects.map((p) => (
+          <a href={`https://github.com/reverb256/${p.title.toLowerCase().replace(/\s+/g, '-')}`} target="_blank" rel="noopener" data-stagger-item class={`bento-item group flex flex-col span-${p.span}`}>
+            <div class="flex items-center justify-between mb-1">
+              <span class="text-xl">{p.icon}</span>
+              <span class={`px-1.5 py-0.5 text-[8px] rounded font-medium uppercase ${p.status === 'live' ? 'badge-live' : 'badge-active'}`}>{p.status}</span>
+            </div>
+            <h3 class="text-sm font-bold text-[var(--base07)] group-hover:text-[var(--base09)] transition-colors">{p.title}</h3>
+            <p class="text-[10px] text-[var(--base05)] flex-grow">{p.desc}</p>
+            <div class="flex gap-1 mt-auto">{p.tech.map(t => <span class="text-[8px] px-1.5 py-0.5 bg-[var(--base02)] rounded text-[var(--base05)]">{t}</span>)}</div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section id="about" class="px-6 py-12">
+    <div class="max-w-6xl mx-auto">
+      <h2 class="text-2xl font-bold mb-6 text-[var(--base06)]">// About</h2>
+      <div class="grid md:grid-cols-2 gap-4">
+        <div class="glass p-6">
+          <h3 class="text-sm font-bold text-[var(--base07)] mb-4">Tech Stack</h3>
+          <div class="flex flex-wrap gap-2">{skills.map(s => <span class="text-xs px-3 py-1 bg-[var(--base02)] rounded text-[var(--base06)] hover:text-[var(--base09)] transition-colors cursor-default hover:scale-105 transform">{s}</span>)}</div>
+        </div>
+        <div class="glass p-6">
+          <h3 class="text-sm font-bold text-[var(--base07)] mb-4">Focus Areas</h3>
+          <div class="flex flex-wrap gap-2">
+            {["Reproducible builds", "AI tooling", "Static sites", "Open source", "DevX", "System design"].map(f => <span class="text-xs px-3 py-1.5 border border-[var(--base03)] rounded-full text-[var(--base05)] hover:border-[var(--base09)] hover:text-[var(--base09)] transition-all cursor-default">{f}</span>)}
+          </div>
+          <div class="mt-4 pt-4 border-t border-[var(--base02)] text-xs text-[var(--base05)] space-y-1">
+            <div>OS: NixOS (declarative everything)</div>
+            <div>Editor: Neovim</div>
+            <div>Shell: Zsh + Starship</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="px-6 py-12">
+    <div class="max-w-6xl mx-auto">
+      <h2 class="text-2xl font-bold mb-6 text-[var(--base06)]">// Contact</h2>
+      <div class="glass p-6 flex flex-wrap items-center justify-between gap-4">
+        <div>
+          <p class="text-sm text-[var(--base05)] mb-4">Open to freelance, collaboration, or tech discussions.</p>
+          <div class="flex gap-3">
+            <a href="mailto:contact@reverb256.dev" class="btn-accent text-sm">Email</a>
+            <a href="https://github.com/reverb256" target="_blank" rel="noopener" class="btn-outline text-sm">GitHub</a>
+          </div>
+        </div>
+        <div class="text-right text-xs text-[var(--base04)]">
+          <div>Winnipeg, Canada</div>
+          <div>UTC-6 (CST)</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="px-6 py-4 border-t border-[var(--base02)]">
+    <div class="max-w-6xl mx-auto flex items-center justify-between text-[10px] text-[var(--base04)]">
+      <span>© 2026 Reverb256</span>
+      <span>Astro + GSAP + NixOS + Base24</span>
+      <span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-[var(--base0B)] animate-pulse"></span> All Systems Operational</span>
+    </div>
+  </footer>
+</Layout>
+
+<script define:vars={{ db }}>
+  // ====== TERMINAL MODE STATE ======
+  let terminalMode = 'widget';
+  const output = document.getElementById('term-output');
+  const input = document.getElementById('term-input');
+  const cursor = document.getElementById('term-cursor');
+  const termWrapper = document.getElementById('term-wrapper');
+  
+  function setTerminalMode(mode) {
+    terminalMode = mode;
+    termWrapper.className = 'glass overflow-hidden relative transition-all duration-300';
+    
+    switch(mode) {
+      case 'widget':
+        termWrapper.style.position = 'relative';
+        termWrapper.style.width = '100%';
+        termWrapper.style.maxWidth = '500px';
+        termWrapper.style.height = 'auto';
+        termWrapper.style.border = '2px solid rgba(0,255,100,0.5)';
+        break;
+      case 'fullscreen':
+        termWrapper.style.position = 'fixed';
+        termWrapper.style.top = '0';
+        termWrapper.style.left = '0';
+        termWrapper.style.width = '100vw';
+        termWrapper.style.height = '100vh';
+        termWrapper.style.border = '2px solid rgba(0,255,100,0.8)';
+        termWrapper.style.zIndex = '1000';
+        break;
+      case 'pulldown':
+        termWrapper.style.position = 'fixed';
+        termWrapper.style.top = '-80%';
+        termWrapper.style.left = '0';
+        termWrapper.style.width = '100%';
+        termWrapper.style.height = '80%';
+        termWrapper.style.border = '2px solid rgba(0,255,100,0.6)';
+        termWrapper.style.zIndex = '100';
+        break;
+    }
+    
+    // Update button states
+    document.querySelectorAll('.terminal-mode-btn').forEach((btn, index) => {
+      btn.classList.remove('text-green-300');
+      btn.classList.add('text-green-500');
+      if (['widget', 'fullscreen', 'pulldown'][index] === mode) {
+        btn.classList.remove('text-green-500');
+        btn.classList.add('text-green-300');
+      }
+    });
+  }
+  
+  window.setTerminalMode = setTerminalMode;
+  
+  // ====== FISH SHELL FEATURES ======
+  const autocompleteSuggestions = {
+    'help': 'help',
+    'list': 'list',
+    'read': 'read ',
+    'random': 'random',
+    'search': 'search ',
+    'clear': 'clear',
+    'matrix': 'matrix',
+    'about': 'about'
+  };
+  
+  let currentSuggestion = '';
+  let suggestionIndex = 0;
+  
+  function highlightSyntax(text) {
+    // Commands (green)
+    text = text.replace(/\b(help|list|read|random|search|clear|matrix|about)\b/g, '<span class="text-green-500">$1</span>');
+    // Arguments (cyan)
+    text = text.replace(/\[([^\]]+)\]/g, '<span class="text-cyan-400">[$1]</span>');
+    return text;
+  }
+  
+  function showAutocomplete() {
+    if (currentSuggestion && input.value.startsWith(currentSuggestion)) {
+      const suggestionText = currentSuggestion.substring(input.value.length);
+      if (suggestionText) {
+        const suggestionSpan = document.createElement('span');
+        suggestionSpan.className = 'text-gray-500 inline';
+        suggestionSpan.textContent = suggestionText;
+        suggestionSpan.id = 'autocomplete-suggestion';
+        
+        // Remove existing suggestion
+        const existingSuggestion = document.getElementById('autocomplete-suggestion');
+        if (existingSuggestion) existingSuggestion.remove();
+        
+        // Insert suggestion after input
+        input.parentNode.insertBefore(suggestionSpan, input.nextSibling);
+      }
+    }
+  }
+  
+  function print(text, className = 'text-green-400') {
+    const line = document.createElement('div');
+    line.className = className + ' mt-1';
+    line.innerHTML = highlightSyntax(text);
+    output.appendChild(line);
+    output.scrollTop = output.scrollHeight;
+    
+    // Glitch effect
+    line.style.animation = 'glitch 0.1s ease-out';
+    setTimeout(() => line.style.animation = '', 100);
+  }
+  
+  function typeEffect(text, element, speed = 20) {
+    return new Promise(resolve => {
+      let i = 0;
+      const interval = setInterval(() => {
+        if (i < text.length) {
+          element.textContent += text.charAt(i);
+          i++;
+          output.scrollTop = output.scrollHeight;
+        } else {
+          clearInterval(interval);
+          resolve();
+        }
+      }, speed);
+    });
+  }
+  
+  window.execCmd = async function(cmd) {
+    const [command, ...args] = cmd.trim().toLowerCase().split(/\s+/);
+    const arg = args.join('_').toUpperCase();
+    
+    print(`<span class="text-green-600">> ${cmd}</span>`);
+    
+    // Cursor blink during processing
+    cursor.classList.add('animate-pulse');
+    
+    await new Promise(r => setTimeout(r, 100 + Math.random() * 200));
+    
+    switch(command) {
+      case 'help':
+        print(`<span class="text-green-300 mt-3">AVAILABLE COMMANDS:</span>
+  <span class="text-green-500">help</span>      - Display help
+  <span class="text-green-500">list</span>      - List all subjects
+  <span class="text-green-500">read [ID]</span> - Read subject file
+  <span class="text-green-500">random</span>    - Random subject
+  <span class="text-green-500">search [q]</span> - Search database
+  <span class="text-green-500">clear</span>     - Clear terminal
+  <span class="text-green-500">matrix</span>    - Easter egg
+  <span class="text-green-500">about</span>     - About system`);
+        break;
+        
+      case 'list':
+        print(`<span class="text-green-300 mt-3">═══ DATABASE SUBJECTS ═══</span>`);
+        db.subjects.forEach(s => {
+          const color = s.classification === 'TOP SECRET' ? 'text-red-400' : 
+                       s.classification === 'RESTRICTED' ? 'text-yellow-400' : 'text-green-400';
+          print(`  <span class="text-green-500">${s.id}</span> - ${s.title} [<span class="${color}">${s.classification}</span>]`);
+        });
+        break;
+        
+      case 'read':
+        if (!arg) {
+          print(`<span class="text-red-400">ERROR: Specify ID. Usage: read [ID]</span>`);
+          break;
+        }
+        const subject = db.subjects.find(s => s.id === arg);
+        if (!subject) {
+          print(`<span class="text-red-400">ERROR: '${arg}' not found</span>`);
+          break;
+        }
+        const border = subject.classification === 'TOP SECRET' ? 'red' : 'green';
+        print(`<span class="text-${border}-500 mt-3">╔══════════════════════════════════════╗</span>`);
+        print(`<span class="text-green-300">  SUBJECT: ${subject.title}</span>`);
+        print(`<span class="text-green-300">  ID: ${subject.id} | ${subject.category}</span>`);
+        print(`<span class="text-${border}-500">  CLASS: ${subject.classification}</span>`);
+        print(`<span class="text-${border}-500">╚══════════════════════════════════════╝</span>`);
+        subject.content.forEach(line => print(`  ${line}`));
+        break;
+        
+      case 'random':
+        const rand = db.subjects[Math.floor(Math.random() * db.subjects.length)];
+        execCmd(`read ${rand.id}`);
+        break;
+        
+      case 'search':
+        if (!arg) {
+          print(`<span class="text-red-400">Usage: search [query]</span>`);
+          break;
+        }
+        const results = db.subjects.filter(s => 
+          s.title.toLowerCase().includes(arg.toLowerCase()) ||
+          s.content.some(c => c.toLowerCase().includes(arg.toLowerCase()))
+        );
+        if (results.length === 0) {
+          print(`<span class="text-yellow-400">No results for '${arg}'</span>`);
+        } else {
+          print(`<span class="text-green-300 mt-3">Found ${results.length} result(s):</span>`);
+          results.forEach(s => print(`  <span class="text-green-500">${s.id}</span> - ${s.title}`));
+        }
+        break;
+        
+      case 'matrix':
+        print(`<span class="text-green-400 mt-3">Wake up, Neo...</span>`);
+        print(`<span class="text-green-500">The Matrix has you...</span>`);
+        setTimeout(() => {
+          document.body.style.animation = 'matrixRain 0.5s ease-out';
+          setTimeout(() => document.body.style.animation = '', 500);
+        }, 1000);
+        break;
+        
+      case 'about':
+        print(`<span class="text-green-300 mt-3">REVERB256 DATABASE TERMINAL</span>
+Version: 2.56.0
+Build: 2026.02.17
+Engine: Astro + Vanilla JS
+Theme: Base24 Compliant
+Purpose: Knowledge repository`);
+        break;
+        
+      case 'clear':
+        output.innerHTML = `<pre class="text-green-500 opacity-80 text-xs">
+╔═══════════════════════════════════════════════════════════╗
+║     ██╗███████╗███████╗████████╗██████╗  █████╗ ██╗      ║
+║     ██║██╔════╝██╔════╝╚══██╔══╝██╔══██╗██╔══██╗██║      ║
+║     ██║█████╗  ███████╗   ██║   ██████╔╝███████║██║      ║
+║██   ██║██╔══╝  ╚════██║   ██║   ██╔══██╗██╔══██║██║      ║
+║╚█████╔╝███████╗███████║   ██║   ██║  ██║██║  ██║███████╗ ║
+║ ╚════╝ ╚══════╝╚══════╝   ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝ ║
+╚═══════════════════════════════════════════════════════════╝</pre>
+<p class="mt-3 text-green-300">Terminal cleared. Type <span class="text-green-400">help</span>.</p>`;
+        break;
+        
+      default:
+        print(`<span class="text-red-400">UNKNOWN: '${command}'</span>`);
+        print(`<span class="text-green-300">Type 'help' for commands.</span>`);
+    }
+    
+    cursor.classList.remove('animate-pulse');
+  };
+  
+  input.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      const cmd = input.value.trim();
+      if (cmd) {
+        execCmd(cmd);
+        input.value = '';
+        // Clear autocomplete suggestion
+        const suggestion = document.getElementById('autocomplete-suggestion');
+        if (suggestion) suggestion.remove();
+      }
+    } else if (e.key === 'Tab') {
+      e.preventDefault();
+      if (currentSuggestion && input.value.startsWith(currentSuggestion)) {
+        input.value = currentSuggestion;
+        const suggestion = document.getElementById('autocomplete-suggestion');
+        if (suggestion) suggestion.remove();
+      }
+    } else {
+      // Check for autocomplete
+      const cmd = input.value.trim().toLowerCase();
+      currentSuggestion = autocompleteSuggestions[cmd] || '';
+      showAutocomplete();
+    }
+  });
+  
+  document.getElementById('term-wrapper').addEventListener('click', () => input.focus());
+  
+  // Boot sequence
+  setTimeout(() => {
+    const bootLine1 = document.createElement('div');
+    bootLine1.className = 'text-green-500 mt-2';
+    bootLine1.textContent = '> System initialized';
+    output.appendChild(bootLine1);
+    
+    const bootLine2 = document.createElement('div');
+    bootLine2.className = 'text-green-500';
+    bootLine2.textContent = `> Database loaded: ${db.subjects.length} subjects`;
+    output.appendChild(bootLine2);
+    
+    const bootLine3 = document.createElement('div');
+    bootLine3.className = 'text-green-500';
+    bootLine3.textContent = `> Classification levels: ${db.classifications.join(', ')}`;
+    output.appendChild(bootLine3);
+    
+    output.scrollTop = output.scrollHeight;
+  }, 500);
+</script>
+
+<style>
+  @keyframes glitch {
+    0% { transform: translateX(0); filter: hue-rotate(0deg); }
+    25% { transform: translateX(-2px); filter: hue-rotate(90deg); }
+    50% { transform: translateX(2px); filter: hue-rotate(180deg); }
+    75% { transform: translateX(-1px); filter: hue-rotate(270deg); }
+    100% { transform: translateX(0); filter: hue-rotate(360deg); }
+  }
+  
+  @keyframes matrixRain {
+    0% { filter: hue-rotate(0deg) brightness(1); }
+    50% { filter: hue-rotate(120deg) brightness(1.5); }
+    100% { filter: hue-rotate(0deg) brightness(1); }
+  }
+  
+  #term-wrapper {
+    box-shadow: 
+      0 0 60px rgba(0, 255, 100, 0.25),
+      0 0 120px rgba(0, 255, 100, 0.1),
+      inset 0 0 60px rgba(0, 255, 100, 0.05);
+    transition: box-shadow 0.3s ease;
+  }
+  
+  #term-wrapper:hover {
+    box-shadow: 
+      0 0 80px rgba(0, 255, 100, 0.35),
+      0 0 160px rgba(0, 255, 100, 0.15),
+      inset 0 0 80px rgba(0, 255, 100, 0.08);
+  }
+  
+  #term-input::placeholder { color: rgba(0, 255, 100, 0.3); }
+  
+  #term-output::-webkit-scrollbar { width: 4px; }
+  #term-output::-webkit-scrollbar-track { background: rgba(0, 50, 0, 0.3); }
+  #term-output::-webkit-scrollbar-thumb { background: rgba(0, 255, 100, 0.3); border-radius: 2px; }
+  
+  /* Responsive font sizes */
+  #term-output {
+    font-size: clamp(0.875rem, 1.2vw, 1.125rem);
+  }
+  
+  #term-input {
+    font-size: clamp(0.875rem, 1.2vw, 1.125rem);
+  }
+  
+  /* Terminal mode transitions */
+  .terminal-mode-btn {
+    transition: color 0.2s ease;
+  }
+  
+  #term-wrapper.widget {
+    transition: all 0.3s ease;
+  }
+  
+  #term-wrapper.fullscreen {
+    transition: all 0.3s ease;
+  }
+  
+  #term-wrapper.pulldown {
+    transition: all 0.3s ease;
+  }
+  
+  /* Pulldown mode animation */
+  #term-wrapper.pulldown {
+    animation: pulldownSlide 0.3s ease-out;
+  }
+  
+  @keyframes pulldownSlide {
+    from {
+      transform: translateY(-100%);
+    }
+    to {
+      transform: translateY(0);
+    }
+  }
+</style>
