@@ -4,10 +4,11 @@ import Layout from "../layouts/Layout.astro";
 // Deep terminal database
 const db = {
   subjects: [
+    { id: "JOURNEY_001", title: "MY JOURNEY", category: "PERSONAL", classification: "PUBLIC", content: ["10 years at Pizza Hut - learned work ethic, teamwork, customer service", "20 years curious about computers - tinkering, researching, learning", "6 months full-time Linux user - NixOS convert", "Pivoted to web dev through vibecoding - AI-assisted development", "Building skills every day, open to opportunities", "Philosophy: Never too late to change paths"], related: ["PERSONAL", "CAREER"] },
     { id: "HYVRS_001", title: "HOYOVERSE", category: "INSPIRATION", classification: "PUBLIC", content: ["Chinese game developer known for Genshin Impact, Honkai Star Rail, Zenless Zone Zero.", "Key design principles:", "• Non-intrusive UI with progressive disclosure", "• Anticipatory animation sequencing", "• Secondary motion polish (particles, glows)", "• Character-first special moves", "• Dynamic tooltip reveals", "Reference: UI/UX patterns studied for portfolio redesign."], related: ["GAME_DESIGN", "ANIMATION", "UI_UX"] },
     { id: "PHIL_042", title: "PHILOSOPHY", category: "KNOWLEDGE", classification: "INTERNAL", content: ["EXISTENTIALISM: Freedom through code creation", "DETERMINISM: NixOS declarative systems", "DIALECTICS: Iterative development cycles", "PHENOMENOLOGY: User experience as lived reality", "STOICISM: Embracing technical constraints", "TRANSHUMANISM: Human-AI symbiosis", "Application: Design decisions grounded in first principles."], related: ["DESIGN_PHILOSOPHY", "DEVELOPMENT"] },
     { id: "VRCH_107", title: "VRCHAT", category: "INSPIRATION", classification: "RESTRICTED", content: ["Social VR platform observations:", "• Avatar expression as identity projection", "• Spatial audio design for immersion", "• World-building with Unity SDK", "• Community-driven content creation", "• Performance optimization for VR", "Note: Explored avatar creation pipeline."], related: ["3D_GRAPHICS", "UNITY", "SOCIAL_DESIGN"] },
-    { id: "NIX_999", title: "NIXOS PHILOSOPHY", category: "TECHNOLOGY", classification: "TOP SECRET", content: ["DECLARATIVE CONFIGURATION MANIFESTO", "Core tenets:", "1. Reproducibility over convenience", "2. Atomic upgrades and rollbacks", "3. Declarative system configuration", "4. Reliable package management", "5. Multi-environment support", "Current deployment: Full workstation", "Lines of Nix: 50,000+", "Systems managed: 3"], related: ["DEVOPS", "DECLARATIVE_SYSTEMS"] },
+    { id: "NIX_999", title: "NIXOS PHILOSOPHY", category: "TECHNOLOGY", classification: "TOP SECRET", content: ["DECLARATIVE CONFIGURATION MANIFESTO", "Core tenets:", "1. Reproducibility over convenience", "2. Atomic upgrades and rollbacks", "3. Declarative system configuration", "4. Reliable package management", "5. Multi-environment support", "Current deployment: Full workstation", "Learning curve: Steep but worth it", "Switched: 6 months ago"], related: ["DEVOPS", "DECLARATIVE_SYSTEMS"] },
     { id: "ANIM_033", title: "ANIME", category: "INSPIRATION", classification: "PUBLIC", content: ["GHOST IN THE SHELL: Transhumanism, tech philosophy", "EVANGELION: Psychological depth, mecha aesthetics", "COWBOY BEBOP: Style, music, episodic narrative", "STEINS;GATE: Time manipulation, cause/effect", "PSYCHO-PASS: Surveillance society themes", "Serial Experiments LAIN: Internet consciousness", "Applied: Dark color schemes, cyberpunk aesthetics"], related: ["VISUAL_DESIGN", "STORYTELLING"] },
     { id: "GAME_256", title: "GAMING HISTORY", category: "PERSONAL", classification: "PUBLIC", content: ["1998: Fallout - Choice & consequence", "2000: Deus Ex - Immersive sim design", "2004: WoW - Social systems, progression", "2011: Dark Souls - Environmental storytelling", "2017: BOTW - Emergent gameplay", "2020: Genshin - Gacha + open world", "2023: BG3 - CRPG renaissance", "Total hours: [CLASSIFIED]"], related: ["GAME_DESIGN", "STORYTELLING"] },
     { id: "TECH_001", title: "STACK", category: "TECHNOLOGY", classification: "INTERNAL", content: ["LANGUAGES: TypeScript, Go, Python, Rust", "FRONTEND: React, Astro, Tailwind, GSAP", "BACKEND: Node.js, Express, FastAPI", "DATABASE: PostgreSQL, Redis, SQLite", "INFRA: NixOS, Docker, Kubernetes", "AI/ML: OpenAI, Anthropic, Local LLMs"], related: ["PROGRAMMING", "INFRASTRUCTURE"] },
@@ -22,18 +23,18 @@ const db = {
 };
 
 const projects = [
-  { title: "Troves & Coves", desc: "Crystal jewelry e-commerce with AI", status: "live", icon: "💎", span: "2x2", tech: ["React", "Stripe", "AI"], metric: "7 agents" },
-  { title: "Local Cleaning", desc: "Quote calculator", status: "live", icon: "🧹", span: "1x1", tech: ["React", "TS"], metric: "30min" },
-  { title: "Hair@Home", desc: "Mobile stylist", status: "live", icon: "✂️", span: "1x1", tech: ["Hugo"], metric: "Static" },
-  { title: "Synapse", desc: "NixOS containers", status: "active", icon: "⚡", span: "2x1", tech: ["NixOS"], metric: "Repro" },
-  { title: "OpenCode", desc: "AI coding TUI", status: "active", icon: "🤖", span: "1x1", tech: ["Go", "TS"], metric: "WIP" },
-  { title: "This Site", desc: "Astro + GSAP", status: "live", icon: "🌐", span: "1x1", tech: ["Astro"], metric: "60fps" },
+  { title: "This Portfolio", desc: "Astro + GSAP + Terminal minigame", status: "active", icon: "🌐", span: "2x2", tech: ["Astro", "GSAP", "NixOS"], metric: "This site" },
+  { title: "Troves & Coves", desc: "Crystal jewelry e-commerce", status: "learning", icon: "💎", span: "1x1", tech: ["React", "Stripe"], metric: "WIP" },
+  { title: "Local Cleaning", desc: "Quote calculator", status: "learning", icon: "🧹", span: "1x1", tech: ["React", "TS"], metric: "Practice" },
+  { title: "Synapse", desc: "NixOS configs", status: "active", icon: "⚡", span: "2x1", tech: ["NixOS"], metric: "My setup" },
+  { title: "OpenCode", desc: "Contributing", status: "learning", icon: "🤖", span: "1x1", tech: ["Go", "TS"], metric: "OSS" },
+  { title: "Hair@Home", desc: "Static site", status: "learning", icon: "✂️", span: "1x1", tech: ["Hugo"], metric: "Practice" },
 ];
 
-const skills = ["React", "TypeScript", "Node.js", "Go", "PostgreSQL", "Docker", "NixOS", "Tailwind", "Astro", "Python", "Redis", "K8s"];
+const skills = ["TypeScript", "React", "Node.js", "NixOS", "Tailwind", "Astro", "Python", "Git", "Linux", "Docker"];
 ---
 
-<Layout title="Reverb256 | Full-Stack Developer">
+<Layout title="Reverb256 | Developer">
   <!-- Navigation -->
   <nav class="fixed top-0 left-0 right-0 z-50 px-6 py-3 bg-[var(--base00)]/80 backdrop-blur-md border-b border-[var(--base02)]">
     <div class="max-w-6xl mx-auto flex items-center justify-between">
@@ -54,22 +55,22 @@ const skills = ["React", "TypeScript", "Node.js", "Go", "PostgreSQL", "Docker", 
       <div class="space-y-6" data-animate="fade-up">
         <div class="inline-flex items-center gap-2 px-3 py-1 glass text-xs text-[var(--base05)]">
           <span class="w-2 h-2 rounded-full bg-[var(--base0B)] animate-pulse"></span>
-          Systems Online
+          Open to Opportunities
         </div>
         <h1 class="text-5xl md:text-6xl font-bold leading-tight" style="background: linear-gradient(135deg, #ff9f5c 0%, #6ee7de 100%); background-clip: text; -webkit-background-clip: text; color: transparent;">
           Reverb256
         </h1>
         <p class="text-lg text-[var(--base05)] max-w-md">
-          Full-stack developer building <span class="text-[var(--base09)]">reproducible</span> and <span class="text-[var(--base0D)]">declarative</span> systems with a focus on developer experience.
+          <span class="text-[var(--base09)]">10 years</span> in food service. <span class="text-[var(--base0D)]">20 years</span> curious about tech. Now pivoting to web development through <span class="text-[var(--base09)]">vibecoding</span> with AI assistance.
         </p>
         <div class="flex gap-4">
-          <a href="#projects" class="btn-accent">View Work</a>
-          <a href="#contact" class="btn-outline">Contact</a>
+          <a href="#projects" class="btn-accent">View Projects</a>
+          <a href="#contact" class="btn-outline">Get in Touch</a>
         </div>
         <div class="flex gap-6 pt-4 text-sm">
-          <div><span class="text-2xl font-bold text-[var(--base09)]">10+</span><br><span class="text-[var(--base04)]">Years</span></div>
-          <div><span class="text-2xl font-bold text-[var(--base09)]">20+</span><br><span class="text-[var(--base04)]">Projects</span></div>
-          <div><span class="text-2xl font-bold text-[var(--base09)]">50k+</span><br><span class="text-[var(--base04)]">Nix Lines</span></div>
+          <div><span class="text-2xl font-bold text-[var(--base09)]">10</span><br><span class="text-[var(--base04)]">Years Working</span></div>
+          <div><span class="text-2xl font-bold text-[var(--base09)]">20</span><br><span class="text-[var(--base04)]">Years Tech Curious</span></div>
+          <div><span class="text-2xl font-bold text-[var(--base09)]">6mo</span><br><span class="text-[var(--base04)]">Full Linux</span></div>
         </div>
       </div>
       
@@ -184,18 +185,28 @@ const skills = ["React", "TypeScript", "Node.js", "Go", "PostgreSQL", "Docker", 
       <h2 class="text-2xl font-bold mb-6 text-[var(--base06)]">// About</h2>
       <div class="grid md:grid-cols-2 gap-4">
         <div class="glass p-6">
-          <h3 class="text-sm font-bold text-[var(--base07)] mb-4">Tech Stack</h3>
-          <div class="flex flex-wrap gap-2">{skills.map(s => <span class="text-xs px-3 py-1 bg-[var(--base02)] rounded text-[var(--base06)] hover:text-[var(--base09)] transition-colors cursor-default hover:scale-105 transform">{s}</span>)}</div>
+          <h3 class="text-sm font-bold text-[var(--base07)] mb-4">My Story</h3>
+          <p class="text-sm text-[var(--base05)] leading-relaxed">
+            Spent <span class="text-[var(--base09)]">10 years at Pizza Hut</span> learning the value of hard work, teamwork, and showing up every day. Meanwhile, I was always curious about computers — <span class="text-[var(--base0D)]">20 years of tinkering, researching, and dabbling with Linux</span> on the side.
+          </p>
+          <p class="text-sm text-[var(--base05)] leading-relaxed mt-3">
+            6 months ago I switched to full-time Linux (NixOS). Now I'm pivoting to web development through <span class="text-[var(--base09)]">vibecoding</span> — using AI tools to accelerate my learning and build real projects.
+          </p>
+          <p class="text-sm text-[var(--base05)] leading-relaxed mt-3">
+            <strong>Looking for:</strong> Junior developer roles, apprenticeships, or any opportunity to learn and contribute.
+          </p>
         </div>
         <div class="glass p-6">
-          <h3 class="text-sm font-bold text-[var(--base07)] mb-4">Focus Areas</h3>
+          <h3 class="text-sm font-bold text-[var(--base07)] mb-4">What I Bring</h3>
           <div class="flex flex-wrap gap-2">
-            {["Reproducible builds", "AI tooling", "Static sites", "Open source", "DevX", "System design"].map(f => <span class="text-xs px-3 py-1.5 border border-[var(--base03)] rounded-full text-[var(--base05)] hover:border-[var(--base09)] hover:text-[var(--base09)] transition-all cursor-default">{f}</span>)}
+            {["Work ethic", "Eager to learn", "Team player", "Problem solver", "Patient", "Reliable"].map(f => <span class="text-xs px-3 py-1.5 border border-[var(--base03)] rounded-full text-[var(--base05)] hover:border-[var(--base09)] hover:text-[var(--base09)] transition-all cursor-default">{f}</span>)}
           </div>
+          <h3 class="text-sm font-bold text-[var(--base07)] mb-4 mt-6">Learning</h3>
+          <div class="flex flex-wrap gap-2">{skills.map(s => <span class="text-xs px-3 py-1 bg-[var(--base02)] rounded text-[var(--base06)] hover:text-[var(--base09)] transition-colors cursor-default hover:scale-105 transform">{s}</span>)}</div>
           <div class="mt-4 pt-4 border-t border-[var(--base02)] text-xs text-[var(--base05)] space-y-1">
-            <div>OS: NixOS (declarative everything)</div>
-            <div>Editor: Neovim</div>
-            <div>Shell: Zsh + Starship</div>
+            <div>OS: NixOS (6 months and counting)</div>
+            <div>Editor: Neovim (still learning)</div>
+            <div>Method: AI-assisted coding</div>
           </div>
         </div>
       </div>
@@ -208,7 +219,7 @@ const skills = ["React", "TypeScript", "Node.js", "Go", "PostgreSQL", "Docker", 
       <h2 class="text-2xl font-bold mb-6 text-[var(--base06)]">// Contact</h2>
       <div class="glass p-6 flex flex-wrap items-center justify-between gap-4">
         <div>
-          <p class="text-sm text-[var(--base05)] mb-4">Open to freelance, collaboration, or tech discussions.</p>
+          <p class="text-sm text-[var(--base05)] mb-4">Open to junior roles, internships, or just chatting about tech. Let's connect!</p>
           <div class="flex gap-3">
             <a href="mailto:contact@reverb256.dev" class="btn-accent text-sm">Email</a>
             <a href="https://github.com/reverb256" target="_blank" rel="noopener" class="btn-outline text-sm">GitHub</a>
@@ -216,7 +227,7 @@ const skills = ["React", "TypeScript", "Node.js", "Go", "PostgreSQL", "Docker", 
         </div>
         <div class="text-right text-xs text-[var(--base04)]">
           <div>Winnipeg, Canada</div>
-          <div>UTC-6 (CST)</div>
+          <div>Open to remote work</div>
         </div>
       </div>
     </div>
