@@ -1,5 +1,5 @@
 {
-  description = "Reverb256 Portfolio - Static site built with React, Vite, and Tailwind";
+  description = "Reverb256 Portfolio - Static site built with Astro, GSAP, and Tailwind";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
@@ -13,78 +13,63 @@
         
         nodejs = pkgs.nodejs_20;
         
-        # Core build tools
         buildTools = with pkgs; [
           nodejs
           nodePackages.npm
         ];
         
-        # Development utilities
         devTools = with pkgs; [
-          # TypeScript
           nodePackages.typescript
-          nodePackages.ts-node
-          
-          # Code quality
           nodePackages.eslint
-          
-          # Build tools
-          vite
-          
-          # Git
           git
-          
-          # Useful CLI tools
-          jq      # JSON processing
-          fd      # fast find
-          ripgrep # fast grep
-          bat     # better cat
-          eza     # better ls
+          jq
+          fd
+          ripgrep
+          bat
+          eza
         ];
         
       in {
-        # Development shell - use with: nix develop
         devShells.default = pkgs.mkShell {
           name = "reverb256-portfolio";
           
           buildInputs = buildTools ++ devTools;
           
           shellHook = ''
+            cd astro-portfolio
             export PATH="$PWD/node_modules/.bin:$PATH"
             
-            # Setup prompt
             echo ""
             echo "╔════════════════════════════════════════════╗"
-            echo "║  Reverb256 Portfolio Dev Environment       ║"
+            echo "║  Reverb256 Portfolio (Astro)               ║"
             echo "╠════════════════════════════════════════════╣"
-            echo "║  Node: $(node --version)                       ║"
-            echo "║  NPM:  $(npm --version 2>/dev/null || echo 'N/A')                        ║"
+            printf "║  Node: %-35s║\n" "$(node --version)"
             echo "╚════════════════════════════════════════════╝"
             echo ""
             echo "Commands:"
-            echo "  npm run dev          - Start dev server (port 5173)"
-            echo "  npm run build:static - Build for GitHub Pages"
-            echo "  npm run preview      - Preview production build"
+            echo "  npm run dev      - Start dev server"
+            echo "  npm run build    - Build for production"
+            echo "  npm run preview  - Preview build"
+            echo "  npm run test     - Run Playwright tests"
             echo ""
           '';
         };
         
-        # Build the static site
         apps.build = {
           type = "app";
           program = toString (pkgs.writeShellScript "build" ''
-            set -e
+            cd ${self}/astro-portfolio
             npm ci --prefer-offline --no-audit
-            npm run build:static
-            echo "Built to dist-static/"
+            npm run build
+            echo "Built to dist/"
           '');
         };
         
-        # Preview the built site
         apps.preview = {
           type = "app";
           program = toString (pkgs.writeShellScript "preview" ''
-            npx serve dist-static -p 5173
+            cd ${self}/astro-portfolio
+            npm run preview
           '');
         };
       }

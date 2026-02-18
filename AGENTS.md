@@ -1,4 +1,4 @@
-# PROJECT KNOWLEDGE BASE
+# Reverb256 Portfolio
 
 **Repository:** reverb256.github.io
 **Target:** GitHub Pages (reverb256.ca)
@@ -7,155 +7,32 @@
 
 ---
 
-## QUICK START
-
-```bash
-# Enter development environment
-nix develop
-
-# Install dependencies (first time or after lockfile changes)
-npm ci
-
-# Start dev server
-npm run dev
-
-# Build for production
-npm run build:static
-
-# Preview production build
-npm run preview
-```
-
----
-
-## BUILD COMMANDS
-
-| Command | Description |
-|---------|-------------|
-| `nix develop` | Enter Nix dev shell with Node 20 + tools |
-| `npm run dev` | Dev server on port 5173 |
-| `npm run build:static` | Build static site → `dist-static/` |
-| `npm run preview` | Preview built site locally |
-| `npm run lint` | ESLint check |
-
----
-
-## PROJECT STRUCTURE
+## Project Structure
 
 ```
 reverb256.github.io/
-├── client/src/
-│   ├── components/     # React components
-│   │   └── ui/        # shadcn/ui primitives
-│   ├── pages/         # Route pages
-│   ├── App.tsx        # Root with providers
-│   └── main.tsx       # Entry point
-├── server/            # Dev server only (not deployed)
-├── .github/workflows/ # GitHub Pages CI/CD
-├── flake.nix          # NixOS dev environment
-└── vite.config.static.ts  # Production build config
+├── astro-portfolio/    # Main Astro website
+│   ├── src/            # Source code
+│   ├── tests/          # Playwright tests
+│   └── flake.nix       # NixOS dev environment
+├── .github/workflows/  # GitHub Actions
+└── CNAME               # Custom domain
 ```
 
----
+## Main Project
 
-## CODE STYLE
+See `astro-portfolio/AGENTS.md` for full documentation.
 
-### TypeScript
+## Commands
 
-```typescript
-// Props interface
-interface CardProps {
-  title: string;
-  description?: string;
-}
-
-// Functional component
-const Card: React.FC<CardProps> = ({ title, description }) => (
-  <article>...</article>
-);
-
-// Page component (default export)
-export default function Index() { ... }
-
-// Utility component (named export)
-export default Navbar;
+```bash
+cd astro-portfolio
+npm run dev      # Start dev server
+npm run build    # Build for production
+npm run preview  # Preview build
+npm run test     # Run Playwright tests
 ```
 
-### Imports
+## Deployment
 
-```typescript
-import React from "react";
-import { Link } from "react-router-dom";
-import Layout from "@/components/Layout";
-```
-
-### Styling
-
-```tsx
-// Tailwind + CSS variables
-<div className="min-h-screen bg-black" style={{ color: "var(--brand-primary)" }}>
-
-// BEM-like classes
-<span className="status-badge status-badge--production">
-```
-
-### Naming
-
-| Type | Convention |
-|------|------------|
-| Components | `PascalCase.tsx` |
-| Utilities | `camelCase.ts` |
-| CSS classes | `kebab-case` |
-| CSS variables | `--brand-primary` |
-
----
-
-## PATH ALIASES
-
-```
-@/*      → client/src/*
-@shared/* → shared/*
-```
-
----
-
-## DEPLOYMENT
-
-**Automatic:** Push to `main` → GitHub Actions builds and deploys to GitHub Pages.
-
-**Manual trigger:** Actions tab → "Deploy to GitHub Pages" → "Run workflow"
-
-**Custom domain:** CNAME file contains `reverb256.ca`
-
----
-
-## AI TUI WORKFLOW
-
-When working with OpenCode/Qwen:
-
-1. **Always** run `nix develop` first to ensure correct Node version
-2. **Always** verify build before committing: `npm run build:static`
-3. **Always** check diagnostics: `lsp_diagnostics` on changed files
-4. **Never** commit without user request
-5. **Never** use `as any` or `@ts-ignore`
-
----
-
-## ANTI-PATTERNS
-
-- NO `as any` / `@ts-ignore`
-- NO empty catch blocks
-- NO hardcoded data in components (use /api/* endpoints)
-- NO server code in static build
-
----
-
-## TECH STACK
-
-| Layer | Tech |
-|-------|------|
-| Frontend | React 18, TypeScript, Vite |
-| Styling | Tailwind CSS, shadcn/ui |
-| Dev Env | NixOS (flake.nix) |
-| Deploy | GitHub Pages |
-| CI/CD | GitHub Actions |
+Pushes to `main` trigger automatic deployment to GitHub Pages via `.github/workflows/deploy.yml`.

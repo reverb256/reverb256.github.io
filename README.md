@@ -1,21 +1,23 @@
 # Reverb256 Portfolio
 
-**[reverb256.ca](https://reverb256.ca)** — Full-stack developer portfolio with AI consciousness integration.
+Personal portfolio website built with Astro, GSAP, and Tailwind CSS.
 
 ## Quick Start
 
 ```bash
-# Enter NixOS dev environment
+cd astro-portfolio
+
+# Enter NixOS dev environment (optional)
 nix develop
 
 # Install dependencies
 npm ci
 
-# Start dev server (port 5173)
+# Start dev server
 npm run dev
 
 # Build for production
-npm run build:static
+npm run build
 
 # Preview production build
 npm run preview
@@ -23,73 +25,24 @@ npm run preview
 
 ## Tech Stack
 
-| Layer | Technology |
-|-------|------------|
-| Frontend | React 18, TypeScript, Vite, Tailwind CSS, shadcn/ui |
-| Backend | Node.js, Express (dev server only) |
-| State | TanStack Query |
-| Mobile | React Native (see `/mobile`) |
-| Deploy | GitHub Pages |
-| CI/CD | GitHub Actions |
-| Dev Env | NixOS (flake.nix) |
+- **Astro** - Static site generator
+- **GSAP** - Animations
+- **Tailwind CSS** - Styling
+- **Base24** - Color scheme
+- **NixOS** - Declarative development environment
+- **Playwright** - Cross-browser testing
 
-## Project Structure
+## Structure
 
 ```
-├── client/src/
-│   ├── components/     # UI components
-│   │   └── ui/        # shadcn/ui primitives
-│   ├── pages/         # Route pages
-│   ├── App.tsx        # Root component
-│   └── main.tsx       # Entry point
-├── server/            # Dev server (not deployed)
-├── mobile/            # React Native app
-├── .github/workflows/ # GitHub Pages CI/CD
-├── flake.nix          # NixOS dev environment
-└── vite.config.static.ts
+astro-portfolio/
+├── src/
+│   ├── layouts/    # Page layouts
+│   ├── pages/      # Routes
+│   └── styles/     # Global styles
+├── tests/          # Playwright tests
+└── public/         # Static assets
 ```
-
-## Deployment
-
-Push to `main` triggers automatic deployment to GitHub Pages via GitHub Actions.
-
-**Custom domain:** reverb256.ca (CNAME file)
-
-## Features
-
-- Dark glassmorphic theme with quantum gradients
-- Real-time API integration (consciousness metrics, system health)
-- Mobile-first responsive design
-- WCAG AAA accessibility compliance
-- 60fps animations with Framer Motion
-
-## Project Highlights
-
-### QuantumRhythm
-Multi-chain trading & forensic analysis platform with AI-powered insights.
-
-### AstralVibe.ca
-Personal AI agent running on Proxmox cluster with FOSS-first philosophy.
-
-### Local-Cleaning-Service
-PWA with advanced accessibility and AI orchestration.
-
-## API Endpoints
-
-| Endpoint | Description |
-|----------|-------------|
-| `/api/consciousness-live` | Real-time consciousness metrics |
-| `/api/system-health` | Server health and memory stats |
-| `/api/projects` | Dynamic project information |
-| `/api/health` | System health check |
-
-## Development
-
-For AI coding agents (OpenCode, Qwen, etc.), see [AGENTS.md](./AGENTS.md) for:
-- Build/lint commands
-- Code style guidelines
-- Path aliases
-- Anti-patterns
 
 ## License
 
