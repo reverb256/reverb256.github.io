@@ -93,52 +93,6 @@ const skills = ["TypeScript", "React", "Node.js", "NixOS", "Tailwind", "Astro", 
       </div>
     </div>
   </section>
-            <div class="flex gap-1 ml-2">
-              <button onclick="setTerminalMode('widget')" class="terminal-mode-btn p-1 transition-colors" style="color: var(--base05);" title="Widget Mode">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
-                  <rect x="3" y="3" width="7" height="7" rx="1" />
-                  <rect x="14" y="3" width="7" height="7" rx="1" />
-                  <rect x="3" y="14" width="7" height="7" rx="1" />
-                  <rect x="14" y="14" width="7" height="7" rx="1" />
-                </svg>
-              </button>
-              <button onclick="setTerminalMode('fullscreen')" class="terminal-mode-btn p-1 transition-colors" style="color: var(--base05);" title="Fullscreen Mode">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M8 3H5a2 2 0 0 0-2 2v3m10.29 3.29L9 13H5v8h8v-4l4.29-4.29m0 0a2 2 0 1 0 2.83 2.83 2 2 0 0 0-2.83-2.83z" />
-                  </svg>
-                </button>
-                <button onclick="setTerminalMode('pulldown')" class="terminal-mode-btn p-1 text-green-500 hover:text-green-300 transition-colors" title="Pulldown Mode">
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M19 13H5v-2h14v2z" />
-                  </svg>
-                </button>
-              </div>
-            </div>
-          
-          <!-- Terminal output -->
-          <div id="term-output" class="font-mono text-sm p-4 min-h-[320px] max-h-[400px] overflow-y-auto scrollbar-hide">
-            <p style="color: var(--base05);">Welcome to the R256 knowledge database.</p>
-            <p style="color: var(--base05);">Type <span class="font-bold" style="color: var(--base0D);">help</span> for commands.</p>
-          </div>
-          
-          <!-- Terminal input -->
-            <div class="flex items-center gap-2 px-4 py-3 border-t" style="border-color: var(--base03); background: var(--base01);">
-              <div class="font-mono text-sm" style="color: var(--base05);">
-                <span style="color: var(--base0D);">📁 ~/projects/reverb256</span>
-                <span> on </span>
-                <span style="color: var(--base0D);">main</span>
-                <span> [via </span>
-                <span style="color: var(--base0C);">❄️ nix</span>
-                <span>]</span>
-              </div>
-              <span class="font-mono text-sm" style="color: var(--base0D);">❯</span>
-              <input type="text" id="term-input" class="flex-grow bg-transparent border-none outline-none font-mono text-sm" style="color: var(--base06);" placeholder="Enter command..." autocomplete="off" spellcheck="false" />
-              <span id="term-cursor" class="w-2 h-4" style="background: var(--base0D);"></span>
-            </div>
-        </div>
-      </div>
-    </div>
-  </section>
 
   <!-- Projects -->
   <section id="projects" class="px-6 py-12">
@@ -171,7 +125,7 @@ const skills = ["TypeScript", "React", "Node.js", "NixOS", "Tailwind", "Astro", 
             Spent <span class="text-[var(--base09)]">15 years in food service</span> learning the value of hard work, teamwork, and showing up every day. Meanwhile, I was always curious about computers — <span class="text-[var(--base0D)]">20 years of tinkering, researching, and dabbling with Linux</span> on the side.
           </p>
           <p class="text-sm text-[var(--base05)] leading-relaxed mt-3">
-            6 months ago I switched to full-time Linux (NixOS). Now I'm pivoting to web development through <span class="text-[var(--base09)]">vibecoding</span> — using AI tools to accelerate my learning and build real projects.
+            6 months ago I switched to full-time Linux (NixOS). Now I'm pivoting to web development through <span class="text-[var(--base09)]">AI-assisted learning</span> — using AI tools to accelerate my learning and build real projects.
           </p>
           <p class="text-sm text-[var(--base05)] leading-relaxed mt-3">
             <strong>Looking for:</strong> Junior developer roles, apprenticeships, or any opportunity to learn and contribute.
@@ -246,10 +200,10 @@ const skills = ["TypeScript", "React", "Node.js", "NixOS", "Tailwind", "Astro", 
   let suggestionIndex = 0;
   
   function highlightSyntax(text) {
-    // Commands (green)
-    text = text.replace(/\b(help|list|read|random|search|clear|matrix|about)\b/g, '<span class="text-green-500">$1</span>');
-    // Arguments (cyan)
-    text = text.replace(/\[([^\]]+)\]/g, '<span class="text-cyan-400">[$1]</span>');
+    // Commands
+    text = text.replace(/\b(help|list|read|random|search|clear|matrix|about)\b/g, '<span style="color: var(--base0D);">$1</span>');
+    // Arguments
+    text = text.replace(/\[([^\]]+)\]/g, '<span style="color: var(--base0C);">[$1]</span>');
     return text;
   }
   
@@ -258,7 +212,7 @@ const skills = ["TypeScript", "React", "Node.js", "NixOS", "Tailwind", "Astro", 
       const suggestionText = currentSuggestion.substring(input.value.length);
       if (suggestionText) {
         const suggestionSpan = document.createElement('span');
-        suggestionSpan.className = 'text-gray-500 inline';
+        suggestionSpan.style.cssText = 'color: var(--base04); display: inline;';
         suggestionSpan.textContent = suggestionText;
         suggestionSpan.id = 'autocomplete-suggestion';
         
@@ -272,9 +226,9 @@ const skills = ["TypeScript", "React", "Node.js", "NixOS", "Tailwind", "Astro", 
     }
   }
   
-  function print(text, className = 'text-green-400') {
+  function print(text, style = 'color: var(--base0B);') {
     const line = document.createElement('div');
-    line.className = className + ' mt-1';
+    line.style.cssText = style + ' margin-top: 0.25rem;';
     line.innerHTML = highlightSyntax(text);
     output.appendChild(line);
     output.scrollTop = output.scrollHeight;
@@ -304,51 +258,46 @@ const skills = ["TypeScript", "React", "Node.js", "NixOS", "Tailwind", "Astro", 
     const [command, ...args] = cmd.trim().toLowerCase().split(/\s+/);
     const arg = args.join('_').toUpperCase();
     
-    print(`<span class="text-green-600">> ${cmd}</span>`);
+    print(`<span style="color: var(--base05);">> ${cmd}</span>`);
     
-    // Cursor blink during processing
-    cursor.classList.add('animate-pulse');
-    
-    await new Promise(r => setTimeout(r, 100 + Math.random() * 200));
+    await new Promise(r => setTimeout(r, 100));
     
     switch(command) {
       case 'help':
-        print(`<span class="text-green-300 mt-3">AVAILABLE COMMANDS:</span>
-  <span class="text-green-500">help</span>      - Display help
-  <span class="text-green-500">list</span>      - List all subjects
-  <span class="text-green-500">read [ID]</span> - Read subject file
-  <span class="text-green-500">random</span>    - Random subject
-  <span class="text-green-500">search [q]</span> - Search database
-  <span class="text-green-500">clear</span>     - Clear terminal
-  <span class="text-green-500">matrix</span>    - Easter egg
-  <span class="text-green-500">about</span>     - About system`);
+        print(`<span style="color: var(--base0D);">AVAILABLE COMMANDS:</span>
+  <span style="color: var(--base06);">help</span>      - Display help
+  <span style="color: var(--base06);">list</span>      - List all subjects
+  <span style="color: var(--base06);">read [ID]</span> - Read subject file
+  <span style="color: var(--base06);">random</span>    - Random subject
+  <span style="color: var(--base06);">search [q]</span> - Search database
+  <span style="color: var(--base06);">clear</span>     - Clear terminal
+  <span style="color: var(--base06);">matrix</span>    - Easter egg
+  <span style="color: var(--base06);">about</span>     - About system`);
         break;
         
       case 'list':
-        print(`<span class="text-green-300 mt-3">═══ DATABASE SUBJECTS ═══</span>`);
+        print(`<span style="color: var(--base0D);">DATABASE SUBJECTS</span>`);
         db.subjects.forEach(s => {
-          const color = s.classification === 'TOP SECRET' ? 'text-red-400' : 
-                       s.classification === 'RESTRICTED' ? 'text-yellow-400' : 'text-green-400';
-          print(`  <span class="text-green-500">${s.id}</span> - ${s.title} [<span class="${color}">${s.classification}</span>]`);
+          const color = s.classification === 'TOP SECRET' ? 'var(--base08)' : 
+                       s.classification === 'RESTRICTED' ? 'var(--base0A)' : 'var(--base0B)';
+          print(`  <span style="color: var(--base06);">${s.id}</span> - ${s.title} [<span style="color: ${color};">${s.classification}</span>]`);
         });
         break;
         
       case 'read':
         if (!arg) {
-          print(`<span class="text-red-400">ERROR: Specify ID. Usage: read [ID]</span>`);
+          print(`<span style="color: var(--base08);">ERROR: Specify ID. Usage: read [ID]</span>`);
           break;
         }
         const subject = db.subjects.find(s => s.id === arg);
         if (!subject) {
-          print(`<span class="text-red-400">ERROR: '${arg}' not found</span>`);
+          print(`<span style="color: var(--base08);">ERROR: '${arg}' not found</span>`);
           break;
         }
-        const border = subject.classification === 'TOP SECRET' ? 'red' : 'green';
-        print(`<span class="text-${border}-500 mt-3">╔══════════════════════════════════════╗</span>`);
-        print(`<span class="text-green-300">  SUBJECT: ${subject.title}</span>`);
-        print(`<span class="text-green-300">  ID: ${subject.id} | ${subject.category}</span>`);
-        print(`<span class="text-${border}-500">  CLASS: ${subject.classification}</span>`);
-        print(`<span class="text-${border}-500">╚══════════════════════════════════════╝</span>`);
+        const border = subject.classification === 'TOP SECRET' ? 'var(--base08)' : 'var(--base0D)';
+        print(`<span style="color: ${border};">SUBJECT: ${subject.title}</span>`);
+        print(`<span style="color: var(--base05);">ID: ${subject.id} | ${subject.category}</span>`);
+        print(`<span style="color: ${border};">CLASS: ${subject.classification}</span>`);
         subject.content.forEach(line => print(`  ${line}`));
         break;
         
@@ -359,7 +308,7 @@ const skills = ["TypeScript", "React", "Node.js", "NixOS", "Tailwind", "Astro", 
         
       case 'search':
         if (!arg) {
-          print(`<span class="text-red-400">Usage: search [query]</span>`);
+          print(`<span style="color: var(--base0A);">Usage: search [query]</span>`);
           break;
         }
         const results = db.subjects.filter(s => 
@@ -367,24 +316,20 @@ const skills = ["TypeScript", "React", "Node.js", "NixOS", "Tailwind", "Astro", 
           s.content.some(c => c.toLowerCase().includes(arg.toLowerCase()))
         );
         if (results.length === 0) {
-          print(`<span class="text-yellow-400">No results for '${arg}'</span>`);
+          print(`<span style="color: var(--base0A);">No results for '${arg}'</span>`);
         } else {
-          print(`<span class="text-green-300 mt-3">Found ${results.length} result(s):</span>`);
-          results.forEach(s => print(`  <span class="text-green-500">${s.id}</span> - ${s.title}`));
+          print(`<span style="color: var(--base0D);">Found ${results.length} result(s):</span>`);
+          results.forEach(s => print(`  <span style="color: var(--base06);">${s.id}</span> - ${s.title}`));
         }
         break;
         
       case 'matrix':
-        print(`<span class="text-green-400 mt-3">Wake up, Neo...</span>`);
-        print(`<span class="text-green-500">The Matrix has you...</span>`);
-        setTimeout(() => {
-          document.body.style.animation = 'matrixRain 0.5s ease-out';
-          setTimeout(() => document.body.style.animation = '', 500);
-        }, 1000);
+        print(`<span style="color: var(--base0B);">Wake up, Neo...</span>`);
+        print(`<span style="color: var(--base0B);">The Matrix has you...</span>`);
         break;
         
       case 'about':
-        print(`<span class="text-green-300 mt-3">REVERB256 DATABASE TERMINAL</span>
+        print(`<span style="color: var(--base0D);">REVERB256 DATABASE TERMINAL</span>
 Version: 2.56.0
 Build: 2026.02.17
 Engine: Astro + Vanilla JS
@@ -393,7 +338,7 @@ Purpose: Knowledge repository`);
         break;
         
       case 'clear':
-        output.innerHTML = `<pre class="text-green-500 opacity-80 text-xs">
+        output.innerHTML = `<pre style="color: var(--base0B); opacity: 0.8; font-size: 0.75rem;">
 ╔═══════════════════════════════════════════════════════════╗
 ║     ██╗███████╗███████╗████████╗██████╗  █████╗ ██╗      ║
 ║     ██║██╔════╝██╔════╝╚══██╔══╝██╔══██╗██╔══██╗██║      ║
@@ -402,15 +347,13 @@ Purpose: Knowledge repository`);
 ║╚█████╔╝███████╗███████║   ██║   ██║  ██║██║  ██║███████╗ ║
 ║ ╚════╝ ╚══════╝╚══════╝   ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝ ║
 ╚═══════════════════════════════════════════════════════════╝</pre>
-<p class="mt-3 text-green-300">Terminal cleared. Type <span class="text-green-400">help</span>.</p>`;
+<p style="margin-top: 0.75rem; color: var(--base05);">Terminal cleared. Type <span style="color: var(--base0B);">help</span>.</p>`;
         break;
         
       default:
-        print(`<span class="text-red-400">UNKNOWN: '${command}'</span>`);
-        print(`<span class="text-green-300">Type 'help' for commands.</span>`);
+        print(`<span style="color: var(--base08);">UNKNOWN: '${command}'</span>`);
+        print(`<span style="color: var(--base05);">Type 'help' for commands.</span>`);
     }
-    
-    cursor.classList.remove('animate-pulse');
   };
   
   input.addEventListener('keydown', (e) => {
@@ -443,17 +386,17 @@ Purpose: Knowledge repository`);
   // Boot sequence
   setTimeout(() => {
     const bootLine1 = document.createElement('div');
-    bootLine1.className = 'text-green-500 mt-2';
+    bootLine1.style.cssText = 'color: var(--base0B); margin-top: 0.5rem;';
     bootLine1.textContent = '> System initialized';
     output.appendChild(bootLine1);
-    
+
     const bootLine2 = document.createElement('div');
-    bootLine2.className = 'text-green-500';
+    bootLine2.style.cssText = 'color: var(--base0B);';
     bootLine2.textContent = `> Database loaded: ${db.subjects.length} subjects`;
     output.appendChild(bootLine2);
-    
+
     const bootLine3 = document.createElement('div');
-    bootLine3.className = 'text-green-500';
+    bootLine3.style.cssText = 'color: var(--base0B);';
     bootLine3.textContent = `> Classification levels: ${db.classifications.join(', ')}`;
     output.appendChild(bootLine3);
     
@@ -477,50 +420,24 @@ Purpose: Knowledge repository`);
   }
   
   #term-wrapper {
-    box-shadow: 
-      0 0 60px rgba(0, 255, 100, 0.25),
-      0 0 120px rgba(0, 255, 100, 0.1),
-      inset 0 0 60px rgba(0, 255, 100, 0.05);
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
     transition: box-shadow 0.3s ease;
   }
   
   #term-wrapper:hover {
-    box-shadow: 
-      0 0 80px rgba(0, 255, 100, 0.35),
-      0 0 160px rgba(0, 255, 100, 0.15),
-      inset 0 0 80px rgba(0, 255, 100, 0.08);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
   }
   
-  #term-input::placeholder { color: rgba(0, 255, 100, 0.3); }
+  #term-input::placeholder { 
+    color: var(--base04); 
+  }
   
-  #term-output::-webkit-scrollbar { width: 4px; }
-  #term-output::-webkit-scrollbar-track { background: rgba(0, 50, 0, 0.3); }
-  #term-output::-webkit-scrollbar-thumb { background: rgba(0, 255, 100, 0.3); border-radius: 2px; }
-  
-  /* Responsive font sizes */
   #term-output {
-    font-size: clamp(0.875rem, 1.2vw, 1.125rem);
+    font-size: clamp(0.875rem, 1.2vw, 1rem);
   }
   
   #term-input {
-    font-size: clamp(0.875rem, 1.2vw, 1.125rem);
-  }
-  
-  /* Terminal mode transitions */
-  .terminal-mode-btn {
-    transition: color 0.2s ease;
-  }
-  
-  #term-wrapper.widget {
-    transition: all 0.3s ease;
-  }
-  
-  #term-wrapper.fullscreen {
-    transition: all 0.3s ease;
-  }
-  
-  #term-wrapper.pulldown {
-    transition: all 0.3s ease;
+    font-size: clamp(0.875rem, 1.2vw, 1rem);
   }
   
   /* Pulldown mode animation */
