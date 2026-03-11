@@ -244,20 +244,24 @@ const ogImage = new URL(image, Astro.site).href;
         "fade-in": { scale: 0.95, opacity: 0, duration: 0.4, ease: "power2.out" },
         "slide-right": { x: -40, opacity: 0, duration: 0.6, ease: "power2.out" },
       };
-      
+
       function isInViewport(el: Element): boolean {
         const rect = el.getBoundingClientRect();
         return rect.top < window.innerHeight && rect.bottom > 0;
       }
-      
+
+      // Process data-animate elements
       document.querySelectorAll("[data-animate]").forEach((el, index) => {
         const type = el.getAttribute("data-animate") as keyof typeof animationConfig;
         const delay = parseFloat(el.getAttribute("data-delay") || "0");
         const config = animationConfig[type] || animationConfig["fade-up"];
-        
+
         if (isInViewport(el)) {
-          gsap.from(el, { ...config, delay });
+          // Element already in viewport: set initial state, then animate to final
+          gsap.set(el, { y: config.y || 0, x: config.x || 0, scale: config.scale || 1, opacity: 0 });
+          gsap.to(el, { y: 0, x: 0, scale: 1, opacity: 1, duration: config.duration, ease: config.ease, delay });
         } else {
+          // Element below fold: use scrollTrigger
           gsap.from(el, {
             ...config,
             delay: delay + index * 0.05,
@@ -265,17 +269,33 @@ const ogImage = new URL(image, Astro.site).href;
           });
         }
       });
-      
+
+      // Process data-stagger containers
       document.querySelectorAll("[data-stagger]").forEach((container) => {
         const items = container.querySelectorAll("[data-stagger-item]");
-        gsap.from(items, {
-          y: 60,
-          opacity: 0,
-          duration: 0.8,
-          stagger: 0.1,
-          ease: "power3.out",
-          scrollTrigger: { trigger: container, start: "top 80%", once: true },
-        });
+
+        // Check if container is already in viewport
+        if (isInViewport(container)) {
+          // Set initial state and animate immediately
+          gsap.set(items, { y: 60, opacity: 0 });
+          gsap.to(items, {
+            y: 0,
+            opacity: 1,
+            duration: 0.8,
+            stagger: 0.1,
+            ease: "power3.out",
+          });
+        } else {
+          // Use scrollTrigger for off-screen containers
+          gsap.from(items, {
+            y: 60,
+            opacity: 0,
+            duration: 0.8,
+            stagger: 0.1,
+            ease: "power3.out",
+            scrollTrigger: { trigger: container, start: "top 80%", once: true },
+          });
+        }
       });
 
       // Section beat markers (rhythm game-inspired scroll feedback)
