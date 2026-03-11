@@ -125,205 +125,215 @@ const ogImage = new URL(image, Astro.site).href;
     <script>
       import gsap from "gsap";
       import { ScrollTrigger } from "gsap/ScrollTrigger";
-      
+
       gsap.registerPlugin(ScrollTrigger);
-      
-      // Background glows use CSS keyframes (see global.css) for better Firefox support
-      
-      // Cursor glow follower
-      const cursorGlow = document.getElementById("cursor-glow");
-      let mouseX = 0, mouseY = 0, glowX = 0, glowY = 0;
-      
-      document.addEventListener("mousemove", (e) => {
-        mouseX = e.clientX;
-        mouseY = e.clientY;
-        if (cursorGlow) cursorGlow.style.opacity = "1";
+
+      // Wait for DOM to be fully ready before initializing animations
+      document.addEventListener('DOMContentLoaded', () => {
+        // Small delay to ensure all rendering is complete
+        setTimeout(initAnimations, 100);
       });
-      
-      document.addEventListener("mouseleave", () => {
-        if (cursorGlow) cursorGlow.style.opacity = "0";
-      });
-      
-      function animateCursor() {
-        glowX += (mouseX - glowX - 150) * 0.08;
-        glowY += (mouseY - glowY - 150) * 0.08;
-        if (cursorGlow) {
-          cursorGlow.style.transform = `translate(${glowX}px, ${glowY}px)`;
+
+      function initAnimations() {
+
+        // Background glows use CSS keyframes (see global.css) for better Firefox support
+
+        // Cursor glow follower
+        const cursorGlow = document.getElementById("cursor-glow");
+        let mouseX = 0, mouseY = 0, glowX = 0, glowY = 0;
+
+        document.addEventListener("mousemove", (e) => {
+          mouseX = e.clientX;
+          mouseY = e.clientY;
+          if (cursorGlow) cursorGlow.style.opacity = "1";
+        });
+
+        document.addEventListener("mouseleave", () => {
+          if (cursorGlow) cursorGlow.style.opacity = "0";
+        });
+
+        function animateCursor() {
+          glowX += (mouseX - glowX - 150) * 0.08;
+          glowY += (mouseY - glowY - 150) * 0.08;
+          if (cursorGlow) {
+            cursorGlow.style.transform = `translate(${glowX}px, ${glowY}px)`;
+          }
+          requestAnimationFrame(animateCursor);
         }
-        requestAnimationFrame(animateCursor);
-      }
-      animateCursor();
-      
-      // Particles
-      const canvas = document.getElementById("particles") as HTMLCanvasElement;
-      const ctx = canvas?.getContext("2d");
-      let particles: Array<{x: number; y: number; vx: number; vy: number; size: number; alpha: number}> = [];
-      
-      function resizeCanvas() {
-        if (canvas) {
-          canvas.width = window.innerWidth;
-          canvas.height = window.innerHeight;
+        animateCursor();
+
+        // Particles
+        const canvas = document.getElementById("particles") as HTMLCanvasElement;
+        const ctx = canvas?.getContext("2d");
+        let particles: Array<{x: number; y: number; vx: number; vy: number; size: number; alpha: number}> = [];
+
+        function resizeCanvas() {
+          if (canvas) {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+          }
         }
-      }
-      resizeCanvas();
-      window.addEventListener("resize", resizeCanvas);
-      
-      function createParticle() {
-        return {
-          x: Math.random() * (canvas?.width || 0),
-          y: Math.random() * (canvas?.height || 0),
-          vx: (Math.random() - 0.5) * 0.3,
-          vy: (Math.random() - 0.5) * 0.3,
-          size: Math.random() * 2 + 0.5,
-          alpha: Math.random() * 0.5 + 0.1
+        resizeCanvas();
+        window.addEventListener("resize", resizeCanvas);
+
+        function createParticle() {
+          return {
+            x: Math.random() * (canvas?.width || 0),
+            y: Math.random() * (canvas?.height || 0),
+            vx: (Math.random() - 0.5) * 0.3,
+            vy: (Math.random() - 0.5) * 0.3,
+            size: Math.random() * 2 + 0.5,
+            alpha: Math.random() * 0.5 + 0.1
+          };
+        }
+
+        for (let i = 0; i < 25; i++) particles.push(createParticle());
+
+        function animateParticles() {
+          if (!ctx || !canvas) return;
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+          particles.forEach(p => {
+            p.x += p.vx;
+            p.y += p.vy;
+
+            if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+            if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(255, 255, 255, ${p.alpha})`;
+            ctx.fill();
+          });
+
+          requestAnimationFrame(animateParticles);
+        }
+        animateParticles();
+
+        // Interaction tracking for combo system
+        let interactionCombo = 0;
+
+        // Track mouse position for radial gradient effects (mouseX, mouseY already declared above)
+        document.addEventListener('mousemove', (e) => {
+          mouseX = e.clientX;
+          mouseY = e.clientY;
+
+          // Update mouse position CSS variables for all bento items
+          document.querySelectorAll('.bento-item').forEach(item => {
+            (item as HTMLElement).style.setProperty('--mouse-x', `${mouseX}px`);
+            (item as HTMLElement).style.setProperty('--mouse-y', `${mouseY}px`);
+          });
+        });
+
+        // Combo system for interactions (rhythm game inspired)
+        document.querySelectorAll('.bento-item').forEach(card => {
+          card.addEventListener('mouseenter', () => {
+            interactionCombo++;
+
+            // Celebrate every 5 interactions
+            if (interactionCombo % 5 === 0 && interactionCombo > 0) {
+              showComboMilestone(interactionCombo);
+            }
+          });
+        });
+
+        function showComboMilestone(combo: number) {
+          const milestone = document.createElement('div');
+          milestone.className = 'combo-milestone';
+          milestone.textContent = `${combo}x COMBO!`;
+          document.body.appendChild(milestone);
+
+          setTimeout(() => milestone.remove(), 1500);
+        }
+
+        // Element animations with Hoyoverse timing
+        const animationConfig = {
+          "fade-up": { y: 40, opacity: 0, duration: 0.6, ease: "power2.out" },  // Faster, more responsive
+          "fade-in": { scale: 0.95, opacity: 0, duration: 0.4, ease: "power2.out" },
+          "slide-right": { x: -40, opacity: 0, duration: 0.6, ease: "power2.out" },
         };
-      }
-      
-      for (let i = 0; i < 25; i++) particles.push(createParticle());
-      
-      function animateParticles() {
-        if (!ctx || !canvas) return;
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        
-        particles.forEach(p => {
-          p.x += p.vx;
-          p.y += p.vy;
-          
-          if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
-          if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
-          
-          ctx.beginPath();
-          ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(255, 255, 255, ${p.alpha})`;
-          ctx.fill();
-        });
-        
-        requestAnimationFrame(animateParticles);
-      }
-      animateParticles();
-      
-      // Interaction tracking for combo system
-      let interactionCombo = 0;
 
-      // Track mouse position for radial gradient effects (mouseX, mouseY already declared above)
-      document.addEventListener('mousemove', (e) => {
-        mouseX = e.clientX;
-        mouseY = e.clientY;
-
-        // Update mouse position CSS variables for all bento items
-        document.querySelectorAll('.bento-item').forEach(item => {
-          (item as HTMLElement).style.setProperty('--mouse-x', `${mouseX}px`);
-          (item as HTMLElement).style.setProperty('--mouse-y', `${mouseY}px`);
-        });
-      });
-
-      // Combo system for interactions (rhythm game inspired)
-      document.querySelectorAll('.bento-item').forEach(card => {
-        card.addEventListener('mouseenter', () => {
-          interactionCombo++;
-
-          // Celebrate every 5 interactions
-          if (interactionCombo % 5 === 0 && interactionCombo > 0) {
-            showComboMilestone(interactionCombo);
-          }
-        });
-      });
-
-      function showComboMilestone(combo: number) {
-        const milestone = document.createElement('div');
-        milestone.className = 'combo-milestone';
-        milestone.textContent = `${combo}x COMBO!`;
-        document.body.appendChild(milestone);
-
-        setTimeout(() => milestone.remove(), 1500);
-      }
-
-      // Element animations with Hoyoverse timing
-      const animationConfig = {
-        "fade-up": { y: 40, opacity: 0, duration: 0.6, ease: "power2.out" },  // Faster, more responsive
-        "fade-in": { scale: 0.95, opacity: 0, duration: 0.4, ease: "power2.out" },
-        "slide-right": { x: -40, opacity: 0, duration: 0.6, ease: "power2.out" },
-      };
-
-      function isInViewport(el: Element): boolean {
-        const rect = el.getBoundingClientRect();
-        return rect.top < window.innerHeight && rect.bottom > 0;
-      }
-
-      // Process data-animate elements
-      document.querySelectorAll("[data-animate]").forEach((el, index) => {
-        const type = el.getAttribute("data-animate") as keyof typeof animationConfig;
-        const delay = parseFloat(el.getAttribute("data-delay") || "0");
-        const config = animationConfig[type] || animationConfig["fade-up"];
-
-        if (isInViewport(el)) {
-          // Element already in viewport: set initial state, then animate to final
-          gsap.set(el, { y: config.y || 0, x: config.x || 0, scale: config.scale || 1, opacity: 0 });
-          gsap.to(el, { y: 0, x: 0, scale: 1, opacity: 1, duration: config.duration, ease: config.ease, delay });
-        } else {
-          // Element below fold: use scrollTrigger
-          gsap.from(el, {
-            ...config,
-            delay: delay + index * 0.05,
-            scrollTrigger: { trigger: el, start: "top 85%", once: true },
-          });
+        function isInViewport(el: Element): boolean {
+          const rect = el.getBoundingClientRect();
+          return rect.top < window.innerHeight && rect.bottom > 0;
         }
-      });
 
-      // Process data-stagger containers
-      document.querySelectorAll("[data-stagger]").forEach((container) => {
-        const items = container.querySelectorAll("[data-stagger-item]");
+        // Process data-animate elements
+        document.querySelectorAll("[data-animate]").forEach((el, index) => {
+          const type = el.getAttribute("data-animate") as keyof typeof animationConfig;
+          const delay = parseFloat(el.getAttribute("data-delay") || "0");
+          const config = animationConfig[type] || animationConfig["fade-up"];
 
-        // Check if container is already in viewport
-        if (isInViewport(container)) {
-          // Set initial state and animate immediately
-          gsap.set(items, { y: 60, opacity: 0 });
-          gsap.to(items, {
-            y: 0,
-            opacity: 1,
-            duration: 0.8,
-            stagger: 0.1,
-            ease: "power3.out",
-          });
-        } else {
-          // Use scrollTrigger for off-screen containers
-          gsap.from(items, {
-            y: 60,
-            opacity: 0,
-            duration: 0.8,
-            stagger: 0.1,
-            ease: "power3.out",
-            scrollTrigger: { trigger: container, start: "top 80%", once: true },
-          });
-        }
-      });
-
-      // Section beat markers (rhythm game-inspired scroll feedback)
-      const sections = document.querySelectorAll('section[id]');
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('section-active');
-
-            // Add "beat hit" visual on beat indicators
-            const indicator = entry.target.querySelector('.beat-indicator');
-            if (indicator) {
-              indicator.classList.add('active', 'hit');
-              setTimeout(() => indicator.classList.remove('hit'), 300);
-            }
+          if (isInViewport(el)) {
+            // Element already in viewport: set initial state, then animate to final
+            gsap.set(el, { y: config.y || 0, x: config.x || 0, scale: config.scale || 1, opacity: 0 });
+            gsap.to(el, { y: 0, x: 0, scale: 1, opacity: 1, duration: config.duration, ease: config.ease, delay: delay + 0.1 });
           } else {
-            entry.target.classList.remove('section-active');
-            const indicator = entry.target.querySelector('.beat-indicator');
-            if (indicator) {
-              indicator.classList.remove('active');
-            }
+            // Element below fold: use scrollTrigger
+            gsap.from(el, {
+              ...config,
+              delay: delay + index * 0.05,
+              scrollTrigger: { trigger: el, start: "top 85%", once: true },
+            });
           }
         });
-      }, { threshold: 0.3 });
 
-      sections.forEach(section => {
-        observer.observe(section);
-      });
+        // Process data-stagger containers
+        document.querySelectorAll("[data-stagger]").forEach((container) => {
+          const items = container.querySelectorAll("[data-stagger-item]");
+
+          // Check if container is already in viewport
+          if (isInViewport(container)) {
+            // Set initial state and animate immediately
+            gsap.set(items, { y: 60, opacity: 0 });
+            gsap.to(items, {
+              y: 0,
+              opacity: 1,
+              duration: 0.8,
+              stagger: 0.1,
+              ease: "power3.out",
+              delay: 0.1
+            });
+          } else {
+            // Use scrollTrigger for off-screen containers
+            gsap.from(items, {
+              y: 60,
+              opacity: 0,
+              duration: 0.8,
+              stagger: 0.1,
+              ease: "power3.out",
+              scrollTrigger: { trigger: container, start: "top 80%", once: true },
+            });
+          }
+        });
+
+        // Section beat markers (rhythm game-inspired scroll feedback)
+        const sections = document.querySelectorAll('section[id]');
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('section-active');
+
+              // Add "beat hit" visual on beat indicators
+              const indicator = entry.target.querySelector('.beat-indicator');
+              if (indicator) {
+                indicator.classList.add('active', 'hit');
+                setTimeout(() => indicator.classList.remove('hit'), 300);
+              }
+            } else {
+              entry.target.classList.remove('section-active');
+              const indicator = entry.target.querySelector('.beat-indicator');
+              if (indicator) {
+                indicator.classList.remove('active');
+              }
+            }
+          });
+        }, { threshold: 0.3 });
+
+        sections.forEach(section => {
+          observer.observe(section);
+        });
+      }
     </script>
   </body>
 </html>
