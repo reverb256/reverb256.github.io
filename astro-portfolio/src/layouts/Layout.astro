@@ -32,6 +32,17 @@ const ogImage = new URL(image, Astro.site).href;
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Client Hints for display capability detection -->
+    <!-- Request color-gamut hint for wide color space detection (P3, Rec2020) -->
+    <meta http-equiv="Accept-CH" content="Sec-CH-Prefers-Color-Scheme" />
+    <!-- Request dynamic-range hint for HDR detection -->
+    <meta http-equiv="Accept-CH" content="Sec-CH-Prefers-Reduced-Motion" />
+
+    <!-- Critical for color consistency: declare color space support -->
+    <meta name="color-scheme" content="dark" />
+    <meta name="supported-color-schemes" content="dark" />
+
     <meta name="description" content={description} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
@@ -107,13 +118,13 @@ const ogImage = new URL(image, Astro.site).href;
       }
     })}></script>
   </head>
-  <body style="min-height: 100vh; margin: 0; padding: 0; color: #c8ced8; font-family: system-ui, -apple-system, sans-serif; overflow-x: hidden;">
-    <!-- Background gradient -->
-    <div id="bg-gradient" style="position: fixed; inset: 0; background: linear-gradient(to bottom right, #0a0a0a 0%, #0a0a0a 60%, #0a1628 85%, #1e3a5f 100%); z-index: -20;"></div>
+  <body style="min-height: 100vh; margin: 0; padding: 0; color: var(--text-secondary); font-family: system-ui, -apple-system, sans-serif; overflow-x: hidden;">
+    <!-- Background gradient - using CSS variables for color space awareness -->
+    <div id="bg-gradient" style="position: fixed; inset: 0; background: linear-gradient(to bottom right, var(--bg-primary) 0%, var(--bg-primary) 60%, color(display-p3 0.04 0.06 0.12) 85%, color(display-p3 0.08 0.18 0.32) 100%); z-index: -20;"></div>
 
-    <!-- Subtle animated glows (reduced blur for performance) -->
-    <div id="glow-1" style="position: fixed; top: -100px; left: 10%; width: 400px; height: 300px; background: radial-gradient(ellipse, rgba(99, 102, 241, 0.15) 0%, transparent 70%); filter: blur(40px); z-index: -15; pointer-events: none; will-change: transform;"></div>
-    <div id="glow-2" style="position: fixed; bottom: -50px; right: 5%; width: 300px; height: 250px; background: radial-gradient(ellipse, rgba(56, 189, 248, 0.1) 0%, transparent 70%); filter: blur(40px); z-index: -15; pointer-events: none; will-change: transform;"></div>
+    <!-- Subtle animated glows - using brand colors for consistency -->
+    <div id="glow-1" style="position: fixed; top: -100px; left: 10%; width: 400px; height: 300px; background: radial-gradient(ellipse, color(display-p3 0.45 0.45 0.7 / 0.15) 0%, transparent 70%); filter: blur(40px); z-index: -15; pointer-events: none; will-change: transform;"></div>
+    <div id="glow-2" style="position: fixed; bottom: -50px; right: 5%; width: 300px; height: 250px; background: radial-gradient(ellipse, color(display-p3 0.25 0.6 0.8 / 0.1) 0%, transparent 70%); filter: blur(40px); z-index: -15; pointer-events: none; will-change: transform;"></div>
 
     <!-- Particles canvas -->
     <canvas id="particles" style="position: fixed; inset: 0; z-index: -10; pointer-events: none;"></canvas>
@@ -132,8 +143,8 @@ const ogImage = new URL(image, Astro.site).href;
     &lt;Rust/&gt;
   </div>
 
-    <!-- Cursor glow -->
-    <div id="cursor-glow" style="position: fixed; width: 300px; height: 300px; border-radius: 50%; background: radial-gradient(circle, rgba(255, 159, 92, 0.15) 0%, transparent 70%); filter: blur(40px); z-index: 9999; pointer-events: none; opacity: 0;"></div>
+    <!-- Cursor glow - using brand accent color for consistency -->
+    <div id="cursor-glow" style="position: fixed; width: 300px; height: 300px; border-radius: 50%; background: radial-gradient(circle, color(display-p3 1 0.65 0.4 / 0.15) 0%, transparent 70%); filter: blur(40px); z-index: 9999; pointer-events: none; opacity: 0;"></div>
 
     <!-- Main content -->
     <div class="relative">

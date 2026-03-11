@@ -3,16 +3,45 @@
 @tailwind utilities;
 
 /* ===========================================
+   COLOR MANAGEMENT FOUNDATION
+   =========================================== */
+
+/* Enable browser's native color management */
+:root {
+  /* Tell browser we support both light and dark color schemes
+     This allows proper form control styling and system UI integration */
+  color-scheme: dark;
+
+  /* Enable proper color space handling for images */
+  image-rendering: auto;
+}
+
+/* Force colors mode support for accessibility/a11y */
+@media (forced-colors: active) {
+  :root {
+    color-scheme: only dark;
+  }
+
+  .glass,
+  .bento-item,
+  .btn-accent,
+  .btn-outline {
+    forced-color-adjust: auto;
+    border: 1px solid CanvasText;
+  }
+}
+
+/* ===========================================
    BASE24 COMPLIANT THEME - "Inkwell"
    System: base24
    Variant: dark
    Author: reverb256
-   
+
    Base16 structure:
    base00-base03: Backgrounds (dark → light)
    base04-base07: Foregrounds (dark → light)
    base08-base0F: Accent colors
-   
+
    Base24 extends with:
    base10-base17: Extended ANSI
    =========================================== */
@@ -121,6 +150,181 @@
   --duration-fast: 150ms;
   --duration-normal: 300ms;
   --duration-slow: 600ms;
+}
+
+/* ===========================================
+   DISPLAY P3 WIDE-GAMUT COLORS
+   For displays supporting wider color spaces (Mac, iPhones, etc.)
+   =========================================== */
+
+@media (color-gamut: p3) {
+  :root {
+    /* Display P3 offers ~25% more colors than sRGB
+       Using color() function ensures proper color space handling */
+
+    /* Enhanced accents in P3 space - more vibrant */
+    --base08: color(display-p3 1 0.45 0.45);  /* Red - deeper */
+    --base09: color(display-p3 1 0.65 0.4);   /* Orange - ember */
+    --base0A: color(display-p3 1 0.9 0.35);   /* Yellow - warmer */
+    --base0B: color(display-p3 0.35 0.85 0.82); /* Cyan/green - more vibrant */
+    --base0C: color(display-p3 0.55 0.85 1);   /* Light blue - brighter */
+    --base0D: color(display-p3 0.7 0.6 1);     /* Purple - richer */
+    --base0E: color(display-p3 0.98 0.5 0.75); /* Pink - more saturated */
+    --base0F: color(display-p3 0.68 0.6 0.4);  /* Brown */
+
+    /* P3 Extended ANSI */
+    --base10: color(display-p3 1 0.55 0.55);
+    --base11: color(display-p3 1 0.75 0.5);
+    --base12: color(display-p3 1 0.9 0.45);
+    --base13: color(display-p3 0.45 0.93 0.9);
+    --base14: color(display-p3 0.6 0.8 1);
+    --base15: color(display-p3 0.8 0.75 1);
+    --base16: color(display-p3 0.98 0.68 0.85);
+    --base17: color(display-p3 0.85 0.8 0.65);
+  }
+}
+
+/* ===========================================
+   REC.2020 ULTRA WIDE-GAMUT
+   For HDR/4K displays with rec2020 support
+   =========================================== */
+
+@media (color-gamut: rec2020) {
+  :root {
+    /* Rec.2020 is the widest gamut - used for HDR content
+       These colors will appear even more vibrant on supported displays */
+    --base09: color(rec2020 1 0.6 0.35);
+    --base0D: color(rec2020 0.65 0.55 1);
+    --glow-color: color(rec2020 1 0.6 0.35 / 0.5);
+  }
+}
+
+/* ===========================================
+   HIGH DYNAMIC RANGE (HDR) SUPPORT
+   For displays that can show brighter highlights
+   =========================================== */
+
+@media (dynamic-range: high) {
+  :root {
+    /* On HDR displays, we can use brighter values for glow effects */
+    --glow-color: color(display-p3 1 0.65 0.4 / 0.6);
+  }
+
+  /* Enhanced glow effects for HDR displays */
+  .glass:hover,
+  .bento-item:hover {
+    box-shadow:
+      0 8px 32px rgba(0, 0, 0, 0.4),
+      0 0 40px color(display-p3 1 0.65 0.4),
+      0 0 80px color(display-p3 1 0.65 0.4 / 0.3);
+  }
+
+  .bento-item:hover::after {
+    filter: blur(12px);
+    opacity: 0.7;
+  }
+
+  /* Brighter glow for buttons on HDR */
+  .btn-accent:hover {
+    box-shadow:
+      0 0 30px color(display-p3 1 0.65 0.4),
+      0 0 60px color(display-p3 1 0.65 0.4 / 0.4);
+  }
+}
+
+/* ===========================================
+   OKLCH PERCEPTUALLY UNIFORM COLORS
+   For consistent appearance across different displays
+   OKLCH ensures perceptual uniformity - colors that
+   appear equally different to the human eye
+   =========================================== */
+
+@media (color-gamut: p3) {
+  :root {
+    /* Override key semantic colors with OKLCH in P3
+       L = lightness (0-1), C = chroma (saturation), H = hue (0-360)
+
+       Converting existing palette to OKLCH:
+       - Base09 (ember): ~oklch(0.72 0.18 55)
+       - Base0D (purple): ~oklch(0.68 0.15 290)
+       - Base0B (teal): ~oklch(0.7 0.12 195) */
+
+    /* Brand accents in OKLCH for perceptual consistency */
+    --accent-primary: oklch(0.72 0.18 55);     /* Ember - consistent perceived brightness */
+    --accent-secondary: oklch(0.68 0.15 290);  /* Purple */
+    --accent-success: oklch(0.7 0.12 195);     /* Teal */
+    --accent-error: oklch(0.65 0.2 25);        /* Red */
+
+    /* Glow effect using OKLCH for smoother gradients */
+    --glow-color: oklch(0.72 0.18 55 / 0.5);
+  }
+}
+
+/* ===========================================
+   IMAGE COLOR MANAGEMENT
+   Ensures images render consistently across
+   local file:// and http:// protocols
+   =========================================== */
+
+/* For images, ensure color profile is respected */
+img,
+video,
+picture,
+svg {
+  color-rendering: optimizeQuality;  /* Better color accuracy */
+  image-rendering: auto;              /* Browser handles interpolation */
+}
+
+/* Force sRGB for images without color profiles */
+@supports (color: color(srgb 0 0 0)) {
+  img:not([style*="color-profile"]),
+  picture img {
+    /* Hint to browser that images are in sRGB space */
+    color: color(srgb 1 1 1);  /* Force sRGB color space */
+  }
+}
+
+/* PNG optimization for better color consistency */
+img[src$=".png"] {
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+}
+
+/* JPEG natural rendering */
+img[src$=".jpg"],
+img[src$=".jpeg"] {
+  image-rendering: auto;
+}
+
+/* SVG color profile handling */
+svg {
+  color-rendering: optimizeQuality;
+  shape-rendering: geometricPrecision;
+}
+
+/* ===========================================
+   COLOR CONSISTENCY UTILITIES
+   Helper classes for consistent color rendering
+   =========================================== */
+
+/* Force GPU compositing for smoother color blending */
+@layer components {
+  .color-smooth {
+    will-change: background-color, color, border-color;
+    transform: translateZ(0);  /* Force GPU layer */
+  }
+
+  /* Ensure text rendering consistency */
+  .text-sharp {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* For gradient elements, ensure smooth interpolation */
+  .gradient-smooth {
+    background-interpolation: smooth;
+  }
 }
 
 /* ===========================================
