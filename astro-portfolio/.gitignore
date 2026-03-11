@@ -26,3 +26,4 @@ test-results/
 node_modules/
 dist/
 .pwmcp-profiles/
+.preview_pid
