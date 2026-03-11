@@ -434,18 +434,18 @@
    =========================================== */
 
 #hero-heading {
-  font-size: clamp(4rem, 15vw, 12rem) !important;
-  letter-spacing: -0.03em;
-  line-height: 0.85;
-  font-weight: 800;
+  font-size: clamp(2.5rem, 6vw, 5rem) !important;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  font-weight: 700;
 }
 
 #projects-heading,
 #about-heading,
 #contact-heading {
-  font-size: clamp(2.5rem, 6vw, 5rem) !important;
-  letter-spacing: -0.02em;
-  font-weight: 700;
+  font-size: clamp(1.5rem, 3vw, 2.5rem) !important;
+  letter-spacing: -0.01em;
+  font-weight: 600;
 }
 
 /* ===========================================
