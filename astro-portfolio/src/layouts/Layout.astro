@@ -106,16 +106,31 @@ const ogImage = new URL(image, Astro.site).href;
   <body style="min-height: 100vh; margin: 0; padding: 0; color: #c8ced8; font-family: system-ui, -apple-system, sans-serif; overflow-x: hidden;">
     <!-- Background gradient -->
     <div id="bg-gradient" style="position: fixed; inset: 0; background: linear-gradient(to bottom right, #0a0a0a 0%, #0a0a0a 60%, #0a1628 85%, #1e3a5f 100%); z-index: -20;"></div>
-    
+
     <!-- Subtle animated glows (reduced blur for performance) -->
     <div id="glow-1" style="position: fixed; top: -100px; left: 10%; width: 400px; height: 300px; background: radial-gradient(ellipse, rgba(99, 102, 241, 0.15) 0%, transparent 70%); filter: blur(40px); z-index: -15; pointer-events: none; will-change: transform;"></div>
     <div id="glow-2" style="position: fixed; bottom: -50px; right: 5%; width: 300px; height: 250px; background: radial-gradient(ellipse, rgba(56, 189, 248, 0.1) 0%, transparent 70%); filter: blur(40px); z-index: -15; pointer-events: none; will-change: transform;"></div>
-    
+
     <!-- Particles canvas -->
     <canvas id="particles" style="position: fixed; inset: 0; z-index: -10; pointer-events: none;"></canvas>
+
+    <!-- CRT scanline overlay -->
+    <div class="crt-overlay" aria-hidden="true"></div>
+
+    <!-- Floating decorative code fragments -->
+    <div class="ghost-code" style="position: fixed; top: 15%; right: 3%; opacity: 0.04; font-family: 'Fira Code', monospace; font-size: 11px; color: var(--base0D); pointer-events: none; z-index: 1; user-select: none;" aria-hidden="true">
+    &gt; init_sequence()
+  </div>
+    <div class="ghost-code" style="position: fixed; bottom: 25%; left: 2%; opacity: 0.03; font-family: 'Fira Code', monospace; font-size: 10px; color: var(--base09); pointer-events: none; z-index: 1; user-select: none;" aria-hidden="true">
+    const cluster = new Cluster();
+  </div>
+    <div class="ghost-code" style="position: fixed; top: 45%; left: 5%; opacity: 0.02; font-family: 'Fira Code', monospace; font-size: 9px; color: var(--base0B); pointer-events: none; z-index: 1; user-select: none;" aria-hidden="true">
+    &lt;Rust/&gt;
+  </div>
+
     <!-- Cursor glow -->
     <div id="cursor-glow" style="position: fixed; width: 300px; height: 300px; border-radius: 50%; background: radial-gradient(circle, rgba(255, 159, 92, 0.15) 0%, transparent 70%); filter: blur(40px); z-index: 9999; pointer-events: none; opacity: 0;"></div>
-    
+
     <!-- Main content -->
     <div class="relative">
       <slot />

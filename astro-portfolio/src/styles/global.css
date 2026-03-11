@@ -384,15 +384,173 @@
     animation-duration: 0.01ms !important;
     transition-duration: 0.01ms !important;
   }
-  
+
   [data-animate] {
     opacity: 1;
     transform: none;
   }
-  
+
   #glow-1,
   #glow-2,
   #glow-3 {
     animation: none;
   }
+}
+
+/* ===========================================
+   CRT SCANLINE OVERLAY
+   =========================================== */
+
+.crt-overlay {
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.03) 0px,
+    transparent 1px,
+    transparent 2px,
+    transparent 3px
+  );
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.6;
+}
+
+/* Subtle screen curvature effect */
+.crt-overlay::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse at center,
+    transparent 0%,
+    rgba(0, 0, 0, 0.1) 100%
+  );
+  pointer-events: none;
+}
+
+/* ===========================================
+   DRAMATIC TYPOGRAPHIC SCALE
+   =========================================== */
+
+#hero-heading {
+  font-size: clamp(4rem, 15vw, 12rem) !important;
+  letter-spacing: -0.03em;
+  line-height: 0.85;
+  font-weight: 800;
+}
+
+#projects-heading,
+#about-heading,
+#contact-heading {
+  font-size: clamp(2.5rem, 6vw, 5rem) !important;
+  letter-spacing: -0.02em;
+  font-weight: 700;
+}
+
+/* ===========================================
+   ASYMMETRIC PROJECT GRID
+   =========================================== */
+
+@media (min-width: 768px) {
+  /* Break the rigid grid with overlaps and spans */
+  .bento-item:nth-child(1) {
+    grid-column: span 2;
+    grid-row: span 2;
+  }
+
+  .bento-item:nth-child(4) {
+    transform: rotate(-2deg);
+    transition: transform 0.3s ease;
+  }
+
+  .bento-item:nth-child(4):hover {
+    transform: rotate(0deg) translateY(-8px);
+  }
+
+  .bento-item:nth-child(6) {
+    grid-column: span 2;
+  }
+
+  .bento-item:nth-child(8) {
+    transform: rotate(1deg);
+    transition: transform 0.3s ease;
+  }
+
+  .bento-item:nth-child(8):hover {
+    transform: rotate(0deg) translateY(-8px);
+  }
+}
+
+/* Mobile: keep it simpler but still interesting */
+@media (max-width: 767px) {
+  .bento-item:nth-child(2) {
+    grid-column: span 2;
+  }
+
+  .bento-item:nth-child(5) {
+    grid-column: span 2;
+  }
+}
+
+/* ===========================================
+   GLOWING BORDER ANIMATIONS
+   =========================================== */
+
+.bento-item::after {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  background: linear-gradient(
+    45deg,
+    var(--base09),
+    var(--base0D),
+    var(--base0B),
+    var(--base09)
+  );
+  background-size: 400% 400%;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.3s;
+  filter: blur(8px);
+  animation: none;
+}
+
+.bento-item:hover::after {
+  opacity: 0.5;
+  animation: border-rotate 3s linear infinite;
+}
+
+@keyframes border-rotate {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* ===========================================
+   DIAGONAL SECTION DIVIDERS
+   =========================================== */
+
+.beat-indicator {
+  height: 4px !important;
+  background: linear-gradient(
+    135deg,
+    transparent 0%,
+    var(--base09) 25%,
+    var(--base0D) 50%,
+    var(--base0B) 75%,
+    transparent 100%
+  ) !important;
+  transform: scaleY(2) !important;
+}
+
+.beat-indicator::after {
+  display: none; /* Replace with CSS gradient */
 }
