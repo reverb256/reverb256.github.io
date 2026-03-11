@@ -43,10 +43,13 @@ const skills = ["TypeScript", "React", "Rust", "Node.js", "NixOS", "Astro", "Tai
   title="Reverb256"
   description="Software developer portfolio showcasing projects in Rust, TypeScript, and NixOS. Building privacy-first AI tools, contributing to open source, and learning in public."
 >
+  <!-- Skip to main content link for accessibility -->
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
   <!-- Navigation -->
-  <nav class="fixed top-0 left-0 right-0 z-50 px-6 py-3 bg-[var(--base00)]/80 backdrop-blur-md border-b border-[var(--base02)]">
+  <nav class="fixed top-0 left-0 right-0 z-50 px-6 py-3 bg-[var(--base00)]/80 backdrop-blur-md border-b border-[var(--base02)]" aria-label="Main navigation">
     <div class="max-w-6xl mx-auto flex items-center justify-between">
-      <a href="/" class="font-bold text-lg text-[var(--base07)] hover:text-[var(--base09)] transition-colors">R256://</a>
+      <a href="/" class="font-bold text-lg text-[var(--base07)] hover:text-[var(--base09)] transition-colors" aria-label="Reverb256 Home">R256://</a>
       <div class="flex items-center gap-4 md:gap-6">
         <a href="/#projects" class="text-sm text-[var(--base05)] hover:text-[var(--base07)] link-underline">Projects</a>
         <a href="/blog" class="text-sm text-[var(--base05)] hover:text-[var(--base07)] link-underline">Blog</a>
@@ -54,74 +57,95 @@ const skills = ["TypeScript", "React", "Rust", "Node.js", "NixOS", "Astro", "Tai
         <a href="/setup" class="text-sm text-[var(--base05)] hover:text-[var(--base07)] link-underline">Setup</a>
         <a href="/bookmarks" class="text-sm text-[var(--base05)] hover:text-[var(--base07)] link-underline">Links</a>
         <a href="/#about" class="text-sm text-[var(--base05)] hover:text-[var(--base07)] link-underline">About</a>
-        <a href="https://github.com/reverb256" target="_blank" rel="noopener" class="btn-accent text-xs py-1.5 px-4">GitHub</a>
+        <a href="https://github.com/reverb256" target="_blank" rel="noopener noreferrer" class="btn-accent text-xs py-1.5 px-4">GitHub</a>
       </div>
     </div>
   </nav>
 
-  <!-- Hero with Terminal -->
-  <section id="hero" class="min-h-screen pt-16 px-6">
-    <div class="beat-indicator mb-6"></div>
-    <div class="max-w-6xl mx-auto w-full grid lg:grid-cols-2 gap-8 items-center min-h-[80vh]">
-      <!-- Left: Info -->
-      <div class="space-y-6" data-animate="fade-up">
-        <div class="inline-flex items-center gap-2 px-3 py-1 glass text-xs text-[var(--base05)]">
-          <span class="w-2 h-2 rounded-full bg-[var(--base0B)] animate-pulse"></span>
-          Open to Opportunities
-        </div>
-        <h1 class="text-5xl md:text-6xl font-bold leading-tight" style="background: linear-gradient(135deg, #ff9f5c 0%, #6ee7de 100%); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; color: transparent;">
-          Reverb256
-        </h1>
-        <p class="text-lg text-[var(--base05)] max-w-md">
-          <span class="text-[var(--base09)]">15 years</span> in food service. <span class="text-[var(--base0D)]">20 years</span> tech-curious. Now building <span class="text-[var(--base09)]">production applications</span> with <span class="text-[var(--base0D)]">NixOS</span> infrastructure and <span class="text-[var(--base09)]">AI-assisted development</span>.
-        </p>
-        <div class="flex gap-4">
-          <a href="#projects" class="btn-accent">View Projects</a>
-          <a href="#contact" class="btn-outline">Get in Touch</a>
-        </div>
-        <div class="flex gap-6 pt-4 text-sm">
-          <div><span class="text-2xl font-bold text-[var(--base09)]">7+</span><br><span class="text-[var(--base04)]">Active Projects</span></div>
-          <div><span class="text-2xl font-bold text-[var(--base09)]">4</span><br><span class="text-[var(--base04)]">Host NixOS Cluster</span></div>
-          <div><span class="text-2xl font-bold text-[var(--base09)]">Rust</span><br><span class="text-[var(--base04)]">→ TypeScript → Python</span></div>
-        </div>
-      </div>
-      
-      <!-- Right: Terminal -->
-      <div data-animate="fade-up" data-delay="0.2" class="relative" style="z-index: 20;">
-        <div id="term-wrapper" class="overflow-hidden relative rounded-lg" style="background: var(--base00); border: 1px solid var(--base03); z-index: 30; font-family: 'Fira Code', 'JetBrains Mono', 'SF Mono', Consolas, monospace;">
-          
-          <!-- Terminal output -->
-          <div id="term-output" class="text-sm p-4 min-h-[300px] max-h-[400px] overflow-y-auto" style="font-family: inherit; line-height: 1.6;">
-            <p style="color: var(--base05);">Welcome to the R256 knowledge database.</p>
-            <p style="color: var(--base05);">Type <span style="color: var(--base0D);">help</span> for commands.</p>
+  <!-- Main content -->
+  <main id="main-content">
+    <!-- Hero with Terminal -->
+    <section id="hero" class="min-h-screen pt-16 px-6" aria-labelledby="hero-heading">
+      <div class="beat-indicator mb-6" aria-hidden="true"></div>
+      <div class="max-w-6xl mx-auto w-full grid lg:grid-cols-2 gap-8 items-center min-h-[80vh]">
+        <!-- Left: Info -->
+        <div class="space-y-6" data-animate="fade-up">
+          <div class="inline-flex items-center gap-2 px-3 py-1 glass text-xs text-[var(--base05)]" role="status">
+            <span class="w-2 h-2 rounded-full bg-[var(--base0B)] animate-pulse" aria-hidden="true"></span>
+            Open to Opportunities
           </div>
-          
-          <!-- Terminal input with blinking cursor -->
-          <div class="flex items-center px-4 py-2 border-t" style="border-color: var(--base02); background: rgba(0,0,0,0.3); font-family: inherit;">
-            <span style="color: var(--base0B);">❯</span>
-            <span>&nbsp;</span>
-            <input type="text" id="term-input" class="flex-grow bg-transparent border-none outline-none" style="color: var(--base06); font-family: inherit; caret-color: var(--base0D);" placeholder="type a command..." autocomplete="off" spellcheck="false" />
+          <h1 id="hero-heading" class="text-5xl md:text-6xl font-bold leading-tight" style="background: linear-gradient(135deg, #ff9f5c 0%, #6ee7de 100%); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; color: transparent;">
+            Reverb256
+          </h1>
+          <p class="text-lg text-[var(--base05)] max-w-md">
+            <span class="text-[var(--base09)]">15 years</span> in food service. <span class="text-[var(--base0D)]">20 years</span> tech-curious. Now building <span class="text-[var(--base09)]">production applications</span> with <span class="text-[var(--base0D)]">NixOS</span> infrastructure and <span class="text-[var(--base09)]">AI-assisted development</span>.
+          </p>
+          <div class="flex gap-4">
+            <a href="#projects" class="btn-accent">View Projects</a>
+            <a href="#contact" class="btn-outline">Get in Touch</a>
+          </div>
+          <div class="flex gap-6 pt-4 text-sm">
+            <div><span class="text-2xl font-bold text-[var(--base09)]">7+</span><br><span class="text-[var(--base04)]">Active Projects</span></div>
+            <div><span class="text-2xl font-bold text-[var(--base09)]">4</span><br><span class="text-[var(--base04)]">Host NixOS Cluster</span></div>
+            <div><span class="text-2xl font-bold text-[var(--base09)]">Rust</span><br><span class="text-[var(--base04)]">→ TypeScript → Python</span></div>
           </div>
         </div>
+
+        <!-- Right: Terminal -->
+        <div data-animate="fade-up" data-delay="0.2" class="relative" style="z-index: 20;">
+          <div id="term-wrapper" class="overflow-hidden relative rounded-lg" style="background: var(--base00); border: 1px solid var(--base03); z-index: 30; font-family: 'Fira Code', 'JetBrains Mono', 'SF Mono', Consolas, monospace;" role="region" aria-label="Interactive terminal">
+
+            <!-- Terminal output -->
+            <div id="term-output" class="text-sm p-4 min-h-[300px] max-h-[400px] overflow-y-auto" style="font-family: inherit; line-height: 1.6;" role="log" aria-live="polite">
+              <p style="color: var(--base05);">Welcome to the R256 knowledge database.</p>
+              <p style="color: var(--base05);">Type <span style="color: var(--base0D);">help</span> for commands.</p>
+            </div>
+
+            <!-- Terminal input with blinking cursor -->
+            <div class="flex items-center px-4 py-2 border-t" style="border-color: var(--base02); background: rgba(0,0,0,0.3); font-family: inherit;">
+              <span style="color: var(--base0B);" aria-hidden="true">❯</span>
+              <span>&nbsp;</span>
+              <input
+                type="text"
+                id="term-input"
+                class="flex-grow bg-transparent border-none outline-none"
+                style="color: var(--base06); font-family: inherit; caret-color: var(--base0D);"
+                placeholder="type a command..."
+                autocomplete="off"
+                spellcheck="false"
+                aria-label="Terminal command input"
+                aria-describedby="term-instructions"
+              />
+            </div>
+            <span id="term-instructions" class="sr-only">Type commands like help, list, or read to explore the database</span>
+          </div>
+        </div>
       </div>
-    </div>
   </section>
 
   <!-- Projects -->
-  <section id="projects" class="px-6 py-12">
+  <section id="projects" class="px-6 py-12" aria-labelledby="projects-heading">
     <div class="max-w-6xl mx-auto">
-      <div class="beat-indicator mb-6"></div>
-      <h2 class="text-2xl font-bold mb-6 text-[var(--base06)]">// Projects</h2>
-      <div data-stagger class="grid grid-cols-2 md:grid-cols-4 gap-3 auto-rows-[120px]">
+      <div class="beat-indicator mb-6" aria-hidden="true"></div>
+      <h2 id="projects-heading" class="text-2xl font-bold mb-6 text-[var(--base06)]">// Projects</h2>
+      <div data-stagger class="grid grid-cols-2 md:grid-cols-4 gap-3 auto-rows-[120px]" role="list">
         {projects.map((p) => (
-          <a href={`https://github.com/reverb256/${p.title.toLowerCase().replace(/\s+/g, '-')}`} target="_blank" rel="noopener" data-stagger-item class={`bento-item group flex flex-col span-${p.span}`}>
+          <a
+            href={`https://github.com/reverb256/${p.title.toLowerCase().replace(/\s+/g, '-')}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            data-stagger-item
+            class={`bento-item group flex flex-col span-${p.span}`}
+            role="listitem"
+            aria-label={`${p.title}: ${p.desc}. Status: ${p.status}. Technologies: ${p.tech.join(', ')}. Opens in new tab.`}
+          >
             <div class="flex items-center justify-between mb-1">
-              <span class="text-xl">{p.icon}</span>
+              <span class="text-xl" aria-hidden="true">{p.icon}</span>
               <span class={`px-1.5 py-0.5 text-[8px] rounded font-medium uppercase ${p.status === 'live' ? 'badge-live' : 'badge-active'}`}>{p.status}</span>
             </div>
             <h3 class="text-sm font-bold text-[var(--base07)] group-hover:text-[var(--base09)] transition-colors">{p.title}</h3>
             <p class="text-[10px] text-[var(--base05)] flex-grow">{p.desc}</p>
-            <div class="flex gap-1 mt-auto">{p.tech.map(t => <span class="text-[8px] px-1.5 py-0.5 bg-[var(--base02)] rounded text-[var(--base05)]">{t}</span>)}</div>
+            <div class="flex gap-1 mt-auto" aria-label={`Technologies: ${p.tech.join(', ')}`}>{p.tech.map(t => <span class="text-[8px] px-1.5 py-0.5 bg-[var(--base02)] rounded text-[var(--base05)]">{t}</span>)}</div>
           </a>
         ))}
       </div>
@@ -129,12 +153,12 @@ const skills = ["TypeScript", "React", "Rust", "Node.js", "NixOS", "Astro", "Tai
   </section>
 
   <!-- About -->
-  <section id="about" class="px-6 py-12">
+  <section id="about" class="px-6 py-12" aria-labelledby="about-heading">
     <div class="max-w-6xl mx-auto">
-      <div class="beat-indicator mb-6"></div>
-      <h2 class="text-2xl font-bold mb-6 text-[var(--base06)]">// About</h2>
+      <div class="beat-indicator mb-6" aria-hidden="true"></div>
+      <h2 id="about-heading" class="text-2xl font-bold mb-6 text-[var(--base06)]">// About</h2>
       <div class="grid md:grid-cols-2 gap-4">
-        <div class="glass p-6">
+        <article class="glass p-6">
           <h3 class="text-sm font-bold text-[var(--base07)] mb-4">My Story</h3>
           <p class="text-sm text-[var(--base05)] leading-relaxed">
             Spent <span class="text-[var(--base09)]">15 years in food service</span> learning the value of hard work, teamwork, and showing up every day. Meanwhile, always curious about computers — <span class="text-[var(--base0D)]">20 years of tinkering, researching, and dabbling with Linux</span> on the side.
@@ -145,52 +169,53 @@ const skills = ["TypeScript", "React", "Rust", "Node.js", "NixOS", "Astro", "Tai
           <p class="text-sm text-[var(--base05)] leading-relaxed mt-3">
             <strong>Current focus:</strong> Building privacy-first AI tools, Web3 authentication systems, and local-first applications. Always learning through AI-assisted development.
           </p>
-        </div>
-        <div class="glass p-6">
+        </article>
+        <article class="glass p-6">
           <h3 class="text-sm font-bold text-[var(--base07)] mb-4">What I Bring</h3>
-          <div class="flex flex-wrap gap-2">
-            {["Work ethic", "Eager to learn", "Team player", "Problem solver", "Patient", "Reliable"].map(f => <span class="text-xs px-3 py-1.5 border border-[var(--base03)] rounded-full text-[var(--base05)] hover:border-[var(--base09)] hover:text-[var(--base09)] transition-all cursor-default">{f}</span>)}
+          <div class="flex flex-wrap gap-2" role="list" aria-label="Personal qualities">
+            {["Work ethic", "Eager to learn", "Team player", "Problem solver", "Patient", "Reliable"].map(f => <span role="listitem" class="text-xs px-3 py-1.5 border border-[var(--base03)] rounded-full text-[var(--base05)] hover:border-[var(--base09)] hover:text-[var(--base09)] transition-all cursor-default">{f}</span>)}
           </div>
           <h3 class="text-sm font-bold text-[var(--base07)] mb-4 mt-6">Tech Stack</h3>
-          <div class="flex flex-wrap gap-2">{skills.map(s => <span class="text-xs px-3 py-1 bg-[var(--base02)] rounded text-[var(--base06)] hover:text-[var(--base09)] transition-colors cursor-default hover:scale-105 transform">{s}</span>)}</div>
+          <div class="flex flex-wrap gap-2" role="list" aria-label="Technologies">{skills.map(s => <span role="listitem" class="text-xs px-3 py-1 bg-[var(--base02)] rounded text-[var(--base06)] hover:text-[var(--base09)] transition-colors cursor-default hover:scale-105 transform">{s}</span>)}</div>
           <div class="mt-4 pt-4 border-t border-[var(--base02)] text-xs text-[var(--base05)] space-y-1">
             <div>OS: NixOS (4-host cluster + Colmena)</div>
             <div>Method: AI-assisted development (Claude Code)</div>
             <div>Infrastructure: Kubernetes migration in progress</div>
             <div>Tools: Semantic code editing with Serena</div>
           </div>
-        </div>
+        </article>
       </div>
     </div>
   </section>
 
   <!-- Contact -->
-  <section id="contact" class="px-6 py-12">
+  <section id="contact" class="px-6 py-12" aria-labelledby="contact-heading">
     <div class="max-w-6xl mx-auto">
-      <div class="beat-indicator mb-6"></div>
-      <h2 class="text-2xl font-bold mb-6 text-[var(--base06)]">// Contact</h2>
+      <div class="beat-indicator mb-6" aria-hidden="true"></div>
+      <h2 id="contact-heading" class="text-2xl font-bold mb-6 text-[var(--base06)]">// Contact</h2>
       <div class="glass p-6 flex flex-wrap items-center justify-between gap-4">
         <div>
           <p class="text-sm text-[var(--base05)] mb-4">Open to junior roles, internships, or just chatting about tech. Let's connect!</p>
           <div class="flex gap-3">
             <a href="mailto:contact@reverb256.dev" class="btn-accent text-sm">Email</a>
-            <a href="https://github.com/reverb256" target="_blank" rel="noopener" class="btn-outline text-sm">GitHub</a>
+            <a href="https://github.com/reverb256" target="_blank" rel="noopener noreferrer" class="btn-outline text-sm">GitHub</a>
           </div>
         </div>
         <div class="text-right text-xs text-[var(--base04)]">
-          <div>Winnipeg, Canada</div>
+          <address class="not-italic">Winnipeg, Canada</address>
           <div>Open to remote work</div>
         </div>
       </div>
     </div>
   </section>
+  </main>
 
   <!-- Footer -->
   <footer class="px-6 py-4 border-t border-[var(--base02)]">
     <div class="max-w-6xl mx-auto flex items-center justify-between text-[10px] text-[var(--base04)]">
       <span>© 2026 Reverb256</span>
       <span>Astro + GSAP + NixOS + Base24</span>
-      <span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-[var(--base0B)] animate-pulse"></span> All Systems Operational</span>
+      <span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-[var(--base0B)] animate-pulse" aria-hidden="true"></span> All Systems Operational</span>
     </div>
   </footer>
 </Layout>

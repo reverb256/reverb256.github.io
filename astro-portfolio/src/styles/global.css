@@ -150,6 +150,55 @@
     color: var(--text-primary);
     font-weight: 700;
     line-height: 1.2;
+    text-wrap: balance;
+  }
+
+  /* Focus visible styles for keyboard navigation */
+  *:focus-visible {
+    outline: 2px solid var(--accent-primary);
+    outline-offset: 2px;
+  }
+
+  /* Touch action optimization */
+  a,
+  button,
+  .bento-item {
+    touch-action: manipulation;
+  }
+
+  /* Smooth scrolling with keyboard support */
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 80px; /* Offset for fixed header */
+  }
+
+  /* Skip link for accessibility */
+  .skip-link {
+    position: absolute;
+    top: -40px;
+    left: 0;
+    background: var(--accent-primary);
+    color: var(--bg-primary);
+    padding: 8px;
+    text-decoration: none;
+    z-index: 100;
+  }
+
+  .skip-link:focus {
+    top: 0;
+  }
+
+  /* Screen reader only content */
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
   }
 }
 
@@ -203,15 +252,23 @@
     color: var(--bg-primary);
     font-weight: 600;
     border-radius: var(--radius-full);
+    border: none;
+    cursor: pointer;
     transition: transform var(--duration-fast) var(--ease-spring),
-                box-shadow var(--duration-normal) var(--ease-out);
+                box-shadow var(--duration-normal) var(--ease-out),
+                background-color var(--duration-fast) var(--ease-out);
+    text-decoration: none;
   }
-  
+
   .btn-accent:hover {
     transform: scale(1.05);
     box-shadow: 0 0 24px var(--glow-color);
   }
-  
+
+  .btn-accent:active {
+    transform: scale(0.98);
+  }
+
   /* Outline button */
   .btn-outline {
     display: inline-flex;
@@ -222,13 +279,21 @@
     color: var(--text-secondary);
     border: 1px solid var(--text-subtle);
     border-radius: var(--radius-full);
+    cursor: pointer;
     transition: border-color var(--duration-fast),
-                color var(--duration-fast);
+                color var(--duration-fast),
+                background-color var(--duration-fast) var(--ease-out);
+    text-decoration: none;
   }
-  
+
   .btn-outline:hover {
     border-color: var(--accent-primary);
     color: var(--accent-primary);
+    background-color: rgba(255, 159, 92, 0.1);
+  }
+
+  .btn-outline:active {
+    transform: scale(0.98);
   }
   
   /* Gradient text */
