@@ -1,0 +1,201 @@
+---
+import Layout from "../../layouts/Layout.astro";
+
+const now = {
+  updated: "2026-03-10",
+  location: "Winnipeg, Canada",
+  status: "Open to opportunities",
+  focus: [
+    { category: "Building", icon: "🔨", color: "var(--base09)", items: [
+      "Frostbite Gazette - AI-curated Canadian journalism platform",
+      "Troves & Coves - Crystal jewelry e-commerce with React + shadcn/ui",
+      "Astral Key - Rust Web3 authentication microservice",
+      "Synapse - Local-first AI command center with Tauri"
+    ]},
+    { category: "Learning", icon: "📚", color: "var(--base0D)", items: [
+      "Kubernetes cluster migration for 4-host NixOS setup",
+      "Advanced Rust patterns (SQLx, Axum, WebAuthn)",
+      "MCP server development and integration",
+      "AI agent orchestration with pi-agent-core"
+    ]},
+    { category: "Infrastructure", icon: "🖥️", color: "var(--base0E)", items: [
+      "Maintaining 4-host NixOS mining cluster (Zephyr, Nexus, Forge, Sentry)",
+      "Colmena multi-host deployment system",
+      "Local LLM stack with privacy-first AI gateway",
+      "Comprehensive documentation system for agents"
+    ]},
+    { category: "Exploring", icon: "🔭", color: "var(--base0F)", items: [
+      "Model Context Protocol (MCP) ecosystem",
+      "Local AI inference optimization",
+      "Declarative infrastructure patterns",
+      "Privacy-first web architectures"
+    ]}
+  ],
+  reading: [
+    { title: "Rust for Rustaceans", author: "Jon Gjengset", status: "In progress", progress: 65 },
+    { title: "Kubernetes: Up and Running", author: "Brendan Burns", status: "Next up", progress: 0 },
+    { title: "The Pragmatic Programmer", author: "David Thomas", status: "Reference", progress: 100 }
+  ],
+  listening: [
+    { name: "Synthwave coding playlists", mood: "High energy" },
+    { name: "Lo-fi hip hop for focus sessions", mood: "Chill" },
+    { name: "Post-rock (Explosions in the Sky)", mood: "Epic" }
+  ],
+  metrics: [
+    { label: "Active Projects", value: "7+", color: "var(--base09)", max: 10 },
+    { label: "Hosts in Cluster", value: "4", color: "var(--base09)", max: 8 },
+    { label: "Into Dev Journey", value: "~2yr", color: "var(--base0D)", max: 100 }
+  ]
+};
+---
+
+<Layout
+  title="Now"
+  description="Current status and focus areas. What I'm building, learning, and exploring right now. Updated March 2026. Open to remote opportunities."
+>
+  <div class="max-w-3xl mx-auto px-6 py-16">
+    <!-- Header with animated status -->
+    <div data-animate="fade-up">
+      <div class="flex items-center gap-3 mb-4">
+        <div class="relative">
+          <span class="w-3 h-3 rounded-full bg-[var(--base0B)]"></span>
+          <span class="absolute inset-0 w-3 h-3 rounded-full bg-[var(--base0B)] animate-ping opacity-75"></span>
+        </div>
+        <span class="text-sm font-medium text-[var(--base0B)]">{now.status}</span>
+        <span class="text-sm text-[var(--base04)]">·</span>
+        <span class="text-sm text-[var(--base04)]">{now.location}</span>
+      </div>
+      <h1 class="text-5xl font-bold mb-2 text-[var(--base07)]">Now</h1>
+      <p class="text-sm text-[var(--base04)]">
+        Last updated: {now.updated} · Based on
+        <a href="https://nownownow.com/about" target="_blank" rel="noopener" class="text-[var(--base0D)] hover:underline inline-flex items-center gap-1 group">
+          /now
+          <svg class="w-3 h-3 transition-transform group-hover:translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+          </svg>
+        </a>
+        movement
+      </p>
+    </div>
+
+    <!-- Status Card with gradient border -->
+    <div class="glass p-6 mb-6 relative overflow-hidden group" data-animate="fade-up" data-delay="0.1">
+      <div class="absolute inset-0 bg-gradient-to-r from-[var(--base09)]/10 to-[var(--base0D)]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+      <div class="relative">
+        <h2 class="text-xl font-bold text-[var(--base07)] mb-4 flex items-center gap-2">
+          <span class="text-2xl">⚡</span>
+          Current Status
+        </h2>
+        <p class="text-[var(--base05)] mb-4">
+          Formerly 15 years in food service. Now building production applications with
+          <span class="text-[var(--base09)] font-medium">Rust</span>,
+          <span class="text-[var(--base0D)] font-medium">TypeScript</span>, and
+          <span class="text-[var(--base09)] font-medium">NixOS</span> infrastructure.
+        </p>
+        <div class="flex gap-2">
+          <span class="px-3 py-1 bg-[var(--base02)] rounded-full text-xs text-[var(--base05)]">🔥 Open to remote work</span>
+          <span class="px-3 py-1 bg-[var(--base02)] rounded-full text-xs text-[var(--base05)]">📍 Winnipeg, Canada</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Focus Categories with Icons and Enhanced Cards -->
+    {now.focus.map((section, i) => (
+      <div class="glass p-6 mb-6 hover:shadow-xl transition-all duration-300 group" data-animate="fade-up" data-delay={`${0.2 + i * 0.1}`}>
+        <h3 class="text-lg font-bold mb-4 flex items-center gap-3" style="color: {section.color};">
+          <span class="text-2xl group-hover:scale-110 transition-transform duration-300">{section.icon}</span>
+          {section.category}
+          <span class="ml-auto text-xs px-2 py-1 bg-[var(--base02)] rounded text-[var(--base04)]">{section.items.length} active</span>
+        </h3>
+        <ul class="space-y-3">
+          {section.items.map((item, idx) => (
+            <li class="text-sm text-[var(--base05)] flex items-start gap-3 group/item cursor-default">
+              <span class="text-[var(--base09)] mt-0.5 group-hover/item:translate-x-1 transition-transform duration-200">→</span>
+              <span class="group-hover/item:text-[var(--base07)] transition-colors duration-200">{item}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    ))}
+
+    <!-- Two Column Grid -->
+    <div class="grid md:grid-cols-2 gap-4" data-animate="fade-up" data-delay="0.6">
+      <!-- Reading with Progress Bars -->
+      <div class="glass p-6">
+        <h3 class="text-sm font-bold text-[var(--base07)] mb-4 flex items-center gap-2">
+          <span>📚</span> Reading
+        </h3>
+        <ul class="space-y-4">
+          {now.reading.map(book => (
+            <li class="group">
+              <div class="flex items-center justify-between mb-1">
+                <span class="font-medium text-[var(--base06)] group-hover:text-[var(--base09)] transition-colors">{book.title}</span>
+                <span class="text-xs px-2 py-0.5 bg-[var(--base02)] rounded text-[var(--base09)]">{book.status}</span>
+              </div>
+              <div class="text-xs text-[var(--base04)] mb-2">{book.author}</div>
+              <div class="h-1.5 bg-[var(--base01)] rounded-full overflow-hidden">
+                <div
+                  class="h-full rounded-full transition-all duration-500 ease-out"
+                  style="width: {book.progress}%; background: linear-gradient(90deg, var(--base09), var(--base0D));"
+                ></div>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Listening with Mood Indicators -->
+      <div class="glass p-6">
+        <h3 class="text-sm font-bold text-[var(--base07)] mb-4 flex items-center gap-2">
+          <span>🎧</span> Listening
+        </h3>
+        <ul class="space-y-3">
+          {now.listening.map(item => (
+            <li class="group flex items-center justify-between">
+              <span class="text-sm text-[var(--base05)] group-hover:text-[var(--base07)] transition-colors">{item.name}</span>
+              <span class="text-xs px-2 py-0.5 bg-[var(--base02)] rounded text-[var(--base04)]">{item.mood}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+
+    <!-- Progress Metrics with Visual Bars -->
+    <div class="glass p-6 mt-6" data-animate="fade-up" data-delay="0.7">
+      <h3 class="text-sm font-bold text-[var(--base07)] mb-6 flex items-center gap-2">
+        <span>📈</span> Journey Progress
+      </h3>
+      <p class="text-sm text-[var(--base05)] mb-6">
+        Tracking journey from food service → software development through
+        <span class="text-[var(--base09)] font-medium">AI-assisted learning</span> and
+        <span class="text-[var(--base0D)] font-medium">hands-on building</span>.
+      </p>
+      <div class="space-y-4">
+        {now.metrics.map(metric => (
+          <div class="group">
+            <div class="flex items-baseline justify-between mb-2">
+              <span class="text-sm text-[var(--base05)] group-hover:text-[var(--base07)] transition-colors">{metric.label}</span>
+              <span class="text-2xl font-bold" style="color: {metric.color};">{metric.value}</span>
+            </div>
+            <div class="h-2 bg-[var(--base01)] rounded-full overflow-hidden">
+              <div
+                class="h-full rounded-full transition-all duration-700 ease-out group-hover:brightness-110"
+                style="width: {metric.max}%; background: linear-gradient(90deg, {metric.color}, {metric.color}dd);"
+              ></div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- Back Navigation -->
+    <div class="mt-8 text-center" data-animate="fade-up" data-delay="0.8">
+      <a href="/" class="inline-flex items-center gap-2 text-sm text-[var(--base04)] hover:text-[var(--base0D)] transition-colors group">
+        <svg class="w-4 h-4 transition-transform group-hover:-translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+        </svg>
+        Back to Home
+      </a>
+    </div>
+  </div>
+</Layout>

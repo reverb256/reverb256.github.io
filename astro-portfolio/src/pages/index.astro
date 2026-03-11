@@ -17,38 +17,51 @@ const db = {
     { id: "AI_001", title: "AI INTEGRATION", category: "TECHNOLOGY", classification: "TOP SECRET", content: ["ACTIVE SYSTEMS:", "• Claude (Anthropic) - Primary coding assistant", "• GPT-4 - Research and analysis", "• Local LLMs - Privacy-sensitive tasks", "• OpenCode - Terminal-based AI TUI", "Philosophy: AI as force multiplier, not replacement"], related: ["DEVELOPMENT", "PHILOSOPHY"] },
     { id: "MUSC_420", title: "MUSIC", category: "PERSONAL", classification: "PUBLIC", content: ["Coding soundtracks:", "• Synthwave (Perturbator, Carpenter Brut)", "• Lo-fi hip hop (focus sessions)", "• Electronic (Daft Punk, Justice)", "• Post-rock (Explosions in the Sky)", "• J-Pop/Rock (Anime OPs)"], related: ["PERSONAL"] },
     { id: "SEC_101", title: "SECURITY", category: "TECHNOLOGY", classification: "RESTRICTED", content: ["OPSEC Practices:", "• Full disk encryption (LUKS)", "• GPG for commits and emails", "• Hardware security keys (YubiKey)", "• Network isolation (VLANs)", "• Regular security audits"], related: ["DEVOPS", "INFRASTRUCTURE"] },
+    { id: "CLUSTER_001", title: "NIXOS CLUSTER", category: "TECHNOLOGY", classification: "TOP SECRET", content: ["4-HOST MINING INFRASTRUCTURE:", "• Zephyr: RTX 3090 + 3060 Ti (main workstation)", "• Nexus: 1x NVIDIA (downstairs)", "• Forge: 2x RTX 4060 + 2x RX 5700 XT", "• Sentry: 1x AMD", "Colmena multi-host deployment system", "Kubernetes migration in progress (9-week roadmap)", "Comprehensive documentation system with agent automation"], related: ["DEVOPS", "INFRASTRUCTURE", "NIX_999"] },
+    { id: "PROJ_001", title: "RECENT PROJECTS", category: "KNOWLEDGE", classification: "PUBLIC", content: ["2026-03: Frostbite Gazette - AI-curated Canadian journalism", "2026-03: Troves & Coves - React e-commerce with shadcn/ui", "2026-03: Astral Key - Rust Web3 authentication microservice", "2026-03: Synapse - Local-first AI command center (Tauri)", "2026-03: Qwen Infrastructure Brain - Mining cluster AI monitoring", "2026-02: Wan2GP MCP Server - Video generation integration", "All projects feature strict TypeScript, comprehensive documentation", "Production deployments on Cloudflare Workers, GitHub Pages"], related: ["DEVELOPMENT", "TECH_001"] },
+    { id: "MCP_001", title: "MCP INTEGRATION", category: "TECHNOLOGY", classification: "INTERNAL", content: ["Model Context Protocol servers:", "• Wan2GP - Video generation from Wan2GP Gradio", "• Pinecone - Vector database operations", "• Context7 - Live documentation lookup", "• Stripe - Payment integration", "• Web Reader - URL content extraction", "Philosophy: Composable AI tooling via stdio JSON-RPC"], related: ["DEVELOPMENT", "AI_001"] },
   ],
   categories: ["INSPIRATION", "KNOWLEDGE", "TECHNOLOGY", "PERSONAL", "REFERENCE"],
   classifications: ["PUBLIC", "INTERNAL", "RESTRICTED", "TOP SECRET"],
 };
 
 const projects = [
-  { title: "This Portfolio", desc: "Astro + GSAP + Terminal minigame", status: "active", icon: "🌐", span: "2x2", tech: ["Astro", "GSAP", "NixOS"], metric: "This site" },
-  { title: "Troves & Coves", desc: "Crystal jewelry e-commerce", status: "learning", icon: "💎", span: "1x1", tech: ["React", "Stripe"], metric: "WIP" },
-  { title: "Local Cleaning", desc: "Quote calculator", status: "learning", icon: "🧹", span: "1x1", tech: ["React", "TS"], metric: "Practice" },
-  { title: "Synapse", desc: "NixOS configs", status: "active", icon: "⚡", span: "2x1", tech: ["NixOS"], metric: "My setup" },
-  { title: "Hair@Home", desc: "Static site", status: "learning", icon: "✂️", span: "1x1", tech: ["Hugo"], metric: "Practice" },
+  { title: "Frostbite Gazette", desc: "AI-curated Canadian journalism platform", status: "active", icon: "🍁", span: "2x2", tech: ["Astro", "Cloudflare", "Groq AI"], metric: "Active" },
+  { title: "Troves & Coves", desc: "Crystal jewelry e-commerce with shadcn/ui", status: "active", icon: "💎", span: "1x1", tech: ["React", "TypeScript", "shadcn/ui"], metric: "Active" },
+  { title: "Astral Key", desc: "Web3 auth microservice", status: "active", icon: "🔑", span: "1x1", tech: ["Rust", "SQLx", "Axum"], metric: "Active" },
+  { title: "Synapse", desc: "AI command center with Tauri", status: "active", icon: "⚡", span: "2x1", tech: ["Node.js", "Tauri", "WebSocket"], metric: "Active" },
+  { title: "Qwen Infrastructure", desc: "Mining cluster AI brain", status: "active", icon: "🧠", span: "1x1", tech: ["pi-agent-core", "Prometheus"], metric: "Active" },
+  { title: "Wan2GP MCP", desc: "Video generation MCP server", status: "active", icon: "🎬", span: "1x1", tech: ["Python", "FastMCP", "Gradio"], metric: "MCP" },
+  { title: "NixOS Cluster", desc: "4-host mining infrastructure", status: "active", icon: "🖥️", span: "2x1", tech: ["NixOS", "Colmena", "K8s"], metric: "Infrastructure" },
+  { title: "This Portfolio", desc: "Astro + GSAP + Terminal minigame", status: "live", icon: "🌐", span: "1x1", tech: ["Astro", "GSAP"], metric: "reverb256.ca" },
 ];
 
-const skills = ["TypeScript", "React", "Node.js", "NixOS", "Tailwind", "Astro", "Python", "Git", "Linux", "Docker"];
+const skills = ["TypeScript", "React", "Rust", "Node.js", "NixOS", "Astro", "Tailwind", "Python", "Cloudflare Workers", "Docker", "Kubernetes", "MCP"];
 ---
 
-<Layout title="Reverb256 | Developer">
+<Layout
+  title="Reverb256"
+  description="Software developer portfolio showcasing projects in Rust, TypeScript, and NixOS. Building privacy-first AI tools, contributing to open source, and learning in public."
+>
   <!-- Navigation -->
   <nav class="fixed top-0 left-0 right-0 z-50 px-6 py-3 bg-[var(--base00)]/80 backdrop-blur-md border-b border-[var(--base02)]">
     <div class="max-w-6xl mx-auto flex items-center justify-between">
-      <a href="#" class="font-bold text-lg text-[var(--base07)] hover:text-[var(--base09)] transition-colors">R256://</a>
-      <div class="flex items-center gap-6">
-        <a href="#projects" class="text-sm text-[var(--base05)] hover:text-[var(--base07)] link-underline">Projects</a>
-        <a href="#about" class="text-sm text-[var(--base05)] hover:text-[var(--base07)] link-underline">About</a>
-        <a href="#contact" class="text-sm text-[var(--base05)] hover:text-[var(--base07)] link-underline">Contact</a>
+      <a href="/" class="font-bold text-lg text-[var(--base07)] hover:text-[var(--base09)] transition-colors">R256://</a>
+      <div class="flex items-center gap-4 md:gap-6">
+        <a href="/#projects" class="text-sm text-[var(--base05)] hover:text-[var(--base07)] link-underline">Projects</a>
+        <a href="/blog" class="text-sm text-[var(--base05)] hover:text-[var(--base07)] link-underline">Blog</a>
+        <a href="/now" class="text-sm text-[var(--base05)] hover:text-[var(--base07)] link-underline">Now</a>
+        <a href="/setup" class="text-sm text-[var(--base05)] hover:text-[var(--base07)] link-underline">Setup</a>
+        <a href="/bookmarks" class="text-sm text-[var(--base05)] hover:text-[var(--base07)] link-underline">Links</a>
+        <a href="/#about" class="text-sm text-[var(--base05)] hover:text-[var(--base07)] link-underline">About</a>
         <a href="https://github.com/reverb256" target="_blank" rel="noopener" class="btn-accent text-xs py-1.5 px-4">GitHub</a>
       </div>
     </div>
   </nav>
 
   <!-- Hero with Terminal -->
-  <section class="min-h-screen pt-16 px-6 flex items-center">
+  <section id="hero" class="min-h-screen pt-16 px-6 flex items-center">
+    <div class="beat-indicator mb-6"></div>
     <div class="max-w-6xl mx-auto w-full grid lg:grid-cols-2 gap-8 items-center">
       <!-- Left: Info -->
       <div class="space-y-6" data-animate="fade-up">
@@ -60,16 +73,16 @@ const skills = ["TypeScript", "React", "Node.js", "NixOS", "Tailwind", "Astro", 
           Reverb256
         </h1>
         <p class="text-lg text-[var(--base05)] max-w-md">
-          <span class="text-[var(--base09)]">15 years</span> in food service. <span class="text-[var(--base0D)]">20 years</span> curious about tech. Now pivoting to web development through <span class="text-[var(--base09)]">AI-assisted learning</span>.
+          <span class="text-[var(--base09)]">15 years</span> in food service. <span class="text-[var(--base0D)]">20 years</span> tech-curious. Now building <span class="text-[var(--base09)]">production applications</span> with <span class="text-[var(--base0D)]">NixOS</span> infrastructure and <span class="text-[var(--base09)]">AI-assisted development</span>.
         </p>
         <div class="flex gap-4">
           <a href="#projects" class="btn-accent">View Projects</a>
           <a href="#contact" class="btn-outline">Get in Touch</a>
         </div>
         <div class="flex gap-6 pt-4 text-sm">
-          <div><span class="text-2xl font-bold text-[var(--base09)]">15</span><br><span class="text-[var(--base04)]">Years Working</span></div>
-          <div><span class="text-2xl font-bold text-[var(--base09)]">20</span><br><span class="text-[var(--base04)]">Years Tech Curious</span></div>
-          <div><span class="text-2xl font-bold text-[var(--base09)]">6mo</span><br><span class="text-[var(--base04)]">Full Linux</span></div>
+          <div><span class="text-2xl font-bold text-[var(--base09)]">7+</span><br><span class="text-[var(--base04)]">Active Projects</span></div>
+          <div><span class="text-2xl font-bold text-[var(--base09)]">4</span><br><span class="text-[var(--base04)]">Host NixOS Cluster</span></div>
+          <div><span class="text-2xl font-bold text-[var(--base09)]">Rust</span><br><span class="text-[var(--base04)]">→ TypeScript → Python</span></div>
         </div>
       </div>
       
@@ -97,6 +110,7 @@ const skills = ["TypeScript", "React", "Node.js", "NixOS", "Tailwind", "Astro", 
   <!-- Projects -->
   <section id="projects" class="px-6 py-12">
     <div class="max-w-6xl mx-auto">
+      <div class="beat-indicator mb-6"></div>
       <h2 class="text-2xl font-bold mb-6 text-[var(--base06)]">// Projects</h2>
       <div data-stagger class="grid grid-cols-2 md:grid-cols-4 gap-3 auto-rows-[120px]">
         {projects.map((p) => (
@@ -117,18 +131,19 @@ const skills = ["TypeScript", "React", "Node.js", "NixOS", "Tailwind", "Astro", 
   <!-- About -->
   <section id="about" class="px-6 py-12">
     <div class="max-w-6xl mx-auto">
+      <div class="beat-indicator mb-6"></div>
       <h2 class="text-2xl font-bold mb-6 text-[var(--base06)]">// About</h2>
       <div class="grid md:grid-cols-2 gap-4">
         <div class="glass p-6">
           <h3 class="text-sm font-bold text-[var(--base07)] mb-4">My Story</h3>
           <p class="text-sm text-[var(--base05)] leading-relaxed">
-            Spent <span class="text-[var(--base09)]">15 years in food service</span> learning the value of hard work, teamwork, and showing up every day. Meanwhile, I was always curious about computers — <span class="text-[var(--base0D)]">20 years of tinkering, researching, and dabbling with Linux</span> on the side.
+            Spent <span class="text-[var(--base09)]">15 years in food service</span> learning the value of hard work, teamwork, and showing up every day. Meanwhile, always curious about computers — <span class="text-[var(--base0D)]">20 years of tinkering, researching, and dabbling with Linux</span> on the side.
           </p>
           <p class="text-sm text-[var(--base05)] leading-relaxed mt-3">
-            6 months ago I switched to full-time Linux (NixOS). Now I'm pivoting to web development through <span class="text-[var(--base09)]">AI-assisted learning</span> — using AI tools to accelerate my learning and build real projects.
+            Fully committed to <span class="text-[var(--base09)]">NixOS</span> for system configuration. Built a <span class="text-[var(--base0D)]">4-host mining cluster</span> with Colmena deployment, currently migrating to Kubernetes. Developing production apps with <span class="text-[var(--base09)]">Rust microservices</span>, <span class="text-[var(--base0D)]">React frontends</span>, and <span class="text-[var(--base09)]">AI integration</span>.
           </p>
           <p class="text-sm text-[var(--base05)] leading-relaxed mt-3">
-            <strong>Looking for:</strong> Junior developer roles, apprenticeships, or any opportunity to learn and contribute.
+            <strong>Current focus:</strong> Building privacy-first AI tools, Web3 authentication systems, and local-first applications. Always learning through AI-assisted development.
           </p>
         </div>
         <div class="glass p-6">
@@ -136,12 +151,13 @@ const skills = ["TypeScript", "React", "Node.js", "NixOS", "Tailwind", "Astro", 
           <div class="flex flex-wrap gap-2">
             {["Work ethic", "Eager to learn", "Team player", "Problem solver", "Patient", "Reliable"].map(f => <span class="text-xs px-3 py-1.5 border border-[var(--base03)] rounded-full text-[var(--base05)] hover:border-[var(--base09)] hover:text-[var(--base09)] transition-all cursor-default">{f}</span>)}
           </div>
-          <h3 class="text-sm font-bold text-[var(--base07)] mb-4 mt-6">Learning</h3>
+          <h3 class="text-sm font-bold text-[var(--base07)] mb-4 mt-6">Tech Stack</h3>
           <div class="flex flex-wrap gap-2">{skills.map(s => <span class="text-xs px-3 py-1 bg-[var(--base02)] rounded text-[var(--base06)] hover:text-[var(--base09)] transition-colors cursor-default hover:scale-105 transform">{s}</span>)}</div>
           <div class="mt-4 pt-4 border-t border-[var(--base02)] text-xs text-[var(--base05)] space-y-1">
-            <div>OS: NixOS (6 months and counting)</div>
-            <div>Editor: Neovim (still learning)</div>
-            <div>Method: AI-assisted coding</div>
+            <div>OS: NixOS (4-host cluster + Colmena)</div>
+            <div>Method: AI-assisted development (Claude Code)</div>
+            <div>Infrastructure: Kubernetes migration in progress</div>
+            <div>Tools: Semantic code editing with Serena</div>
           </div>
         </div>
       </div>
@@ -151,6 +167,7 @@ const skills = ["TypeScript", "React", "Node.js", "NixOS", "Tailwind", "Astro", 
   <!-- Contact -->
   <section id="contact" class="px-6 py-12">
     <div class="max-w-6xl mx-auto">
+      <div class="beat-indicator mb-6"></div>
       <h2 class="text-2xl font-bold mb-6 text-[var(--base06)]">// Contact</h2>
       <div class="glass p-6 flex flex-wrap items-center justify-between gap-4">
         <div>
@@ -192,6 +209,9 @@ const skills = ["TypeScript", "React", "Node.js", "NixOS", "Tailwind", "Astro", 
     'random': 'random',
     'search': 'search ',
     'clear': 'clear',
+    'projects': 'projects',
+    'cluster': 'cluster',
+    'glossary': 'glossary',
     'matrix': 'matrix',
     'about': 'about'
   };
@@ -201,7 +221,7 @@ const skills = ["TypeScript", "React", "Node.js", "NixOS", "Tailwind", "Astro", 
   
   function highlightSyntax(text) {
     // Commands
-    text = text.replace(/\b(help|list|read|random|search|clear|matrix|about)\b/g, '<span style="color: var(--base0D);">$1</span>');
+    text = text.replace(/\b(help|list|read|random|search|clear|projects|cluster|glossary|matrix|about)\b/g, '<span style="color: var(--base0D);">$1</span>');
     // Arguments
     text = text.replace(/\[([^\]]+)\]/g, '<span style="color: var(--base0C);">[$1]</span>');
     return text;
@@ -271,6 +291,9 @@ const skills = ["TypeScript", "React", "Node.js", "NixOS", "Tailwind", "Astro", 
   <span style="color: var(--base06);">random</span>    - Random subject
   <span style="color: var(--base06);">search [q]</span> - Search database
   <span style="color: var(--base06);">clear</span>     - Clear terminal
+  <span style="color: var(--base06);">projects</span>  - Recent projects summary
+  <span style="color: var(--base06);">cluster</span>   - NixOS cluster info
+  <span style="color: var(--base06);">glossary</span>  - Tech glossary
   <span style="color: var(--base06);">matrix</span>    - Easter egg
   <span style="color: var(--base06);">about</span>     - About system`);
         break;
@@ -330,11 +353,24 @@ const skills = ["TypeScript", "React", "Node.js", "NixOS", "Tailwind", "Astro", 
         
       case 'about':
         print(`<span style="color: var(--base0D);">REVERB256 DATABASE TERMINAL</span>
-Version: 2.56.0
-Build: 2026.02.17
+Version: 2.56.1
+Build: 2026.03.10
 Engine: Astro + Vanilla JS
 Theme: Base24 Compliant
 Purpose: Knowledge repository`);
+        break;
+
+      case 'projects':
+        execCmd('read PROJ_001');
+        break;
+
+      case 'cluster':
+        execCmd('read CLUSTER_001');
+        break;
+
+      case 'glossary':
+        window.open('/glossary', '_blank');
+        print(`<span style="color: var(--base0B);">Opening glossary in new tab...</span>`);
         break;
         
       case 'clear':

@@ -1,12 +1,30 @@
 ---
-// Layout.astro - Declarative base layout with GSAP
+// Layout.astro - Declarative base layout with GSAP + SEO
 
 interface Props {
   title: string;
   description?: string;
+  image?: string;
+  canonical?: string;
+  type?: string;
 }
 
-const { title, description = "Full-stack developer building web applications" } = Astro.props;
+const {
+  title,
+  description = "Software developer portfolio | Reverb256 - Building with Rust, TypeScript, and NixOS",
+  image = "/og-image.png",
+  canonical,
+  type = "website"
+} = Astro.props;
+
+// Generate full title
+const fullTitle = `${title} | Reverb256`;
+
+// Generate canonical URL if not provided
+const canonicalURL = canonical || new URL(Astro.url.pathname, Astro.site).href;
+
+// Open Graph image URL (absolute)
+const ogImage = new URL(image, Astro.site).href;
 ---
 
 <!doctype html>
@@ -16,10 +34,90 @@ const { title, description = "Full-stack developer building web applications" } 
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href={canonicalURL} />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content={type} />
+    <meta property="og:site_name" content="Reverb256" />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:locale" content="en_CA" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <!-- Preconnect for fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- Preload critical fonts for better CLS -->
+    <link
+      rel="preload"
+      href="https://fonts.gstatic.com/s/inter/v13/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfAZ9hjp-Ek-_EeA.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="https://fonts.gstatic.com/s/firacode/v22/uU9eCBsR6Z2vfE9aq3bL0f96FsTlw.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+
+    <!-- Font stylesheets with display=swap for CLS -->
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Fira+Code:wght@400;500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
-    <title>{title}</title>
+
+    <title>{fullTitle}</title>
+
+    <!-- Structured Data - Person -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Reverb256",
+      "url": "https://reverb256.ca",
+      "sameAs": [
+        "https://github.com/reverb256"
+      ],
+      "jobTitle": "Software Developer",
+      "knowsAbout": [
+        "Rust Programming",
+        "TypeScript",
+        "NixOS",
+        "Kubernetes",
+        "AI/ML",
+        "Web Development"
+      ],
+      "worksFor": {
+        "@type": "Organization",
+        "name": "Independent"
+      }
+    })}></script>
+
+    <!-- Structured Data - WebSite -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Reverb256",
+      "url": "https://reverb256.ca/",
+      "description": "Personal portfolio and development blog",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "https://reverb256.ca/search?q={search_term_string}"
+        },
+        "query-input": "required name=search_term_string"
+      }
+    })}></script>
   </head>
   <body style="min-height: 100vh; margin: 0; padding: 0; color: #c8ced8; font-family: system-ui, -apple-system, sans-serif; overflow-x: hidden;">
     <!-- Background gradient -->
@@ -120,11 +218,47 @@ const { title, description = "Full-stack developer building web applications" } 
       }
       animateParticles();
       
-      // Element animations
+      // Interaction tracking for combo system
+      let interactionCombo = 0;
+
+      // Track mouse position for radial gradient effects (mouseX, mouseY already declared above)
+      document.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+
+        // Update mouse position CSS variables for all bento items
+        document.querySelectorAll('.bento-item').forEach(item => {
+          (item as HTMLElement).style.setProperty('--mouse-x', `${mouseX}px`);
+          (item as HTMLElement).style.setProperty('--mouse-y', `${mouseY}px`);
+        });
+      });
+
+      // Combo system for interactions (rhythm game inspired)
+      document.querySelectorAll('.bento-item').forEach(card => {
+        card.addEventListener('mouseenter', () => {
+          interactionCombo++;
+
+          // Celebrate every 5 interactions
+          if (interactionCombo % 5 === 0 && interactionCombo > 0) {
+            showComboMilestone(interactionCombo);
+          }
+        });
+      });
+
+      function showComboMilestone(combo: number) {
+        const milestone = document.createElement('div');
+        milestone.className = 'combo-milestone';
+        milestone.textContent = `${combo}x COMBO!`;
+        document.body.appendChild(milestone);
+
+        setTimeout(() => milestone.remove(), 1500);
+      }
+
+      // Element animations with Hoyoverse timing
       const animationConfig = {
-        "fade-up": { y: 40, opacity: 0, duration: 0.8, ease: "power3.out" },
-        "fade-in": { scale: 0.95, opacity: 0, duration: 0.6, ease: "power2.out" },
-        "slide-right": { x: -40, opacity: 0, duration: 0.8, ease: "power3.out" },
+        "fade-up": { y: 40, opacity: 0, duration: 0.6, ease: "power2.out" },  // Faster, more responsive
+        "fade-in": { scale: 0.95, opacity: 0, duration: 0.4, ease: "power2.out" },
+        "slide-right": { x: -40, opacity: 0, duration: 0.6, ease: "power2.out" },
       };
       
       function isInViewport(el: Element): boolean {
@@ -159,10 +293,38 @@ const { title, description = "Full-stack developer building web applications" } 
           scrollTrigger: { trigger: container, start: "top 80%", once: true },
         });
       });
+
+      // Section beat markers (rhythm game-inspired scroll feedback)
+      const sections = document.querySelectorAll('section[id]');
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('section-active');
+
+            // Add "beat hit" visual on beat indicators
+            const indicator = entry.target.querySelector('.beat-indicator');
+            if (indicator) {
+              indicator.classList.add('active', 'hit');
+              setTimeout(() => indicator.classList.remove('hit'), 300);
+            }
+          } else {
+            entry.target.classList.remove('section-active');
+            const indicator = entry.target.querySelector('.beat-indicator');
+            if (indicator) {
+              indicator.classList.remove('active');
+            }
+          }
+        });
+      }, { threshold: 0.3 });
+
+      sections.forEach(section => {
+        observer.observe(section);
+      });
     </script>
   </body>
 </html>
 
 <style is:global>
   @import "../styles/global.css";
+  @import "../styles/animations.css";
 </style>

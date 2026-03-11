@@ -1,0 +1,180 @@
+---
+import Layout from "../../layouts/Layout.astro";
+
+const bookmarks = {
+  development: {
+    icon: "💻",
+    color: "var(--base0D)",
+    links: [
+      { name: "Astro", url: "https://astro.build", desc: "Static site generator for this portfolio" },
+      { name: "Rust Docs", url: "https://doc.rust-lang.org", desc: "Official Rust documentation" },
+      { name: "NixOS Wiki", url: "https://nixos.wiki", desc: "Community knowledge base" },
+      { name: "MDN", url: "https://developer.mozilla.org", desc: "Web development reference" },
+      { name: "Cloudflare Docs", url: "https://developers.cloudflare.com", desc: "Workers, D1, KV, Pages" }
+    ]
+  },
+  ai: {
+    icon: "🤖",
+    color: "var(--base09)",
+    links: [
+      { name: "Anthropic Claude", url: "https://docs.anthropic.com", desc: "Primary AI coding assistant" },
+      { name: "MCP Specs", url: "https://modelcontextprotocol.io", desc: "Model Context Protocol" },
+      { name: "Groq", url: "https://groq.com", desc: "Fast inference for Frostbite Gazette" },
+      { name: "pi-agent-core", url: "https://github.com/LokzenTesting/pi-agent-core", desc: "AI agent framework" },
+      { name: "Ollama", url: "https://ollama.ai", desc: "Local LLM management" }
+    ]
+  },
+  tools: {
+    icon: "🔧",
+    color: "var(--base0E)",
+    links: [
+      { name: "Serena", url: "https://github.com/LostInDarkMath/serena", desc: "Semantic code editing for Claude Code" },
+      { name: "shadcn/ui", url: "https://ui.shadcn.com", desc: "React component library" },
+      { name: "Colmena", url: "https://colmena.cli.rs", desc: "Multi-host NixOS deployment" },
+      { name: "Wrangler", url: "https://developers.cloudflare.com/workers/wrangler", desc: "Cloudflare Workers CLI" },
+      { name: "Playwright", url: "https://playwright.dev", desc: "E2E testing framework" }
+    ]
+  },
+  inspiration: {
+    icon: "💡",
+    color: "var(--base0F)",
+    links: [
+      { name: "Hacker News", url: "https://news.ycombinator.com", desc: "Tech discussions" },
+      { name: "Lobsters", url: "https://lobste.rs", desc: "Hacker news alternative" },
+      { name: "r/rust", url: "https://reddit.com/r/rust", desc: "Rust community" },
+      { name: "Awesome Self-Hosted", url: "https://awesome-selfhosted.net", desc: "Curated self-hosted apps" },
+      { name: "NixOS Search", url: "https://search.nixos.org", desc: "Package and option search" }
+    ]
+  },
+  learning: {
+    icon: "📚",
+    color: "var(--base0B)",
+    links: [
+      { name: "Rust by Example", url: "https://doc.rust-lang.org/rust-by-example", desc: "Learn Rust through examples" },
+      { name: "Nix Pills", url: "https://nixos.org/guides/nix-pills", desc: "Nix language fundamentals" },
+      { name: "Kubernetes Docs", url: "https://kubernetes.io/docs", desc: "K8s documentation" },
+      { name: "Explain Shell", url: "https://explainshell.com", desc: "Shell command breakdown" },
+      { name: "DevHints", url: "https://devhints.io", desc: "Cheat sheets for everything" }
+    ]
+  }
+};
+---
+
+<Layout
+  title="Bookmarks"
+  description="Curated collection of development resources, tools, and learning materials. Essential links for Rust, NixOS, Kubernetes, and AI development."
+>
+  <div class="max-w-4xl mx-auto px-6 py-16">
+    <!-- Header -->
+    <div data-animate="fade-up">
+      <div class="flex items-center gap-2 mb-2">
+        <span class="text-2xl">🔖</span>
+        <h1 class="text-4xl font-bold text-[var(--base07)]">Bookmarks</h1>
+      </div>
+      <p class="text-sm text-[var(--base04)] mb-2">Resources I use regularly</p>
+      <p class="text-xs text-[var(--base04)]">Click any link to visit · Hover for preview info</p>
+    </div>
+
+    <!-- Quick Stats -->
+    <div class="flex gap-4 mb-8" data-animate="fade-up" data-delay="0.05">
+      {Object.entries(bookmarks).map(([cat, data], i) => (
+        <div class="px-3 py-1 bg-[var(--base01)] rounded-full text-xs text-[var(--base04)]">
+          {data.icon} {cat}: {data.links.length}
+        </div>
+      ))}
+    </div>
+
+    <!-- Bookmark Categories Grid -->
+    <div class="grid md:grid-cols-2 gap-6">
+      {Object.entries(bookmarks).map(([category, data], i) => (
+        <div
+          class="glass p-6 hover:shadow-xl transition-all duration-300 group/category"
+          data-animate="fade-up"
+          data-delay={`${0.1 + i * 0.08}`}
+        >
+          <!-- Category Header -->
+          <h2 class="text-lg font-bold mb-4 flex items-center gap-3" style="color: {data.color};">
+            <span class="text-2xl group-hover/category:scale-110 group-hover/category:rotate-6 transition-all duration-300">{data.icon}</span>
+            <span class="capitalize">{category}</span>
+            <span class="ml-auto text-xs px-2 py-1 bg-[var(--base02)] rounded-full text-[var(--base04)]">{data.links.length} links</span>
+          </h2>
+
+          <!-- Links List -->
+          <ul class="space-y-2">
+            {data.links.map((link, idx) => (
+              <li>
+                <a
+                  href={link.url}
+                  target="_blank"
+                  rel="noopener"
+                  class="block group/link p-2 -mx-2 rounded-lg hover:bg-[var(--base01)] transition-all duration-200"
+                >
+                  <div class="flex items-start justify-between gap-2">
+                    <div class="flex-grow min-w-0">
+                      <div class="flex items-center gap-2">
+                        <span class="font-medium text-[var(--base07)] group-hover/link:text-[var(--base09)] transition-colors truncate">
+                          {link.name}
+                        </span>
+                      </div>
+                      <div class="text-xs text-[var(--base04)] mt-0.5 line-clamp-1">{link.desc}</div>
+                    </div>
+                    <svg
+                      class="w-4 h-4 text-[var(--base04)] group-hover/link:text-[var(--base0D)] group-hover/link:translate-x-0.5 transition-all duration-200 flex-shrink-0 mt-0.5"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                    </svg>
+                  </div>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+
+    <!-- Pro Tip Card -->
+    <div class="glass p-6 mt-6 relative overflow-hidden" data-animate="fade-up" data-delay="0.6">
+      <div class="absolute top-0 right-0 w-32 h-32 bg-[var(--base0D)]/5 rounded-full blur-3xl"></div>
+      <div class="relative">
+        <h2 class="text-lg font-bold text-[var(--base07)] mb-3 flex items-center gap-2">
+          <span class="text-xl">💡</span>
+          Pro Tip
+        </h2>
+        <p class="text-sm text-[var(--base05)] mb-3">
+          Most of these resources are also accessible through my
+          <a href="/" class="text-[var(--base0D)] hover:underline inline-flex items-center gap-1 group font-medium">
+            terminal database
+            <svg class="w-3 h-3 transition-transform group-hover:translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+            </svg>
+          </a>
+          via the
+          <code class="px-2 py-1 bg-[var(--base02)] rounded text-[var(--base09)] font-mono text-xs">read TECH_001</code>
+          command.
+        </p>
+        <a
+          href="/"
+          class="inline-flex items-center gap-2 text-sm text-[var(--base0D)] hover:text-[var(--base09)] transition-colors group"
+        >
+          <svg class="w-4 h-4 transition-transform group-hover:-translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+          </svg>
+          Try the terminal
+        </a>
+      </div>
+    </div>
+
+    <!-- Back Navigation -->
+    <div class="mt-8 text-center" data-animate="fade-up" data-delay="0.7">
+      <a href="/" class="inline-flex items-center gap-2 text-sm text-[var(--base04)] hover:text-[var(--base0D)] transition-colors group">
+        <svg class="w-4 h-4 transition-transform group-hover:-translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+        </svg>
+        Back to Home
+      </a>
+    </div>
+  </div>
+</Layout>

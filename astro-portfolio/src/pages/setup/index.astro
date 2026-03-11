@@ -1,0 +1,274 @@
+---
+import Layout from "../../layouts/Layout.astro";
+
+const setup = {
+  workstation: {
+    name: "Zephyr",
+    icon: "🌟",
+    status: "active",
+    specs: [
+      { label: "CPU", value: "AMD Ryzen 9 5900X", icon: "⚡" },
+      { label: "GPU", value: "RTX 3090 + RTX 3060 Ti", icon: "🎮" },
+      { label: "RAM", value: "64GB DDR4", icon: "💾" },
+      { label: "Storage", value: "2TB NVMe + 4TB HDD", icon: "📁" },
+      { label: "OS", value: "NixOS 26.05 (unstable)", icon: "🐧" }
+    ]
+  },
+  cluster: [
+    { name: "Zephyr", role: "Main workstation", location: "Room 2", gpus: "RTX 3090 + 3060 Ti", status: "online", icon: "🌟" },
+    { name: "Nexus", role: "Mining + storage", location: "Downstairs", gpus: "1x NVIDIA", status: "online", icon: "💠" },
+    { name: "Forge", role: "Mining", location: "Room 1", gpus: "2x RTX 4060 + 2x RX 5700 XT", status: "online", icon: "🔥" },
+    { name: "Sentry", role: "Mining", location: "Room 1", gpus: "1x AMD", status: "online", icon: "🛡️" }
+  ],
+  software: {
+    os: { label: "OS", value: "NixOS with Flakes + Colmena", icon: "🐧" },
+    editor: { label: "Editor", value: "Claude Code with Serena semantic tools", icon: "✨" },
+    terminal: { label: "Shell", value: "Fish shell with custom functions", icon: "🐟" },
+    browser: { label: "Browser", value: "Firefox with privacy extensions", icon: "🦊" },
+    communication: { label: "Communication", value: "Discord, GitHub", icon: "💬" }
+  },
+  philosophy: [
+    { principle: "Declarative", icon: "📜", desc: "NixOS configuration as source of truth", color: "var(--base0D)" },
+    { principle: "Reproducible", icon: "🔄", desc: "Same config = same system, every time", color: "var(--base09)" },
+    { principle: "Documented", icon: "📚", desc: "Comprehensive AGENTS.md for all AI assistants", color: "var(--base0E)" },
+    { principle: "Local-First", icon: "🏠", desc: "Self-hosted AI, minimal cloud dependencies", color: "var(--base0B)" },
+    { principle: "Privacy-Focused", icon: "🔒", desc: "Full disk encryption, VLANs, OPSEC", color: "var(--base0F)" }
+  ],
+  dotfiles: "https://github.com/reverb256/nixos-config",
+  learning: [
+    { item: "Kubernetes migration", progress: 40, icon: "☸️" },
+    { item: "Advanced NixOS modules", progress: 60, icon: "🔧" },
+    { item: "MCP server ecosystem", progress: 75, icon: "🔌" },
+    { item: "AI agent orchestration", progress: 80, icon: "🤖" }
+  ]
+};
+
+const statusColors = {
+  online: "var(--base0B)",
+  offline: "var(--base08)",
+  active: "var(--base0B)"
+};
+---
+
+<Layout
+  title="Setup"
+  description="Tour of my development environment: 4-host NixOS cluster, GPU workstations, local AI stack, and the tools I use daily for software development."
+>
+  <div class="max-w-4xl mx-auto px-6 py-16">
+    <!-- Header -->
+    <div data-animate="fade-up">
+      <div class="flex items-center gap-2 mb-2">
+        <span class="text-2xl">⚙️</span>
+        <h1 class="text-4xl font-bold text-[var(--base07)]">Setup</h1>
+      </div>
+      <p class="text-sm text-[var(--base04)]">My workstation, cluster, and development environment</p>
+    </div>
+
+    <!-- Main Workstation Card -->
+    <div class="glass p-6 mb-6 relative overflow-hidden" data-animate="fade-up" data-delay="0.1">
+      <div class="absolute inset-0 bg-gradient-to-br from-[var(--base09)]/5 to-transparent"></div>
+      <div class="relative">
+        <div class="flex items-center justify-between mb-6">
+          <h2 class="text-xl font-bold text-[var(--base07)] flex items-center gap-3">
+            <span class="text-3xl">{setup.workstation.icon}</span>
+            {setup.workstation.name}
+            <span class="ml-2 px-2 py-0.5 bg-[var(--base0B)]/20 text-[var(--base0B)] text-xs rounded-full">Main</span>
+          </h2>
+          <div class="flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-[var(--base0B)] animate-pulse"></span>
+            <span class="text-xs text-[var(--base0B)]">Active</span>
+          </div>
+        </div>
+        <div class="grid md:grid-cols-2 gap-4">
+          {setup.workstation.specs.map(spec => (
+            <div class="flex items-center gap-3 p-3 bg-[var(--base01)]/50 rounded-lg group hover:bg-[var(--base01)] transition-colors">
+              <span class="text-xl">{spec.icon}</span>
+              <div class="flex-grow">
+                <div class="text-xs text-[var(--base04)]">{spec.label}</div>
+                <div class="text-sm text-[var(--base06)] group-hover:text-[var(--base07)] transition-colors">{spec.value}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+
+    <!-- Cluster Section -->
+    <div class="glass p-6 mb-6" data-animate="fade-up" data-delay="0.2">
+      <div class="flex items-center justify-between mb-6">
+        <h2 class="text-xl font-bold text-[var(--base07)] flex items-center gap-3">
+          <span>🏠</span>
+          NixOS Cluster
+          <span class="ml-2 text-sm font-normal text-[var(--base04)]">4 hosts</span>
+        </h2>
+        <span class="text-xs text-[var(--base04)]">Managed via Colmena → K8s</span>
+      </div>
+      <div class="grid md:grid-cols-2 gap-4">
+        {setup.cluster.map(host => (
+          <div class="group relative overflow-hidden rounded-xl border border-[var(--base02)] hover:border-[var(--base0D)] transition-all duration-300">
+            <div class="absolute inset-0 bg-gradient-to-br from-[var(--base0D)]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+            <div class="relative p-4">
+              <div class="flex items-start justify-between mb-3">
+                <div class="flex items-center gap-2">
+                  <span class="text-2xl group-hover:scale-110 transition-transform">{host.icon}</span>
+                  <h3 class="font-bold text-[var(--base0D)]">{host.name}</h3>
+                </div>
+                <div class="flex items-center gap-1.5">
+                  <span class="w-2 h-2 rounded-full" style="background: {statusColors[host.status]};"></span>
+                  <span class="text-xs capitalize" style="color: {statusColors[host.status]};">{host.status}</span>
+                </div>
+              </div>
+              <div class="space-y-1.5 text-xs">
+                <div class="flex items-center gap-2">
+                  <span class="text-[var(--base04)] w-16">Role</span>
+                  <span class="text-[var(--base06)]">{host.role}</span>
+                </div>
+                <div class="flex items-center gap-2">
+                  <span class="text-[var(--base04)] w-16">Location</span>
+                  <span class="text-[var(--base06)]">{host.location}</span>
+                </div>
+                <div class="flex items-center gap-2">
+                  <span class="text-[var(--base04)] w-16">GPUs</span>
+                  <span class="text-[var(--base09)] font-medium">{host.gpus}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+      <div class="mt-4 p-3 bg-[var(--base01)]/50 rounded-lg text-xs text-[var(--base04)] flex items-center justify-between">
+        <span>Deployment: <span class="text-[var(--base0D)]">Colmena</span> → <span class="text-[var(--base09)]">Kubernetes</span> (9-week roadmap)</span>
+        <span class="w-2 h-2 rounded-full bg-[var(--base09)] animate-pulse"></span>
+      </div>
+    </div>
+
+    <!-- Software Stack -->
+    <div class="glass p-6 mb-6" data-animate="fade-up" data-delay="0.3">
+      <h2 class="text-xl font-bold text-[var(--base07)] mb-6 flex items-center gap-3">
+        <span>⚙️</span>
+        Software Stack
+      </h2>
+      <div class="space-y-3">
+        {Object.values(setup.software).map(soft => (
+          <div class="flex items-center gap-4 p-3 bg-[var(--base01)]/30 rounded-lg hover:bg-[var(--base01)] transition-colors group">
+            <span class="text-2xl group-hover:scale-110 transition-transform">{soft.icon}</span>
+            <div class="w-20 text-sm text-[var(--base04)]">{soft.label}</div>
+            <div class="flex-grow text-sm text-[var(--base06)] group-hover:text-[var(--base07)] transition-colors">{soft.value}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- Philosophy -->
+    <div class="glass p-6 mb-6" data-animate="fade-up" data-delay="0.4">
+      <h2 class="text-xl font-bold text-[var(--base07)] mb-6 flex items-center gap-3">
+        <span>💡</span>
+        Philosophy
+      </h2>
+      <div class="grid md:grid-cols-2 gap-4">
+        {setup.philosophy.map(p => (
+          <div class="group flex gap-4 p-4 bg-[var(--base01)]/30 rounded-xl hover:bg-[var(--base01)] transition-all duration-300">
+            <div class="w-12 h-12 rounded-xl flex items-center justify-center text-2xl" style="background: {p.color}20;">
+              {p.icon}
+            </div>
+            <div class="flex-grow">
+              <div class="font-bold text-sm" style="color: {p.color};">{p.principle}</div>
+              <div class="text-xs text-[var(--base05)] mt-1">{p.desc}</div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- Learning Progress -->
+    <div class="glass p-6 mb-6" data-animate="fade-up" data-delay="0.5">
+      <h2 class="text-xl font-bold text-[var(--base07)] mb-6 flex items-center gap-3">
+        <span>📚</span>
+        Currently Learning
+      </h2>
+      <div class="space-y-4">
+        {setup.learning.map(item => (
+          <div class="group">
+            <div class="flex items-center justify-between mb-2">
+              <div class="flex items-center gap-2">
+                <span class="text-lg group-hover:scale-110 transition-transform">{item.icon}</span>
+                <span class="text-sm font-medium text-[var(--base06)] group-hover:text-[var(--base07)] transition-colors">{item.item}</span>
+              </div>
+              <span class="text-xs px-2 py-1 bg-[var(--base02)] rounded text-[var(--base09)]">{item.progress}%</span>
+            </div>
+            <div class="h-2 bg-[var(--base01)] rounded-full overflow-hidden">
+              <div
+                class="h-full rounded-full transition-all duration-700 ease-out group-hover:brightness-110"
+                style="width: {item.progress}%; background: linear-gradient(90deg, var(--base09), var(--base0D));"
+              ></div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- Dotfiles CTA -->
+    <div class="glass p-6 relative overflow-hidden" data-animate="fade-up" data-delay="0.6">
+      <div class="absolute top-0 right-0 w-40 h-40 bg-[var(--base0D)]/5 rounded-full blur-3xl"></div>
+      <div class="relative">
+        <h2 class="text-xl font-bold text-[var(--base07)] mb-4 flex items-center gap-3">
+          <span>📁</span>
+          Configuration
+        </h2>
+        <p class="text-sm text-[var(--base05)] mb-4">
+          Full NixOS configuration available on GitHub. Includes:
+        </p>
+        <ul class="text-sm text-[var(--base04)] space-y-2 mb-6">
+          <li class="flex items-center gap-2">
+            <svg class="w-4 h-4 text-[var(--base0B)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
+            Flakes-based system configuration
+          </li>
+          <li class="flex items-center gap-2">
+            <svg class="w-4 h-4 text-[var(--base0B)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
+            Colmena multi-host deployment
+          </li>
+          <li class="flex items-center gap-2">
+            <svg class="w-4 h-4 text-[var(--base0B)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
+            Custom modules for AI, mining, monitoring
+          </li>
+          <li class="flex items-center gap-2">
+            <svg class="w-4 h-4 text-[var(--base0B)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
+            Agent-friendly documentation
+          </li>
+        </ul>
+        <a
+          href={setup.dotfiles}
+          target="_blank"
+          rel="noopener"
+          class="inline-flex items-center gap-2 btn-accent group"
+        >
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+          </svg>
+          View on GitHub
+          <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+          </svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- Back Navigation -->
+    <div class="mt-8 text-center" data-animate="fade-up" data-delay="0.7">
+      <a href="/" class="inline-flex items-center gap-2 text-sm text-[var(--base04)] hover:text-[var(--base0D)] transition-colors group">
+        <svg class="w-4 h-4 transition-transform group-hover:-translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+        </svg>
+        Back to Home
+      </a>
+    </div>
+  </div>
+</Layout>
