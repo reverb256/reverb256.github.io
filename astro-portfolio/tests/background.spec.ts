@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 
 test.describe('Portfolio Elements', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto('/');
+    await page.goto('http://localhost:4321/');
     await page.waitForLoadState('networkidle');
   });
 
@@ -30,7 +30,7 @@ test.describe('Portfolio Elements', () => {
   });
 
   test('h1 exists with correct text', async ({ page }) => {
-    const h1 = page.locator('h1');
+    const h1 = page.locator('#hero h1');
     await expect(h1).toBeVisible();
     await expect(h1).toContainText('Reverb256');
   });

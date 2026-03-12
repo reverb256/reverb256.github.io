@@ -29,7 +29,7 @@ test.describe('Terminal', () => {
     await page.waitForTimeout(500);
 
     const output = page.locator('#term-output');
-    await expect(output).toContainText('R256 Database Commands');
+    await expect(output).toContainText('AVAILABLE COMMANDS');
     await expect(output).toContainText('help');
     await expect(output).toContainText('list');
   });
@@ -55,17 +55,16 @@ test.describe('Terminal', () => {
 
     // Verify we have output
     const output = page.locator('#term-output');
-    await expect(output).toContainText('R256 Database Commands');
+    await expect(output).toContainText('AVAILABLE COMMANDS');
 
     // Clear it
     await input.fill('clear');
     await input.press('Enter');
     await page.waitForTimeout(500);
 
-    // After clear, the original welcome message should be gone
-    // (it may have empty p tags, but the text should be cleared)
-    await expect(output).not.toContainText('R256 Database Commands');
-    await expect(output).not.toContainText('help for commands');
+    // After clear, the original help output should be gone
+    await expect(output).not.toContainText('AVAILABLE COMMANDS');
+    await expect(output).not.toContainText('help      - Display help');
   });
 
   test('ls command shows database subjects', async ({ page }) => {
