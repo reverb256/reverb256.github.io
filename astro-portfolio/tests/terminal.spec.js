@@ -68,7 +68,7 @@ test.describe('Terminal', () => {
     await expect(output).not.toContainText('help for commands');
   });
 
-  test('ls command shows files', async ({ page }) => {
+  test('ls command shows database subjects', async ({ page }) => {
     const input = page.locator('#term-input');
     await input.click();
     await input.fill('ls');
@@ -77,8 +77,8 @@ test.describe('Terminal', () => {
     await page.waitForTimeout(300);
 
     const output = page.locator('#term-output');
-    await expect(output).toContainText('Documents');
-    await expect(output).toContainText('Projects');
+    await expect(output).toContainText('DATABASE SUBJECTS');
+    await expect(output).toContainText('JOURNEY_001');
   });
 
   test('list command shows database subjects', async ({ page }) => {

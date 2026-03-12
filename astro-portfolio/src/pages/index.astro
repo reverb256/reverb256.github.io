@@ -208,7 +208,9 @@ const skills = ["TypeScript", "React", "Rust", "Node.js", "NixOS", "Astro", "Tai
   const autocompleteSuggestions = {
     'help': 'help',
     'list': 'list',
+    'ls': 'ls',
     'read': 'read ',
+    'whoami': 'whoami',
     'random': 'random',
     'search': 'search ',
     'clear': 'clear',
@@ -286,12 +288,11 @@ const skills = ["TypeScript", "React", "Rust", "Node.js", "NixOS", "Astro", "Tai
     await new Promise(r => setTimeout(r, 100));
     
     switch(command) {
-      case 'ls':
-      case 'list':
-        print(`<span style="color: var(--base0D);">DATABASE SUBJECTS</span>`);
+      case 'help':
         print(`<span style="color: var(--base0D);">AVAILABLE COMMANDS:</span>
   <span style="color: var(--base06);">help</span>      - Display help
   <span style="color: var(--base06);">list</span>      - List all subjects
+  <span style="color: var(--base06);">ls</span>        - Alias for list
   <span style="color: var(--base06);">read [ID]</span> - Read subject file
   <span style="color: var(--base06);">random</span>    - Random subject
   <span style="color: var(--base06);">search [q]</span> - Search database
@@ -302,16 +303,24 @@ const skills = ["TypeScript", "React", "Rust", "Node.js", "NixOS", "Astro", "Tai
   <span style="color: var(--base06);">matrix</span>    - Easter egg
   <span style="color: var(--base06);">about</span>     - About system`);
         break;
-        
+
+      case 'ls':
       case 'list':
         print(`<span style="color: var(--base0D);">DATABASE SUBJECTS</span>`);
         db.subjects.forEach(s => {
-          const color = s.classification === 'TOP SECRET' ? 'var(--base08)' : 
+          const color = s.classification === 'TOP SECRET' ? 'var(--base08)' :
                        s.classification === 'RESTRICTED' ? 'var(--base0A)' : 'var(--base0B)';
           print(`  <span style="color: var(--base06);">${s.id}</span> - ${s.title} [<span style="color: ${color};">${s.classification}</span>]`);
         });
         break;
-        
+
+      case 'whoami':
+        print(`<span style="color: var(--base0D);">USER: r256</span>
+<span style="color: var(--base05);">Role: Administrator</span>
+<span style="color: var(--base05);">Clearance: TOP SECRET</span>
+<span style="color: var(--base0B);">System: NixOS/Zephyr</span>`);
+        break;
+
       case 'read':
         if (!arg) {
           print(`<span style="color: var(--base08);">ERROR: Specify ID. Usage: read [ID]</span>`);
