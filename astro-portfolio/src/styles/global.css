@@ -336,13 +336,19 @@ svg {
     scroll-behavior: smooth;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    scroll-padding-top: 80px; /* Offset for fixed header */
   }
-  
+
   body {
     background: var(--bg-primary);
     color: var(--text-secondary);
     font-family: system-ui, -apple-system, sans-serif;
     line-height: 1.6;
+  }
+
+  /* Main content with header offset */
+  .main-content {
+    padding-top: var(--header-height, 64px);
   }
   
   ::selection {

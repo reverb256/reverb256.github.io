@@ -26,14 +26,14 @@ const db = {
 };
 
 const projects = [
-  { title: "Frostbite Gazette", desc: "AI-curated Canadian journalism platform", status: "active", icon: "🍁", span: "2x2", tech: ["Astro", "Cloudflare", "Groq AI"], metric: "Active" },
-  { title: "Troves & Coves", desc: "Crystal jewelry e-commerce with shadcn/ui", status: "active", icon: "💎", span: "1x1", tech: ["React", "TypeScript", "shadcn/ui"], metric: "Active" },
-  { title: "Astral Key", desc: "Web3 auth microservice", status: "active", icon: "🔑", span: "1x1", tech: ["Rust", "SQLx", "Axum"], metric: "Active" },
-  { title: "Synapse", desc: "AI command center with Tauri", status: "active", icon: "⚡", span: "2x1", tech: ["Node.js", "Tauri", "WebSocket"], metric: "Active" },
-  { title: "Qwen Infrastructure", desc: "Mining cluster AI brain", status: "active", icon: "🧠", span: "1x1", tech: ["pi-agent-core", "Prometheus"], metric: "Active" },
-  { title: "Wan2GP MCP", desc: "Video generation MCP server", status: "active", icon: "🎬", span: "1x1", tech: ["Python", "FastMCP", "Gradio"], metric: "MCP" },
-  { title: "NixOS Cluster", desc: "4-host mining infrastructure", status: "active", icon: "🖥️", span: "2x1", tech: ["NixOS", "Colmena", "K8s"], metric: "Infrastructure" },
-  { title: "This Portfolio", desc: "Astro + GSAP + Terminal minigame", status: "live", icon: "🌐", span: "1x1", tech: ["Astro", "GSAP"], metric: "reverb256.ca" },
+  { title: "Frostbite Gazette", repo: "Frostbite-Gazette", desc: "AI-curated Canadian journalism platform", status: "active", icon: "🍁", span: "2x2", tech: ["Astro", "Cloudflare", "Groq AI"], metric: "Active" },
+  { title: "Troves & Coves", repo: "trovesandcoves", desc: "Crystal jewelry e-commerce with shadcn/ui", status: "active", icon: "💎", span: "1x1", tech: ["React", "TypeScript", "shadcn/ui"], metric: "Active" },
+  { title: "Astral Key", repo: "astral-key", desc: "Web3 auth microservice", status: "active", icon: "🔑", span: "1x1", tech: ["Rust", "SQLx", "Axum"], metric: "Active" },
+  { title: "Synapse", repo: "synapse", desc: "AI command center with Tauri", status: "active", icon: "⚡", span: "2x1", tech: ["Node.js", "Tauri", "WebSocket"], metric: "Active" },
+  { title: "Qwen Infrastructure", repo: null, desc: "Mining cluster AI brain", status: "active", icon: "🧠", span: "1x1", tech: ["pi-agent-core", "Prometheus"], metric: "Active" },
+  { title: "Wan2GP MCP", repo: null, desc: "Video generation MCP server", status: "active", icon: "🎬", span: "1x1", tech: ["Python", "FastMCP", "Gradio"], metric: "MCP" },
+  { title: "NixOS Cluster", repo: null, desc: "4-host mining infrastructure", status: "active", icon: "🖥️", span: "2x1", tech: ["NixOS", "Colmena", "K8s"], metric: "Infrastructure" },
+  { title: "This Portfolio", repo: null, desc: "Astro + GSAP + Terminal minigame", status: "live", icon: "🌐", span: "1x1", tech: ["Astro", "GSAP"], metric: "reverb256.ca" },
 ];
 
 const skills = ["TypeScript", "React", "Rust", "Node.js", "NixOS", "Astro", "Tailwind", "Python", "Cloudflare Workers", "Docker", "Kubernetes", "MCP"];
@@ -43,29 +43,8 @@ const skills = ["TypeScript", "React", "Rust", "Node.js", "NixOS", "Astro", "Tai
   title="Reverb256"
   description="Software developer portfolio showcasing projects in Rust, TypeScript, and NixOS. Building privacy-first AI tools, contributing to open source, and learning in public."
 >
-  <!-- Skip to main content link for accessibility -->
-  <a href="#main-content" class="skip-link">Skip to main content</a>
-
-  <!-- Navigation -->
-  <nav class="fixed top-0 left-0 right-0 z-50 px-6 py-3 bg-[var(--base00)]/80 backdrop-blur-md border-b border-[var(--base02)]" aria-label="Main navigation">
-    <div class="max-w-6xl mx-auto flex items-center justify-between">
-      <a href="/" class="font-bold text-lg text-[var(--base07)] hover:text-[var(--base09)] transition-colors" aria-label="Reverb256 Home">R256://</a>
-      <div class="flex items-center gap-4 md:gap-6">
-        <a href="/#projects" class="text-sm text-[var(--base05)] hover:text-[var(--base07)] link-underline">Projects</a>
-        <a href="/blog" class="text-sm text-[var(--base05)] hover:text-[var(--base07)] link-underline">Blog</a>
-        <a href="/now" class="text-sm text-[var(--base05)] hover:text-[var(--base07)] link-underline">Now</a>
-        <a href="/setup" class="text-sm text-[var(--base05)] hover:text-[var(--base07)] link-underline">Setup</a>
-        <a href="/bookmarks" class="text-sm text-[var(--base05)] hover:text-[var(--base07)] link-underline">Links</a>
-        <a href="/#about" class="text-sm text-[var(--base05)] hover:text-[var(--base07)] link-underline">About</a>
-        <a href="https://github.com/reverb256" target="_blank" rel="noopener noreferrer" class="btn-accent text-xs py-1.5 px-4">GitHub</a>
-      </div>
-    </div>
-  </nav>
-
-  <!-- Main content -->
-  <main id="main-content">
     <!-- Hero with Terminal -->
-    <section id="hero" class="min-h-screen pt-16 px-6" aria-labelledby="hero-heading">
+    <section id="hero" class="min-h-screen px-6" aria-labelledby="hero-heading">
       <div class="beat-indicator mb-6" aria-hidden="true"></div>
       <div class="max-w-6xl mx-auto w-full grid lg:grid-cols-2 gap-8 items-center min-h-[80vh]">
         <!-- Left: Info -->
@@ -131,7 +110,7 @@ const skills = ["TypeScript", "React", "Rust", "Node.js", "NixOS", "Astro", "Tai
       <div data-stagger class="grid grid-cols-2 md:grid-cols-4 gap-3 auto-rows-[120px]" role="list">
         {projects.map((p) => (
           <a
-            href={`https://github.com/reverb256/${p.title.toLowerCase().replace(/\s+/g, '-')}`}
+            href={p.repo ? `https://github.com/reverb256/${p.repo}` : `https://github.com/reverb256`}
             target="_blank"
             rel="noopener noreferrer"
             data-stagger-item
@@ -208,7 +187,6 @@ const skills = ["TypeScript", "React", "Rust", "Node.js", "NixOS", "Astro", "Tai
       </div>
     </div>
   </section>
-  </main>
 
   <!-- Footer -->
   <footer class="px-6 py-4 border-t border-[var(--base02)]">

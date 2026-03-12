@@ -1,0 +1,550 @@
+---
+/**
+ * Header.astro - Persistent navigation bar across all pages
+ *
+ * Features:
+ * - Fixed position with backdrop blur
+ * - Active page highlighting
+ * - Mobile responsive with hamburger menu
+ * - Keyboard accessible
+ * - Screen reader friendly
+ */
+
+interface Props {
+  currentPath?: string;
+}
+
+const { currentPath = Astro.url.pathname } = Astro.props;
+
+// Navigation items configuration
+const navItems = [
+  { href: "/", label: "Home", icon: "⌂" },
+  { href: "/#projects", label: "Projects", icon: "◉" },
+  { href: "/blog", label: "Blog", icon: "✍" },
+  { href: "/now", label: "Now", icon: "◉" },
+  { href: "/setup", label: "Setup", icon: "⚙" },
+  { href: "/bookmarks", label: "Links", icon: "◎" },
+];
+
+// Helper to determine if a link is active
+const isActive = (href: string) => {
+  if (href === "/") {
+    return currentPath === "/";
+  }
+  return currentPath.startsWith(href);
+};
+
+// Check if we're on the home page for hero section offset
+const isHomePage = currentPath === "/";
+---
+
+<!-- Skip to main content link for accessibility -->
+<a href="#main-content" class="skip-link">Skip to main content</a>
+
+<!-- Header with fixed positioning -->
+<header
+  class="site-header"
+  :class="{ 'on-home': isHomePage }"
+  role="banner"
+>
+  <nav
+    class="nav-container"
+    aria-label="Main navigation"
+  >
+    <!-- Logo/Brand -->
+    <a
+      href="/"
+      class="brand"
+      aria-label="Reverb256 Home"
+      :class="{ 'active': isActive('/') }"
+    >
+      <span class="brand-icon">R256</span>
+      <span class="brand-divider">://</span>
+    </a>
+
+    <!-- Desktop Navigation -->
+    <div class="nav-desktop" role="menubar">
+      {navItems.map((item) => (
+        <a
+          href={item.href}
+          class="nav-link"
+          :class="{ 'active': isActive(item.href) }"
+          role="menuitem"
+          aria-current={isActive(item.href) ? "page" : undefined}
+        >
+          <span class="nav-icon" aria-hidden="true">{item.icon}</span>
+          <span class="nav-label">{item.label}</span>
+        </a>
+      ))}
+    </div>
+
+    <!-- GitHub CTA Button -->
+    <a
+      href="https://github.com/reverb256"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="github-btn"
+      aria-label="GitHub Profile (opens in new tab)"
+    >
+      <svg class="github-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+      </svg>
+    </a>
+
+    <!-- Mobile Menu Toggle -->
+    <button
+      class="mobile-toggle"
+      id="mobile-menu-toggle"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+      aria-label="Toggle navigation menu"
+    >
+      <span class="hamburger"></span>
+      <span class="hamburger"></span>
+      <span class="hamburger"></span>
+    </button>
+  </nav>
+
+  <!-- Mobile Menu Dropdown -->
+  <div
+    class="mobile-menu"
+    id="mobile-menu"
+    aria-hidden="true"
+  >
+    <div class="mobile-menu-inner">
+      {navItems.map((item) => (
+        <a
+          href={item.href}
+          class="mobile-nav-link"
+          :class="{ 'active': isActive(item.href) }"
+          aria-current={isActive(item.href) ? "page" : undefined}
+        >
+          <span class="nav-icon" aria-hidden="true">{item.icon}</span>
+          <span class="nav-label">{item.label}</span>
+          {isActive(item.href) && (
+            <span class="active-indicator" aria-hidden="true">◀</span>
+          )}
+        </a>
+      ))}
+    </div>
+  </div>
+</header>
+
+<style>
+  /* ═════════════════════════════════════════════════════════════
+     HEADER STYLES - Cyberpunk Terminal Aesthetic
+     ═════════════════════════════════════════════════════════════ */
+
+  .site-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background: color(display-p3 0.04 0.05 0.06 / 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--base02);
+    transition: border-color 0.3s ease, transform 0.3s ease;
+  }
+
+  /* Scrolled state with more visible border */
+  .site-header.scrolled {
+    border-bottom-color: var(--base03);
+    background: color(display-p3 0.04 0.05 0.06 / 0.95);
+  }
+
+  .nav-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0.75rem 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  /* ═════════════════════════════════════════════════════════════
+     BRAND/LOGO
+     ═════════════════════════════════════════════════════════════ */
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-family: 'Fira Code', 'JetBrains Mono', monospace;
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    text-decoration: none;
+    padding: 0.375rem 0.625rem;
+    border-radius: var(--radius-sm);
+    transition: all 0.2s ease;
+    position: relative;
+  }
+
+  .brand::before {
+    content: '>';
+    position: absolute;
+    left: 0;
+    color: var(--base0B);
+    opacity: 0;
+    transform: translateX(-4px);
+    transition: all 0.2s ease;
+  }
+
+  .brand:hover {
+    color: var(--accent-primary);
+    background: rgba(255, 159, 92, 0.1);
+  }
+
+  .brand:hover::before {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .brand.active {
+    color: var(--accent-primary);
+  }
+
+  .brand-icon {
+    color: var(--accent-primary);
+  }
+
+  .brand-divider {
+    color: var(--base04);
+  }
+
+  /* ═════════════════════════════════════════════════════════════
+     DESKTOP NAVIGATION
+     ═════════════════════════════════════════════════════════════ */
+
+  .nav-desktop {
+    display: flex;
+    align-items: center;
+    gap: 0.125rem;
+    margin-left: auto;
+    margin-right: 1rem;
+  }
+
+  .nav-link {
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+    padding: 0.5rem 0.875rem;
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    text-decoration: none;
+    border-radius: var(--radius-sm);
+    transition: all 0.2s ease;
+    position: relative;
+  }
+
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+    transform: translateX(-50%);
+    transition: width 0.3s ease;
+    border-radius: 2px;
+  }
+
+  .nav-link:hover {
+    color: var(--text-primary);
+    background: rgba(255, 255, 255, 0.05);
+  }
+
+  .nav-link:hover::after {
+    width: 60%;
+  }
+
+  .nav-link.active {
+    color: var(--accent-primary);
+  }
+
+  .nav-link.active::after {
+    width: 80%;
+  }
+
+  .nav-icon {
+    font-size: 0.75rem;
+    opacity: 0.7;
+    transition: opacity 0.2s ease;
+  }
+
+  .nav-link:hover .nav-icon {
+    opacity: 1;
+  }
+
+  .nav-link.active .nav-icon {
+    opacity: 1;
+    color: var(--accent-primary);
+  }
+
+  /* ═════════════════════════════════════════════════════════════
+     GITHUB BUTTON
+     ═════════════════════════════════════════════════════════════ */
+
+  .github-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: var(--radius-sm);
+    background: var(--bg-surface);
+    border: 1px solid var(--base03);
+    color: var(--text-secondary);
+    transition: all 0.2s ease;
+  }
+
+  .github-btn:hover {
+    color: var(--accent-primary);
+    border-color: var(--accent-primary);
+    background: rgba(255, 159, 92, 0.1);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(255, 159, 92, 0.3);
+  }
+
+  .github-icon {
+    width: 18px;
+    height: 18px;
+  }
+
+  /* ═════════════════════════════════════════════════════════════
+     MOBILE MENU TOGGLE
+     ═════════════════════════════════════════════════════════════ */
+
+  .mobile-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    background: transparent;
+    border: 1px solid var(--base03);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .mobile-toggle:hover {
+    border-color: var(--accent-primary);
+    background: rgba(255, 159, 92, 0.1);
+  }
+
+  .mobile-toggle:focus-visible {
+    outline: 2px solid var(--accent-primary);
+    outline-offset: 2px;
+  }
+
+  .hamburger {
+    width: 16px;
+    height: 2px;
+    background: var(--text-secondary);
+    border-radius: 2px;
+    transition: all 0.3s ease;
+    transform-origin: center;
+  }
+
+  .hamburger:nth-child(1) {
+    margin-bottom: 4px;
+  }
+
+  .hamburger:nth-child(3) {
+    margin-top: 4px;
+  }
+
+  /* Active state for hamburger */
+  .mobile-toggle[aria-expanded="true"] .hamburger:nth-child(1) {
+    transform: translateY(6px) rotate(45deg);
+  }
+
+  .mobile-toggle[aria-expanded="true"] .hamburger:nth-child(2) {
+    opacity: 0;
+    transform: scaleX(0);
+  }
+
+  .mobile-toggle[aria-expanded="true"] .hamburger:nth-child(3) {
+    transform: translateY(-6px) rotate(-45deg);
+  }
+
+  /* ═════════════════════════════════════════════════════════════
+     MOBILE MENU DROPDOWN
+     ═════════════════════════════════════════════════════════════ */
+
+  .mobile-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--bg-elevated);
+    border-bottom: 1px solid var(--base03);
+    transform: translateY(-100%);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  }
+
+  .mobile-menu[aria-hidden="false"] {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .mobile-menu-inner {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 1rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .mobile-nav-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.875rem 1rem;
+    font-size: 1rem;
+    color: var(--text-secondary);
+    text-decoration: none;
+    border-radius: var(--radius-md);
+    transition: all 0.2s ease;
+  }
+
+  .mobile-nav-link:hover {
+    color: var(--text-primary);
+    background: var(--bg-surface);
+  }
+
+  .mobile-nav-link.active {
+    color: var(--accent-primary);
+    background: rgba(255, 159, 92, 0.1);
+  }
+
+  .mobile-nav-link .nav-icon {
+    font-size: 1rem;
+  }
+
+  .active-indicator {
+    font-size: 0.75rem;
+    color: var(--accent-primary);
+  }
+
+  /* ═════════════════════════════════════════════════════════════
+     RESPONSIVE BREAKPOINTS
+     ═════════════════════════════════════════════════════════════ */
+
+  @media (max-width: 768px) {
+    .nav-desktop {
+      display: none;
+    }
+
+    .mobile-toggle {
+      display: flex;
+    }
+
+    .github-btn {
+      display: none;
+    }
+
+    .mobile-menu .github-btn {
+      display: flex;
+      width: 100%;
+      height: auto;
+      padding: 0.875rem 1rem;
+      margin-top: 0.5rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .nav-container {
+      padding: 0.75rem 1rem;
+    }
+
+    .brand {
+      font-size: 1rem;
+      padding: 0.375rem 0.5rem;
+    }
+  }
+
+  /* ═════════════════════════════════════════════════════════════
+     SKIP LINK (Accessibility)
+     ═════════════════════════════════════════════════════════════ */
+
+  .skip-link {
+    position: absolute;
+    top: -100%;
+    left: 0;
+    background: var(--accent-primary);
+    color: var(--bg-primary);
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+    z-index: 9999;
+    border-radius: 0 0 var(--radius-sm) 0;
+    transition: top 0.3s ease;
+  }
+
+  .skip-link:focus {
+    top: 0;
+  }
+</style>
+
+<script>
+  // Mobile menu toggle functionality
+  const toggle = document.getElementById('mobile-menu-toggle');
+  const menu = document.getElementById('mobile-menu');
+
+  if (toggle && menu) {
+    toggle.addEventListener('click', () => {
+      const isExpanded = toggle.getAttribute('aria-expanded') === 'true';
+      toggle.setAttribute('aria-expanded', !isExpanded);
+      menu.setAttribute('aria-hidden', isExpanded);
+
+      // Prevent body scroll when menu is open
+      document.body.style.overflow = isExpanded ? '' : 'hidden';
+    });
+
+    // Close menu when clicking a link
+    menu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        toggle.setAttribute('aria-expanded', 'false');
+        menu.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+      });
+    });
+
+    // Close menu on escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && toggle.getAttribute('aria-expanded') === 'true') {
+        toggle.setAttribute('aria-expanded', 'false');
+        menu.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+        toggle.focus();
+      }
+    });
+
+    // Add scroll state for border visibility
+    let lastScroll = 0;
+    window.addEventListener('scroll', () => {
+      const header = document.querySelector('.site-header');
+      const currentScroll = window.scrollY;
+
+      if (currentScroll > 10) {
+        header?.classList.add('scrolled');
+      } else {
+        header?.classList.remove('scrolled');
+      }
+
+      lastScroll = currentScroll;
+    }, { passive: true });
+  }
+</script>

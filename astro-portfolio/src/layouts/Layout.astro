@@ -1,6 +1,8 @@
 ---
 // Layout.astro - Declarative base layout with GSAP + SEO
 
+import Header from "../components/Header.astro";
+
 interface Props {
   title: string;
   description?: string;
@@ -146,10 +148,13 @@ const ogImage = new URL(image, Astro.site).href;
     <!-- Cursor glow - using brand accent color for consistency -->
     <div id="cursor-glow" style="position: fixed; width: 300px; height: 300px; border-radius: 50%; background: radial-gradient(circle, color(display-p3 1 0.65 0.4 / 0.15) 0%, transparent 70%); filter: blur(40px); z-index: 9999; pointer-events: none; opacity: 0;"></div>
 
+    <!-- Header Navigation -->
+    <Header />
+
     <!-- Main content -->
-    <div class="relative">
+    <main id="main-content" class="main-content">
       <slot />
-    </div>
+    </main>
     
     <!-- GSAP + Particles -->
     <script>
