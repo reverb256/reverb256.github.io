@@ -7,8 +7,8 @@ test('Live site Firefox check', async ({ page }) => {
     const root = document.documentElement;
     const rootStyles = window.getComputedStyle(root);
     
-    const vars = ['--base00', '--base05', '--base09'];
-    const varValues = {};
+    const vars = ['--base00', '--base05', '--base09'] as const;
+    const varValues: Record<string, string> = {};
     vars.forEach(v => {
       varValues[v] = rootStyles.getPropertyValue(v).trim();
     });

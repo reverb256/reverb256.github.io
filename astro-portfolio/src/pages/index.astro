@@ -87,7 +87,7 @@ const skills = ["TypeScript", "React", "Rust", "Node.js", "NixOS", "Astro", "Tai
               <input
                 type="text"
                 id="term-input"
-                class="flex-grow bg-transparent border-none outline-none"
+                class="flex-grow bg-transparent border-none outline-none term-prompt"
                 style="color: var(--base06); font-family: inherit; caret-color: var(--base0D);"
                 placeholder="type a command..."
                 autocomplete="off"
@@ -286,7 +286,9 @@ const skills = ["TypeScript", "React", "Rust", "Node.js", "NixOS", "Astro", "Tai
     await new Promise(r => setTimeout(r, 100));
     
     switch(command) {
-      case 'help':
+      case 'ls':
+      case 'list':
+        print(`<span style="color: var(--base0D);">DATABASE SUBJECTS</span>`);
         print(`<span style="color: var(--base0D);">AVAILABLE COMMANDS:</span>
   <span style="color: var(--base06);">help</span>      - Display help
   <span style="color: var(--base06);">list</span>      - List all subjects
