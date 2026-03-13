@@ -18,22 +18,37 @@ const db = {
     { id: "MUSC_420", title: "MUSIC", category: "PERSONAL", classification: "PUBLIC", content: ["Coding soundtracks:", "• Synthwave (Perturbator, Carpenter Brut)", "• Lo-fi hip hop (focus sessions)", "• Electronic (Daft Punk, Justice)", "• Post-rock (Explosions in the Sky)", "• J-Pop/Rock (Anime OPs)"], related: ["PERSONAL"] },
     { id: "SEC_101", title: "SECURITY", category: "TECHNOLOGY", classification: "RESTRICTED", content: ["OPSEC Practices:", "• Full disk encryption (LUKS)", "• GPG for commits and emails", "• Hardware security keys (YubiKey)", "• Network isolation (VLANs)", "• Regular security audits"], related: ["DEVOPS", "INFRASTRUCTURE"] },
     { id: "CLUSTER_001", title: "NIXOS CLUSTER", category: "TECHNOLOGY", classification: "TOP SECRET", content: ["4-HOST MINING INFRASTRUCTURE:", "• Zephyr: RTX 3090 + 3060 Ti (main workstation)", "• Nexus: 1x NVIDIA (downstairs)", "• Forge: 2x RTX 4060 + 2x RX 5700 XT", "• Sentry: 1x AMD", "Colmena multi-host deployment system", "Kubernetes migration in progress (9-week roadmap)", "Comprehensive documentation system with agent automation"], related: ["DEVOPS", "INFRASTRUCTURE", "NIX_999"] },
-    { id: "PROJ_001", title: "RECENT PROJECTS", category: "KNOWLEDGE", classification: "PUBLIC", content: ["2026-03: Frostbite Gazette - AI-curated Canadian journalism", "2026-03: Troves & Coves - React e-commerce with shadcn/ui (FLAGSHIP)", "2026-03: Astral Key - Rust Web3 authentication microservice", "2026-03: Synapse - Local-first AI command center (Tauri)", "2026-03: Qwen Infrastructure Brain - Mining cluster AI monitoring", "All projects feature strict TypeScript, comprehensive documentation", "Production deployments on Cloudflare Workers, GitHub Pages"], related: ["DEVELOPMENT", "TECH_001"] },
+    { id: "PROJ_001", title: "RECENT PROJECTS", category: "KNOWLEDGE", classification: "PUBLIC", content: ["CLIENT WORK:", "• Troves & Coves - React e-commerce with shadcn/ui", "• hair@home - Hugo static site", "", "PERSONAL PROJECTS:", "• Frostbite Gazette - AI-curated Canadian journalism", "• Astral Key - Rust Web3 authentication microservice", "• Synapse - Local-first AI command center (Tauri)", "", "INFRASTRUCTURE:", "• 4-host NixOS mining cluster with AI monitoring", "All projects feature strict TypeScript, comprehensive documentation", "Production deployments on Cloudflare Workers, GitHub Pages"], related: ["DEVELOPMENT", "TECH_001"] },
     { id: "MCP_001", title: "MCP INTEGRATION", category: "TECHNOLOGY", classification: "INTERNAL", content: ["Model Context Protocol servers:", "• Pinecone - Vector database operations", "• Context7 - Live documentation lookup", "• Stripe - Payment integration", "• Web Reader - URL content extraction", "Philosophy: Composable AI tooling via stdio JSON-RPC"], related: ["DEVELOPMENT", "AI_001"] },
   ],
   categories: ["INSPIRATION", "KNOWLEDGE", "TECHNOLOGY", "PERSONAL", "REFERENCE"],
   classifications: ["PUBLIC", "INTERNAL", "RESTRICTED", "TOP SECRET"],
 };
 
-const projects = [
-  { title: "Frostbite Gazette", repo: "Frostbite-Gazette", desc: "AI-curated Canadian journalism platform", status: "active", icon: "🍁", span: "2x2", tech: ["Astro", "Cloudflare", "Groq AI"], metric: "Active" },
-  { title: "Troves & Coves", repo: "trovesandcoves", desc: "Crystal jewelry e-commerce (FLAGSHIP)", status: "active", icon: "💎", span: "2x2", tech: ["React", "TypeScript", "shadcn/ui"], metric: "Flagship" },
-  { title: "Astral Key", repo: "astral-key", desc: "Web3 auth microservice", status: "active", icon: "🔑", span: "1x1", tech: ["Rust", "SQLx", "Axum"], metric: "Active" },
-  { title: "Synapse", repo: "synapse", desc: "AI command center with Tauri", status: "active", icon: "⚡", span: "2x1", tech: ["Node.js", "Tauri", "WebSocket"], metric: "Active" },
-  { title: "Qwen Infrastructure", repo: null, desc: "Mining cluster AI brain", status: "active", icon: "🧠", span: "1x1", tech: ["pi-agent-core", "Prometheus"], metric: "Active" },
-  { title: "NixOS Cluster", repo: null, desc: "4-host mining infrastructure", status: "active", icon: "🖥️", span: "2x1", tech: ["NixOS", "Colmena", "K8s"], metric: "Infrastructure" },
-  { title: "This Portfolio", repo: null, desc: "Astro + GSAP + Terminal minigame", status: "live", icon: "🌐", span: "1x1", tech: ["Astro", "GSAP"], metric: "reverb256.ca" },
-];
+const projects = {
+  client: [
+    { title: "Troves & Coves", repo: "trovesandcoves", desc: "Crystal jewelry e-commerce", status: "active", icon: "💎", span: "2x2", tech: ["React", "TypeScript", "shadcn/ui"], metric: "Client" },
+    { title: "hair@home", repo: null, desc: "Hugo static site", status: "live", icon: "💇", span: "1x1", tech: ["Hugo", "SCSS"], metric: "Client" },
+  ],
+  personal: [
+    { title: "Frostbite Gazette", repo: "Frostbite-Gazette", desc: "AI-curated Canadian journalism", status: "active", icon: "🍁", span: "2x2", tech: ["Astro", "Cloudflare", "Groq AI"], metric: "Active" },
+    { title: "Astral Key", repo: "astral-key", desc: "Web3 auth microservice", status: "active", icon: "🔑", span: "1x1", tech: ["Rust", "SQLx", "Axum"], metric: "Active" },
+    { title: "Synapse", repo: "synapse", desc: "Local-first AI command center", status: "active", icon: "⚡", span: "2x1", tech: ["Node.js", "Tauri", "WebSocket"], metric: "Active" },
+  ],
+  infra: [
+    { title: "Infrastructure", repo: null, desc: "4-host NixOS cluster with AI monitoring", status: "live", icon: "🖥️", span: "2x2", tech: ["NixOS", "Colmena", "K8s", "AI"], metric: "Flagship", link: "/infrastructure" },
+  ],
+  meta: [
+    { title: "This Portfolio", repo: null, desc: "Astro + GSAP + Terminal", status: "live", icon: "🌐", span: "1x1", tech: ["Astro", "GSAP"], metric: "reverb256.ca" },
+  ],
+};
+
+const categoryColors = {
+  client: "var(--base09)",    // ember orange
+  personal: "var(--base0D)",  // turquoise
+  infra: "var(--base0B)",     // green
+  meta: "var(--base05)",      // gray
+};
 
 const skills = ["TypeScript", "React", "Rust", "Node.js", "NixOS", "Astro", "Tailwind", "Python", "Cloudflare Workers", "Docker", "Kubernetes", "MCP"];
 ---
@@ -63,7 +78,7 @@ const skills = ["TypeScript", "React", "Rust", "Node.js", "NixOS", "Astro", "Tai
             <a href="#contact" class="btn-outline">Get in Touch</a>
           </div>
           <div class="flex gap-6 pt-4 text-sm">
-            <div><span class="text-2xl font-bold text-[var(--base09)]">6+</span><br><span class="text-[var(--base04)]">Active Projects</span></div>
+            <div><span class="text-2xl font-bold text-[var(--base09)]">7+</span><br><span class="text-[var(--base04)]">Projects Shipped</span></div>
             <div><span class="text-2xl font-bold text-[var(--base09)]">4</span><br><span class="text-[var(--base04)]">Host NixOS Cluster</span></div>
             <div><span class="text-2xl font-bold text-[var(--base09)]">Rust</span><br><span class="text-[var(--base04)]">→ TypeScript → Python</span></div>
           </div>
@@ -105,28 +120,96 @@ const skills = ["TypeScript", "React", "Rust", "Node.js", "NixOS", "Astro", "Tai
   <section id="projects" class="px-6 py-12" aria-labelledby="projects-heading">
     <div class="max-w-6xl mx-auto">
       <div class="beat-indicator mb-6" aria-hidden="true"></div>
-      <h2 id="projects-heading" class="text-2xl font-bold mb-6 text-[var(--base06)]">// Projects</h2>
-      <div data-stagger class="grid grid-cols-2 md:grid-cols-4 gap-3 auto-rows-[120px]" role="list">
-        {projects.map((p) => (
-          <a
-            href={p.repo ? `https://github.com/reverb256/${p.repo}` : `https://github.com/reverb256`}
-            target="_blank"
-            rel="noopener noreferrer"
-            data-stagger-item
-            class={`bento-item group flex flex-col span-${p.span}`}
-            role="listitem"
-            aria-label={`${p.title}: ${p.desc}. Status: ${p.status}. Technologies: ${p.tech.join(', ')}. Opens in new tab.`}
-          >
-            <div class="flex items-center justify-between mb-1">
-              <span class="text-xl" aria-hidden="true">{p.icon}</span>
-              <span class={`px-1.5 py-0.5 text-[8px] rounded font-medium uppercase ${p.status === 'live' ? 'badge-live' : 'badge-active'}`}>{p.status}</span>
-            </div>
-            <h3 class="text-sm font-bold text-[var(--base07)] group-hover:text-[var(--base09)] transition-colors">{p.title}</h3>
-            <p class="text-[10px] text-[var(--base05)] flex-grow">{p.desc}</p>
-            <div class="flex gap-1 mt-auto" aria-label={`Technologies: ${p.tech.join(', ')}`}>{p.tech.map(t => <span class="text-[8px] px-1.5 py-0.5 bg-[var(--base02)] rounded text-[var(--base05)]">{t}</span>)}</div>
-          </a>
-        ))}
+      <h2 id="projects-heading" class="text-2xl font-bold mb-8 text-[var(--base06)]">// Projects</h2>
+
+      <!-- Client Work -->
+      <div class="mb-10">
+        <h3 class="text-sm font-bold uppercase tracking-wider mb-4 flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full" style="background: var(--base09)"></span>
+          <span style="color: var(--base09)">Client Work</span>
+        </h3>
+        <div data-stagger class="grid grid-cols-2 md:grid-cols-4 gap-3 auto-rows-[120px]" role="list">
+          {projects.client.map((p) => (
+            <a
+              href={p.repo ? `https://github.com/reverb256/${p.repo}` : `https://github.com/reverb256`}
+              target="_blank"
+              rel="noopener noreferrer"
+              data-stagger-item
+              class={`bento-item group flex flex-col span-${p.span}`}
+              role="listitem"
+              aria-label={`${p.title}: ${p.desc}. Status: ${p.status}. Technologies: ${p.tech.join(', ')}. Opens in new tab.`}
+            >
+              <div class="flex items-center justify-between mb-1">
+                <span class="text-xl" aria-hidden="true">{p.icon}</span>
+                <span class="text-[8px] px-1.5 py-0.5 rounded font-medium uppercase text-[var(--base09)]">{p.metric}</span>
+              </div>
+              <h3 class="text-sm font-bold text-[var(--base07)] group-hover:text-[var(--base09)] transition-colors">{p.title}</h3>
+              <p class="text-[10px] text-[var(--base05)] flex-grow">{p.desc}</p>
+              <div class="flex gap-1 mt-auto" aria-label={`Technologies: ${p.tech.join(', ')}`}>{p.tech.map(t => <span class="text-[8px] px-1.5 py-0.5 bg-[var(--base02)] rounded text-[var(--base05)]">{t}</span>)}</div>
+            </a>
+          ))}
+        </div>
       </div>
+
+      <!-- Personal Projects -->
+      <div class="mb-10">
+        <h3 class="text-sm font-bold uppercase tracking-wider mb-4 flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full" style="background: var(--base0D)"></span>
+          <span style="color: var(--base0D)">Personal Projects</span>
+        </h3>
+        <div data-stagger class="grid grid-cols-2 md:grid-cols-4 gap-3 auto-rows-[120px]" role="list">
+          {projects.personal.map((p) => (
+            <a
+              href={p.repo ? `https://github.com/reverb256/${p.repo}` : `https://github.com/reverb256`}
+              target="_blank"
+              rel="noopener noreferrer"
+              data-stagger-item
+              class={`bento-item group flex flex-col span-${p.span}`}
+              role="listitem"
+              aria-label={`${p.title}: ${p.desc}. Status: ${p.status}. Technologies: ${p.tech.join(', ')}. Opens in new tab.`}
+            >
+              <div class="flex items-center justify-between mb-1">
+                <span class="text-xl" aria-hidden="true">{p.icon}</span>
+                <span class={`px-1.5 py-0.5 text-[8px] rounded font-medium uppercase ${p.status === 'live' ? 'badge-live' : 'badge-active'}`}>{p.status}</span>
+              </div>
+              <h3 class="text-sm font-bold text-[var(--base07)] group-hover:text-[var(--base0D)] transition-colors">{p.title}</h3>
+              <p class="text-[10px] text-[var(--base05)] flex-grow">{p.desc}</p>
+              <div class="flex gap-1 mt-auto" aria-label={`Technologies: ${p.tech.join(', ')}`}>{p.tech.map(t => <span class="text-[8px] px-1.5 py-0.5 bg-[var(--base02)] rounded text-[var(--base05)]">{t}</span>)}</div>
+            </a>
+          ))}
+        </div>
+      </div>
+
+      <!-- Infrastructure -->
+      <div class="mb-10">
+        <h3 class="text-sm font-bold uppercase tracking-wider mb-4 flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full" style="background: var(--base0B)"></span>
+          <span style="color: var(--base0B)">Infrastructure</span>
+        </h3>
+        <div data-stagger class="grid grid-cols-2 md:grid-cols-4 gap-3 auto-rows-[120px]" role="list">
+          {projects.infra.map((p) => (
+            <a
+              href={p.link || (p.repo ? `https://github.com/reverb256/${p.repo}` : `https://github.com/reverb256`)}
+              target={p.link ? undefined : "_blank"}
+              rel={p.link ? undefined : "noopener noreferrer"}
+              data-stagger-item
+              class={`bento-item group flex flex-col span-${p.span} border-2`}
+              style="border-color: var(--base0B)"
+              role="listitem"
+              aria-label={`${p.title}: ${p.desc}. ${p.link ? 'Learn more.' : 'Opens in new tab.'}`}
+            >
+              <div class="flex items-center justify-between mb-1">
+                <span class="text-xl" aria-hidden="true">{p.icon}</span>
+                <span class="text-[8px] px-1.5 py-0.5 rounded font-medium uppercase" style="background: var(--base0B); color: var(--base00);">{p.metric}</span>
+              </div>
+              <h3 class="text-sm font-bold text-[var(--base07)] group-hover:text-[var(--base0B)] transition-colors">{p.title}</h3>
+              <p class="text-[10px] text-[var(--base05)] flex-grow">{p.desc}</p>
+              <div class="flex gap-1 mt-auto" aria-label={`Technologies: ${p.tech.join(', ')}`}>{p.tech.map(t => <span class="text-[8px] px-1.5 py-0.5 bg-[var(--base02)] rounded text-[var(--base05)]">{t}</span>)}</div>
+            </a>
+          ))}
+        </div>
+      </div>
+
     </div>
   </section>
 
