@@ -7,19 +7,13 @@ const setup = {
     icon: "🌟",
     status: "active",
     specs: [
-      { label: "CPU", value: "AMD Ryzen 9 5900X", icon: "⚡" },
+      { label: "CPU", value: "AMD Ryzen 9 5950X", icon: "⚡" },
       { label: "GPU", value: "RTX 3090 + RTX 3060 Ti", icon: "🎮" },
       { label: "RAM", value: "64GB DDR4", icon: "💾" },
       { label: "Storage", value: "2TB NVMe + 4TB HDD", icon: "📁" },
       { label: "OS", value: "NixOS 26.05 (unstable)", icon: "🐧" }
     ]
   },
-  cluster: [
-    { name: "Zephyr", role: "Main workstation", location: "Room 2", gpus: "RTX 3090 + 3060 Ti", status: "online", icon: "🌟" },
-    { name: "Nexus", role: "Mining + storage", location: "Downstairs", gpus: "1x NVIDIA", status: "online", icon: "💠" },
-    { name: "Forge", role: "Mining", location: "Room 1", gpus: "2x RTX 4060 + 2x RX 5700 XT", status: "online", icon: "🔥" },
-    { name: "Sentry", role: "Mining", location: "Room 1", gpus: "1x AMD", status: "online", icon: "🛡️" }
-  ],
   software: {
     os: { label: "OS", value: "NixOS with Flakes + Colmena", icon: "🐧" },
     editor: { label: "Editor", value: "Claude Code with Serena semantic tools", icon: "✨" },
@@ -43,11 +37,6 @@ const setup = {
   ]
 };
 
-const statusColors = {
-  online: "var(--base0B)",
-  offline: "var(--base08)",
-  active: "var(--base0B)"
-};
 ---
 
 <Layout
@@ -93,57 +82,8 @@ const statusColors = {
       </div>
     </div>
 
-    <!-- Cluster Section -->
-    <div class="glass p-6 mb-6" data-animate="fade-up" data-delay="0.2">
-      <div class="flex items-center justify-between mb-6">
-        <h2 class="text-xl font-bold text-[var(--base07)] flex items-center gap-3">
-          <span>🏠</span>
-          NixOS Cluster
-          <span class="ml-2 text-sm font-normal text-[var(--base04)]">4 hosts</span>
-        </h2>
-        <span class="text-xs text-[var(--base04)]">Managed via Colmena → K8s</span>
-      </div>
-      <div class="grid md:grid-cols-2 gap-4">
-        {setup.cluster.map(host => (
-          <div class="group relative overflow-hidden rounded-xl border border-[var(--base02)] hover:border-[var(--base0D)] transition-all duration-300">
-            <div class="absolute inset-0 bg-gradient-to-br from-[var(--base0D)]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-            <div class="relative p-4">
-              <div class="flex items-start justify-between mb-3">
-                <div class="flex items-center gap-2">
-                  <span class="text-2xl group-hover:scale-110 transition-transform">{host.icon}</span>
-                  <h3 class="font-bold text-[var(--base0D)]">{host.name}</h3>
-                </div>
-                <div class="flex items-center gap-1.5">
-                  <span class="w-2 h-2 rounded-full" style="background: {statusColors[host.status]};"></span>
-                  <span class="text-xs capitalize" style="color: {statusColors[host.status]};">{host.status}</span>
-                </div>
-              </div>
-              <div class="space-y-1.5 text-xs">
-                <div class="flex items-center gap-2">
-                  <span class="text-[var(--base04)] w-16">Role</span>
-                  <span class="text-[var(--base06)]">{host.role}</span>
-                </div>
-                <div class="flex items-center gap-2">
-                  <span class="text-[var(--base04)] w-16">Location</span>
-                  <span class="text-[var(--base06)]">{host.location}</span>
-                </div>
-                <div class="flex items-center gap-2">
-                  <span class="text-[var(--base04)] w-16">GPUs</span>
-                  <span class="text-[var(--base09)] font-medium">{host.gpus}</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
-      <div class="mt-4 p-3 bg-[var(--base01)]/50 rounded-lg text-xs text-[var(--base04)] flex items-center justify-between">
-        <span>Deployment: <span class="text-[var(--base0D)]">Colmena</span> → <span class="text-[var(--base09)]">Kubernetes</span> (9-week roadmap)</span>
-        <span class="w-2 h-2 rounded-full bg-[var(--base09)] animate-pulse"></span>
-      </div>
-    </div>
-
     <!-- Software Stack -->
-    <div class="glass p-6 mb-6" data-animate="fade-up" data-delay="0.3">
+    <div class="glass p-6 mb-6" data-animate="fade-up" data-delay="0.2">
       <h2 class="text-xl font-bold text-[var(--base07)] mb-6 flex items-center gap-3">
         <span>⚙️</span>
         Software Stack
@@ -160,7 +100,7 @@ const statusColors = {
     </div>
 
     <!-- Philosophy -->
-    <div class="glass p-6 mb-6" data-animate="fade-up" data-delay="0.4">
+    <div class="glass p-6 mb-6" data-animate="fade-up" data-delay="0.3">
       <h2 class="text-xl font-bold text-[var(--base07)] mb-6 flex items-center gap-3">
         <span>💡</span>
         Philosophy
@@ -181,7 +121,7 @@ const statusColors = {
     </div>
 
     <!-- Learning Progress -->
-    <div class="glass p-6 mb-6" data-animate="fade-up" data-delay="0.5">
+    <div class="glass p-6 mb-6" data-animate="fade-up" data-delay="0.4">
       <h2 class="text-xl font-bold text-[var(--base07)] mb-6 flex items-center gap-3">
         <span>📚</span>
         Currently Learning
@@ -204,6 +144,55 @@ const statusColors = {
             </div>
           </div>
         ))}
+      </div>
+    </div>
+
+    <!-- Cluster Link -->
+    <div class="glass p-6 mb-6 relative overflow-hidden" data-animate="fade-up" data-delay="0.5">
+      <div class="absolute top-0 right-0 w-40 h-40 bg-[var(--base0B)]/5 rounded-full blur-3xl"></div>
+      <div class="relative">
+        <h2 class="text-xl font-bold text-[var(--base07)] mb-4 flex items-center gap-3">
+          <span>🏠</span>
+          Infrastructure
+        </h2>
+        <p class="text-sm text-[var(--base05)] mb-4">
+          The 4-host NixOS mining cluster with AI-powered monitoring:
+        </p>
+        <ul class="text-sm text-[var(--base04)] space-y-2 mb-6">
+          <li class="flex items-center gap-2">
+            <svg class="w-4 h-4 text-[var(--base0B)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
+            Multi-host Colmena deployment
+          </li>
+          <li class="flex items-center gap-2">
+            <svg class="w-4 h-4 text-[var(--base0B)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
+            Real-time AI monitoring with Qwen 3.5
+          </li>
+          <li class="flex items-center gap-2">
+            <svg class="w-4 h-4 text-[var(--base0B)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
+            Kubernetes migration in progress
+          </li>
+          <li class="flex items-center gap-2">
+            <svg class="w-4 h-4 text-[var(--base0B)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
+            30+ documentation files
+          </li>
+        </ul>
+        <a
+          href="/infrastructure"
+          class="inline-flex items-center gap-2 btn-outline group"
+        >
+          <span>View Infrastructure</span>
+          <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+          </svg>
+        </a>
       </div>
     </div>
 
@@ -262,7 +251,7 @@ const statusColors = {
     </div>
 
     <!-- Back Navigation -->
-    <div class="mt-8 text-center" data-animate="fade-up" data-delay="0.7">
+    <div class="mt-8 text-center" data-animate="fade-up" data-delay="0.6">
       <a href="/" class="inline-flex items-center gap-2 text-sm text-[var(--base04)] hover:text-[var(--base0D)] transition-colors group">
         <svg class="w-4 h-4 transition-transform group-hover:-translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
