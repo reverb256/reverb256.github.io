@@ -18,8 +18,8 @@ const db = {
     { id: "MUSC_420", title: "MUSIC", category: "PERSONAL", classification: "PUBLIC", content: ["Coding soundtracks:", "• Synthwave (Perturbator, Carpenter Brut)", "• Lo-fi hip hop (focus sessions)", "• Electronic (Daft Punk, Justice)", "• Post-rock (Explosions in the Sky)", "• J-Pop/Rock (Anime OPs)"], related: ["PERSONAL"] },
     { id: "SEC_101", title: "SECURITY", category: "TECHNOLOGY", classification: "RESTRICTED", content: ["OPSEC Practices:", "• Full disk encryption (LUKS)", "• GPG for commits and emails", "• Hardware security keys (YubiKey)", "• Network isolation (VLANs)", "• Regular security audits"], related: ["DEVOPS", "INFRASTRUCTURE"] },
     { id: "CLUSTER_001", title: "NIXOS CLUSTER", category: "TECHNOLOGY", classification: "TOP SECRET", content: ["4-HOST MINING INFRASTRUCTURE:", "• Zephyr: RTX 3090 + 3060 Ti (main workstation)", "• Nexus: 1x NVIDIA (downstairs)", "• Forge: 2x RTX 4060 + 2x RX 5700 XT", "• Sentry: 1x AMD", "Colmena multi-host deployment system", "Kubernetes migration in progress (9-week roadmap)", "Comprehensive documentation system with agent automation"], related: ["DEVOPS", "INFRASTRUCTURE", "NIX_999"] },
-    { id: "PROJ_001", title: "RECENT PROJECTS", category: "KNOWLEDGE", classification: "PUBLIC", content: ["2026-03: Frostbite Gazette - AI-curated Canadian journalism", "2026-03: Troves & Coves - React e-commerce with shadcn/ui", "2026-03: Astral Key - Rust Web3 authentication microservice", "2026-03: Synapse - Local-first AI command center (Tauri)", "2026-03: Qwen Infrastructure Brain - Mining cluster AI monitoring", "2026-02: Wan2GP MCP Server - Video generation integration", "All projects feature strict TypeScript, comprehensive documentation", "Production deployments on Cloudflare Workers, GitHub Pages"], related: ["DEVELOPMENT", "TECH_001"] },
-    { id: "MCP_001", title: "MCP INTEGRATION", category: "TECHNOLOGY", classification: "INTERNAL", content: ["Model Context Protocol servers:", "• Wan2GP - Video generation from Wan2GP Gradio", "• Pinecone - Vector database operations", "• Context7 - Live documentation lookup", "• Stripe - Payment integration", "• Web Reader - URL content extraction", "Philosophy: Composable AI tooling via stdio JSON-RPC"], related: ["DEVELOPMENT", "AI_001"] },
+    { id: "PROJ_001", title: "RECENT PROJECTS", category: "KNOWLEDGE", classification: "PUBLIC", content: ["2026-03: Frostbite Gazette - AI-curated Canadian journalism", "2026-03: Troves & Coves - React e-commerce with shadcn/ui (FLAGSHIP)", "2026-03: Astral Key - Rust Web3 authentication microservice", "2026-03: Synapse - Local-first AI command center (Tauri)", "2026-03: Qwen Infrastructure Brain - Mining cluster AI monitoring", "All projects feature strict TypeScript, comprehensive documentation", "Production deployments on Cloudflare Workers, GitHub Pages"], related: ["DEVELOPMENT", "TECH_001"] },
+    { id: "MCP_001", title: "MCP INTEGRATION", category: "TECHNOLOGY", classification: "INTERNAL", content: ["Model Context Protocol servers:", "• Pinecone - Vector database operations", "• Context7 - Live documentation lookup", "• Stripe - Payment integration", "• Web Reader - URL content extraction", "Philosophy: Composable AI tooling via stdio JSON-RPC"], related: ["DEVELOPMENT", "AI_001"] },
   ],
   categories: ["INSPIRATION", "KNOWLEDGE", "TECHNOLOGY", "PERSONAL", "REFERENCE"],
   classifications: ["PUBLIC", "INTERNAL", "RESTRICTED", "TOP SECRET"],
@@ -27,11 +27,10 @@ const db = {
 
 const projects = [
   { title: "Frostbite Gazette", repo: "Frostbite-Gazette", desc: "AI-curated Canadian journalism platform", status: "active", icon: "🍁", span: "2x2", tech: ["Astro", "Cloudflare", "Groq AI"], metric: "Active" },
-  { title: "Troves & Coves", repo: "trovesandcoves", desc: "Crystal jewelry e-commerce with shadcn/ui", status: "active", icon: "💎", span: "1x1", tech: ["React", "TypeScript", "shadcn/ui"], metric: "Active" },
+  { title: "Troves & Coves", repo: "trovesandcoves", desc: "Crystal jewelry e-commerce (FLAGSHIP)", status: "active", icon: "💎", span: "2x2", tech: ["React", "TypeScript", "shadcn/ui"], metric: "Flagship" },
   { title: "Astral Key", repo: "astral-key", desc: "Web3 auth microservice", status: "active", icon: "🔑", span: "1x1", tech: ["Rust", "SQLx", "Axum"], metric: "Active" },
   { title: "Synapse", repo: "synapse", desc: "AI command center with Tauri", status: "active", icon: "⚡", span: "2x1", tech: ["Node.js", "Tauri", "WebSocket"], metric: "Active" },
   { title: "Qwen Infrastructure", repo: null, desc: "Mining cluster AI brain", status: "active", icon: "🧠", span: "1x1", tech: ["pi-agent-core", "Prometheus"], metric: "Active" },
-  { title: "Wan2GP MCP", repo: null, desc: "Video generation MCP server", status: "active", icon: "🎬", span: "1x1", tech: ["Python", "FastMCP", "Gradio"], metric: "MCP" },
   { title: "NixOS Cluster", repo: null, desc: "4-host mining infrastructure", status: "active", icon: "🖥️", span: "2x1", tech: ["NixOS", "Colmena", "K8s"], metric: "Infrastructure" },
   { title: "This Portfolio", repo: null, desc: "Astro + GSAP + Terminal minigame", status: "live", icon: "🌐", span: "1x1", tech: ["Astro", "GSAP"], metric: "reverb256.ca" },
 ];
@@ -64,7 +63,7 @@ const skills = ["TypeScript", "React", "Rust", "Node.js", "NixOS", "Astro", "Tai
             <a href="#contact" class="btn-outline">Get in Touch</a>
           </div>
           <div class="flex gap-6 pt-4 text-sm">
-            <div><span class="text-2xl font-bold text-[var(--base09)]">7+</span><br><span class="text-[var(--base04)]">Active Projects</span></div>
+            <div><span class="text-2xl font-bold text-[var(--base09)]">6+</span><br><span class="text-[var(--base04)]">Active Projects</span></div>
             <div><span class="text-2xl font-bold text-[var(--base09)]">4</span><br><span class="text-[var(--base04)]">Host NixOS Cluster</span></div>
             <div><span class="text-2xl font-bold text-[var(--base09)]">Rust</span><br><span class="text-[var(--base04)]">→ TypeScript → Python</span></div>
           </div>
