@@ -3,6 +3,46 @@
 @tailwind utilities;
 
 /* ===========================================
+   SHADCN/UI DESIGN TOKENS
+   Integrated with existing base24 palette
+   =========================================== */
+
+@layer base {
+  :root {
+    /* Shadcn-compatible semantic tokens mapped to base24 */
+    --background: 10 10% 4%;   /* base00 */
+    --foreground: 220 10% 98%;  /* base07 */
+
+    --card: 10 10% 4%;
+    --card-foreground: 220 10% 98%;
+
+    --popover: 10 10% 4%;
+    --popover-foreground: 220 10% 98%;
+
+    --primary: 24 95% 53%;      /* base09 - ember orange */
+    --primary-foreground: 0 0% 98%;
+
+    --secondary: 240 4% 16%;    /* base02 */
+    --secondary-foreground: 0 0% 98%;
+
+    --muted: 240 4% 16%;
+    --muted-foreground: 240 5% 64%;
+
+    --accent: 24 95% 53%;       /* base09 */
+    --accent-foreground: 0 0% 9%;
+
+    --destructive: 0 84% 60%;   /* base08 */
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 240 5% 20%;       /* base03 */
+    --input: 240 5% 20%;
+    --ring: 24 95% 53%;
+
+    --radius: 0.5rem;
+  }
+}
+
+/* ===========================================
    COLOR MANAGEMENT FOUNDATION
    =========================================== */
 

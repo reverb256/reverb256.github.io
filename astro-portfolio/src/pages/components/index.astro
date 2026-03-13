@@ -1,0 +1,121 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { Button } from '../../components/ui/Button';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '../../components/ui/Card';
+import { Badge } from '../../components/ui/Badge';
+import { Separator } from '../../components/ui/Separator';
+---
+
+<Layout title="UI Components - reverb256">
+  <section class="min-h-screen px-6 py-12 max-w-6xl mx-auto">
+    <div class="mb-12">
+      <h1 class="text-4xl font-bold">UI Components</h1>
+      <p class="mt-4 text-[var(--text-secondary)]">shadcn/ui components adapted for the portfolio theme.</p>
+    </div>
+
+    {/* Buttons */}
+    <section class="mb-16">
+      <h2 class="text-2xl font-semibold mb-6">Buttons</h2>
+      <Card client:load>
+        <CardContent class="pt-6">
+          <div class="flex flex-wrap gap-4">
+            <Button variant="default">Default</Button>
+            <Button variant="outline">Outline</Button>
+            <Button variant="ghost">Ghost</Button>
+            <Button variant="secondary">Secondary</Button>
+          </div>
+          <div class="flex flex-wrap gap-4 mt-4">
+            <Button size="sm">Small</Button>
+            <Button size="default">Default</Button>
+            <Button size="lg">Large</Button>
+          </div>
+        </CardContent>
+      </Card>
+    </section>
+
+    {/* Badges */}
+    <section class="mb-16">
+      <h2 class="text-2xl font-semibold mb-6">Badges</h2>
+      <Card client:load>
+        <CardContent class="pt-6">
+          <div class="flex flex-wrap gap-3">
+            <Badge>Default</Badge>
+            <Badge variant="secondary">Secondary</Badge>
+            <Badge variant="outline">Outline</Badge>
+            <Badge variant="success">Success</Badge>
+            <Badge variant="warning">Warning</Badge>
+            <Badge variant="info">Info</Badge>
+          </div>
+        </CardContent>
+      </Card>
+    </section>
+
+    {/* Cards */}
+    <section class="mb-16">
+      <h2 class="text-2xl font-semibold mb-6">Cards</h2>
+      <div class="grid md:grid-cols-3 gap-6">
+        <Card variant="default" client:visible>
+          <CardHeader>
+            <CardTitle>Default Card</CardTitle>
+            <CardDescription>Standard card with default styling</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <p>Card content goes here.</p>
+          </CardContent>
+        </Card>
+
+        <Card variant="elevated" client:visible>
+          <CardHeader>
+            <CardTitle>Elevated Card</CardTitle>
+            <CardDescription>Card with elevated shadow</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <p>More prominent card for important content.</p>
+          </CardContent>
+        </Card>
+
+        <Card variant="glass" client:visible>
+          <CardHeader>
+            <CardTitle>Glass Card</CardTitle>
+            <CardDescription>With backdrop blur effect</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <p>Subtle transparency with blur.</p>
+          </CardContent>
+        </Card>
+      </div>
+    </section>
+
+    {/* Separators */}
+    <section class="mb-16">
+      <h2 class="text-2xl font-semibold mb-6">Separators</h2>
+      <Card client:load>
+        <CardContent class="pt-6 space-y-6">
+          <div>
+            <p class="mb-2">Horizontal separator</p>
+            <Separator />
+          </div>
+        </CardContent>
+      </Card>
+    </section>
+
+    {/* Usage */}
+    <section class="mb-16">
+      <h2 class="text-2xl font-semibold mb-6">Usage</h2>
+      <Card client:load>
+        <CardContent class="pt-6">
+          <pre class="bg-[var(--bg-surface)] p-4 rounded-lg overflow-x-auto text-sm"><code>{`import { Button, Card } from '@components/ui';
+
+&lt;Card client:load&gt;
+  &lt;CardHeader&gt;
+    &lt;CardTitle&gt;Project Title&lt;/CardTitle&gt;
+  &lt;/CardHeader&gt;
+  &lt;CardContent&gt;
+    &lt;Button variant="default"&gt;Click Me&lt;/Button&gt;
+  &lt;/CardContent&gt;
+&lt;/Card&gt;`}</code></pre>
+        </CardContent>
+      </Card>
+    </section>
+  </section>
+</Layout>
