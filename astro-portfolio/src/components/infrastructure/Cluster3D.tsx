@@ -111,7 +111,7 @@ export default function Cluster3D({ hosts }: Cluster3DProps) {
         }}
       >
         {/* Render hosts as nodes */}
-        {hostPositions.map((host, i) => (
+        {hostPositions.map((host) => (
           <div
             key={host.name}
             className="cluster-node"
