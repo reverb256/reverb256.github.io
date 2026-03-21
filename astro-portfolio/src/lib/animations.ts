@@ -5,82 +5,101 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
 
 /**
+ * Check if user prefers reduced motion
+ * @returns true if animations should be disabled
+ */
+function prefersReducedMotion(): boolean {
+  return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+}
+
+/**
  * Initialize infrastructure showcase animations
+ * Optimized for performance with reduced-motion support
  */
 export function initInfrastructureAnimations() {
-  // Animate stat items with pulse effect
-  const statItems = document.querySelectorAll('.stat-item');
-  if (statItems.length > 0) {
-    gsap.to(statItems, {
-      scale: 1.05,
-      duration: 2,
-      yoyo: true,
-      repeat: -1,
-      ease: 'sine.inOut',
-      stagger: 0.2,
-    });
+  // Respect user's motion preferences
+  if (prefersReducedMotion()) {
+    console.info('Animations disabled: user prefers reduced motion');
+    return;
   }
 
-  // Animate sections on scroll
-  const sections = document.querySelectorAll('.intro-section, .innovation-section, .operations-section, .capabilities-section');
-  sections.forEach((section) => {
-    gsap.from(section, {
-      scrollTrigger: {
-        trigger: section,
-        start: 'top 80%',
-        end: 'top 20%',
-        toggleActions: 'play none none reverse',
-      },
-      opacity: 0,
-      y: 50,
-      duration: 0.8,
-      ease: 'power2.out',
-    });
+  // Batch all ScrollTrigger operations for better performance
+  // See: https://greensock.com/docs/v3/Plugins/ScrollTrigger
+  ScrollTrigger.batch('.stat-item', {
+    onEnter: (elements) => {
+      // Simple CSS animation is more performant than GSAP for continuous pulse
+      // Using GSAP only for initial stagger
+      gsap.from(elements, {
+        scale: 0.95,
+        opacity: 0.8,
+        duration: 0.6,
+        stagger: 0.1,
+        ease: 'power2.out',
+        onComplete: () => {
+          // Add CSS class for continuous pulse animation (more efficient than GSAP)
+          elements.forEach((el) => el.classList.add('stat-pulse'));
+        },
+      });
+    },
+    start: 'top 90%',
   });
 
-  // Animate glass cards with staggered delay
-  const glassCards = document.querySelectorAll('.glass-card');
-  if (glassCards.length > 0) {
-    gsap.from(glassCards, {
-      scrollTrigger: {
-        trigger: '.glass-grid',
-        start: 'top 80%',
-        end: 'bottom 20%',
-        toggleActions: 'play none none reverse',
+  // Batch section animations for better scroll performance
+  ScrollTrigger.batch(
+    '.intro-section, .innovation-section, .operations-section, .capabilities-section',
+    {
+      onEnter: (elements) => {
+        gsap.from(elements, {
+          opacity: 0,
+          y: 50,
+          duration: 0.8,
+          ease: 'power2.out',
+        });
       },
-      opacity: 0,
-      y: 30,
-      duration: 0.6,
-      ease: 'power2.out',
-      stagger: 0.1,
-    });
-  }
-
-  // Animate timeline milestones
-  const milestones = document.querySelectorAll('.milestone');
-  milestones.forEach((milestone) => {
-    ScrollTrigger.create({
-      trigger: milestone,
+      onLeaveBack: (elements) => {
+        gsap.to(elements, {
+          opacity: 0,
+          y: 50,
+          duration: 0.6,
+          ease: 'power2.in',
+        });
+      },
       start: 'top 80%',
-      onEnter: () => milestone.classList.add('visible'),
-      once: true,
+    }
+  );
+
+  // Optimize glass cards with batched ScrollTrigger
+  const glassGrids = document.querySelectorAll('.glass-grid');
+  glassGrids.forEach((grid) => {
+    ScrollTrigger.create({
+      trigger: grid,
+      start: 'top 80%',
+      onEnter: () => {
+        const cards = grid.querySelectorAll('.glass-card');
+        gsap.from(cards, {
+          opacity: 0,
+          y: 30,
+          duration: 0.6,
+          stagger: 0.1,
+          ease: 'power2.out',
+        });
+      },
+      once: true, // Only animate once for better performance
     });
   });
 
-  // Parallax background effect (will be implemented in Task 8)
-  // const parallaxBg = document.querySelector('.parallax-background');
-  // if (parallaxBg) {
-  //   gsap.to(parallaxBg, {
-  //     scrollTrigger: {
-  //       trigger: '.infrastructure-showcase',
-  //       start: 'top top',
-  //       end: 'bottom top',
-  //       scrub: 1,
-  //     },
-  //     y: 200,
-  //     ease: 'none',
-  //   });
-  // }
+  // Timeline milestones - optimized with single ScrollTrigger batch
+  ScrollTrigger.batch('.milestone', {
+    onEnter: (elements) => {
+      elements.forEach((el) => el.classList.add('visible'));
+    },
+    start: 'top 80%',
+    once: true,
+  });
+
+  // Performance: Refresh all ScrollTriggers once after setup
+  // This is more efficient than letting each trigger refresh independently
+  ScrollTrigger.refresh();
 }
 
 /**

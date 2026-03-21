@@ -437,3 +437,27 @@ html {
     transform: translateY(-10px);
   }
 }
+
+/* ========== INFRASTRUCTURE PAGE ANIMATIONS ========== */
+/* Optimized animations for infrastructure showcase */
+
+/* Stat pulse animation - more efficient than GSAP for continuous animations */
+.stat-pulse {
+  animation: stat-pulse-animation 2s ease-in-out infinite;
+}
+
+@keyframes stat-pulse-animation {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+/* Respect reduced motion preference for stat pulse */
+@media (prefers-reduced-motion: reduce) {
+  .stat-pulse {
+    animation: none;
+  }
+}
