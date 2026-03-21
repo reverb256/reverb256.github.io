@@ -45,40 +45,40 @@ export const CLUSTER_DATA = {
       name: 'zephyr',
       role: 'control-plane',
       specs: {
-        cpu: '16 cores',
+        cpu: '32 cores',
         ram: '32GB',
         gpus: ['RTX 3090 (24GB)', 'RTX 3060 Ti (8GB)']
       },
-      services: ['etcd', 'kube-apiserver', 'kube-scheduler', 'kube-controller-manager', 'n8n', 'grafana'],
+      services: ['etcd', 'kube-apiserver', 'kube-scheduler', 'kube-controller-manager', 'ingress-nginx', 'nfs-server', 'n8n', 'grafana', 'prometheus'],
       ip: '10.1.1.110'
     },
     {
       name: 'nexus',
       role: 'storage',
       specs: {
-        cpu: '12 cores',
-        ram: '32GB',
+        cpu: '24 cores',
+        ram: '48GB',
         gpus: ['RTX 3060 Ti (8GB)']
       },
-      services: ['etcd', 'nfs-server', 'postgres-glitchtip', 'postgres-n8n'],
+      services: ['etcd', 'nfs-server', 'postgres-n8n', 'postgres-glitchtip'],
       ip: '10.1.1.120'
     },
     {
       name: 'forge',
       role: 'gpu-compute',
       specs: {
-        cpu: '24 cores',
-        ram: '32GB',
+        cpu: '6 cores',
+        ram: '16GB',
         gpus: ['RTX 4060 (8GB)', 'RTX 4060 (8GB)', 'RX 5700 XT (8GB)', 'RX 5700 XT (8GB)']
       },
-      services: ['lolminer-nvidia', 'lolminer-amd'],
+      services: ['lolminer-nvidia', 'lolminer-amd', 'akash-provider'],
       ip: '10.1.1.130'
     },
     {
       name: 'sentry',
       role: 'monitoring',
       specs: {
-        cpu: '26 cores',
+        cpu: '16 cores',
         ram: '27GB',
         gpus: ['RX 5600 XT (4GB)']
       },
@@ -92,17 +92,17 @@ export const CLUSTER_DATA = {
     totalRAM: '123GB',
     totalGPUs: 8,
     totalStorage: '8.4TB',
-    podCount: 40,
+    podCount: 60,
     k8sVersion: 'v1.35.2'
   },
 
   akash: {
     gpus: [
-      { model: 'RTX 3060 Ti', vram: '8GB', status: 'mining', node: 'zephyr' },
-      { model: 'RTX 3090', vram: '24GB', status: 'mining', node: 'zephyr' },
       { model: 'RTX 4060', vram: '8GB', status: 'available', node: 'forge' },
       { model: 'RTX 4060', vram: '8GB', status: 'available', node: 'forge' },
-      { model: 'RTX 3060 Ti', vram: '8GB', status: 'mining', node: 'nexus' }
+      { model: 'RTX 3060 Ti', vram: '8GB', status: 'available', node: 'nexus' },
+      { model: 'RTX 3090', vram: '24GB', status: 'available', node: 'zephyr' },
+      { model: 'RTX 3060 Ti', vram: '8GB', status: 'available', node: 'zephyr' }
     ],
     leases: 0,
     storage: ['beta2 (HDD)', 'beta3 (NVMe)', 'ram'],
@@ -110,7 +110,7 @@ export const CLUSTER_DATA = {
       provider: 'provider.reverb256.ca',
       ingress: '*.ingress.provider.reverb256.ca'
     },
-    status: 'AUDITED & READY'
+    status: 'Active Provider - Ready for Bids'
   },
 
   timeline: [
@@ -151,7 +151,7 @@ export const CLUSTER_DATA = {
       description: 'Added nexus, forge, sentry. Implemented NFS config sync, profile system, 50+ Justfile commands'
     },
     {
-      date: 'March 19, 2026',
+      date: 'March 18, 2026',
       title: 'K8s Phase 1-3: Foundation',
       description: 'Control plane, Flannel CNI, CoreDNS, stateful services (GlitchTip PostgreSQL)'
     },
@@ -161,9 +161,15 @@ export const CLUSTER_DATA = {
       description: 'Stateless services (GlitchTip web/worker, SearXNG, n8n), GPU workloads (llama.cpp)'
     },
     {
-      date: 'March 21, 2026',
+      date: 'March 20, 2026',
       title: 'K8s Phase 6-7: Monitoring & Akash',
       description: 'Prometheus + Grafana monitoring, Akash provider with 5 GPUs, audited & ready'
+    },
+    {
+      date: 'March 21, 2026',
+      title: 'Production Cluster Live',
+      icon: '🚀',
+      description: '60+ pods running across 4 hosts. AI inference, mining, monitoring, and Akash provider fully operational'
     }
   ],
 
@@ -171,18 +177,32 @@ export const CLUSTER_DATA = {
     ai: [
       { name: 'n8n', namespace: 'ai-inference', status: 'running' },
       { name: 'qdrant', namespace: 'ai-inference', status: 'running' },
-      { name: 'grafana', namespace: 'ai-inference', status: 'running' },
-      { name: 'prometheus', namespace: 'ai-inference', status: 'running' }
+      { name: 'vllm-inference', namespace: 'ai-inference', status: 'running' },
+      { name: 'llama-cpp-qwen', namespace: 'ai-inference', status: 'running' },
+      { name: 'sglang-inference', namespace: 'ai-inference', status: 'running' },
+      { name: 'mlflow', namespace: 'ai-inference', status: 'running' },
+      { name: 'redis', namespace: 'ai-inference', status: 'running' },
+      { name: 'postgres-n8n', namespace: 'ai-inference', status: 'running' }
     ],
     akash: [
       { name: 'akash-provider', namespace: 'akash-services', status: 'running' },
       { name: 'cloudflared', namespace: 'akash-services', status: 'running' },
-      { name: 'operator-hostname', namespace: 'akash-services', status: 'running' }
+      { name: 'operator-hostname', namespace: 'akash-services', status: 'running' },
+      { name: 'operator-inventory', namespace: 'akash-services', status: 'running' },
+      { name: 'akash-node-1', namespace: 'akash-services', status: 'running' }
     ],
     monitoring: [
       { name: 'prometheus', namespace: 'ai-inference', status: 'running' },
-      { name: 'grafana', namespace: 'ai-inference', status: 'running' },
-      { name: 'alertmanager', namespace: 'ai-inference', status: 'running' }
+      { name: 'grafana', namespace: 'monitoring', status: 'running' },
+      { name: 'alertmanager', namespace: 'monitoring', status: 'running' }
+    ],
+    mining: [
+      { name: 'gpu-miner-zephyr', namespace: 'mining', status: 'running' },
+      { name: 'xmrig-zephyr', namespace: 'mining', status: 'running' },
+      { name: 'gpu-miner-nexus', namespace: 'mining', status: 'running' },
+      { name: 'xmrig-nexus', namespace: 'mining', status: 'running' },
+      { name: 'gpu-miner-forge-nvidia-0', namespace: 'mining', status: 'running' },
+      { name: 'gpu-miner-forge-nvidia-1', namespace: 'mining', status: 'running' }
     ]
   }
 };
