@@ -67,14 +67,12 @@ import { CLUSTER_DATA } from '../../lib/infrastructure-data';
         <h2 class="section-title">Mining Infrastructure Meets Cloud Native</h2>
 
         <div class="glass-grid">
-          <GlassCard
-            title="The Challenge"
-            description="Managing 4 NixOS hosts, 8 GPUs across mining and Kubernetes workloads, with centralized configuration and monitoring."
-          />
-          <GlassCard
-            title="The Solution"
-            description="A custom NixOS framework with profile-based config management, NFS synchronization, and Kubernetes service mesh for unified cluster operations."
-          />
+          <GlassCard title="The Challenge">
+            Managing 4 NixOS hosts, 8 GPUs across mining and Kubernetes workloads, with centralized configuration and monitoring.
+          </GlassCard>
+          <GlassCard title="The Solution">
+            A custom NixOS framework with profile-based config management, NFS synchronization, and Kubernetes service mesh for unified cluster operations.
+          </GlassCard>
         </div>
 
         <div class="stats-grid">
@@ -104,18 +102,15 @@ import { CLUSTER_DATA } from '../../lib/infrastructure-data';
         <h2 class="section-title">Infrastructure Innovation</h2>
 
         <div class="glass-grid">
-          <GlassCard
-            title="NFS Config Sync"
-            description="NixOS configurations stored on NFS share. Changes to /etc/nixos propagate to all hosts via auto-mount, enabling single-source-of-truth cluster management."
-          />
-          <GlassCard
-            title="Profile System"
-            description="50+ Justfile commands organized by profile (desktop, gaming, k8s, mining). Run 'just desktop' to rebuild desktop environment, 'just k8s' to manage cluster, 'just mining' to control GPU workloads."
-          />
-          <GlassCard
-            title="Custom NixOS Modules"
-            description="Local flake with reusable modules: mining.bash (GPU management), llm.nix (vLLM integration), cluster.nix (K8s setup). Composable infrastructure as code."
-          />
+          <GlassCard title="NFS Config Sync">
+            NixOS configurations stored on NFS share. Changes to /etc/nixos propagate to all hosts via auto-mount, enabling single-source-of-truth cluster management.
+          </GlassCard>
+          <GlassCard title="Profile System">
+            50+ Justfile commands organized by profile (desktop, gaming, k8s, mining). Run 'just desktop' to rebuild desktop environment, 'just k8s' to manage cluster, 'just mining' to control GPU workloads.
+          </GlassCard>
+          <GlassCard title="Custom NixOS Modules">
+            Local flake with reusable modules: mining.bash (GPU management), llm.nix (vLLM integration), cluster.nix (K8s setup). Composable infrastructure as code.
+          </GlassCard>
         </div>
       </div>
     </section>
@@ -126,18 +121,15 @@ import { CLUSTER_DATA } from '../../lib/infrastructure-data';
         <h2 class="section-title">Operations & Automation</h2>
 
         <div class="glass-grid">
-          <GlassCard
-            title="Automated Deployments"
-            description="NixOS rebuilds trigger automatic service restarts. Kubernetes deployments via GitOps-style manifests. Mining operations auto-restart on GPU availability."
-          />
-          <GlassCard
-            title="Service Mesh"
-            description="Flannel CNI for pod networking, CoreDNS for service discovery, statefulsets for databases. Prometheus + Grafana for monitoring and alerting."
-          />
-          <GlassCard
-            title="Observability"
-            description="Centralized logging with Promtail, metrics collection with Prometheus, visualization in Grafana. Alertmanager for incident response."
-          />
+          <GlassCard title="Automated Deployments">
+            NixOS rebuilds trigger automatic service restarts. Kubernetes deployments via GitOps-style manifests. Mining operations auto-restart on GPU availability.
+          </GlassCard>
+          <GlassCard title="Service Mesh">
+            Flannel CNI for pod networking, CoreDNS for service discovery, statefulsets for databases. Prometheus + Grafana for monitoring and alerting.
+          </GlassCard>
+          <GlassCard title="Observability">
+            Centralized logging with Promtail, metrics collection with Prometheus, visualization in Grafana. Alertmanager for incident response.
+          </GlassCard>
         </div>
       </div>
     </section>
@@ -148,24 +140,19 @@ import { CLUSTER_DATA } from '../../lib/infrastructure-data';
         <h2 class="section-title">Cluster Capabilities</h2>
 
         <div class="glass-grid">
-          <GlassCard
-            title="Hardware Infrastructure"
-            description={`${CLUSTER_DATA.stats.totalCores} CPU cores, ${CLUSTER_DATA.stats.totalRAM} RAM, ${CLUSTER_DATA.stats.totalGPUs} GPUs (${CLUSTER_DATA.hosts.map(h => h.specs.gpus.join(', ')).join(', ')}), ${CLUSTER_DATA.stats.totalStorage} storage across ${CLUSTER_DATA.hosts.length} hosts. Mining capacity: 4 GPUs. Kubernetes capacity: 4 GPUs.`}
-          />
-          <GlassCard
-            title="AI/ML Services"
-            description="n8n for AI workflows, Qdrant for vector search, vLLM for local LLM inference, OpenAI-compatible API gateway with middleware (rate limiting, circuit breaker, Redis caching)."
-          />
-          <GlassCard
-            title="Akash Cloud Provider"
-            description={`
-              <strong>Status:</strong> ${CLUSTER_DATA.akash.status}<br>
-              <strong>GPUs:</strong> ${CLUSTER_DATA.akash.gpus.map(g => `${g.model} (${g.vram}) - ${g.status}`).join('<br>')}<br>
-              <strong>Storage:</strong> ${CLUSTER_DATA.akash.storage.join(', ')}<br>
-              <strong>Endpoints:</strong> ${CLUSTER_DATA.akash.endpoints.provider}, ${CLUSTER_DATA.akash.endpoints.ingress}<br>
-              <strong>Active Leases:</strong> ${CLUSTER_DATA.akash.leases}
-            `}
-          />
+          <GlassCard title="Hardware Infrastructure">
+            {`${CLUSTER_DATA.stats.totalCores} CPU cores, ${CLUSTER_DATA.stats.totalRAM} RAM, ${CLUSTER_DATA.stats.totalGPUs} GPUs (${CLUSTER_DATA.hosts.map(h => h.specs.gpus.join(', ')).join(', ')}), ${CLUSTER_DATA.stats.totalStorage} storage across ${CLUSTER_DATA.hosts.length} hosts. Mining capacity: 4 GPUs. Kubernetes capacity: 4 GPUs.`}
+          </GlassCard>
+          <GlassCard title="AI/ML Services">
+            n8n for AI workflows, Qdrant for vector search, vLLM for local LLM inference, OpenAI-compatible API gateway with middleware (rate limiting, circuit breaker, Redis caching).
+          </GlassCard>
+          <GlassCard title="Akash Cloud Provider">
+            <strong>Status:</strong> {CLUSTER_DATA.akash.status}<br>
+            <strong>GPUs:</strong> {CLUSTER_DATA.akash.gpus.map(g => `${g.model} (${g.vram}) - ${g.status}`).join('<br>')}<br>
+            <strong>Storage:</strong> {CLUSTER_DATA.akash.storage.join(', ')}<br>
+            <strong>Endpoints:</strong> {CLUSTER_DATA.akash.endpoints.provider}, {CLUSTER_DATA.akash.endpoints.ingress}<br>
+            <strong>Active Leases:</strong> {CLUSTER_DATA.akash.leases}
+          </GlassCard>
         </div>
       </div>
     </section>
