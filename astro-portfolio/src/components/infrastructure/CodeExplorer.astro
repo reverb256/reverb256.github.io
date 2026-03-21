@@ -1,0 +1,151 @@
+---
+import CodeExplorer from './CodeExplorer';
+---
+
+<section id="code" class="code-section">
+  <div class="container">
+    <h2 class="section-title">Code Patterns</h2>
+    <CodeExplorer client:load />
+  </div>
+</section>
+
+<style>
+  .code-section {
+    padding: 6rem 1rem;
+    background: linear-gradient(to bottom, transparent, #f8fafc);
+  }
+
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .section-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 3rem;
+    background: linear-gradient(135deg, #0f172a 0%, #334155 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  :global(.code-explorer) {
+    width: 100%;
+  }
+
+  :global(.tabs) {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 0;
+    border-bottom: 2px solid #e2e8f0;
+  }
+
+  :global(.tab) {
+    padding: 0.75rem 1.5rem;
+    background: transparent;
+    border: none;
+    border-bottom: 3px solid transparent;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #64748b;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin-bottom: -2px;
+  }
+
+  :global(.tab:hover) {
+    color: #0f172a;
+    background: #f8fafc;
+  }
+
+  :global(.tab.active) {
+    color: #0f172a;
+    border-bottom-color: #0f172a;
+    font-weight: 600;
+  }
+
+  :global(.code-content) {
+    display: none;
+    background: #1e293b;
+    border-radius: 0 0.5rem 0.5rem 0.5rem;
+    overflow: hidden;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  }
+
+  :global(.code-content.active) {
+    display: block;
+  }
+
+  :global(.code-header) {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    background: #0f172a;
+    border-bottom: 1px solid #334155;
+  }
+
+  :global(.code-filename) {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #94a3b8;
+    font-family: 'Courier New', monospace;
+  }
+
+  :global(.copy-button) {
+    padding: 0.375rem 0.75rem;
+    background: #334155;
+    border: 1px solid #475569;
+    border-radius: 0.25rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #f1f5f9;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  :global(.copy-button:hover) {
+    background: #475569;
+    border-color: #64748b;
+  }
+
+  :global(.copy-button:active) {
+    transform: scale(0.98);
+  }
+
+  :global(.code-block) {
+    margin: 0;
+    padding: 1.5rem;
+    overflow-x: auto;
+    background: #1e293b;
+  }
+
+  :global(.code-block code) {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.875rem;
+    line-height: 1.714;
+    color: #e2e8f0;
+    white-space: pre;
+  }
+
+  @media (max-width: 768px) {
+    .section-title {
+      font-size: 2rem;
+    }
+
+    :global(.tab) {
+      padding: 0.625rem 1rem;
+      font-size: 0.875rem;
+    }
+
+    :global(.code-block) {
+      padding: 1rem;
+    }
+
+    :global(.code-block code) {
+      font-size: 0.8125rem;
+    }
+  }
+</style>
