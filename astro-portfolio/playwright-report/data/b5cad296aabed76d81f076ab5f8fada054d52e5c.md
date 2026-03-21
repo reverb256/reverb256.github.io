@@ -1,0 +1,208 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - generic: "> init_sequence()"
+  - generic: const cluster = new Cluster();
+  - generic: <Rust/>
+  - link "Skip to main content" [ref=e3] [cursor=pointer]:
+    - /url: "#main-content"
+  - banner [ref=e4]:
+    - navigation "Main navigation" [ref=e5]:
+      - link "Reverb256 Home" [ref=e6] [cursor=pointer]:
+        - /url: /
+        - text: ">"
+        - generic [ref=e7]: R256
+        - generic [ref=e8]: ://
+      - menubar [ref=e9]:
+        - menuitem "Home" [ref=e10] [cursor=pointer]:
+          - generic [ref=e11]: ⌂
+          - generic [ref=e12]: Home
+        - menuitem "Projects" [ref=e13] [cursor=pointer]:
+          - generic [ref=e14]: ◉
+          - generic [ref=e15]: Projects
+        - menuitem "Blog" [ref=e16] [cursor=pointer]:
+          - generic [ref=e17]: ✍
+          - generic [ref=e18]: Blog
+        - menuitem "Infrastructure" [ref=e19] [cursor=pointer]:
+          - generic [ref=e20]: ☸
+          - generic [ref=e21]: Infrastructure
+        - menuitem "Now" [ref=e22] [cursor=pointer]:
+          - generic [ref=e23]: ◉
+          - generic [ref=e24]: Now
+        - menuitem "Setup" [ref=e25] [cursor=pointer]:
+          - generic [ref=e26]: ⚙
+          - generic [ref=e27]: Setup
+        - menuitem "Links" [ref=e28] [cursor=pointer]:
+          - generic [ref=e29]: ◎
+          - generic [ref=e30]: Links
+      - link "GitHub Profile (opens in new tab)" [ref=e31] [cursor=pointer]:
+        - /url: https://github.com/reverb256
+        - img [ref=e32]
+  - main [ref=e34]:
+    - region "Reverb256" [ref=e35]:
+      - generic [ref=e37]:
+        - generic [ref=e38]:
+          - status [ref=e39]: Open to Opportunities
+          - heading "Reverb256" [level=1] [ref=e41]
+          - paragraph [ref=e42]: 15 years in food service. 20 years tech-curious. Now building production applications with NixOS infrastructure and AI-assisted development.
+          - generic [ref=e43]:
+            - link "View Projects" [ref=e44] [cursor=pointer]:
+              - /url: "#projects"
+            - link "Get in Touch" [ref=e45] [cursor=pointer]:
+              - /url: "#contact"
+          - generic [ref=e46]:
+            - generic [ref=e47]:
+              - text: 7+
+              - text: Projects Shipped
+            - generic [ref=e48]:
+              - text: "4"
+              - text: Host NixOS Cluster
+            - generic [ref=e49]:
+              - text: Rust
+              - text: → TypeScript → Python
+        - region "Interactive terminal" [ref=e51]:
+          - log [ref=e52]:
+            - paragraph [ref=e53]: Welcome to the R256 knowledge database.
+            - paragraph [ref=e54]: Type help for commands.
+            - generic [ref=e55]: "> System initialized"
+            - generic [ref=e56]: "> Database loaded: 16 subjects"
+            - generic [ref=e57]: "> Classification levels: PUBLIC, INTERNAL, RESTRICTED, TOP SECRET"
+          - generic [ref=e58]:
+            - generic [ref=e59]: ❯
+            - textbox "Terminal command input" [ref=e61]:
+              - /placeholder: type a command...
+          - generic [ref=e62]: Type commands like help, list, or read to explore the database
+    - region "// Projects" [ref=e63]:
+      - generic [ref=e64]:
+        - heading "// Projects" [level=2] [ref=e66]
+        - generic [ref=e67]:
+          - heading "Client Work" [level=3] [ref=e68]:
+            - generic [ref=e70]: Client Work
+          - list [ref=e71]:
+            - 'listitem "Troves & Coves: Crystal jewelry e-commerce. Status: active. Technologies: React, TypeScript, shadcn/ui. Opens in new tab." [ref=e72] [cursor=pointer]':
+              - generic [ref=e73]:
+                - generic [ref=e74]: 💎
+                - generic [ref=e75]: Client
+              - heading "Troves & Coves" [level=3] [ref=e76]
+              - paragraph [ref=e77]: Crystal jewelry e-commerce
+              - 'generic "Technologies: React, TypeScript, shadcn/ui" [ref=e78]':
+                - generic [ref=e79]: React
+                - generic [ref=e80]: TypeScript
+                - generic [ref=e81]: shadcn/ui
+            - 'listitem "hair@home: Hugo static site. Status: live. Technologies: Hugo, SCSS. Opens in new tab." [ref=e82] [cursor=pointer]':
+              - generic [ref=e83]:
+                - generic [ref=e84]: 💇
+                - generic [ref=e85]: Client
+              - heading "hair@home" [level=3] [ref=e86]
+              - paragraph [ref=e87]: Hugo static site
+              - 'generic "Technologies: Hugo, SCSS" [ref=e88]':
+                - generic [ref=e89]: Hugo
+                - generic [ref=e90]: SCSS
+        - generic [ref=e91]:
+          - heading "Personal Projects" [level=3] [ref=e92]:
+            - generic [ref=e94]: Personal Projects
+          - list [ref=e95]:
+            - 'listitem "Frostbite Gazette: AI-curated Canadian journalism. Status: active. Technologies: Astro, Cloudflare, Groq AI. Opens in new tab." [ref=e96] [cursor=pointer]':
+              - generic [ref=e97]:
+                - generic [ref=e98]: 🍁
+                - generic [ref=e99]: active
+              - heading "Frostbite Gazette" [level=3] [ref=e100]
+              - paragraph [ref=e101]: AI-curated Canadian journalism
+              - 'generic "Technologies: Astro, Cloudflare, Groq AI" [ref=e102]':
+                - generic [ref=e103]: Astro
+                - generic [ref=e104]: Cloudflare
+                - generic [ref=e105]: Groq AI
+            - 'listitem "Astral Key: Web3 auth microservice. Status: active. Technologies: Rust, SQLx, Axum. Opens in new tab." [ref=e106] [cursor=pointer]':
+              - generic [ref=e107]:
+                - generic [ref=e108]: 🔑
+                - generic [ref=e109]: active
+              - heading "Astral Key" [level=3] [ref=e110]
+              - paragraph [ref=e111]: Web3 auth microservice
+              - 'generic "Technologies: Rust, SQLx, Axum" [ref=e112]':
+                - generic [ref=e113]: Rust
+                - generic [ref=e114]: SQLx
+                - generic [ref=e115]: Axum
+            - 'listitem "Synapse: Local-first AI command center. Status: active. Technologies: Node.js, Tauri, WebSocket. Opens in new tab." [ref=e116] [cursor=pointer]':
+              - generic [ref=e117]:
+                - generic [ref=e118]: ⚡
+                - generic [ref=e119]: active
+              - heading "Synapse" [level=3] [ref=e120]
+              - paragraph [ref=e121]: Local-first AI command center
+              - 'generic "Technologies: Node.js, Tauri, WebSocket" [ref=e122]':
+                - generic [ref=e123]: Node.js
+                - generic [ref=e124]: Tauri
+                - generic [ref=e125]: WebSocket
+        - generic [ref=e126]:
+          - heading "Infrastructure" [level=3] [ref=e127]:
+            - generic [ref=e129]: Infrastructure
+          - list [ref=e130]:
+            - 'listitem "Infrastructure: 4-host NixOS cluster with AI monitoring. Learn more." [ref=e131] [cursor=pointer]':
+              - generic [ref=e132]:
+                - generic [ref=e133]: 🖥️
+                - generic [ref=e134]: Flagship
+              - heading "Infrastructure" [level=3] [ref=e135]
+              - paragraph [ref=e136]: 4-host NixOS cluster with AI monitoring
+              - 'generic "Technologies: NixOS, Colmena, K8s, AI" [ref=e137]':
+                - generic [ref=e138]: NixOS
+                - generic [ref=e139]: Colmena
+                - generic [ref=e140]: K8s
+                - generic [ref=e141]: AI
+    - region "// About" [ref=e142]:
+      - generic [ref=e143]:
+        - heading "// About" [level=2] [ref=e145]
+        - generic [ref=e146]:
+          - article [ref=e147]:
+            - heading "My Story" [level=3] [ref=e148]
+            - paragraph [ref=e149]: Spent 15 years in food service learning the value of hard work, teamwork, and showing up every day. Meanwhile, always curious about computers — 20 years of tinkering, researching, and dabbling with Linux on the side.
+            - paragraph [ref=e150]: Fully committed to NixOS for system configuration. Built a 4-host mining cluster with Colmena deployment, currently migrating to Kubernetes. Developing production apps with Rust microservices, React frontends, and AI integration.
+            - paragraph [ref=e151]:
+              - strong [ref=e152]: "Current focus:"
+              - text: Building privacy-first AI tools, Web3 authentication systems, and local-first applications. Always learning through AI-assisted development.
+          - article [ref=e153]:
+            - heading "What I Bring" [level=3] [ref=e154]
+            - list "Personal qualities" [ref=e155]:
+              - listitem [ref=e156]: Work ethic
+              - listitem [ref=e157]: Eager to learn
+              - listitem [ref=e158]: Team player
+              - listitem [ref=e159]: Problem solver
+              - listitem [ref=e160]: Patient
+              - listitem [ref=e161]: Reliable
+            - heading "Tech Stack" [level=3] [ref=e162]
+            - list "Technologies" [ref=e163]:
+              - listitem [ref=e164]: TypeScript
+              - listitem [ref=e165]: React
+              - listitem [ref=e166]: Rust
+              - listitem [ref=e167]: Node.js
+              - listitem [ref=e168]: NixOS
+              - listitem [ref=e169]: Astro
+              - listitem [ref=e170]: Tailwind
+              - listitem [ref=e171]: Python
+              - listitem [ref=e172]: Cloudflare Workers
+              - listitem [ref=e173]: Docker
+              - listitem [ref=e174]: Kubernetes
+              - listitem [ref=e175]: MCP
+            - generic [ref=e176]:
+              - generic [ref=e177]: "OS: NixOS (4-host cluster + Colmena)"
+              - generic [ref=e178]: "Method: AI-assisted development (Claude Code)"
+              - generic [ref=e179]: "Infrastructure: Kubernetes migration in progress"
+              - generic [ref=e180]: "Tools: Semantic code editing with Serena"
+    - region "// Contact" [ref=e181]:
+      - generic [ref=e182]:
+        - heading "// Contact" [level=2] [ref=e184]
+        - generic [ref=e185]:
+          - generic [ref=e186]:
+            - paragraph [ref=e187]: Open to junior roles, internships, or just chatting about tech. Let's connect!
+            - generic [ref=e188]:
+              - link "Email" [ref=e189] [cursor=pointer]:
+                - /url: mailto:contact@reverb256.dev
+              - link "GitHub" [ref=e190] [cursor=pointer]:
+                - /url: https://github.com/reverb256
+          - generic [ref=e191]:
+            - generic [ref=e192]: Winnipeg, Canada
+            - generic [ref=e193]: Open to remote work
+    - generic [ref=e195]:
+      - generic [ref=e196]: © 2026 Reverb256
+      - generic [ref=e197]: Astro + GSAP + NixOS + Base24
+      - generic [ref=e198]: All Systems Operational
+```
