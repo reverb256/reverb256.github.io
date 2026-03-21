@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import type { Host } from '../../lib/infrastructure-data';
 
 interface Cluster3DProps {
@@ -19,6 +19,7 @@ export default function Cluster3D({ hosts }: Cluster3DProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [rotation, setRotation] = useState(0);
   const [particles, setParticles] = useState<Particle[]>([]);
+  const [particleProgress, setParticleProgress] = useState<number[]>([]);
 
   useEffect(() => {
     // Initialize particles
@@ -32,11 +33,16 @@ export default function Cluster3D({ hosts }: Cluster3DProps) {
       progress: Math.random()
     }));
     setParticles(newParticles);
+    setParticleProgress(newParticles.map(p => p.progress));
 
-    // Rotation animation
+    // Combined animation loop for both rotation and particles
     let animationFrameId: number;
     const animate = () => {
       setRotation(prev => prev + 0.005);
+      setParticleProgress(prev => prev.map(progress => {
+        const newProgress = progress + 0.002;
+        return newProgress > 1 ? 0 : newProgress;
+      }));
       animationFrameId = requestAnimationFrame(animate);
     };
     animate();
@@ -44,50 +50,53 @@ export default function Cluster3D({ hosts }: Cluster3DProps) {
     return () => cancelAnimationFrame(animationFrameId);
   }, [hosts]);
 
-  // Calculate 3D positions
+  // Memoize expensive calculations
   const radius = 180;
   const angleStep = (2 * Math.PI) / hosts.length;
 
-  const hostPositions = hosts.map((host, i) => {
-    const angle = i * angleStep + rotation;
-    return {
-      ...host,
-      x: Math.cos(angle) * radius,
-      y: Math.sin(angle) * radius * 0.6,
-      z: Math.sin(angle) * radius
-    };
-  });
+  const hostPositions = useMemo(() =>
+    hosts.map((host, i) => {
+      const angle = i * angleStep + rotation;
+      return {
+        ...host,
+        x: Math.cos(angle) * radius,
+        y: Math.sin(angle) * radius * 0.6,
+        z: Math.sin(angle) * radius
+      };
+    }), [hosts, rotation, angleStep]
+  );
 
-  // Animate particles
-  const animatedParticles = particles.map(particle => {
-    const fromHost = hosts.find(h => h.name === particle.fromHost);
-    const toHost = hosts.find(h => h.name === particle.toHost);
+  // Memoize particle calculations with updated progress from state
+  const animatedParticles = useMemo(() =>
+    particles.map((particle, index) => {
+      const progress = particleProgress[index] ?? particle.progress;
+      const fromHost = hosts.find(h => h.name === particle.fromHost);
+      const toHost = hosts.find(h => h.name === particle.toHost);
 
-    if (!fromHost || !toHost) return null;
+      if (!fromHost || !toHost) return null;
 
-    const fromIndex = hosts.indexOf(fromHost);
-    const toIndex = hosts.indexOf(toHost);
+      const fromIndex = hosts.indexOf(fromHost);
+      const toIndex = hosts.indexOf(toHost);
 
-    const fromAngle = fromIndex * angleStep + rotation;
-    const toAngle = toIndex * angleStep + rotation;
+      const fromAngle = fromIndex * angleStep + rotation;
+      const toAngle = toIndex * angleStep + rotation;
 
-    const fromX = Math.cos(fromAngle) * radius;
-    const fromY = Math.sin(fromAngle) * radius * 0.6;
-    const fromZ = Math.sin(fromAngle) * radius;
+      const fromX = Math.cos(fromAngle) * radius;
+      const fromY = Math.sin(fromAngle) * radius * 0.6;
+      const fromZ = Math.sin(fromAngle) * radius;
 
-    const toX = Math.cos(toAngle) * radius;
-    const toY = Math.sin(toAngle) * radius * 0.6;
-    const toZ = Math.sin(toAngle) * radius;
+      const toX = Math.cos(toAngle) * radius;
+      const toY = Math.sin(toAngle) * radius * 0.6;
+      const toZ = Math.sin(toAngle) * radius;
 
-    particle.progress += 0.002;
-    if (particle.progress > 1) particle.progress = 0;
+      const x = fromX + (toX - fromX) * progress;
+      const y = fromY + (toY - fromY) * progress;
+      const z = fromZ + (toZ - fromZ) * progress;
 
-    const x = fromX + (toX - fromX) * particle.progress;
-    const y = fromY + (toY - fromY) * particle.progress;
-    const z = fromZ + (toZ - fromZ) * particle.progress;
-
-    return { ...particle, x, y, z };
-  }).filter(Boolean) as Particle[];
+      return { ...particle, x, y, z, progress };
+    }).filter(Boolean) as Particle[],
+    [particles, particleProgress, hosts, rotation, angleStep, radius]
+  );
 
   return (
     <div
