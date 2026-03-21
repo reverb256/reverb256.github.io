@@ -1,0 +1,239 @@
+---
+import Cluster3D from './Cluster3D';
+import { CLUSTER_DATA } from '../../lib/infrastructure-data';
+---
+
+<section class="hero-cluster">
+  <div class="cluster-3d-container">
+    <Cluster3D hosts={CLUSTER_DATA.hosts} client:load />
+  </div>
+
+  <div class="floating-stats">
+    <div class="stat-card">
+      <div class="stat-value">{CLUSTER_DATA.hosts.length}</div>
+      <div class="stat-label">Hosts</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value">{CLUSTER_DATA.stats.totalGPUs}</div>
+      <div class="stat-label">GPUs</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value">{CLUSTER_DATA.stats.podCount}</div>
+      <div class="stat-label">Pods</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value">Akash</div>
+      <div class="stat-label">Provider</div>
+    </div>
+  </div>
+
+  <div class="hero-content">
+    <h1 class="hero-title">
+      <span class="gradient-text">NixOS Homelab</span>
+      <br />
+      Infrastructure
+    </h1>
+    <p class="hero-description">
+      A 4-host Kubernetes cluster with GPU compute, distributed storage,
+      and decentralized cloud hosting on Akash Network.
+    </p>
+  </div>
+
+  <div class="scroll-indicator">
+    <div class="scroll-arrow">↓</div>
+    <div class="scroll-text">Scroll to explore</div>
+  </div>
+</section>
+
+<style>
+  .hero-cluster {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 100%);
+  }
+
+  .cluster-3d-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+  }
+
+  .floating-stats {
+    position: absolute;
+    top: 120px;
+    right: 40px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    z-index: 10;
+  }
+
+  .stat-card {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 20px;
+    min-width: 120px;
+    animation: float 3s ease-in-out infinite;
+  }
+
+  .stat-card:nth-child(2) {
+    animation-delay: 0.5s;
+  }
+
+  .stat-card:nth-child(3) {
+    animation-delay: 1s;
+  }
+
+  .stat-card:nth-child(4) {
+    animation-delay: 1.5s;
+  }
+
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+
+  .stat-value {
+    font-size: 2rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #a855f7 0%, #7c3aed 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .stat-label {
+    font-size: 0.875rem;
+    color: rgba(255, 255, 255, 0.7);
+    margin-top: 4px;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    max-width: 800px;
+    padding: 0 20px;
+  }
+
+  .hero-title {
+    font-size: 4rem;
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 24px;
+    color: white;
+  }
+
+  .gradient-text {
+    background: linear-gradient(135deg, #a855f7 0%, #7c3aed 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-description {
+    font-size: 1.25rem;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.8);
+    margin: 0;
+  }
+
+  .scroll-indicator {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    z-index: 10;
+    animation: bounce 2s ease-in-out infinite;
+  }
+
+  @keyframes bounce {
+    0%, 100% {
+      transform: translateX(-50%) translateY(0);
+    }
+    50% {
+      transform: translateX(-50%) translateY(-10px);
+    }
+  }
+
+  .scroll-arrow {
+    font-size: 2rem;
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 8px;
+  }
+
+  .scroll-text {
+    font-size: 0.875rem;
+    color: rgba(255, 255, 255, 0.6);
+  }
+
+  /* Responsive design */
+  @media (max-width: 768px) {
+    .hero-title {
+      font-size: 2.5rem;
+    }
+
+    .hero-description {
+      font-size: 1rem;
+    }
+
+    .floating-stats {
+      top: 80px;
+      right: 20px;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .stat-card {
+      padding: 12px;
+      min-width: 80px;
+    }
+
+    .stat-value {
+      font-size: 1.5rem;
+    }
+
+    .stat-label {
+      font-size: 0.75rem;
+    }
+
+    .scroll-indicator {
+      bottom: 20px;
+    }
+
+    .scroll-arrow {
+      font-size: 1.5rem;
+    }
+
+    .scroll-text {
+      font-size: 0.75rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .floating-stats {
+      grid-template-columns: 1fr;
+      top: 60px;
+      right: 10px;
+      left: 10px;
+    }
+
+    .stat-card {
+      min-width: auto;
+    }
+  }
+</style>
