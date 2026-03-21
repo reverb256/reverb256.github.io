@@ -9,23 +9,23 @@
 // TYPES
 // ============================================================================
 
-export interface GPU {
-  model: string;
-  vram: number;
-  status: 'mining' | 'available' | 'k8s' | 'akash';
-  node?: string;
-}
-
 export interface Host {
   name: string;
-  role: 'control-plane' | 'worker' | 'standalone';
+  role: string;
   specs: {
     cpu: string;
     ram: string;
-    gpus: GPU[];
+    gpus: string[];
   };
   services: string[];
   ip: string;
+}
+
+export interface GPU {
+  model: string;
+  vram: string;
+  status: 'mining' | 'available' | 'k8s' | 'akash';
+  node: string;
 }
 
 export interface TimelineMilestone {
@@ -35,107 +35,58 @@ export interface TimelineMilestone {
   icon?: string;
 }
 
-export interface ClusterStats {
-  totalCores: number;
-  totalRAM: string;
-  totalGPUs: number;
-  totalStorage: string;
-  podCount: number;
-  k8sVersion: string;
-}
-
-export interface AkashInfo {
-  gpus: {
-    total: number;
-    mining: number;
-    available: number;
-  };
-  leases: number;
-  storageClasses: string[];
-  endpoints: string[];
-  status: string;
-}
-
-export interface InfrastructureData {
-  hosts: Host[];
-  stats: ClusterStats;
-  akash: AkashInfo;
-  timeline: TimelineMilestone[];
-  services: {
-    ai: string[];
-    akash: string[];
-    monitoring: string[];
-  };
-}
-
 // ============================================================================
 // CLUSTER DATA
 // ============================================================================
 
-export const CLUSTER_DATA: InfrastructureData = {
-  // ------------------------------------------------------------------------
-  // HOSTS
-  // ------------------------------------------------------------------------
+export const CLUSTER_DATA = {
   hosts: [
     {
       name: 'zephyr',
       role: 'control-plane',
       specs: {
-        cpu: 'Ryzen 9 5900X (24 cores)',
-        ram: '64GB',
-        gpus: [
-          { model: 'RTX 3090', vram: 24, status: 'mining', node: 'zephyr' },
-          { model: 'RTX 3060 Ti', vram: 8, status: 'available', node: 'zephyr' }
-        ]
+        cpu: '16 cores',
+        ram: '32GB',
+        gpus: ['RTX 3090 (24GB)', 'RTX 3060 Ti (8GB)']
       },
-      services: ['akash', 'monitoring', 'ai-gateway', 'cc-router'],
-      ip: '192.168.1.10'
+      services: ['etcd', 'kube-apiserver', 'kube-scheduler', 'kube-controller-manager', 'n8n', 'grafana'],
+      ip: '10.1.1.110'
     },
     {
       name: 'nexus',
-      role: 'worker',
+      role: 'storage',
       specs: {
-        cpu: 'Intel Xeon (16 cores)',
+        cpu: '12 cores',
         ram: '32GB',
-        gpus: [
-          { model: 'RTX 3060 Ti', vram: 8, status: 'mining', node: 'nexus' }
-        ]
+        gpus: ['RTX 3060 Ti (8GB)']
       },
-      services: ['akash-node', 'qwen-agent'],
-      ip: '192.168.1.11'
+      services: ['etcd', 'nfs-server', 'postgres-glitchtip', 'postgres-n8n'],
+      ip: '10.1.1.120'
     },
     {
       name: 'forge',
-      role: 'worker',
+      role: 'gpu-compute',
       specs: {
-        cpu: 'Intel i7-10700 (16 cores)',
-        ram: '16GB',
-        gpus: [
-          { model: 'RTX 4060', vram: 8, status: 'available', node: 'forge' },
-          { model: 'RTX 4060', vram: 8, status: 'available', node: 'forge' }
-        ]
+        cpu: '24 cores',
+        ram: '32GB',
+        gpus: ['RTX 4060 (8GB)', 'RTX 4060 (8GB)', 'RX 5700 XT (8GB)', 'RX 5700 XT (8GB)']
       },
-      services: ['akash-node'],
-      ip: '192.168.1.12'
+      services: ['lolminer-nvidia', 'lolminer-amd'],
+      ip: '10.1.1.130'
     },
     {
       name: 'sentry',
-      role: 'worker',
+      role: 'monitoring',
       specs: {
-        cpu: 'AMD Ryzen 5 (12 cores)',
-        ram: '11GB',
-        gpus: [
-          { model: 'RX 5700 XT', vram: 8, status: 'k8s', node: 'sentry' }
-        ]
+        cpu: '26 cores',
+        ram: '27GB',
+        gpus: ['RX 5600 XT (4GB)']
       },
-      services: ['akash-node', 'monitoring-agent'],
-      ip: '192.168.1.13'
+      services: ['etcd', 'prometheus', 'alertmanager', 'promtail'],
+      ip: '10.1.1.140'
     }
   ],
 
-  // ------------------------------------------------------------------------
-  // STATS
-  // ------------------------------------------------------------------------
   stats: {
     totalCores: 78,
     totalRAM: '123GB',
@@ -145,102 +96,93 @@ export const CLUSTER_DATA: InfrastructureData = {
     k8sVersion: 'v1.35.2'
   },
 
-  // ------------------------------------------------------------------------
-  // AKASH
-  // ------------------------------------------------------------------------
   akash: {
-    gpus: {
-      total: 5,
-      mining: 3,
-      available: 2
-    },
-    leases: 0,
-    storageClasses: ['beta3', 'beta4', 'beta5'],
-    endpoints: [
-      'https://provider.akash.network',
-      'wss://provider.akash.network'
+    gpus: [
+      { model: 'RTX 3060 Ti', vram: '8GB', status: 'mining', node: 'zephyr' },
+      { model: 'RTX 3090', vram: '24GB', status: 'mining', node: 'zephyr' },
+      { model: 'RTX 4060', vram: '8GB', status: 'available', node: 'forge' },
+      { model: 'RTX 4060', vram: '8GB', status: 'available', node: 'forge' },
+      { model: 'RTX 3060 Ti', vram: '8GB', status: 'mining', node: 'nexus' }
     ],
+    leases: 0,
+    storage: ['beta2 (HDD)', 'beta3 (NVMe)', 'ram'],
+    endpoints: {
+      provider: 'provider.reverb256.ca',
+      ingress: '*.ingress.provider.reverb256.ca'
+    },
     status: 'AUDITED & READY'
   },
 
-  // ------------------------------------------------------------------------
-  // TIMELINE
-  // ------------------------------------------------------------------------
   timeline: [
     {
-      date: '2024-06',
-      title: 'Windows Elimination',
-      description: 'Removed Windows from all hosts, standardized on NixOS for reproducible infrastructure'
+      date: 'Before Sept 2025',
+      title: 'Windows + Proxmox',
+      description: 'Dual-boot setup with Proxmox servers for testing, Windows as daily driver'
     },
     {
-      date: '2024-07',
-      title: 'NixOS Standardization',
-      description: 'Implemented flake-based configuration management for all 4 hosts'
+      date: 'September 2025',
+      title: 'Killed Windows',
+      icon: '🎯',
+      description: 'Full commitment to Linux. Started distro hopping journey.'
     },
     {
-      date: '2024-08',
-      title: 'GPU Pool Assembly',
-      description: 'Acquired and configured 7 GPUs across the cluster (24GB + 6x 8GB)'
+      date: 'Sept 2025 - Feb 2026',
+      title: 'OS Evolution',
+      description: 'Omarchy (Arch-based) → CachyOS (optimized Arch) → NixOS (declarative + reproducible)'
     },
     {
-      date: '2024-09',
-      title: 'Akash Provider Setup',
-      description: 'Deployed first Akash provider node on zephyr with GPU support'
+      date: 'March 2, 2026',
+      title: 'NixOS Initial Commit',
+      description: 'First NixOS configuration. Single host (zephyr) with basic desktop + gaming'
     },
     {
-      date: '2024-10',
-      title: 'Mining Operations',
-      description: 'Established mining operation with 3 GPUs, 2 reserved for K8s workloads'
+      date: 'March 3, 2026',
+      title: 'AI Gateway v1.0',
+      description: 'OpenAI-compatible API, mining infrastructure, multi-GPU support'
     },
     {
-      date: '2024-11',
-      title: 'K8s Cluster Formation',
-      description: 'Bootstrapped K3s cluster with zephyr as control-plane, 3 worker nodes joined'
+      date: 'March 4, 2026',
+      title: 'Gateway v2.0',
+      description: 'Middleware architecture with circuit breaker, rate limiting, Redis caching'
     },
     {
-      date: '2024-12',
-      title: 'Akash Multi-Node',
-      description: 'Expanded Akash provider to 5 GPUs across 4 hosts with redundant endpoints'
+      date: 'Mid-March 2026',
+      title: 'Cluster Expansion',
+      description: 'Added nexus, forge, sentry. Implemented NFS config sync, profile system, 50+ Justfile commands'
     },
     {
-      date: '2025-01',
-      title: 'AI Infrastructure Integration',
-      description: 'Deployed local LLM stack with vLLM, Qwen3.5-14B on RTX 3090'
+      date: 'March 19, 2026',
+      title: 'K8s Phase 1-3: Foundation',
+      description: 'Control plane, Flannel CNI, CoreDNS, stateful services (GlitchTip PostgreSQL)'
     },
     {
-      date: '2025-02',
-      title: 'Qwen Agent Framework',
-      description: 'Implemented pi-agent-core based infrastructure monitoring and automation'
+      date: 'March 19, 2026',
+      title: 'K8s Phase 4-5: Services & GPU',
+      description: 'Stateless services (GlitchTip web/worker, SearXNG, n8n), GPU workloads (llama.cpp)'
     },
     {
-      date: '2025-03',
-      title: 'Production Readiness',
-      description: 'Completed Akash provider audit, achieved AUDITED & READY status with 40+ pods running'
+      date: 'March 21, 2026',
+      title: 'K8s Phase 6-7: Monitoring & Akash',
+      description: 'Prometheus + Grafana monitoring, Akash provider with 5 GPUs, audited & ready'
     }
   ],
 
-  // ------------------------------------------------------------------------
-  // SERVICES
-  // ------------------------------------------------------------------------
   services: {
     ai: [
-      'vLLM (Qwen3.5-14B)',
-      'AI Gateway (OpenAI-compatible)',
-      'CC Router (Anthropic-style API)',
-      'FastMCP Video Generation'
+      { name: 'n8n', namespace: 'ai-inference', status: 'running' },
+      { name: 'qdrant', namespace: 'ai-inference', status: 'running' },
+      { name: 'grafana', namespace: 'ai-inference', status: 'running' },
+      { name: 'prometheus', namespace: 'ai-inference', status: 'running' }
     ],
     akash: [
-      'Provider (zephyr, nexus, forge, sentry)',
-      'Bid Engine',
-      'Lease Management',
-      'Storage Classes (beta3-5)'
+      { name: 'akash-provider', namespace: 'akash-services', status: 'running' },
+      { name: 'cloudflared', namespace: 'akash-services', status: 'running' },
+      { name: 'operator-hostname', namespace: 'akash-services', status: 'running' }
     ],
     monitoring: [
-      'Prometheus',
-      'Grafana',
-      'Node Exporter',
-      'cAdvisor',
-      'Kube State Metrics'
+      { name: 'prometheus', namespace: 'ai-inference', status: 'running' },
+      { name: 'grafana', namespace: 'ai-inference', status: 'running' },
+      { name: 'alertmanager', namespace: 'ai-inference', status: 'running' }
     ]
   }
 };
