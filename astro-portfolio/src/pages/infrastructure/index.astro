@@ -366,13 +366,10 @@ import { CLUSTER_DATA } from '../../lib/infrastructure-data';
   .infrastructure-page {
     min-height: 100vh;
     background-image:
-      linear-gradient(rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.9)),
-      linear-gradient(rgba(147, 51, 234, 0.1) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(147, 51, 234, 0.1) 1px, transparent 1px);
-    background-size: 100% 100%, 50px 50px, 50px 50px;
-    background-position: 0 0, 0 0, 0 0;
+      linear-gradient(to bottom right, var(--bg-primary) 0%, var(--bg-primary) 60%, color(display-p3 0.04 0.06 0.12) 85%, color(display-p3 0.08 0.18 0.32) 100%);
+    background-size: 100% 100%;
     background-attachment: fixed;
-    color: #e0e0e0;
+    color: var(--text-secondary);
     scroll-behavior: smooth;
   }
 
