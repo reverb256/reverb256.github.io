@@ -90,7 +90,7 @@ export const CLUSTER_DATA = {
   stats: {
     totalCores: 78,
     totalRAM: '123GB',
-    totalGPUs: 7,
+    totalGPUs: 8,
     totalStorage: '8.4TB',
     podCount: 40,
     k8sVersion: 'v1.35.2'
