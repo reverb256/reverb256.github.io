@@ -1,0 +1,313 @@
+---
+/**
+ * Timeline.astro - Vertical scroll timeline showing infrastructure evolution
+ *
+ * Features:
+ * - Vertical timeline with gradient line
+ * - 10 milestones from Windows elimination through K8s migration
+ * - Scroll-based animations using GSAP ScrollTrigger
+ * - Glass morphism styling
+ * - Responsive design
+ */
+
+import { CLUSTER_DATA } from '../../lib/infrastructure-data';
+---
+
+<section id="timeline" class="timeline-section">
+  <div class="timeline-container">
+    <h2 class="timeline-title">The Journey</h2>
+    <div class="timeline" id="timeline-track">
+      {CLUSTER_DATA.timeline.map((milestone, index) => (
+        <div class={`milestone ${milestone.icon ? 'milestone-highlighted' : ''}`} data-index={index}>
+          <div class="milestone-marker">
+            {milestone.icon ? (
+              <span class="marker-icon">{milestone.icon}</span>
+            ) : (
+              <span class="marker-number">{index + 1}</span>
+            )}
+          </div>
+          <div class="milestone-content">
+            <div class="milestone-date">{milestone.date}</div>
+            <h3 class="milestone-title">{milestone.title}</h3>
+            <p class="milestone-description">{milestone.description}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  /* ═════════════════════════════════════════════════════════════
+     TIMELINE SECTION - Container
+     ═════════════════════════════════════════════════════════════ */
+
+  .timeline-section {
+    padding: 6rem 1rem;
+    position: relative;
+  }
+
+  .timeline-container {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .timeline-title {
+    color: var(--text-primary, var(--base07));
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 800;
+    text-align: center;
+    margin-bottom: 4rem;
+    text-shadow: 0 0 40px rgba(147, 51, 234, 0.3);
+  }
+
+  /* ═════════════════════════════════════════════════════════════
+     TIMELINE TRACK - Vertical Line
+     ═════════════════════════════════════════════════════════════ */
+
+  .timeline {
+    position: relative;
+    padding-left: 2rem;
+  }
+
+  /* Gradient line */
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(
+      to bottom,
+      rgba(147, 51, 234, 0.5),
+      rgba(99, 102, 241, 0.5)
+    );
+  }
+
+  /* ═════════════════════════════════════════════════════════════
+     MILESTONE - Individual Items
+     ═════════════════════════════════════════════════════════════ */
+
+  .milestone {
+    position: relative;
+    margin-bottom: 3rem;
+    padding-left: 2rem;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  }
+
+  .milestone:last-child {
+    margin-bottom: 0;
+  }
+
+  /* Visible state for scroll animations */
+  .milestone.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ═════════════════════════════════════════════════════════════
+     MILESTONE MARKER - Circle on the line
+     ═════════════════════════════════════════════════════════════ */
+
+  .milestone-marker {
+    position: absolute;
+    left: calc(-2rem - 1px);
+    top: 0;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    background: rgba(147, 51, 234, 0.2);
+    border: 2px solid rgba(147, 51, 234, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+  }
+
+  .milestone:hover .milestone-marker {
+    background: rgba(147, 51, 234, 0.4);
+    border-color: rgba(147, 51, 234, 0.8);
+    box-shadow: 0 0 20px rgba(147, 51, 234, 0.5);
+  }
+
+  /* Highlighted milestones (with icons) */
+  .milestone-highlighted .milestone-marker {
+    background: rgba(236, 72, 153, 0.3);
+    border-color: rgba(236, 72, 153, 0.6);
+  }
+
+  .milestone-highlighted:hover .milestone-marker {
+    background: rgba(236, 72, 153, 0.5);
+    border-color: rgba(236, 72, 153, 0.8);
+    box-shadow: 0 0 20px rgba(236, 72, 153, 0.5);
+  }
+
+  .marker-icon {
+    font-size: 1rem;
+  }
+
+  .marker-number {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: rgba(147, 51, 234, 0.8);
+  }
+
+  .milestone-highlighted .marker-number {
+    color: rgba(236, 72, 153, 0.9);
+  }
+
+  /* ═════════════════════════════════════════════════════════════
+     MILESTONE CONTENT - Glass morphism card
+     ═════════════════════════════════════════════════════════════ */
+
+  .milestone-content {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 1rem;
+    padding: 1.5rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .milestone:hover .milestone-content {
+    transform: translateX(8px);
+    box-shadow:
+      0 8px 32px rgba(0, 0, 0, 0.3),
+      0 0 24px rgba(147, 51, 234, 0.3);
+  }
+
+  .milestone-highlighted:hover .milestone-content {
+    box-shadow:
+      0 8px 32px rgba(0, 0, 0, 0.3),
+      0 0 24px rgba(236, 72, 153, 0.3);
+  }
+
+  .milestone-date {
+    color: var(--accent-primary, var(--base09));
+    font-size: 0.875rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .milestone-title {
+    color: var(--text-primary, var(--base07));
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin: 0 0 0.75rem 0;
+    line-height: 1.3;
+  }
+
+  .milestone-description {
+    color: var(--text-secondary, var(--base06));
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  /* ═════════════════════════════════════════════════════════════
+     REDUCED MOTION
+     ═════════════════════════════════════════════════════════════ */
+
+  @media (prefers-reduced-motion: reduce) {
+    .milestone {
+      transition: none;
+      opacity: 1;
+      transform: none;
+    }
+
+    .milestone-marker,
+    .milestone-content {
+      transition: none;
+    }
+
+    .milestone:hover .milestone-content {
+      transform: none;
+    }
+  }
+
+  /* ═════════════════════════════════════════════════════════════
+     RESPONSIVE DESIGN
+     ═════════════════════════════════════════════════════════════ */
+
+  @media (max-width: 768px) {
+    .timeline-section {
+      padding: 4rem 1rem;
+    }
+
+    .timeline-title {
+      margin-bottom: 3rem;
+    }
+
+    .timeline {
+      padding-left: 1.5rem;
+    }
+
+    .milestone {
+      margin-bottom: 2.5rem;
+      padding-left: 1.5rem;
+    }
+
+    .milestone-marker {
+      left: calc(-1.5rem - 1px);
+      width: 1.75rem;
+      height: 1.75rem;
+    }
+
+    .marker-icon {
+      font-size: 0.875rem;
+    }
+
+    .marker-number {
+      font-size: 0.6875rem;
+    }
+
+    .milestone-content {
+      padding: 1.25rem;
+    }
+
+    .milestone-title {
+      font-size: 1.125rem;
+    }
+
+    .milestone-description {
+      font-size: 0.875rem;
+    }
+
+    .milestone:hover .milestone-content {
+      transform: translateX(4px);
+    }
+  }
+</style>
+
+<script>
+  /**
+   * Timeline Scroll Animations
+   * Uses Intersection Observer for scroll-based reveal
+   */
+
+  const milestones = document.querySelectorAll('.milestone');
+
+  const observerOptions = {
+    root: null,
+    rootMargin: '0px',
+    threshold: 0.2
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, observerOptions);
+
+  milestones.forEach((milestone) => {
+    observer.observe(milestone);
+  });
+</script>
