@@ -44,14 +44,6 @@ import { CLUSTER_DATA } from '../../lib/infrastructure-data';
             <div class="stat-value">{CLUSTER_DATA.stats.totalStorage}</div>
             <div class="stat-label">Storage</div>
           </div>
-          <div class="stat-item">
-            <div class="stat-value">{CLUSTER_DATA.stats.podCount}</div>
-            <div class="stat-label">Running Pods</div>
-          </div>
-          <div class="stat-item">
-            <div class="stat-value">{CLUSTER_DATA.stats.k8sVersion}</div>
-            <div class="stat-label">Kubernetes</div>
-          </div>
         </div>
       </div>
     </section>
@@ -108,7 +100,7 @@ import { CLUSTER_DATA } from '../../lib/infrastructure-data';
         <div class="glass-grid">
           <GlassCard
             title="Hardware Infrastructure"
-            description={`78 CPU cores, 123GB RAM, 8 GPUs (RTX 3090, RTX 3060 Ti, RTX 4060, RX 5700 XT, RX 5600 XT), 8.4TB storage across 4 hosts. Mining capacity: 4 GPUs. Kubernetes capacity: 4 GPUs.`}
+            description={`${CLUSTER_DATA.stats.totalCores} CPU cores, ${CLUSTER_DATA.stats.totalRAM} RAM, ${CLUSTER_DATA.stats.totalGPUs} GPUs (${CLUSTER_DATA.hosts.map(h => h.specs.gpus.join(', ')).join(', ')}), ${CLUSTER_DATA.stats.totalStorage} storage across ${CLUSTER_DATA.hosts.length} hosts. Mining capacity: 4 GPUs. Kubernetes capacity: 4 GPUs.`}
           />
           <GlassCard
             title="AI/ML Services"
