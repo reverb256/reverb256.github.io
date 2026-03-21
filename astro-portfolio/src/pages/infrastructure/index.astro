@@ -1,182 +1,242 @@
 ---
-import Layout from "../../layouts/Layout.astro";
+import Layout from '../../layouts/Layout.astro';
+import HeroCluster from '../../components/infrastructure/HeroCluster.astro';
+import GlassCard from '../../components/infrastructure/GlassCard.astro';
+import Timeline from '../../components/infrastructure/Timeline.astro';
+import CodeExplorer from '../../components/infrastructure/CodeExplorer.astro';
+import { CLUSTER_DATA } from '../../lib/infrastructure-data';
 ---
 
-<Layout title="Infrastructure - reverb256">
-  <section class="min-h-screen px-6 py-12 max-w-6xl mx-auto">
-    <div class="mb-12 flex items-center gap-4">
-      <a href="/" class="text-[var(--base0D)] hover:underline mb-0">← Back to Portfolio</a>
-      <span class="text-[var(--base04)]">|</span>
-      <a href="/setup" class="text-[var(--base0D)] hover:underline mb-0">View Setup →</a>
-      <h1 class="text-4xl font-bold text-[var(--base07)]">Infrastructure Ecosystem</h1>
-      <p class="mt-4 text-[var(--base05)]">4-host NixOS mining cluster with AI-powered monitoring and privacy-first local inference.</p>
-    </div>
+<Layout title="Infrastructure | Reverb256">
+  <main class="infrastructure-page">
+    <HeroCluster />
 
-    <!-- Overview Stats -->
-    <section class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
-      <div class="glass p-4 text-center">
-        <div class="text-3xl font-bold text-[var(--base09)]">4</div>
-        <div class="text-xs text-[var(--base05)]">Hosts</div>
-      </div>
-      <div class="glass p-4 text-center">
-        <div class="text-3xl font-bold text-[var(--base09)]">7</div>
-        <div class="text-xs text-[var(--base05)]">GPUs</div>
-      </div>
-      <div class="glass p-4 text-center">
-        <div class="text-3xl font-bold text-[var(--base09)]">30+</div>
-        <div class="text-xs text-[var(--base05)]">Docs</div>
-      </div>
-      <div class="glass p-4 text-center">
-        <div class="text-3xl font-bold text-[var(--base09)]">50+</div>
-        <div class="text-xs text-[var(--base05)]">Justfile Commands</div>
-      </div>
-    </section>
+    <!-- Intro Section -->
+    <section class="intro-section">
+      <div class="container">
+        <h2 class="section-title">Mining Infrastructure Meets Cloud Native</h2>
 
-    <!-- Cluster Map -->
-    <section class="mb-12">
-      <h2 class="text-2xl font-bold text-[var(--base07)] mb-6">// Mining Cluster</h2>
-      <div class="grid md:grid-cols-2 gap-6">
-        <!-- Zephyr -->
-        <div class="glass p-6 border-l-4 border-[var(--base09)]">
-          <div class="flex items-center justify-between mb-4">
-            <h3 class="text-xl font-bold text-[var(--base07)]">Zephyr</h3>
-            <span class="text-xs px-2 py-1 bg-[var(--base02)] rounded text-[var(--base05)]">Main Workstation</span>
-          </div>
-          <div class="space-y-2 text-sm">
-            <div class="flex justify-between"><span class="text-[var(--base05)]">CPU:</span><span class="text-[var(--base06)]">Ryzen 9 5950X (Zen 3)</span></div>
-            <div class="flex justify-between"><span class="text-[var(--base05)]">GPUs:</span><span class="text-[var(--base06)]">RTX 3090 + 3060 Ti</span></div>
-            <div class="flex justify-between"><span class="text-[var(--base05)]">Location:</span><span class="text-[var(--base06)]">Room 2</span></div>
-            <div class="flex justify-between"><span class="text-[var(--base05)]">Mining:</span><span class="text-[var(--base06)]">16 CPU threads</span></div>
-          </div>
+        <div class="glass-grid">
+          <GlassCard
+            title="The Challenge"
+            description="Managing 4 NixOS hosts, 8 GPUs across mining and Kubernetes workloads, with centralized configuration and monitoring."
+          />
+          <GlassCard
+            title="The Solution"
+            description="A custom NixOS framework with profile-based config management, NFS synchronization, and Kubernetes service mesh for unified cluster operations."
+          />
         </div>
 
-        <!-- Nexus -->
-        <div class="glass p-6 border-l-4 border-[var(--base0D)]">
-          <div class="flex items-center justify-between mb-4">
-            <h3 class="text-xl font-bold text-[var(--base07)]">Nexus</h3>
-            <span class="text-xs px-2 py-1 bg-[var(--base02)] rounded text-[var(--base05)]">Mining Node</span>
+        <div class="stats-grid">
+          <div class="stat-item">
+            <div class="stat-value">{CLUSTER_DATA.stats.totalCores}</div>
+            <div class="stat-label">CPU Cores</div>
           </div>
-          <div class="space-y-2 text-sm">
-            <div class="flex justify-between"><span class="text-[var(--base05)]">CPU:</span><span class="text-[var(--base06)]">Ryzen 9 3900X (Zen 2)</span></div>
-            <div class="flex justify-between"><span class="text-[var(--base05)]">GPUs:</span><span class="text-[var(--base06)]">1x NVIDIA</span></div>
-            <div class="flex justify-between"><span class="text-[var(--base05)]">Location:</span><span class="text-[var(--base06)]">Downstairs</span></div>
-            <div class="flex justify-between"><span class="text-[var(--base05)]">Mining:</span><span class="text-[var(--base06)]">12 CPU threads</span></div>
+          <div class="stat-item">
+            <div class="stat-value">{CLUSTER_DATA.stats.totalRAM}</div>
+            <div class="stat-label">RAM</div>
           </div>
-        </div>
-
-        <!-- Forge -->
-        <div class="glass p-6 border-l-4 border-[var(--base0A)]">
-          <div class="flex items-center justify-between mb-4">
-            <h3 class="text-xl font-bold text-[var(--base07)]">Forge</h3>
-            <span class="text-xs px-2 py-1 bg-[var(--base02)] rounded text-[var(--base05)]">Mixed Mining</span>
+          <div class="stat-item">
+            <div class="stat-value">{CLUSTER_DATA.stats.totalGPUs}</div>
+            <div class="stat-label">GPUs</div>
           </div>
-          <div class="space-y-2 text-sm">
-            <div class="flex justify-between"><span class="text-[var(--base05)]">CPU:</span><span class="text-[var(--base06)]">i5-9500 (Coffee Lake)</span></div>
-            <div class="flex justify-between"><span class="text-[var(--base05)]">GPUs:</span><span class="text-[var(--base06)]">2x RTX 4060 + 2x RX 5700 XT</span></div>
-            <div class="flex justify-between"><span class="text-[var(--base05)]">Location:</span><span class="text-[var(--base06)]">Room 1</span></div>
-            <div class="flex justify-between"><span class="text-[var(--base05)]">Mining:</span><span class="text-[var(--base06)]">GPU only</span></div>
+          <div class="stat-item">
+            <div class="stat-value">{CLUSTER_DATA.stats.totalStorage}</div>
+            <div class="stat-label">Storage</div>
           </div>
-        </div>
-
-        <!-- Sentry -->
-        <div class="glass p-6 border-l-4 border-[var(--base0B)]">
-          <div class="flex items-center justify-between mb-4">
-            <h3 class="text-xl font-bold text-[var(--base07)]">Sentry</h3>
-            <span class="text-xs px-2 py-1 bg-[var(--base02)] rounded text-[var(--base05)]">CPU Mining</span>
+          <div class="stat-item">
+            <div class="stat-value">{CLUSTER_DATA.stats.podCount}</div>
+            <div class="stat-label">Running Pods</div>
           </div>
-          <div class="space-y-2 text-sm">
-            <div class="flex justify-between"><span class="text-[var(--base05)]">CPU:</span><span class="text-[var(--base06)]">Ryzen 7 1700 (Zen 1)</span></div>
-            <div class="flex justify-between"><span class="text-[var(--base05)]">GPUs:</span><span class="text-[var(--base06)]">1x AMD</span></div>
-            <div class="flex justify-between"><span class="text-[var(--base05)]">Location:</span><span class="text-[var(--base06)]">Room 1</span></div>
-            <div class="flex justify-between"><span class="text-[var(--base05)]">Mining:</span><span class="text-[var(--base06)]">8 CPU threads</span></div>
+          <div class="stat-item">
+            <div class="stat-value">{CLUSTER_DATA.stats.k8sVersion}</div>
+            <div class="stat-label">Kubernetes</div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Technologies -->
-    <section class="mb-12">
-      <h2 class="text-2xl font-bold text-[var(--base07)] mb-6">// Technologies</h2>
-      <div class="grid md:grid-cols-3 gap-6">
-        <!-- NixOS Stack -->
-        <div class="glass p-6">
-          <h3 class="text-lg font-bold text-[var(--base0D)] mb-4">NixOS Stack</h3>
-          <ul class="space-y-2 text-sm text-[var(--base05)]">
-            <li>• <strong class="text-[var(--base06)]">Colmena</strong> — Multi-host deployment</li>
-            <li>• <strong class="text-[var(--base06)]">Flake</strong> — Reproducible configs</li>
-            <li>• <strong class="text-[var(--base06)]">Justfile</strong> — 50+ automation commands</li>
-            <li>• <strong class="text-[var(--base06)]">Distributed builds</strong> — Cross-compilation</li>
-            <li>• <strong class="text-[var(--base06)]">CPU tuning</strong> — Per-host microarch</li>
-          </ul>
-        </div>
+    <!-- Innovation Section -->
+    <section class="innovation-section">
+      <div class="container">
+        <h2 class="section-title">Infrastructure Innovation</h2>
 
-        <!-- AI Monitoring -->
-        <div class="glass p-6">
-          <h3 class="text-lg font-bold text-[var(--base09)] mb-4">AI Monitoring</h3>
-          <ul class="space-y-2 text-sm text-[var(--base05)]">
-            <li>• <strong class="text-[var(--base06)]">Qwen 3.5-0.8B</strong> — Local inference</li>
-            <li>• <strong class="text-[var(--base06)]">pi-agent-core</strong> — Event streaming</li>
-            <li>• <strong class="text-[var(--base06)]">KDE Plasmoid</strong> — Dashboard UI</li>
-            <li>• <strong class="text-[var(--base06)]">Prometheus</strong> — Metrics store</li>
-            <li>• <strong class="text-[var(--base06)]">GPU control</strong> — Auto clock tuning</li>
-          </ul>
-        </div>
-
-        <!-- Migration -->
-        <div class="glass p-6">
-          <h3 class="text-lg font-bold text-[var(--base0B)] mb-4">K8s Migration</h3>
-          <ul class="space-y-2 text-sm text-[var(--base05)]">
-            <li>• <strong class="text-[var(--base06)]">Podman</strong> — Container runtime</li>
-            <li>• <strong class="text-[var(--base06)]">GPU scheduling</strong> — Multi-GPU pods</li>
-            <li>• <strong class="text-[var(--base06)]">Mining orchestration</strong> — Containerized</li>
-            <li>• <strong class="text-[var(--base06)]">In progress</strong> — 9-week roadmap</li>
-          </ul>
+        <div class="glass-grid">
+          <GlassCard
+            title="NFS Config Sync"
+            description="NixOS configurations stored on NFS share. Changes to /etc/nixos propagate to all hosts via auto-mount, enabling single-source-of-truth cluster management."
+          />
+          <GlassCard
+            title="Profile System"
+            description="50+ Justfile commands organized by profile (desktop, gaming, k8s, mining). Run 'just desktop' to rebuild desktop environment, 'just k8s' to manage cluster, 'just mining' to control GPU workloads."
+          />
+          <GlassCard
+            title="Custom NixOS Modules"
+            description="Local flake with reusable modules: mining.bash (GPU management), llm.nix (vLLM integration), cluster.nix (K8s setup). Composable infrastructure as code."
+          />
         </div>
       </div>
     </section>
 
-    <!-- Services -->
-    <section class="mb-12">
-      <h2 class="text-2xl font-bold text-[var(--base07)] mb-6">// Running Services</h2>
-      <div class="glass p-6">
-        <div class="grid md:grid-cols-2 gap-6">
-          <div>
-            <h3 class="text-sm font-bold text-[var(--base0D)] mb-3">Monitoring & Control</h3>
-            <ul class="space-y-1 text-sm text-[var(--base05)]">
-              <li>Prometheus (port 9090) — Hashrate, temp, power metrics</li>
-              <li>XMRig API — Mining control with Bearer auth</li>
-              <li>lolMiner API — Read-only mining stats</li>
-            </ul>
-          </div>
-          <div>
-            <h3 class="text-sm font-bold text-[var(--base09)] mb-3">Local AI Stack</h3>
-            <ul class="space-y-1 text-sm text-[var(--base05)]">
-              <li>AI Gateway — OpenAI-compatible API</li>
-              <li>CC Router — Anthropic-style API</li>
-              <li>llama.cpp — Qwen3.5-0.8B inference server</li>
-            </ul>
-          </div>
+    <!-- Operations Section -->
+    <section class="operations-section">
+      <div class="container">
+        <h2 class="section-title">Operations & Automation</h2>
+
+        <div class="glass-grid">
+          <GlassCard
+            title="Automated Deployments"
+            description="NixOS rebuilds trigger automatic service restarts. Kubernetes deployments via GitOps-style manifests. Mining operations auto-restart on GPU availability."
+          />
+          <GlassCard
+            title="Service Mesh"
+            description="Flannel CNI for pod networking, CoreDNS for service discovery, statefulsets for databases. Prometheus + Grafana for monitoring and alerting."
+          />
+          <GlassCard
+            title="Observability"
+            description="Centralized logging with Promtail, metrics collection with Prometheus, visualization in Grafana. Alertmanager for incident response."
+          />
         </div>
       </div>
     </section>
 
-    <!-- Documentation -->
-    <section class="mb-12">
-      <h2 class="text-2xl font-bold text-[var(--base07)] mb-6">// Documentation</h2>
-      <div class="glass p-6">
-        <p class="text-sm text-[var(--base05)] mb-4">Comprehensive documentation covering deployment, monitoring, Kubernetes migration, and AI integration.</p>
-        <div class="flex flex-wrap gap-2">
-          {["Colmena Deployment", "K8s GPU Scheduling", "AI Monitoring", "Failover Implementation", "CI/CD Setup", "Distributed Builds", "Gaming Configs", "LLaMA CPP Roadmap"].map(tag => (
-            <span class="text-xs px-2 py-1 bg-[var(--base02)] rounded text-[var(--base05)]">{tag}</span>
-          ))}
+    <!-- Capabilities Section -->
+    <section class="capabilities-section">
+      <div class="container">
+        <h2 class="section-title">Cluster Capabilities</h2>
+
+        <div class="glass-grid">
+          <GlassCard
+            title="Hardware Infrastructure"
+            description={`78 CPU cores, 123GB RAM, 8 GPUs (RTX 3090, RTX 3060 Ti, RTX 4060, RX 5700 XT, RX 5600 XT), 8.4TB storage across 4 hosts. Mining capacity: 4 GPUs. Kubernetes capacity: 4 GPUs.`}
+          />
+          <GlassCard
+            title="AI/ML Services"
+            description="n8n for AI workflows, Qdrant for vector search, vLLM for local LLM inference, OpenAI-compatible API gateway with middleware (rate limiting, circuit breaker, Redis caching)."
+          />
+          <GlassCard
+            title="Akash Cloud Provider"
+            description={`
+              <strong>Status:</strong> ${CLUSTER_DATA.akash.status}<br>
+              <strong>GPUs:</strong> ${CLUSTER_DATA.akash.gpus.map(g => `${g.model} (${g.vram}) - ${g.status}`).join('<br>')}<br>
+              <strong>Storage:</strong> ${CLUSTER_DATA.akash.storage.join(', ')}<br>
+              <strong>Endpoints:</strong> ${CLUSTER_DATA.akash.endpoints.provider}, ${CLUSTER_DATA.akash.endpoints.ingress}<br>
+              <strong>Active Leases:</strong> ${CLUSTER_DATA.akash.leases}
+            `}
+          />
         </div>
       </div>
     </section>
 
-    <div class="flex items-center gap-4">
-      <a href="/" class="text-[var(--base0D)] hover:underline">← Back to Portfolio</a>
-      <span class="text-[var(--base04)]">|</span>
-      <a href="/setup" class="text-[var(--base0D)] hover:underline">View Setup →</a>
-    </div>
-  </section>
+    <!-- Timeline Section -->
+    <section class="timeline-section">
+      <div class="container">
+        <h2 class="section-title">Infrastructure Timeline</h2>
+        <Timeline milestones={CLUSTER_DATA.timeline} />
+      </div>
+    </section>
+
+    <!-- Code Explorer Section -->
+    <section class="code-explorer-section">
+      <div class="container">
+        <h2 class="section-title">Code Explorer</h2>
+        <CodeExplorer />
+      </div>
+    </section>
+  </main>
 </Layout>
+
+<style>
+  .infrastructure-page {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
+    color: #e0e0e0;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  section {
+    padding: 4rem 0;
+  }
+
+  .section-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 3rem;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .glass-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+  }
+
+  .stat-item {
+    text-align: center;
+    padding: 1.5rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+  }
+
+  .stat-value {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #667eea;
+    margin-bottom: 0.5rem;
+  }
+
+  .stat-label {
+    font-size: 0.875rem;
+    color: #a0a0a0;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  @media (max-width: 768px) {
+    .container {
+      padding: 0 1rem;
+    }
+
+    section {
+      padding: 3rem 0;
+    }
+
+    .section-title {
+      font-size: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .glass-grid {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+
+    .stats-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+    }
+
+    .stat-value {
+      font-size: 2rem;
+    }
+  }
+</style>
