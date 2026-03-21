@@ -19,30 +19,25 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
-      - name: Setup Bun
-        uses: oven-sh/setup-bun@v2
+      
+      - name: Setup Node
+        uses: actions/setup-node@v4
         with:
-          bun-version: latest
-
+          node-version: "20"
+          cache: "npm"
+          cache-dependency-path: astro-portfolio/package-lock.json
+      
       - name: Install dependencies
         working-directory: astro-portfolio
-        run: bun install --frozen-lockfile
-
-      - name: Generate OG images
-        working-directory: astro-portfolio
-        run: |
-          echo "📸 Generating OG images..."
-          bun add -D sharp
-          bun run generate:og-image
-
+        run: npm ci --prefer-offline --no-audit
+      
       - name: Build static site
         working-directory: astro-portfolio
-        run: bun run build
-
+        run: npm run build
+      
       - name: Copy CNAME for custom domain
         run: cp CNAME astro-portfolio/dist/CNAME
-
+      
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:

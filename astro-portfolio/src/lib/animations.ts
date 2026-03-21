@@ -45,6 +45,7 @@ export function initInfrastructureAnimations() {
   });
 
   // Batch section animations for better scroll performance
+  // Note: Removed onLeaveBack to prevent elements from disappearing when scrolling up
   ScrollTrigger.batch(
     '.intro-section, .innovation-section, .operations-section, .capabilities-section',
     {
@@ -56,15 +57,8 @@ export function initInfrastructureAnimations() {
           ease: 'power2.out',
         });
       },
-      onLeaveBack: (elements) => {
-        gsap.to(elements, {
-          opacity: 0,
-          y: 50,
-          duration: 0.6,
-          ease: 'power2.in',
-        });
-      },
       start: 'top 80%',
+      once: true, // Only animate once to prevent scroll issues
     }
   );
 
