@@ -241,5 +241,71 @@ import { CLUSTER_DATA } from '../../lib/infrastructure-data';
     .stat-value {
       font-size: 2rem;
     }
+
+    /* Cluster 3D Visualization Styles */
+    .cluster-3d {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      perspective: 1000px;
+      overflow: hidden;
+    }
+
+    .cluster-scene {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      transform-style: preserve-3d;
+      transition: transform 0.1s linear;
+      will-change: transform;
+    }
+
+    .cluster-node {
+      position: absolute;
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, rgb(168 85 247) 0%, rgb(124 58 237) 100%);
+      border: 2px solid rgba(168, 85, 247, 0.5);
+      box-shadow: 0 0 20px rgba(168, 85, 247, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      user-select: none;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .cluster-node:hover {
+      transform: translate3d(var(--node-x), var(--node-y), var(--node-z)) translate(-50%, -50%) scale(1.2) !important;
+      box-shadow: 0 0 30px rgba(168, 85, 247, 0.6);
+    }
+
+    .cluster-node-content {
+      text-align: center;
+      color: white;
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    .cluster-node-name {
+      display: block;
+    }
+
+    .cluster-node-gpus {
+      font-size: 10px;
+      opacity: 0.8;
+    }
+
+    .particle {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: rgba(168, 85, 247, 0.8);
+      box-shadow: 0 0 10px rgba(168, 85, 247, 0.5);
+      pointer-events: none;
+      will-change: transform, opacity;
+    }
   }
 </style>
