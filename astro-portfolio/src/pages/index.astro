@@ -281,6 +281,7 @@ const skills = ["TypeScript", "React", "Rust", "Node.js", "NixOS", "Astro", "Tai
 </Layout>
 
 <script define:vars={{ db }}>
+import DOMPurify from 'dompurify';
   // ====== TERMINAL MODE STATE ======
   const output = document.getElementById('term-output');
   const input = document.getElementById('term-input');
@@ -336,7 +337,8 @@ const skills = ["TypeScript", "React", "Rust", "Node.js", "NixOS", "Astro", "Tai
   function print(text, style = 'color: var(--base0B);') {
     const line = document.createElement('div');
     line.style.cssText = style + ' margin-top: 0.25rem;';
-    line.innerHTML = highlightSyntax(text);
+    // Sanitize HTML to prevent XSS attacks
+    line.innerHTML = DOMPurify.sanitize(highlightSyntax(text));
     output.appendChild(line);
     output.scrollTop = output.scrollHeight;
     
@@ -470,7 +472,7 @@ Purpose: Knowledge repository`);
         break;
         
       case 'clear':
-        output.innerHTML = `<pre style="color: var(--base0B); opacity: 0.8; font-size: 0.75rem;">
+        output.innerHTML = DOMPurify.sanitize(`<pre style="color: var(--base0B); opacity: 0.8; font-size: 0.75rem;">
 ╔═══════════════════════════════════════════════════════════╗
 ║     ██╗███████╗███████╗████████╗██████╗  █████╗ ██╗      ║
 ║     ██║██╔════╝██╔════╝╚══██╔══╝██╔══██╗██╔══██╗██║      ║
