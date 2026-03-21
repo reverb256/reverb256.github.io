@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 
 interface CodeTab {
   id: string;
@@ -99,12 +99,32 @@ in
 export default function CodeExplorer() {
   const [activeTab, setActiveTab] = useState('overview');
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  // Clear timeout on unmount to prevent memory leak
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+    };
+  }, []);
 
   const copyToClipboard = async (code: string, index: number) => {
     try {
       await navigator.clipboard.writeText(code);
       setCopiedIndex(index);
-      setTimeout(() => setCopiedIndex(null), 2000);
+
+      // Clear existing timeout if any
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+
+      // Store timeout ID and set new timeout
+      timeoutRef.current = setTimeout(() => {
+        setCopiedIndex(null);
+        timeoutRef.current = null;
+      }, 2000);
     } catch (err) {
       console.error('Failed to copy:', err);
     }
