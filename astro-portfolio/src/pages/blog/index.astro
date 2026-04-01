@@ -1,47 +1,14 @@
 ---
 import Layout from "../../layouts/Layout.astro";
+import { getCollection } from "astro:content";
 
-// Sample blog posts - in production these would come from content collection
-const posts = [
-  {
-    title: "Building a Privacy-First AI Gateway on NixOS",
-    date: "2026-03-08",
-    excerpt: "How I built a local LLM stack with Claude-compatible APIs, reducing cloud dependencies while maintaining full control over my AI development workflow.",
-    tags: ["NixOS", "AI", "Privacy"],
-    slug: "privacy-first-ai-gateway",
-    readTime: 8,
-    featured: true
-  },
-  {
-    title: "From Food Service to Rust: My Dev Journey",
-    date: "2026-02-15",
-    excerpt: "After 15 years in restaurants, I pivoted to software development. Here's how AI-assisted learning and hands-on building accelerated my transition.",
-    tags: ["Career", "Learning", "Rust"],
-    slug: "food-service-to-rust",
-    readTime: 6,
-    featured: false
-  },
-  {
-    title: "Managing a 4-Host NixOS Cluster with Colmena",
-    date: "2026-01-20",
-    excerpt: "Lessons learned from deploying NixOS across four machines with GPU mining workloads and AI inference services.",
-    tags: ["NixOS", "Infrastructure", "Colmena"],
-    slug: "nixos-cluster-colmena",
-    readTime: 10,
-    featured: false
-  },
-  {
-    title: "Frostbite Gazette: AI-Curated Canadian Journalism",
-    date: "2026-03-01",
-    excerpt: "Building an automated news platform that filters 40+ RSS feeds through Groq AI for relevance, accountability, and Canadian focus.",
-    tags: ["Astro", "Cloudflare", "AI"],
-    slug: "frostbite-gazette-overview",
-    readTime: 7,
-    featured: true
-  }
-];
+// Fetch all non-draft blog posts, sorted by date descending
+const allPosts = await getCollection("blog", ({ data }) => !data.draft);
+const posts = allPosts.sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+);
 
-const tags = [...new Set(posts.flatMap(p => p.tags))];
+const tags = [...new Set(posts.flatMap(p => p.data.tags))];
 
 // Tag colors
 const tagColors: Record<string, string> = {
@@ -100,7 +67,7 @@ const tagColors: Record<string, string> = {
         {tags.map(tag => (
           <span
             class="filter-tag text-xs px-4 py-2 rounded-full cursor-pointer transition-all duration-200 hover:scale-105"
-            style="background: var(--base02); color: {tagColors[tag]};"
+            style={`background: var(--base02); color: ${tagColors[tag] || 'var(--base05)'};`}
           >
             #{tag}
           </span>
@@ -108,8 +75,8 @@ const tagColors: Record<string, string> = {
       </div>
     </div>
 
-    <!-- Featured Post -->
-    {posts.filter(p => p.featured).slice(0, 1).map((post, i) => (
+    <!-- Featured Posts -->
+    {posts.filter(p => p.data.featured).slice(0, 1).map((post, i) => (
       <article
         class="glass p-6 mb-6 relative overflow-hidden group hover:shadow-xl transition-all duration-300"
         data-animate="fade-up"
@@ -123,27 +90,27 @@ const tagColors: Record<string, string> = {
               <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
-              {post.readTime} min read
+              {post.data.readTime} min read
             </span>
           </div>
           <h2 class="text-2xl font-bold text-[var(--base07)] mb-3 group-hover:text-[var(--base09)] transition-colors">
-            <a href={`/blog/${post.slug}`} class="flex items-center gap-2 group/link">
-              {post.title}
+            <a href={`/blog/${post.id}`} class="flex items-center gap-2 group/link">
+              {post.data.title}
               <svg class="w-5 h-5 opacity-0 -translate-x-2 group-hover/link:opacity-100 group-hover/link:translate-x-0 transition-all duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
               </svg>
             </a>
           </h2>
-          <p class="text-sm text-[var(--base05)] mb-4 leading-relaxed">{post.excerpt}</p>
+          <p class="text-sm text-[var(--base05)] mb-4 leading-relaxed">{post.data.description}</p>
           <div class="flex items-center justify-between">
             <div class="flex items-center gap-2">
-              {post.tags.map(tag => (
-                <span class="text-xs px-2 py-1 bg-[var(--base02)] rounded" style="color: {tagColors[tag]};">
+              {post.data.tags.map(tag => (
+                <span class="text-xs px-2 py-1 bg-[var(--base02)] rounded" style={`color: ${tagColors[tag] || 'var(--base05)'};`}>
                   #{tag}
                 </span>
               ))}
             </div>
-            <a href={`/blog/${post.slug}`} class="text-sm text-[var(--base0D)] hover:text-[var(--base09)] transition-colors inline-flex items-center gap-1 group/link">
+            <a href={`/blog/${post.id}`} class="text-sm text-[var(--base0D)] hover:text-[var(--base09)] transition-colors inline-flex items-center gap-1 group/link">
               Read more
               <svg class="w-4 h-4 transition-transform group-hover/link:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
@@ -156,35 +123,35 @@ const tagColors: Record<string, string> = {
 
     <!-- Regular Posts -->
     <div class="space-y-4">
-      {posts.filter(p => !p.featured).map((post, i) => (
+      {posts.filter(p => !p.data.featured).map((post, i) => (
         <article
           class="glass p-5 hover:shadow-lg transition-all duration-300 group"
           data-animate="fade-up"
           data-delay={`${0.2 + i * 0.08}`}
         >
           <div class="flex items-center gap-3 text-xs text-[var(--base04)] mb-2">
-            <time>{new Date(post.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</time>
+            <time>{post.data.date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</time>
             <span>·</span>
             <span class="flex items-center gap-1">
               <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
-              {post.readTime} min read
+              {post.data.readTime} min read
             </span>
           </div>
           <h2 class="text-lg font-bold text-[var(--base07)] mb-2 group-hover:text-[var(--base0D)] transition-colors">
-            <a href={`/blog/${post.slug}`} class="flex items-center gap-2 group/link">
-              {post.title}
+            <a href={`/blog/${post.id}`} class="flex items-center gap-2 group/link">
+              {post.data.title}
               <svg class="w-4 h-4 opacity-0 -translate-x-2 group-hover/link:opacity-100 group-hover/link:translate-x-0 transition-all duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
               </svg>
             </a>
           </h2>
-          <p class="text-sm text-[var(--base05)] mb-3 line-clamp-2">{post.excerpt}</p>
+          <p class="text-sm text-[var(--base05)] mb-3 line-clamp-2">{post.data.description}</p>
           <div class="flex items-center justify-between">
             <div class="flex gap-1.5">
-              {post.tags.map(tag => (
-                <span class="text-xs px-2 py-0.5 bg-[var(--base02)] rounded" style="color: {tagColors[tag]};">
+              {post.data.tags.map(tag => (
+                <span class="text-xs px-2 py-0.5 bg-[var(--base02)] rounded" style={`color: ${tagColors[tag] || 'var(--base05)'};`}>
                   #{tag}
                 </span>
               ))}
@@ -192,27 +159,6 @@ const tagColors: Record<string, string> = {
           </div>
         </article>
       ))}
-    </div>
-
-    <!-- Coming Soon Banner -->
-    <div class="glass p-6 mt-8 text-center relative overflow-hidden" data-animate="fade-up" data-delay="0.5">
-      <div class="absolute inset-0 bg-gradient-to-r from-[var(--base09)]/5 via-transparent to-[var(--base0D)]/5"></div>
-      <div class="relative">
-        <div class="text-2xl mb-2">🚧</div>
-        <h3 class="text-lg font-bold text-[var(--base07)] mb-2">More Coming Soon!</h3>
-        <p class="text-sm text-[var(--base04)] mb-4">
-          Building in public means sharing the journey, including the messy parts.
-          Stay tuned for more posts on NixOS, Rust, and AI development.
-        </p>
-        <div class="flex items-center justify-center gap-4 text-xs text-[var(--base04)]">
-          <span class="flex items-center gap-1">
-            <span class="w-2 h-2 rounded-full bg-[var(--base09)] animate-pulse"></span>
-            Writing in progress
-          </span>
-          <span>·</span>
-          <span>Subscribe for updates (coming soon)</span>
-        </div>
-      </div>
     </div>
 
     <!-- Back Navigation -->

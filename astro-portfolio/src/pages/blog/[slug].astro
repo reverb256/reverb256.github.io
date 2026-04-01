@@ -1,111 +1,195 @@
 ---
 import Layout from "../../layouts/Layout.astro";
+import { getCollection, render } from "astro:content";
 
-// Generate static paths with posts defined inline
-export function getStaticPaths() {
-  const posts = [
-    "privacy-first-ai-gateway",
-    "food-service-to-rust",
-    "nixos-cluster-colmena",
-    "frostbite-gazette-overview"
-  ];
-  return posts.map(slug => ({ params: { slug } }));
+export async function getStaticPaths() {
+  const posts = await getCollection("blog", ({ data }) => !data.draft);
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
 }
 
-const { slug } = Astro.params;
+const { post } = Astro.props;
+const { Content } = await render(post);
 
-// Post data
-const getPostData = (slug: string) => {
-  const postData: Record<string, any> = {
-    "privacy-first-ai-gateway": {
-      title: "Building a Privacy-First AI Gateway on NixOS",
-      date: "2026-03-08",
-      tags: ["NixOS", "AI", "Privacy"]
-    },
-    "food-service-to-rust": {
-      title: "From Food Service to Rust: My Dev Journey",
-      date: "2026-02-15",
-      tags: ["Career", "Learning", "Rust"]
-    },
-    "nixos-cluster-colmena": {
-      title: "Managing a 4-Host NixOS Cluster with Colmena",
-      date: "2026-01-20",
-      tags: ["NixOS", "Infrastructure", "Colmena"]
-    },
-    "frostbite-gazette-overview": {
-      title: "Frostbite Gazette: AI-Curated Canadian Journalism",
-      date: "2026-03-01",
-      tags: ["Astro", "Cloudflare", "AI"]
-    }
-  };
-  return postData[slug] || {
-    title: "Coming Soon",
-    date: "",
-    tags: []
-  };
-};
+// Get other posts for sidebar navigation
+const allPosts = await getCollection("blog", ({ data }) => !data.draft);
+const otherPosts = allPosts
+  .filter((p) => p.id !== post.id)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 5);
 
-const post = getPostData(slug);
-
-// Generate unique description per post
-const getPostDescription = (slug: string, title: string) => {
-  const descriptions: Record<string, string> = {
-    "privacy-first-ai-gateway": "How I built a local LLM stack with Claude-compatible APIs on NixOS, reducing cloud dependencies while maintaining full control over my AI development workflow.",
-    "food-service-to-rust": "After 15 years in restaurants, I pivoted to software development. Here's how AI-assisted learning and hands-on building accelerated my transition into tech.",
-    "nixos-cluster-colmena": "Lessons learned from deploying NixOS across four machines with GPU mining workloads and AI inference services using Colmena multi-host deployment.",
-    "frostbite-gazette-overview": "Building an automated news platform that filters 40+ RSS feeds through Groq AI for relevance, accountability, and Canadian focus on journalism."
-  };
-  return descriptions[slug] || `Blog post about ${title}. Technical writing on development, infrastructure, and AI.`;
-};
-
-const postDescription = getPostDescription(slug, post.title);
-const allPosts = {
-  "privacy-first-ai-gateway": { title: "Building a Privacy-First AI Gateway on NixOS" },
-  "food-service-to-rust": { title: "From Food Service to Rust: My Dev Journey" },
-  "nixos-cluster-colmena": { title: "Managing a 4-Host NixOS Cluster with Colmena" },
-  "frostbite-gazette-overview": { title: "Frostbite Gazette: AI-Curated Canadian Journalism" }
+// Tag colors
+const tagColors: Record<string, string> = {
+  "NixOS": "var(--base0D)",
+  "AI": "var(--base09)",
+  "Privacy": "var(--base0B)",
+  "Career": "var(--base0E)",
+  "Learning": "var(--base0F)",
+  "Rust": "var(--base0D)",
+  "Infrastructure": "var(--base0E)",
+  "Colmena": "var(--base09)",
+  "Astro": "var(--base0D)",
+  "Cloudflare": "var(--base0B)"
 };
 ---
 
 <Layout
-  title={`${post.title} | Blog`}
-  description={postDescription}
+  title={`${post.data.title} | Blog`}
+  description={post.data.description}
+  type="article"
 >
   <article class="max-w-3xl mx-auto px-6 py-16">
+    <!-- Back link + header -->
     <div data-animate="fade-up">
-      <a href="/blog" class="text-sm text-[var(--base0D)] hover:underline mb-4 inline-block">← Back to Blog</a>
-      <h1 class="text-4xl font-bold mb-4 text-[var(--base07)]">{post.title}</h1>
+      <a href="/blog" class="text-sm text-[var(--base0D)] hover:underline mb-4 inline-block">&larr; Back to Blog</a>
+      <h1 class="text-4xl font-bold mb-4 text-[var(--base07)]">{post.data.title}</h1>
       <div class="flex items-center gap-4 text-sm text-[var(--base04)] mb-8">
-        <span>{new Date(post.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
-        {post.tags.map((tag: string) => (
-          <span class="text-[var(--base09)]">#{tag}</span>
+        <time>{post.data.date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</time>
+        <span>&middot;</span>
+        <span class="flex items-center gap-1">
+          <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          {post.data.readTime} min read
+        </span>
+        <span>&middot;</span>
+        {post.data.tags.map((tag: string) => (
+          <span style={`color: ${tagColors[tag] || 'var(--base09)'};`}>#{tag}</span>
         ))}
       </div>
     </div>
 
-    <div class="glass p-8" data-animate="fade-up" data-delay="0.2">
-      <p class="text-lg text-[var(--base05)] mb-6">
-        This post is coming soon! I'm building in public, which means writing about what I'm learning as I learn it.
-      </p>
-      <p class="text-sm text-[var(--base04)] mb-6">
-        In the meantime, check out the <a href="/#projects" class="text-[var(--base0D)] hover:underline">projects</a> I'm working on, or see <a href="/now" class="text-[var(--base0D)] hover:underline">what I'm focused on right now</a>.
-      </p>
-      <div class="border-l-2 border-[var(--base02)] pl-4 mt-6">
-        <p class="text-sm text-[var(--base05)] italic">
-          "The best way to learn is to build things. The second best way is to write about what you're building."
-        </p>
-      </div>
+    <!-- Article content -->
+    <div class="prose-container" data-animate="fade-up" data-delay="0.2">
+      <Content />
     </div>
 
+    <!-- Other Posts -->
     <div class="glass p-6 mt-12" data-animate="fade-up" data-delay="0.4">
       <h3 class="text-sm font-bold text-[var(--base07)] mb-2">More Posts</h3>
       <div class="space-y-2">
-        {Object.entries(allPosts).map(([slug, data]) => (
-          <a href={`/blog/${slug}`} class="block text-sm text-[var(--base05)] hover:text-[var(--base0D)] transition-colors">
-            {data.title}
+        {otherPosts.map((p) => (
+          <a href={`/blog/${p.id}`} class="block text-sm text-[var(--base05)] hover:text-[var(--base0D)] transition-colors">
+            {p.data.title}
           </a>
         ))}
       </div>
     </div>
   </article>
 </Layout>
+
+<style>
+  /* Blog prose styles */
+  .prose-container {
+    color: var(--base05);
+    font-size: 1rem;
+    line-height: 1.75;
+  }
+
+  .prose-container :global(h2) {
+    color: var(--base07);
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--base02);
+  }
+
+  .prose-container :global(h3) {
+    color: var(--base07);
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .prose-container :global(p) {
+    margin-bottom: 1.25rem;
+  }
+
+  .prose-container :global(a) {
+    color: var(--base0D);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .prose-container :global(a:hover) {
+    color: var(--base09);
+  }
+
+  .prose-container :global(code) {
+    background: var(--base02);
+    color: var(--base0B);
+    padding: 0.15rem 0.4rem;
+    border-radius: 0.25rem;
+    font-size: 0.875rem;
+    font-family: 'Fira Code', monospace;
+  }
+
+  .prose-container :global(pre) {
+    background: var(--base00);
+    border: 1px solid var(--base02);
+    border-radius: 0.5rem;
+    padding: 1rem;
+    overflow-x: auto;
+    margin: 1.5rem 0;
+  }
+
+  .prose-container :global(pre code) {
+    background: none;
+    padding: 0;
+    font-size: 0.8125rem;
+    line-height: 1.6;
+  }
+
+  .prose-container :global(ul),
+  .prose-container :global(ol) {
+    padding-left: 1.5rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .prose-container :global(li) {
+    margin-bottom: 0.5rem;
+  }
+
+  .prose-container :global(blockquote) {
+    border-left: 2px solid var(--base0D);
+    padding-left: 1rem;
+    margin: 1.5rem 0;
+    color: var(--base04);
+    font-style: italic;
+  }
+
+  .prose-container :global(table) {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+  }
+
+  .prose-container :global(th),
+  .prose-container :global(td) {
+    padding: 0.5rem 0.75rem;
+    border: 1px solid var(--base02);
+    text-align: left;
+  }
+
+  .prose-container :global(th) {
+    background: var(--base01);
+    color: var(--base07);
+    font-weight: 600;
+  }
+
+  .prose-container :global(strong) {
+    color: var(--base07);
+    font-weight: 600;
+  }
+
+  .prose-container :global(hr) {
+    border: none;
+    border-top: 1px solid var(--base02);
+    margin: 2rem 0;
+  }
+</style>
