@@ -1,25 +1,17 @@
 ---
 import Layout from "../layouts/Layout.astro";
 
-// Deep terminal database
 const db = {
   subjects: [
     { id: "JOURNEY_001", title: "MY JOURNEY", category: "PERSONAL", classification: "PUBLIC", content: ["15 years in food service - learned work ethic, teamwork, customer service", "20 years curious about computers - tinkering, researching, learning", "6 months full-time Linux user - NixOS convert", "Pivoted to web dev through AI-assisted learning", "Building skills every day, open to opportunities", "Philosophy: Never too late to change paths"], related: ["PERSONAL", "CAREER"] },
     { id: "HYVRS_001", title: "HOYOVERSE", category: "INSPIRATION", classification: "PUBLIC", content: ["Chinese game developer known for Genshin Impact, Honkai Star Rail, Zenless Zone Zero.", "Key design principles:", "• Non-intrusive UI with progressive disclosure", "• Anticipatory animation sequencing", "• Secondary motion polish (particles, glows)", "• Character-first special moves", "• Dynamic tooltip reveals", "Reference: UI/UX patterns studied for portfolio redesign."], related: ["GAME_DESIGN", "ANIMATION", "UI_UX"] },
     { id: "PHIL_042", title: "PHILOSOPHY", category: "KNOWLEDGE", classification: "INTERNAL", content: ["EXISTENTIALISM: Freedom through code creation", "DETERMINISM: NixOS declarative systems", "DIALECTICS: Iterative development cycles", "PHENOMENOLOGY: User experience as lived reality", "STOICISM: Embracing technical constraints", "TRANSHUMANISM: Human-AI symbiosis", "Application: Design decisions grounded in first principles."], related: ["DESIGN_PHILOSOPHY", "DEVELOPMENT"] },
-    { id: "VRCH_107", title: "VRCHAT", category: "INSPIRATION", classification: "RESTRICTED", content: ["Social VR platform observations:", "• Avatar expression as identity projection", "• Spatial audio design for immersion", "• World-building with Unity SDK", "• Community-driven content creation", "• Performance optimization for VR", "Note: Explored avatar creation pipeline."], related: ["3D_GRAPHICS", "UNITY", "SOCIAL_DESIGN"] },
     { id: "NIX_999", title: "NIXOS PHILOSOPHY", category: "TECHNOLOGY", classification: "TOP SECRET", content: ["DECLARATIVE CONFIGURATION MANIFESTO", "Core tenets:", "1. Reproducibility over convenience", "2. Atomic upgrades and rollbacks", "3. Declarative system configuration", "4. Reliable package management", "5. Multi-environment support", "Current deployment: Full workstation", "Learning curve: Steep but worth it", "Switched: 6 months ago"], related: ["DEVOPS", "DECLARATIVE_SYSTEMS"] },
-    { id: "ANIM_033", title: "ANIME", category: "INSPIRATION", classification: "PUBLIC", content: ["GHOST IN THE SHELL: Transhumanism, tech philosophy", "EVANGELION: Psychological depth, mecha aesthetics", "COWBOY BEBOP: Style, music, episodic narrative", "STEINS;GATE: Time manipulation, cause/effect", "PSYCHO-PASS: Surveillance society themes", "Serial Experiments LAIN: Internet consciousness", "Applied: Dark color schemes, cyberpunk aesthetics"], related: ["VISUAL_DESIGN", "STORYTELLING"] },
-    { id: "GAME_256", title: "GAMING HISTORY", category: "PERSONAL", classification: "PUBLIC", content: ["1998: Fallout - Choice & consequence", "2000: Deus Ex - Immersive sim design", "2004: WoW - Social systems, progression", "2011: Dark Souls - Environmental storytelling", "2017: BOTW - Emergent gameplay", "2020: Genshin - Gacha + open world", "2023: BG3 - CRPG renaissance", "Total hours: [CLASSIFIED]"], related: ["GAME_DESIGN", "STORYTELLING"] },
-    { id: "TECH_001", title: "STACK", category: "TECHNOLOGY", classification: "INTERNAL", content: ["LANGUAGES: TypeScript, Go, Python, Rust", "FRONTEND: React, Astro, Tailwind, GSAP", "BACKEND: Node.js, Express, FastAPI", "DATABASE: PostgreSQL, Redis, SQLite", "INFRA: NixOS, Docker, Kubernetes", "AI/ML: OpenAI, Anthropic, Local LLMs"], related: ["PROGRAMMING", "INFRASTRUCTURE"] },
-    { id: "TERM_GLOS", title: "GLOSSARY", category: "REFERENCE", classification: "PUBLIC", content: ["DECK: Development workstation", "ICE: Security measures / firewalls", "RUN: Active development session", "CHROME: User interface elements", "DARK: Undocumented features", "WAREZ: Open source tools", "GRID: Network / internet", "MEATSPACE: Physical reality", "WIZARD: Expert programmer"], related: ["TERMINOLOGY"] },
-    { id: "CYBR_2077", title: "CYBERPUNK", category: "INSPIRATION", classification: "RESTRICTED", content: ["High tech, low life aesthetic", "Neuromancer - William Gibson", "Snow Crash - Neal Stephenson", "Blade Runner - Visual language", "Akira - Neo-Tokyo aesthetics", "Applied: Neon accents, dark themes, terminal UIs"], related: ["VISUAL_DESIGN", "ANIME"] },
-    { id: "AI_001", title: "AI INTEGRATION", category: "TECHNOLOGY", classification: "TOP SECRET", content: ["ACTIVE SYSTEMS:", "• Claude (Anthropic) - Primary coding assistant", "• GPT-4 - Research and analysis", "• Local LLMs - Privacy-sensitive tasks", "• OpenCode - Terminal-based AI TUI", "Philosophy: AI as force multiplier, not replacement"], related: ["DEVELOPMENT", "PHILOSOPHY"] },
-    { id: "MUSC_420", title: "MUSIC", category: "PERSONAL", classification: "PUBLIC", content: ["Coding soundtracks:", "• Synthwave (Perturbator, Carpenter Brut)", "• Lo-fi hip hop (focus sessions)", "• Electronic (Daft Punk, Justice)", "• Post-rock (Explosions in the Sky)", "• J-Pop/Rock (Anime OPs)"], related: ["PERSONAL"] },
-    { id: "SEC_101", title: "SECURITY", category: "TECHNOLOGY", classification: "RESTRICTED", content: ["OPSEC Practices:", "• Full disk encryption (LUKS)", "• GPG for commits and emails", "• Hardware security keys (YubiKey)", "• Network isolation (VLANs)", "• Regular security audits"], related: ["DEVOPS", "INFRASTRUCTURE"] },
     { id: "CLUSTER_001", title: "NIXOS CLUSTER", category: "TECHNOLOGY", classification: "TOP SECRET", content: ["4-HOST MINING INFRASTRUCTURE:", "• Zephyr: RTX 3090 + 3060 Ti (main workstation)", "• Nexus: 1x NVIDIA (downstairs)", "• Forge: 2x RTX 4060 + 2x RX 5700 XT", "• Sentry: 1x AMD", "Colmena multi-host deployment system", "Kubernetes migration in progress (9-week roadmap)", "Comprehensive documentation system with agent automation"], related: ["DEVOPS", "INFRASTRUCTURE", "NIX_999"] },
     { id: "PROJ_001", title: "RECENT PROJECTS", category: "KNOWLEDGE", classification: "PUBLIC", content: ["CLIENT WORK:", "• Troves & Coves - React e-commerce with shadcn/ui", "• hair@home - Hugo static site", "", "PERSONAL PROJECTS:", "• Frostbite Gazette - AI-curated Canadian journalism", "• Astral Key - Rust Web3 authentication microservice", "• Synapse - Local-first AI command center (Tauri)", "", "INFRASTRUCTURE:", "• 4-host NixOS mining cluster with AI monitoring", "All projects feature strict TypeScript, comprehensive documentation", "Production deployments on Cloudflare Workers, GitHub Pages"], related: ["DEVELOPMENT", "TECH_001"] },
-    { id: "MCP_001", title: "MCP INTEGRATION", category: "TECHNOLOGY", classification: "INTERNAL", content: ["Model Context Protocol servers:", "• Pinecone - Vector database operations", "• Context7 - Live documentation lookup", "• Stripe - Payment integration", "• Web Reader - URL content extraction", "Philosophy: Composable AI tooling via stdio JSON-RPC"], related: ["DEVELOPMENT", "AI_001"] },
+    { id: "SEC_101", title: "SECURITY", category: "TECHNOLOGY", classification: "RESTRICTED", content: ["OPSEC Practices:", "• Full disk encryption (LUKS)", "• GPG for commits and emails", "• Hardware security keys (YubiKey)", "• Network isolation (VLANs)", "• Regular security audits"], related: ["DEVOPS", "INFRASTRUCTURE"] },
+    { id: "TERM_GLOS", title: "GLOSSARY", category: "REFERENCE", classification: "PUBLIC", content: ["DECK: Development workstation", "ICE: Security measures / firewalls", "RUN: Active development session", "CHROME: User interface elements", "DARK: Undocumented features", "WAREZ: Open source tools", "GRID: Network / internet", "MEATSPACE: Physical reality", "WIZARD: Expert programmer"], related: ["TERMINOLOGY"] },
+    { id: "AI_001", title: "AI INTEGRATION", category: "TECHNOLOGY", classification: "TOP SECRET", content: ["ACTIVE SYSTEMS:", "• Claude (Anthropic) - Primary coding assistant", "• GPT-4 - Research and analysis", "• Local LLMs - Privacy-sensitive tasks", "• OpenCode - Terminal-based AI TUI", "Philosophy: AI as force multiplier, not replacement"], related: ["DEVELOPMENT", "PHILOSOPHY"] },
   ],
   categories: ["INSPIRATION", "KNOWLEDGE", "TECHNOLOGY", "PERSONAL", "REFERENCE"],
   classifications: ["PUBLIC", "INTERNAL", "RESTRICTED", "TOP SECRET"],
@@ -38,16 +30,6 @@ const projects = {
   infra: [
     { title: "Infrastructure", repo: null, desc: "4-host NixOS cluster with AI monitoring", status: "live", icon: "🖥️", span: "2x2", tech: ["NixOS", "Colmena", "K8s", "AI"], metric: "Flagship", link: "/infrastructure" },
   ],
-  meta: [
-    { title: "This Portfolio", repo: null, desc: "Astro + GSAP + Terminal", status: "live", icon: "🌐", span: "1x1", tech: ["Astro", "GSAP"], metric: "reverb256.ca" },
-  ],
-};
-
-const categoryColors = {
-  client: "var(--base09)",    // ember orange
-  personal: "var(--base0D)",  // turquoise
-  infra: "var(--base0B)",     // green
-  meta: "var(--base05)",      // gray
 };
 
 const skills = ["TypeScript", "React", "Rust", "Node.js", "NixOS", "Astro", "Tailwind", "Python", "Cloudflare Workers", "Docker", "Kubernetes", "MCP"];
@@ -57,159 +39,117 @@ const skills = ["TypeScript", "React", "Rust", "Node.js", "NixOS", "Astro", "Tai
   title="Reverb256"
   description="Software developer portfolio showcasing projects in Rust, TypeScript, and NixOS. Building privacy-first AI tools, contributing to open source, and learning in public."
 >
-    <!-- Hero with Terminal -->
-    <section id="hero" class="min-h-screen px-6" aria-labelledby="hero-heading">
-      <div class="beat-indicator mb-6" aria-hidden="true"></div>
-      <div class="max-w-6xl mx-auto w-full grid lg:grid-cols-2 gap-8 items-center min-h-[80vh]">
-        <!-- Left: Info -->
-        <div class="space-y-6" data-animate="fade-up">
-          <div class="inline-flex items-center gap-2 px-3 py-1 glass text-xs text-[var(--base05)]" role="status">
-            <span class="w-2 h-2 rounded-full bg-[var(--base0B)] animate-pulse" aria-hidden="true"></span>
-            Open to Opportunities
-          </div>
-          <h1 id="hero-heading" class="text-5xl md:text-6xl font-bold leading-tight" style="background: linear-gradient(135deg, #ff9f5c 0%, #6ee7de 100%); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; color: transparent;">
-            Reverb256
-          </h1>
-          <p class="text-lg text-[var(--base05)] max-w-md">
-            <span class="text-[var(--base09)]">15 years</span> in food service. <span class="text-[var(--base0D)]">20 years</span> tech-curious. Now building <span class="text-[var(--base09)]">production applications</span> with <span class="text-[var(--base0D)]">NixOS</span> infrastructure and <span class="text-[var(--base09)]">AI-assisted development</span>.
-          </p>
-          <div class="flex gap-4">
-            <a href="#projects" class="btn-accent">View Projects</a>
-            <a href="#contact" class="btn-outline">Get in Touch</a>
-          </div>
-          <div class="flex gap-6 pt-4 text-sm">
-            <div><span class="text-2xl font-bold text-[var(--base09)]">7+</span><br><span class="text-[var(--base04)]">Projects Shipped</span></div>
-            <div><span class="text-2xl font-bold text-[var(--base09)]">4</span><br><span class="text-[var(--base04)]">Host NixOS Cluster</span></div>
-            <div><span class="text-2xl font-bold text-[var(--base09)]">Rust</span><br><span class="text-[var(--base04)]">→ TypeScript → Python</span></div>
-          </div>
+  <!-- Hero -->
+  <section id="hero" class="min-h-screen px-6" aria-labelledby="hero-heading">
+    <div class="beat-indicator mb-6" aria-hidden="true"></div>
+    <div class="max-w-6xl mx-auto w-full grid lg:grid-cols-2 gap-8 items-center min-h-[80vh]">
+      <div class="space-y-6" data-animate="fade-up">
+        <div class="inline-flex items-center gap-2 px-3 py-1 glass text-xs" style="color: var(--text-muted);" role="status">
+          <span class="w-2 h-2 rounded-full animate-pulse" style="background: var(--accent-success);" aria-hidden="true"></span>
+          Open to Opportunities
         </div>
-
-        <!-- Right: Terminal -->
-        <div data-animate="fade-up" data-delay="0.2" class="relative" style="z-index: 20;">
-          <div id="term-wrapper" class="overflow-hidden relative rounded-lg" style="background: var(--base00); border: 1px solid var(--base03); z-index: 30; font-family: 'Fira Code', 'JetBrains Mono', 'SF Mono', Consolas, monospace;" role="region" aria-label="Interactive terminal">
-
-            <!-- Terminal output -->
-            <div id="term-output" class="text-sm p-4 min-h-[300px] max-h-[400px] overflow-y-auto" style="font-family: inherit; line-height: 1.6;" role="log" aria-live="polite">
-              <p style="color: var(--base05);">Welcome to the R256 knowledge database.</p>
-              <p style="color: var(--base05);">Type <span style="color: var(--base0D);">help</span> for commands.</p>
-            </div>
-
-            <!-- Terminal input with blinking cursor -->
-            <div class="flex items-center px-4 py-2 border-t" style="border-color: var(--base02); background: rgba(0,0,0,0.3); font-family: inherit;">
-              <span style="color: var(--base0B);" aria-hidden="true">❯</span>
-              <span>&nbsp;</span>
-              <input
-                type="text"
-                id="term-input"
-                class="flex-grow bg-transparent border-none outline-none term-prompt"
-                style="color: var(--base06); font-family: inherit; caret-color: var(--base0D);"
-                placeholder="type a command..."
-                autocomplete="off"
-                spellcheck="false"
-                aria-label="Terminal command input"
-                aria-describedby="term-instructions"
-              />
-            </div>
-            <span id="term-instructions" class="sr-only">Type commands like help, list, or read to explore the database</span>
-          </div>
+        <h1 id="hero-heading" class="retro-heading">Reverb256</h1>
+        <p class="text-lg max-w-md" style="color: var(--text-secondary);">
+          <span style="color: var(--accent-primary);">15 years</span> in food service.
+          <span style="color: var(--accent-secondary);">20 years</span> tech-curious.
+          Now building <span style="color: var(--accent-primary);">production applications</span> with
+          <span style="color: var(--accent-secondary);">NixOS</span> infrastructure and
+          <span style="color: var(--accent-primary);">AI-assisted development</span>.
+        </p>
+        <div class="flex gap-4">
+          <a href="#projects" class="retro-btn">View Projects</a>
+          <a href="#contact" class="retro-btn retro-btn--outline">Get in Touch</a>
+        </div>
+        <div class="flex gap-6 pt-4 text-sm">
+          <div><span class="text-2xl font-bold" style="color: var(--accent-primary);">7+</span><br><span style="color: var(--text-subtle);">Projects Shipped</span></div>
+          <div><span class="text-2xl font-bold" style="color: var(--accent-primary);">4</span><br><span style="color: var(--text-subtle);">Host NixOS Cluster</span></div>
+          <div><span class="text-2xl font-bold" style="color: var(--accent-primary);">Rust</span><br><span style="color: var(--text-subtle);">→ TypeScript → Python</span></div>
         </div>
       </div>
+
+      <!-- Terminal -->
+      <div data-animate="fade-up" data-delay="0.2" class="relative" style="z-index: 20;">
+        <div id="term-wrapper" class="overflow-hidden relative rounded-lg" style="background: var(--bg-elevated); border: 1px solid var(--border-color); font-family: var(--font-mono, 'Fira Code', monospace);" role="region" aria-label="Interactive terminal">
+          <div id="term-output" class="text-sm p-4 min-h-[300px] max-h-[400px] overflow-y-auto" style="font-family: inherit; line-height: 1.6;" role="log" aria-live="polite">
+            <p style="color: var(--text-muted);">Welcome to the R256 knowledge database.</p>
+            <p style="color: var(--text-muted);">Type <span style="color: var(--accent-secondary);">help</span> for commands.</p>
+          </div>
+          <div class="flex items-center px-4 py-2 border-t" style="border-color: var(--border-color); background: rgba(0,0,0,0.3); font-family: inherit;">
+            <span style="color: var(--accent-success);" aria-hidden="true">❯</span>
+            <span>&nbsp;</span>
+            <input type="text" id="term-input" class="flex-grow bg-transparent border-none outline-none term-prompt" style="color: var(--text-primary); font-family: inherit; caret-color: var(--accent-secondary);" placeholder="type a command..." autocomplete="off" spellcheck="false" aria-label="Terminal command input" aria-describedby="term-instructions" />
+          </div>
+          <span id="term-instructions" class="sr-only">Type commands like help, list, or read to explore the database</span>
+        </div>
+      </div>
+    </div>
   </section>
 
   <!-- Projects -->
   <section id="projects" class="px-6 py-12" aria-labelledby="projects-heading">
     <div class="max-w-6xl mx-auto">
       <div class="beat-indicator mb-6" aria-hidden="true"></div>
-      <h2 id="projects-heading" class="text-2xl font-bold mb-8 text-[var(--base06)]">// Projects</h2>
+      <h2 id="projects-heading" class="retro-heading" style="font-size: var(--heading-size-1);">// Projects</h2>
 
-      <!-- Client Work -->
       <div class="mb-10">
         <h3 class="text-sm font-bold uppercase tracking-wider mb-4 flex items-center gap-2">
-          <span class="w-2 h-2 rounded-full" style="background: var(--base09)"></span>
-          <span style="color: var(--base09)">Client Work</span>
+          <span class="w-2 h-2 rounded-full" style="background: var(--accent-primary);"></span>
+          <span style="color: var(--accent-primary);">Client Work</span>
         </h3>
         <div data-stagger class="grid grid-cols-2 md:grid-cols-4 gap-3 auto-rows-[120px]" role="list">
           {projects.client.map((p) => (
-            <a
-              href={p.repo ? `https://github.com/reverb256/${p.repo}` : `https://github.com/reverb256`}
-              target="_blank"
-              rel="noopener noreferrer"
-              data-stagger-item
-              class={`bento-item group flex flex-col span-${p.span}`}
-              role="listitem"
-              aria-label={`${p.title}: ${p.desc}. Status: ${p.status}. Technologies: ${p.tech.join(', ')}. Opens in new tab.`}
-            >
+            <a href={p.repo ? `https://github.com/reverb256/${p.repo}` : `https://github.com/reverb256`} target="_blank" rel="noopener noreferrer" data-stagger-item class={`bento-item group flex flex-col span-${p.span}`} role="listitem">
               <div class="flex items-center justify-between mb-1">
                 <span class="text-xl" aria-hidden="true">{p.icon}</span>
-                <span class="text-[8px] px-1.5 py-0.5 rounded font-medium uppercase text-[var(--base09)]">{p.metric}</span>
+                <span class="text-[8px] px-1.5 py-0.5 rounded font-medium uppercase" style="color: var(--accent-primary);">{p.metric}</span>
               </div>
-              <h3 class="text-sm font-bold text-[var(--base07)] group-hover:text-[var(--base09)] transition-colors">{p.title}</h3>
-              <p class="text-[10px] text-[var(--base05)] flex-grow">{p.desc}</p>
-              <div class="flex gap-1 mt-auto" aria-label={`Technologies: ${p.tech.join(', ')}`}>{p.tech.map(t => <span class="text-[8px] px-1.5 py-0.5 bg-[var(--base02)] rounded text-[var(--base05)]">{t}</span>)}</div>
+              <h3 class="text-sm font-bold group-hover:opacity-80 transition-opacity" style="color: var(--text-primary);">{p.title}</h3>
+              <p class="text-[10px] flex-grow" style="color: var(--text-muted);">{p.desc}</p>
+              <div class="flex gap-1 mt-auto">{p.tech.map(t => <span class="text-[8px] px-1.5 py-0.5 rounded" style="background: var(--bg-surface); color: var(--text-muted);">{t}</span>)}</div>
             </a>
           ))}
         </div>
       </div>
 
-      <!-- Personal Projects -->
       <div class="mb-10">
         <h3 class="text-sm font-bold uppercase tracking-wider mb-4 flex items-center gap-2">
-          <span class="w-2 h-2 rounded-full" style="background: var(--base0D)"></span>
-          <span style="color: var(--base0D)">Personal Projects</span>
+          <span class="w-2 h-2 rounded-full" style="background: var(--accent-secondary);"></span>
+          <span style="color: var(--accent-secondary);">Personal Projects</span>
         </h3>
         <div data-stagger class="grid grid-cols-2 md:grid-cols-4 gap-3 auto-rows-[120px]" role="list">
           {projects.personal.map((p) => (
-            <a
-              href={p.repo ? `https://github.com/reverb256/${p.repo}` : `https://github.com/reverb256`}
-              target="_blank"
-              rel="noopener noreferrer"
-              data-stagger-item
-              class={`bento-item group flex flex-col span-${p.span}`}
-              role="listitem"
-              aria-label={`${p.title}: ${p.desc}. Status: ${p.status}. Technologies: ${p.tech.join(', ')}. Opens in new tab.`}
-            >
+            <a href={p.repo ? `https://github.com/reverb256/${p.repo}` : `https://github.com/reverb256`} target="_blank" rel="noopener noreferrer" data-stagger-item class={`bento-item group flex flex-col span-${p.span}`} role="listitem">
               <div class="flex items-center justify-between mb-1">
                 <span class="text-xl" aria-hidden="true">{p.icon}</span>
                 <span class={`px-1.5 py-0.5 text-[8px] rounded font-medium uppercase ${p.status === 'live' ? 'badge-live' : 'badge-active'}`}>{p.status}</span>
               </div>
-              <h3 class="text-sm font-bold text-[var(--base07)] group-hover:text-[var(--base0D)] transition-colors">{p.title}</h3>
-              <p class="text-[10px] text-[var(--base05)] flex-grow">{p.desc}</p>
-              <div class="flex gap-1 mt-auto" aria-label={`Technologies: ${p.tech.join(', ')}`}>{p.tech.map(t => <span class="text-[8px] px-1.5 py-0.5 bg-[var(--base02)] rounded text-[var(--base05)]">{t}</span>)}</div>
+              <h3 class="text-sm font-bold group-hover:opacity-80 transition-opacity" style="color: var(--text-primary);">{p.title}</h3>
+              <p class="text-[10px] flex-grow" style="color: var(--text-muted);">{p.desc}</p>
+              <div class="flex gap-1 mt-auto">{p.tech.map(t => <span class="text-[8px] px-1.5 py-0.5 rounded" style="background: var(--bg-surface); color: var(--text-muted);">{t}</span>)}</div>
             </a>
           ))}
         </div>
       </div>
 
-      <!-- Infrastructure -->
       <div class="mb-10">
         <h3 class="text-sm font-bold uppercase tracking-wider mb-4 flex items-center gap-2">
-          <span class="w-2 h-2 rounded-full" style="background: var(--base0B)"></span>
-          <span style="color: var(--base0B)">Infrastructure</span>
+          <span class="w-2 h-2 rounded-full" style="background: var(--accent-success);"></span>
+          <span style="color: var(--accent-success);">Infrastructure</span>
         </h3>
         <div data-stagger class="grid grid-cols-2 md:grid-cols-4 gap-3 auto-rows-[120px]" role="list">
           {projects.infra.map((p) => (
-            <a
-              href={p.link || (p.repo ? `https://github.com/reverb256/${p.repo}` : `https://github.com/reverb256`)}
-              target={p.link ? undefined : "_blank"}
-              rel={p.link ? undefined : "noopener noreferrer"}
-              data-stagger-item
-              class={`bento-item group flex flex-col span-${p.span} border-2`}
-              style="border-color: var(--base0B)"
-              role="listitem"
-              aria-label={`${p.title}: ${p.desc}. ${p.link ? 'Learn more.' : 'Opens in new tab.'}`}
-            >
+            <a href={p.link || `https://github.com/reverb256`} target={p.link ? undefined : "_blank"} rel={p.link ? undefined : "noopener noreferrer"} data-stagger-item class={`bento-item group flex flex-col span-${p.span} border-2`} style="border-color: var(--accent-success);" role="listitem">
               <div class="flex items-center justify-between mb-1">
                 <span class="text-xl" aria-hidden="true">{p.icon}</span>
-                <span class="text-[8px] px-1.5 py-0.5 rounded font-medium uppercase" style="background: var(--base0B); color: var(--base00);">{p.metric}</span>
+                <span class="text-[8px] px-1.5 py-0.5 rounded font-medium uppercase" style="background: var(--accent-success); color: var(--bg-primary);">{p.metric}</span>
               </div>
-              <h3 class="text-sm font-bold text-[var(--base07)] group-hover:text-[var(--base0B)] transition-colors">{p.title}</h3>
-              <p class="text-[10px] text-[var(--base05)] flex-grow">{p.desc}</p>
-              <div class="flex gap-1 mt-auto" aria-label={`Technologies: ${p.tech.join(', ')}`}>{p.tech.map(t => <span class="text-[8px] px-1.5 py-0.5 bg-[var(--base02)] rounded text-[var(--base05)]">{t}</span>)}</div>
+              <h3 class="text-sm font-bold group-hover:opacity-80 transition-opacity" style="color: var(--text-primary);">{p.title}</h3>
+              <p class="text-[10px] flex-grow" style="color: var(--text-muted);">{p.desc}</p>
+              <div class="flex gap-1 mt-auto">{p.tech.map(t => <span class="text-[8px] px-1.5 py-0.5 rounded" style="background: var(--bg-surface); color: var(--text-muted);">{t}</span>)}</div>
             </a>
           ))}
         </div>
       </div>
-
     </div>
   </section>
 
@@ -217,32 +157,33 @@ const skills = ["TypeScript", "React", "Rust", "Node.js", "NixOS", "Astro", "Tai
   <section id="about" class="px-6 py-12" aria-labelledby="about-heading">
     <div class="max-w-6xl mx-auto">
       <div class="beat-indicator mb-6" aria-hidden="true"></div>
-      <h2 id="about-heading" class="text-2xl font-bold mb-6 text-[var(--base06)]">// About</h2>
+      <h2 id="about-heading" class="retro-heading" style="font-size: var(--heading-size-1);">// About</h2>
       <div class="grid md:grid-cols-2 gap-4">
-        <article class="glass p-6">
-          <h3 class="text-sm font-bold text-[var(--base07)] mb-4">My Story</h3>
-          <p class="text-sm text-[var(--base05)] leading-relaxed">
-            Spent <span class="text-[var(--base09)]">15 years in food service</span> learning the value of hard work, teamwork, and showing up every day. Meanwhile, always curious about computers — <span class="text-[var(--base0D)]">20 years of tinkering, researching, and dabbling with Linux</span> on the side.
+        <article class="retro-card" style="padding: 1.5rem;">
+          <h3 class="retro-subheading" style="font-size: var(--heading-size-2); margin-bottom: 1rem;">My Story</h3>
+          <p class="text-sm leading-relaxed" style="color: var(--text-secondary);">
+            Spent <span style="color: var(--accent-primary);">15 years in food service</span> learning the value of hard work, teamwork, and showing up every day. Meanwhile, always curious about computers — <span style="color: var(--accent-secondary);">20 years of tinkering, researching, and dabbling with Linux</span> on the side.
           </p>
-          <p class="text-sm text-[var(--base05)] leading-relaxed mt-3">
-            Fully committed to <span class="text-[var(--base09)]">NixOS</span> for system configuration. Built a <span class="text-[var(--base0D)]">4-host mining cluster</span> with Colmena deployment, currently migrating to Kubernetes. Developing production apps with <span class="text-[var(--base09)]">Rust microservices</span>, <span class="text-[var(--base0D)]">React frontends</span>, and <span class="text-[var(--base09)]">AI integration</span>.
+          <p class="text-sm leading-relaxed mt-3" style="color: var(--text-secondary);">
+            Fully committed to <span style="color: var(--accent-primary);">NixOS</span> for system configuration. Built a <span style="color: var(--accent-secondary);">4-host mining cluster</span> with Colmena deployment, currently migrating to Kubernetes.
           </p>
-          <p class="text-sm text-[var(--base05)] leading-relaxed mt-3">
-            <strong>Current focus:</strong> Building privacy-first AI tools, Web3 authentication systems, and local-first applications. Always learning through AI-assisted development.
+          <p class="text-sm leading-relaxed mt-3" style="color: var(--text-secondary);">
+            <strong style="color: var(--text-primary);">Current focus:</strong> Building privacy-first AI tools, Web3 authentication systems, and local-first applications.
           </p>
         </article>
-        <article class="glass p-6">
-          <h3 class="text-sm font-bold text-[var(--base07)] mb-4">What I Bring</h3>
-          <div class="flex flex-wrap gap-2" role="list" aria-label="Personal qualities">
-            {["Work ethic", "Eager to learn", "Team player", "Problem solver", "Patient", "Reliable"].map(f => <span role="listitem" class="text-xs px-3 py-1.5 border border-[var(--base03)] rounded-full text-[var(--base05)] hover:border-[var(--base09)] hover:text-[var(--base09)] transition-all cursor-default">{f}</span>)}
+        <article class="retro-card" style="padding: 1.5rem;">
+          <h3 class="retro-subheading" style="font-size: var(--heading-size-2); margin-bottom: 1rem;">What I Bring</h3>
+          <div class="flex flex-wrap gap-2">
+            {["Work ethic", "Eager to learn", "Team player", "Problem solver", "Patient", "Reliable"].map(f => <span class="text-xs px-3 py-1.5 rounded-full cursor-default" style="border: 1px solid var(--border-color); color: var(--text-muted);">{f}</span>)}
           </div>
-          <h3 class="text-sm font-bold text-[var(--base07)] mb-4 mt-6">Tech Stack</h3>
-          <div class="flex flex-wrap gap-2" role="list" aria-label="Technologies">{skills.map(s => <span role="listitem" class="text-xs px-3 py-1 bg-[var(--base02)] rounded text-[var(--base06)] hover:text-[var(--base09)] transition-colors cursor-default hover:scale-105 transform">{s}</span>)}</div>
-          <div class="mt-4 pt-4 border-t border-[var(--base02)] text-xs text-[var(--base05)] space-y-1">
+          <h3 class="retro-subheading" style="font-size: var(--heading-size-2); margin-bottom: 1rem; margin-top: 1.5rem;">Tech Stack</h3>
+          <div class="flex flex-wrap gap-2">
+            {skills.map(s => <span class="text-xs px-3 py-1 rounded cursor-default" style="background: var(--bg-surface); color: var(--text-secondary);">{s}</span>)}
+          </div>
+          <div class="mt-4 pt-4 text-xs space-y-1" style="border-top: 1px solid var(--border-color); color: var(--text-muted);">
             <div>OS: NixOS (4-host cluster + Colmena)</div>
             <div>Method: AI-assisted development (Claude Code)</div>
             <div>Infrastructure: Kubernetes migration in progress</div>
-            <div>Tools: Semantic code editing with Serena</div>
           </div>
         </article>
       </div>
@@ -253,16 +194,16 @@ const skills = ["TypeScript", "React", "Rust", "Node.js", "NixOS", "Astro", "Tai
   <section id="contact" class="px-6 py-12" aria-labelledby="contact-heading">
     <div class="max-w-6xl mx-auto">
       <div class="beat-indicator mb-6" aria-hidden="true"></div>
-      <h2 id="contact-heading" class="text-2xl font-bold mb-6 text-[var(--base06)]">// Contact</h2>
-      <div class="glass p-6 flex flex-wrap items-center justify-between gap-4">
+      <h2 id="contact-heading" class="retro-heading" style="font-size: var(--heading-size-1);">// Contact</h2>
+      <div class="retro-card flex flex-wrap items-center justify-between gap-4" style="padding: 1.5rem;">
         <div>
-          <p class="text-sm text-[var(--base05)] mb-4">Open to junior roles, internships, or just chatting about tech. Let's connect!</p>
+          <p class="text-sm mb-4" style="color: var(--text-secondary);">Open to junior roles, internships, or just chatting about tech.</p>
           <div class="flex gap-3">
-            <a href="mailto:contact@reverb256.dev" class="btn-accent text-sm">Email</a>
-            <a href="https://github.com/reverb256" target="_blank" rel="noopener noreferrer" class="btn-outline text-sm">GitHub</a>
+            <a href="mailto:contact@reverb256.dev" class="retro-btn text-sm">Email</a>
+            <a href="https://github.com/reverb256" target="_blank" rel="noopener noreferrer" class="retro-btn retro-btn--outline text-sm">GitHub</a>
           </div>
         </div>
-        <div class="text-right text-xs text-[var(--base04)]">
+        <div class="text-right text-xs" style="color: var(--text-subtle);">
           <address class="not-italic">Winnipeg, Canada</address>
           <div>Open to remote work</div>
         </div>
@@ -270,271 +211,141 @@ const skills = ["TypeScript", "React", "Rust", "Node.js", "NixOS", "Astro", "Tai
     </div>
   </section>
 
-  <!-- Footer -->
-  <footer class="px-6 py-4 border-t border-[var(--base02)]">
-    <div class="max-w-6xl mx-auto flex items-center justify-between text-[10px] text-[var(--base04)]">
+  <footer class="px-6 py-4" style="border-top: 1px solid var(--border-color);">
+    <div class="max-w-6xl mx-auto flex items-center justify-between text-[10px]" style="color: var(--text-subtle);">
       <span>© 2026 Reverb256</span>
-      <span>Astro + GSAP + NixOS + Base24</span>
-      <span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-[var(--base0B)] animate-pulse" aria-hidden="true"></span> All Systems Operational</span>
+      <span>Astro + 16 Themes + NixOS</span>
+      <span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full animate-pulse" style="background: var(--accent-success);" aria-hidden="true"></span> All Systems Operational</span>
     </div>
   </footer>
 </Layout>
 
 <script define:vars={{ db }}>
 import DOMPurify from 'dompurify';
-  // ====== TERMINAL MODE STATE ======
   const output = document.getElementById('term-output');
   const input = document.getElementById('term-input');
-  const termWrapper = document.getElementById('term-wrapper');
-  
-  // ====== FISH SHELL FEATURES ======
+
   const autocompleteSuggestions = {
-    'help': 'help',
-    'list': 'list',
-    'ls': 'ls',
-    'read': 'read ',
-    'whoami': 'whoami',
-    'random': 'random',
-    'search': 'search ',
-    'clear': 'clear',
-    'projects': 'projects',
-    'cluster': 'cluster',
-    'glossary': 'glossary',
-    'matrix': 'matrix',
-    'about': 'about'
+    'help': 'help', 'list': 'list', 'ls': 'ls', 'read': 'read ',
+    'whoami': 'whoami', 'random': 'random', 'search': 'search ',
+    'clear': 'clear', 'projects': 'projects', 'cluster': 'cluster',
+    'glossary': 'glossary', 'about': 'about'
   };
-  
+
   let currentSuggestion = '';
-  let suggestionIndex = 0;
-  
-  function highlightSyntax(text) {
-    // Commands
-    text = text.replace(/\b(help|list|read|random|search|clear|projects|cluster|glossary|matrix|about)\b/g, '<span style="color: var(--base0D);">$1</span>');
-    // Arguments
-    text = text.replace(/\[([^\]]+)\]/g, '<span style="color: var(--base0C);">[$1]</span>');
-    return text;
-  }
-  
-  function showAutocomplete() {
-    if (currentSuggestion && input.value.startsWith(currentSuggestion)) {
-      const suggestionText = currentSuggestion.substring(input.value.length);
-      if (suggestionText) {
-        const suggestionSpan = document.createElement('span');
-        suggestionSpan.style.cssText = 'color: var(--base04); display: inline;';
-        suggestionSpan.textContent = suggestionText;
-        suggestionSpan.id = 'autocomplete-suggestion';
-        
-        // Remove existing suggestion
-        const existingSuggestion = document.getElementById('autocomplete-suggestion');
-        if (existingSuggestion) existingSuggestion.remove();
-        
-        // Insert suggestion after input
-        input.parentNode.insertBefore(suggestionSpan, input.nextSibling);
-      }
-    }
-  }
-  
-  function print(text, style = 'color: var(--base0B);') {
+
+  function print(text, style) {
     const line = document.createElement('div');
-    line.style.cssText = style + ' margin-top: 0.25rem;';
-    // Sanitize HTML to prevent XSS attacks
-    line.innerHTML = DOMPurify.sanitize(highlightSyntax(text));
+    line.style.cssText = (style || 'color: var(--accent-success);') + ' margin-top: 0.25rem;';
+    line.innerHTML = DOMPurify.sanitize(text);
     output.appendChild(line);
     output.scrollTop = output.scrollHeight;
-    
-    // Glitch effect
     line.style.animation = 'glitch 0.1s ease-out';
     setTimeout(() => line.style.animation = '', 100);
   }
-  
-  function typeEffect(text, element, speed = 20) {
-    return new Promise(resolve => {
-      let i = 0;
-      const interval = setInterval(() => {
-        if (i < text.length) {
-          element.textContent += text.charAt(i);
-          i++;
-          output.scrollTop = output.scrollHeight;
-        } else {
-          clearInterval(interval);
-          resolve();
-        }
-      }, speed);
-    });
-  }
-  
+
   window.execCmd = async function(cmd) {
-    const [command, ...args] = cmd.trim().toLowerCase().split(/\s+/);
-    const arg = args.join('_').toUpperCase();
-    
-    print(`<span style="color: var(--base05);">> ${cmd}</span>`);
-    
+    const parts = cmd.trim().toLowerCase().split(/\s+/);
+    const command = parts[0];
+    const arg = parts.slice(1).join('_').toUpperCase();
+
+    print(`<span style="color: var(--text-muted);">> ${cmd}</span>`);
     await new Promise(r => setTimeout(r, 100));
-    
+
     switch(command) {
       case 'help':
-        print(`<span style="color: var(--base0D);">AVAILABLE COMMANDS:</span>
-  <span style="color: var(--base06);">help</span>      - Display help
-  <span style="color: var(--base06);">list</span>      - List all subjects
-  <span style="color: var(--base06);">ls</span>        - Alias for list
-  <span style="color: var(--base06);">read [ID]</span> - Read subject file
-  <span style="color: var(--base06);">random</span>    - Random subject
-  <span style="color: var(--base06);">search [q]</span> - Search database
-  <span style="color: var(--base06);">clear</span>     - Clear terminal
-  <span style="color: var(--base06);">projects</span>  - Recent projects summary
-  <span style="color: var(--base06);">cluster</span>   - NixOS cluster info
-  <span style="color: var(--base06);">glossary</span>  - Tech glossary
-  <span style="color: var(--base06);">matrix</span>    - Easter egg
-  <span style="color: var(--base06);">about</span>     - About system`);
+        print(`<span style="color: var(--accent-secondary);">AVAILABLE COMMANDS:</span>
+  <span style="color: var(--text-primary);">help</span>      - Display help
+  <span style="color: var(--text-primary);">list</span>      - List all subjects
+  <span style="color: var(--text-primary);">ls</span>        - Alias for list
+  <span style="color: var(--text-primary);">read [ID]</span> - Read subject file
+  <span style="color: var(--text-primary);">random</span>    - Random subject
+  <span style="color: var(--text-primary);">search [q]</span> - Search database
+  <span style="color: var(--text-primary);">clear</span>     - Clear terminal
+  <span style="color: var(--text-primary);">projects</span>  - Recent projects
+  <span style="color: var(--text-primary);">cluster</span>   - NixOS cluster info
+  <span style="color: var(--text-primary);">about</span>     - About system`);
         break;
 
       case 'ls':
       case 'list':
-        print(`<span style="color: var(--base0D);">DATABASE SUBJECTS</span>`);
+        print(`<span style="color: var(--accent-secondary);">DATABASE SUBJECTS</span>`);
         db.subjects.forEach(s => {
-          const color = s.classification === 'TOP SECRET' ? 'var(--base08)' :
-                       s.classification === 'RESTRICTED' ? 'var(--base0A)' : 'var(--base0B)';
-          print(`  <span style="color: var(--base06);">${s.id}</span> - ${s.title} [<span style="color: ${color};">${s.classification}</span>]`);
+          const color = s.classification === 'TOP SECRET' ? 'var(--accent-error)' :
+                       s.classification === 'RESTRICTED' ? 'var(--accent-warning)' : 'var(--accent-success)';
+          print(`  <span style="color: var(--text-primary);">${s.id}</span> - ${s.title} [<span style="color: ${color};">${s.classification}</span>]`);
         });
         break;
 
       case 'whoami':
-        print(`<span style="color: var(--base0D);">USER: r256</span>
-<span style="color: var(--base05);">Role: Administrator</span>
-<span style="color: var(--base05);">Clearance: TOP SECRET</span>
-<span style="color: var(--base0B);">System: NixOS/Zephyr</span>`);
+        print(`<span style="color: var(--accent-secondary);">USER: r256</span>
+<span style="color: var(--text-muted);">Role: Administrator</span>
+<span style="color: var(--text-muted);">Clearance: TOP SECRET</span>
+<span style="color: var(--accent-success);">System: NixOS/Zephyr</span>`);
         break;
 
       case 'read':
-        if (!arg) {
-          print(`<span style="color: var(--base08);">ERROR: Specify ID. Usage: read [ID]</span>`);
-          break;
-        }
+        if (!arg) { print(`<span style="color: var(--accent-error);">ERROR: Specify ID. Usage: read [ID]</span>`); break; }
         const subject = db.subjects.find(s => s.id === arg);
-        if (!subject) {
-          print(`<span style="color: var(--base08);">ERROR: '${arg}' not found</span>`);
-          break;
-        }
-        const border = subject.classification === 'TOP SECRET' ? 'var(--base08)' : 'var(--base0D)';
-        print(`<span style="color: ${border};">SUBJECT: ${subject.title}</span>`);
-        print(`<span style="color: var(--base05);">ID: ${subject.id} | ${subject.category}</span>`);
-        print(`<span style="color: ${border};">CLASS: ${subject.classification}</span>`);
+        if (!subject) { print(`<span style="color: var(--accent-error);">ERROR: '${arg}' not found</span>`); break; }
+        const clr = subject.classification === 'TOP SECRET' ? 'var(--accent-error)' : 'var(--accent-secondary)';
+        print(`<span style="color: ${clr};">SUBJECT: ${subject.title}</span>`);
+        print(`<span style="color: var(--text-muted);">ID: ${subject.id} | ${subject.category}</span>`);
+        print(`<span style="color: ${clr};">CLASS: ${subject.classification}</span>`);
         subject.content.forEach(line => print(`  ${line}`));
         break;
-        
-      case 'random':
-        const rand = db.subjects[Math.floor(Math.random() * db.subjects.length)];
-        execCmd(`read ${rand.id}`);
-        break;
-        
+
+      case 'random': execCmd(`read ${db.subjects[Math.floor(Math.random() * db.subjects.length)].id}`); break;
+
       case 'search':
-        if (!arg) {
-          print(`<span style="color: var(--base0A);">Usage: search [query]</span>`);
-          break;
-        }
-        const results = db.subjects.filter(s => 
-          s.title.toLowerCase().includes(arg.toLowerCase()) ||
-          s.content.some(c => c.toLowerCase().includes(arg.toLowerCase()))
-        );
-        if (results.length === 0) {
-          print(`<span style="color: var(--base0A);">No results for '${arg}'</span>`);
-        } else {
-          print(`<span style="color: var(--base0D);">Found ${results.length} result(s):</span>`);
-          results.forEach(s => print(`  <span style="color: var(--base06);">${s.id}</span> - ${s.title}`));
-        }
+        if (!arg) { print(`<span style="color: var(--accent-warning);">Usage: search [query]</span>`); break; }
+        const results = db.subjects.filter(s => s.title.toLowerCase().includes(arg.toLowerCase()) || s.content.some(c => c.toLowerCase().includes(arg.toLowerCase())));
+        if (results.length === 0) { print(`<span style="color: var(--accent-warning);">No results for '${arg}'</span>`); }
+        else { print(`<span style="color: var(--accent-secondary);">Found ${results.length} result(s):</span>`); results.forEach(s => print(`  <span style="color: var(--text-primary);">${s.id}</span> - ${s.title}`)); }
         break;
-        
-      case 'matrix':
-        print(`<span style="color: var(--base0B);">Wake up, Neo...</span>`);
-        print(`<span style="color: var(--base0B);">The Matrix has you...</span>`);
+
+      case 'clear':
+        output.innerHTML = DOMPurify.sanitize(`<pre style="color: var(--accent-success); opacity: 0.8; font-size: 0.75rem;">R256 TERMINAL v2.56</pre><p style="margin-top: 0.75rem; color: var(--text-muted);">Terminal cleared. Type <span style="color: var(--accent-success);">help</span>.</p>`);
         break;
-        
+
+      case 'projects': execCmd('read PROJ_001'); break;
+      case 'cluster': execCmd('read CLUSTER_001'); break;
+
       case 'about':
-        print(`<span style="color: var(--base0D);">REVERB256 DATABASE TERMINAL</span>
+        print(`<span style="color: var(--accent-secondary);">REVERB256 DATABASE TERMINAL</span>
 Version: 2.56.1
-Build: 2026.03.10
-Engine: Astro + Vanilla JS
-Theme: Base24 Compliant
+Build: 2026.05.09
+Engine: Astro + 16 Retro Themes
 Purpose: Knowledge repository`);
         break;
 
-      case 'projects':
-        execCmd('read PROJ_001');
+      case 'matrix':
+        print(`<span style="color: var(--accent-success);">Wake up, Neo...</span>`);
+        print(`<span style="color: var(--accent-success);">The Matrix has you...</span>`);
         break;
 
-      case 'cluster':
-        execCmd('read CLUSTER_001');
-        break;
-
-      case 'glossary':
-        window.open('/glossary', '_blank');
-        print(`<span style="color: var(--base0B);">Opening glossary in new tab...</span>`);
-        break;
-        
-      case 'clear':
-        output.innerHTML = DOMPurify.sanitize(`<pre style="color: var(--base0B); opacity: 0.8; font-size: 0.75rem;">
-╔═══════════════════════════════════════════════════════════╗
-║     ██╗███████╗███████╗████████╗██████╗  █████╗ ██╗      ║
-║     ██║██╔════╝██╔════╝╚══██╔══╝██╔══██╗██╔══██╗██║      ║
-║     ██║█████╗  ███████╗   ██║   ██████╔╝███████║██║      ║
-║██   ██║██╔══╝  ╚════██║   ██║   ██╔══██╗██╔══██║██║      ║
-║╚█████╔╝███████╗███████║   ██║   ██║  ██║██║  ██║███████╗ ║
-║ ╚════╝ ╚══════╝╚══════╝   ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝ ║
-╚═══════════════════════════════════════════════════════════╝</pre>
-<p style="margin-top: 0.75rem; color: var(--base05);">Terminal cleared. Type <span style="color: var(--base0B);">help</span>.</p>`;
-        break;
-        
       default:
-        print(`<span style="color: var(--base08);">UNKNOWN: '${command}'</span>`);
-        print(`<span style="color: var(--base05);">Type 'help' for commands.</span>`);
+        print(`<span style="color: var(--accent-error);">UNKNOWN: '${command}'</span>`);
+        print(`<span style="color: var(--text-muted);">Type 'help' for commands.</span>`);
     }
   };
-  
+
   input.addEventListener('keydown', (e) => {
     if (e.key === 'Enter') {
       const cmd = input.value.trim();
-      if (cmd) {
-        execCmd(cmd);
-        input.value = '';
-        // Clear autocomplete suggestion
-        const suggestion = document.getElementById('autocomplete-suggestion');
-        if (suggestion) suggestion.remove();
-      }
+      if (cmd) { execCmd(cmd); input.value = ''; const s = document.getElementById('autocomplete-suggestion'); if (s) s.remove(); }
     } else if (e.key === 'Tab') {
       e.preventDefault();
-      if (currentSuggestion && input.value.startsWith(currentSuggestion)) {
-        input.value = currentSuggestion;
-        const suggestion = document.getElementById('autocomplete-suggestion');
-        if (suggestion) suggestion.remove();
-      }
-    } else {
-      // Check for autocomplete
-      const cmd = input.value.trim().toLowerCase();
-      currentSuggestion = autocompleteSuggestions[cmd] || '';
-      showAutocomplete();
+      if (currentSuggestion && input.value.startsWith(currentSuggestion)) { input.value = currentSuggestion; const s = document.getElementById('autocomplete-suggestion'); if (s) s.remove(); }
     }
   });
-  
+
   document.getElementById('term-wrapper').addEventListener('click', () => input.focus());
-  
-  // Boot sequence
+
   setTimeout(() => {
-    const bootLine1 = document.createElement('div');
-    bootLine1.style.cssText = 'color: var(--base0B); margin-top: 0.5rem;';
-    bootLine1.textContent = '> System initialized';
-    output.appendChild(bootLine1);
-
-    const bootLine2 = document.createElement('div');
-    bootLine2.style.cssText = 'color: var(--base0B);';
-    bootLine2.textContent = `> Database loaded: ${db.subjects.length} subjects`;
-    output.appendChild(bootLine2);
-
-    const bootLine3 = document.createElement('div');
-    bootLine3.style.cssText = 'color: var(--base0B);';
-    bootLine3.textContent = `> Classification levels: ${db.classifications.join(', ')}`;
-    output.appendChild(bootLine3);
-    
-    output.scrollTop = output.scrollHeight;
+    [{ t: '> System initialized', c: 'var(--accent-success)' }, { t: `> Database loaded: ${db.subjects.length} subjects`, c: 'var(--accent-success)' }, { t: `> Classification levels: ${db.classifications.join(', ')}`, c: 'var(--accent-success)' }].forEach((l, i) => {
+      setTimeout(() => { const el = document.createElement('div'); el.style.cssText = `color: ${l.c}; margin-top: 0.5rem;`; el.textContent = l.t; output.appendChild(el); output.scrollTop = output.scrollHeight; }, i * 150);
+    });
   }, 500);
 </script>
 
@@ -546,45 +357,10 @@ Purpose: Knowledge repository`);
     75% { transform: translateX(-1px); filter: hue-rotate(270deg); }
     100% { transform: translateX(0); filter: hue-rotate(360deg); }
   }
-  
-  @keyframes matrixRain {
-    0% { filter: hue-rotate(0deg) brightness(1); }
-    50% { filter: hue-rotate(120deg) brightness(1.5); }
-    100% { filter: hue-rotate(0deg) brightness(1); }
-  }
-  
-  #term-wrapper {
-    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
-    transition: box-shadow 0.3s ease;
-  }
-  
-  #term-wrapper:hover {
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
-  }
-  
-  #term-input::placeholder { 
-    color: var(--base04); 
-  }
-  
-  #term-output {
-    font-size: clamp(0.875rem, 1.2vw, 1rem);
-  }
-  
-  #term-input {
-    font-size: clamp(0.875rem, 1.2vw, 1rem);
-  }
-  
-  /* Pulldown mode animation */
-  #term-wrapper.pulldown {
-    animation: pulldownSlide 0.3s ease-out;
-  }
-  
-  @keyframes pulldownSlide {
-    from {
-      transform: translateY(-100%);
-    }
-    to {
-      transform: translateY(0);
-    }
-  }
+
+  #term-wrapper { box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4); transition: box-shadow 0.3s ease; }
+  #term-wrapper:hover { box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5); }
+  #term-input::placeholder { color: var(--text-subtle); }
+  #term-output { font-size: clamp(0.875rem, 1.2vw, 1rem); }
+  #term-input { font-size: clamp(0.875rem, 1.2vw, 1rem); }
 </style>

@@ -48,8 +48,7 @@
 
 /* Enable browser's native color management */
 :root {
-  /* Tell browser we support both light and dark color schemes
-     This allows proper form control styling and system UI integration */
+  /* Themes handle color-scheme via [data-theme] — default dark for SSR fallback */
   color-scheme: dark;
 
   /* Enable proper color space handling for images */
@@ -460,10 +459,10 @@ svg {
   /* Glass card */
   .glass {
     background: var(--glass-bg);
-    backdrop-filter: blur(var(--glass-blur));
-    -webkit-backdrop-filter: blur(var(--glass-blur));
+    backdrop-filter: blur(var(--glass-blur, 16px));
+    -webkit-backdrop-filter: blur(var(--glass-blur, 16px));
     border: 1px solid var(--glass-border);
-    border-radius: var(--radius-lg);
+    border-radius: var(--radius-theme, var(--radius-lg));
   }
   
   .glass:hover {
@@ -501,7 +500,7 @@ svg {
     background: var(--accent-primary);
     color: var(--bg-primary);
     font-weight: 600;
-    border-radius: var(--radius-full);
+    border-radius: var(--radius-theme, var(--radius-full));
     border: none;
     cursor: pointer;
     transition: transform var(--duration-fast) var(--ease-spring),
@@ -528,7 +527,7 @@ svg {
     background: transparent;
     color: var(--text-secondary);
     border: 1px solid var(--text-subtle);
-    border-radius: var(--radius-full);
+    border-radius: var(--radius-theme, var(--radius-full));
     cursor: pointer;
     transition: border-color var(--duration-fast),
                 color var(--duration-fast),
@@ -663,7 +662,7 @@ svg {
   );
   pointer-events: none;
   z-index: 9999;
-  opacity: 0.6;
+  opacity: var(--retro-scanline-opacity, 0.6);
 }
 
 /* Subtle screen curvature effect */
@@ -684,18 +683,22 @@ svg {
    =========================================== */
 
 #hero-heading {
-  font-size: clamp(2.5rem, 6vw, 5rem) !important;
-  letter-spacing: -0.02em;
+  font-size: var(--heading-size-hero, clamp(2.5rem, 6vw, 5rem)) !important;
+  letter-spacing: var(--letter-spacing-display, -0.02em);
   line-height: 1.1;
   font-weight: 700;
+  font-family: var(--font-display, inherit);
+  color: var(--text-primary);
 }
 
 #projects-heading,
 #about-heading,
 #contact-heading {
-  font-size: clamp(1.5rem, 3vw, 2.5rem) !important;
-  letter-spacing: -0.01em;
+  font-size: var(--heading-size-1, clamp(1.5rem, 3vw, 2.5rem)) !important;
+  letter-spacing: var(--letter-spacing-display, -0.01em);
   font-weight: 600;
+  font-family: var(--font-display, inherit);
+  color: var(--text-primary);
 }
 
 /* ===========================================
@@ -754,10 +757,10 @@ svg {
   border-radius: inherit;
   background: linear-gradient(
     45deg,
-    var(--base09),
-    var(--base0D),
-    var(--base0B),
-    var(--base09)
+    var(--accent-primary),
+    var(--accent-secondary),
+    var(--accent-success),
+    var(--accent-primary)
   );
   background-size: 400% 400%;
   z-index: -1;
@@ -793,9 +796,9 @@ svg {
   background: linear-gradient(
     135deg,
     transparent 0%,
-    var(--base09) 25%,
-    var(--base0D) 50%,
-    var(--base0B) 75%,
+    var(--accent-primary) 25%,
+    var(--accent-secondary) 50%,
+    var(--accent-success) 75%,
     transparent 100%
   ) !important;
   transform: scaleY(2) !important;
