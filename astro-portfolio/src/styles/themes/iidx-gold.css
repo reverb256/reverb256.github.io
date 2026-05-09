@@ -1,0 +1,81 @@
+/* IIDX GOLD — Gold/amber navigator, premium feel */
+
+[data-theme="iidx-gold"] {
+  --bg-primary: #0a0808;
+  --bg-elevated: #161010;
+  --bg-surface: #201818;
+  --bg-hover: #2a2020;
+
+  --text-primary: #f8f0e0;
+  --text-secondary: #d0c0a0;
+  --text-muted: #907050;
+  --text-subtle: #604830;
+
+  --accent-primary: #ffc107;
+  --accent-secondary: #ff8f00;
+  --accent-tertiary: #ffe082;
+  --accent-success: #4caf50;
+  --accent-error: #c62828;
+  --accent-warning: #ff6f00;
+
+  --glass-bg: rgba(22, 16, 16, 0.92);
+  --glass-border: rgba(255, 193, 7, 0.2);
+  --glow-color: rgba(255, 193, 7, 0.3);
+
+  --font-display: 'Orbitron', 'Exo 2', sans-serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+  --font-mono: 'Fira Code', monospace;
+  --heading-size-hero: clamp(2rem, 4.5vw, 3.5rem);
+  --heading-size-1: clamp(1.5rem, 3.5vw, 2.5rem);
+  --heading-size-2: clamp(1.1rem, 2vw, 1.5rem);
+  --letter-spacing-display: 0.06em;
+
+  --radius-theme: 4px;
+  --border-width: 1px;
+  --border-color: rgba(255, 193, 7, 0.2);
+  --retro-scanline-opacity: 0.3;
+}
+
+[data-theme="iidx-gold"] .retro-heading {
+  font-family: var(--font-display); text-transform: uppercase;
+  letter-spacing: var(--letter-spacing-display); color: var(--accent-primary);
+  text-shadow: 0 0 12px rgba(255, 193, 7, 0.4);
+}
+
+[data-theme="iidx-gold"] .retro-subheading {
+  font-family: var(--font-display); text-transform: uppercase;
+  color: var(--text-primary);
+}
+
+[data-theme="iidx-gold"] .retro-btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  padding: 0.5rem 1.5rem;
+  font-family: var(--font-display); font-size: 0.9rem;
+  text-transform: uppercase; letter-spacing: var(--letter-spacing-display);
+  color: var(--bg-primary); background: var(--accent-primary);
+  border: 2px solid var(--accent-primary); border-radius: var(--radius-theme);
+  cursor: pointer;
+}
+
+[data-theme="iidx-gold"] .retro-btn--outline { background: transparent; color: var(--accent-primary); }
+
+[data-theme="iidx-gold"] .retro-card {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-theme); padding: 1rem;
+}
+
+[data-theme="iidx-gold"] .theme-nav {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 8px;
+}
+
+[data-theme="iidx-gold"] .theme-nav-item {
+  padding: 0.75rem; cursor: pointer;
+  border: 1px solid var(--border-color); border-radius: 4px;
+  background: var(--bg-elevated); transition: all 150ms;
+}
+
+[data-theme="iidx-gold"] .theme-nav-item--active {
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 15px var(--glow-color);
+}

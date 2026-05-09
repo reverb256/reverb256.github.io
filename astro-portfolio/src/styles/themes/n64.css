@@ -1,0 +1,87 @@
+/* Nintendo 64 — Boot menu, controller button palette */
+
+[data-theme="n64"] {
+  --bg-primary: #0e0c14;
+  --bg-elevated: #161430;
+  --bg-surface: #1e1c3c;
+  --bg-hover: #282650;
+
+  --text-primary: #f0eef8;
+  --text-secondary: #c0b8d0;
+  --text-muted: #706888;
+  --text-subtle: #484060;
+
+  --accent-primary: #3333FF;
+  --accent-secondary: #45D043;
+  --accent-tertiary: #E9CD35;
+  --accent-success: #45D043;
+  --accent-error: #F86039;
+  --accent-warning: #E9CD35;
+
+  --n64-button-a: #3333FF;
+  --n64-button-b: #45D043;
+  --n64-button-start: #F86039;
+  --n64-button-c: #E9CD35;
+  --n64-shoulder-cyan: #17D6E8;
+
+  --glass-bg: rgba(22, 20, 48, 0.85);
+  --glass-border: rgba(51, 51, 255, 0.15);
+  --glow-color: rgba(51, 51, 255, 0.25);
+
+  --font-display: 'Bebas Neue', 'Oswald', sans-serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+  --font-mono: 'Fira Code', monospace;
+  --heading-size-hero: clamp(2.5rem, 6vw, 4.25rem);
+  --heading-size-1: clamp(1.75rem, 4vw, 3rem);
+  --heading-size-2: clamp(1.25rem, 2.5vw, 2rem);
+  --letter-spacing-display: 0.08em;
+
+  --radius-theme: 8px;
+  --border-width: 2px;
+  --border-color: rgba(51, 51, 255, 0.2);
+  --retro-scanline-opacity: 0.35;
+}
+
+[data-theme="n64"] .retro-heading {
+  font-family: var(--font-display); text-transform: uppercase;
+  letter-spacing: var(--letter-spacing-display); color: var(--accent-primary);
+}
+
+[data-theme="n64"] .retro-subheading {
+  font-family: var(--font-display); text-transform: uppercase;
+  color: var(--text-primary);
+}
+
+[data-theme="n64"] .retro-btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  padding: 0.5rem 1.5rem;
+  font-family: var(--font-display); font-size: 1rem;
+  text-transform: uppercase; letter-spacing: var(--letter-spacing-display);
+  color: white; background: var(--accent-primary);
+  border: 2px solid var(--accent-primary); border-radius: 24px;
+  cursor: pointer;
+}
+
+[data-theme="n64"] .retro-btn--outline { background: transparent; color: var(--accent-primary); }
+
+[data-theme="n64"] .retro-card {
+  background: var(--glass-bg); border: var(--border-width) solid var(--border-color);
+  border-radius: var(--radius-theme); padding: 1.5rem;
+}
+
+/* N64 boot menu — 3D icon tiles */
+[data-theme="n64"] .theme-nav {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 16px;
+}
+
+[data-theme="n64"] .theme-nav-item {
+  padding: 1rem; cursor: pointer; text-align: center;
+  border-radius: 12px; background: var(--bg-elevated);
+  border: 2px solid transparent; transition: all 200ms;
+}
+
+[data-theme="n64"] .theme-nav-item--active {
+  border-color: var(--accent-primary);
+  transform: scale(1.05);
+  box-shadow: 0 4px 20px var(--glow-color);
+}

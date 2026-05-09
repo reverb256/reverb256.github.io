@@ -1,0 +1,82 @@
+/* IIDX RESIDENT — Dark modern, monochrome with accents */
+
+[data-theme="iidx-resident"] {
+  --bg-primary: #0c0c0c;
+  --bg-elevated: #161616;
+  --bg-surface: #202020;
+  --bg-hover: #2a2a2a;
+
+  --text-primary: #f0f0f0;
+  --text-secondary: #b0b0b0;
+  --text-muted: #707070;
+  --text-subtle: #404040;
+
+  --accent-primary: #00e676;
+  --accent-secondary: #00b0ff;
+  --accent-tertiary: #ff4081;
+  --accent-success: #00e676;
+  --accent-error: #ff1744;
+  --accent-warning: #ffab00;
+
+  --glass-bg: rgba(22, 22, 22, 0.95);
+  --glass-border: rgba(0, 230, 118, 0.1);
+  --glow-color: rgba(0, 230, 118, 0.15);
+
+  --font-display: 'Inter', system-ui, sans-serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+  --heading-size-hero: clamp(2rem, 4vw, 3rem);
+  --heading-size-1: clamp(1.5rem, 3vw, 2rem);
+  --heading-size-2: clamp(1.1rem, 1.8vw, 1.4rem);
+  --letter-spacing-display: 0.02em;
+
+  --radius-theme: 6px;
+  --border-width: 1px;
+  --border-color: rgba(255, 255, 255, 0.08);
+  --retro-scanline-opacity: 0.1;
+}
+
+[data-theme="iidx-resident"] .retro-heading {
+  font-family: var(--font-display); font-weight: 700;
+  color: var(--text-primary); letter-spacing: var(--letter-spacing-display);
+}
+
+[data-theme="iidx-resident"] .retro-subheading {
+  font-family: var(--font-display); font-weight: 500;
+  color: var(--text-secondary);
+}
+
+[data-theme="iidx-resident"] .retro-btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  padding: 0.5rem 1.5rem;
+  font-family: var(--font-display); font-size: 0.85rem;
+  color: var(--bg-primary); background: var(--accent-primary);
+  border: none; border-radius: var(--radius-theme);
+  cursor: pointer; font-weight: 600;
+}
+
+[data-theme="iidx-resident"] .retro-btn--outline {
+  background: transparent; color: var(--accent-primary);
+  border: 1px solid var(--accent-primary);
+}
+
+[data-theme="iidx-resident"] .retro-card {
+  background: var(--glass-bg);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-theme); padding: 1.25rem;
+}
+
+/* Modern grid layout */
+[data-theme="iidx-resident"] .theme-nav {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px;
+}
+
+[data-theme="iidx-resident"] .theme-nav-item {
+  padding: 1rem; cursor: pointer;
+  border: 1px solid var(--border-color); border-radius: 6px;
+  background: var(--bg-elevated); transition: all 150ms;
+}
+
+[data-theme="iidx-resident"] .theme-nav-item--active {
+  border-color: var(--accent-primary);
+}

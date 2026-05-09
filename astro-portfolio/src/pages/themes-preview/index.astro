@@ -1,0 +1,354 @@
+---
+// Theme showcase — preview all 16 retro gaming themes
+const franchises = [
+  {
+    id: "ddr",
+    label: "DDR",
+    themes: [
+      { id: "ddr-3rd", name: "3rd Mix", subtitle: "Jukebox neon green on black", features: ["Vertical scrolling list", "Neon green + pink + blue", "Anton display font"] },
+      { id: "ddr-max", name: "MAX", subtitle: "Song wheel sidebar, dark blue", features: ["Two-panel grid layout", "Green + blue accents", "320px song wheel"] },
+      { id: "ddr-extreme", name: "Extreme", subtitle: "Green vortex, metallic yellow", features: ["Horizontal scroll snap", "Yellow + cyan", "Default theme"] },
+    ],
+  },
+  {
+    id: "iidx",
+    label: "beatmania / IIDX",
+    themes: [
+      { id: "bm-5th", name: "5th Mix", subtitle: "5-key DJ cabinet, orange", features: ["Record crate grid", "Orange primary", "Oswald font"] },
+      { id: "iidx-7th", name: "7th Style", subtitle: "Blue primary, red ANOTHER", features: ["Vertical nav border-left", "Blue + red", "Orbitron font"] },
+      { id: "iidx-10th", name: "10th Style", subtitle: "Purple neon, dark palette", features: ["Auto-fill grid", "Purple + cyan", "Magenta glow"] },
+      { id: "iidx-gold", name: "GOLD", subtitle: "Gold/amber, warm background", features: ["Grid nav", "Gold primary", "Golden glow"] },
+      { id: "iidx-pendual", name: "PENDUAL", subtitle: "Dual: Future blue / Past sepia", features: ["Dual-column nav", "Toggle mode", "Blue + warm orange"] },
+      { id: "iidx-resident", name: "RESIDENT", subtitle: "Modern minimal, green accent", features: ["Modern grid", "Green (#00e676)", "Inter font"] },
+    ],
+  },
+  {
+    id: "nintendo",
+    label: "Nintendo",
+    themes: [
+      { id: "n64", name: "N64", subtitle: "Controller button palette", features: ["Round nav (24px)", "Blue + green", "Bebas Neue"] },
+      { id: "gamecube", name: "GameCube", subtitle: "Indigo + spice orange", features: ["Cube-spin grid", "Indigo + orange", "12px radius"] },
+      { id: "ds", name: "DS", subtitle: "Light theme, dual screen", features: ["Light (color-scheme: light)", "Top-screen nav", "DS-blue accent"] },
+    ],
+  },
+  {
+    id: "computer",
+    label: "Computer",
+    themes: [
+      { id: "win95", name: "Win95", subtitle: "Teal desktop, 3D beveled", features: ["3D box-shadow buttons", "Taskbar nav", "Zero radius"] },
+      { id: "winxp", name: "WinXP", subtitle: "Luna blue, Bliss gradient", features: ["XP title gradient", "Green Start button", "Window chrome"] },
+      { id: "dos-games", name: "DOS Games", subtitle: "EGA 16-color, pixel fonts", features: ["Press Start 2P + VT323", "Green on black", "C&C sidebar"] },
+      { id: "linux-wm", name: "Linux WM", subtitle: "Gruvbox + i3/bspwm", features: ["JetBrains Mono", "Tiling grid", "Zero radius"] },
+    ],
+  },
+];
+---
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Theme Preview | Reverb256 Design System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Exo+2:wght@400;500;600;700&family=Fira+Code:wght@400;500&family=Inter:wght@400;500;600;700&family=Orbitron:wght@400;500;600;700&family=Oswald:wght@400;500;600;700&family=Press+Start+2P&family=VT323&family=JetBrains+Mono:wght@400;500;700&subset=latin&display=swap" rel="stylesheet" />
+  <style>
+    @import "../../styles/tokens-retro.css";
+    @import "../../styles/themes/ddr-3rd.css";
+    @import "../../styles/themes/ddr-max.css";
+    @import "../../styles/themes/ddr-extreme.css";
+    @import "../../styles/themes/bm-5th.css";
+    @import "../../styles/themes/iidx-7th.css";
+    @import "../../styles/themes/iidx-10th.css";
+    @import "../../styles/themes/iidx-gold.css";
+    @import "../../styles/themes/iidx-pendual.css";
+    @import "../../styles/themes/iidx-resident.css";
+    @import "../../styles/themes/n64.css";
+    @import "../../styles/themes/gamecube.css";
+    @import "../../styles/themes/ds.css";
+    @import "../../styles/themes/win95.css";
+    @import "../../styles/themes/winxp.css";
+    @import "../../styles/themes/dos-games.css";
+    @import "../../styles/themes/linux-wm.css";
+    @import "../../styles/components-retro.css";
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #0a0c10;
+      color: #e0e0e0;
+      font-family: 'Inter', system-ui, sans-serif;
+      padding: 2rem;
+    }
+
+    .page-header {
+      text-align: center;
+      padding: 3rem 0;
+      border-bottom: 1px solid #333;
+      margin-bottom: 3rem;
+    }
+    .page-header h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2rem, 5vw, 4rem);
+      letter-spacing: 0.08em;
+      background: linear-gradient(135deg, #ffd93d, #ff2d78, #00b4d8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .page-header p {
+      color: #888;
+      margin-top: 0.5rem;
+      font-size: 0.9rem;
+    }
+
+    .franchise-section {
+      margin-bottom: 3rem;
+    }
+    .franchise-label {
+      font-family: 'Fira Code', monospace;
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: #555;
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid #222;
+    }
+
+    .themes-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .theme-card {
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid #333;
+      transition: transform 0.3s, box-shadow 0.3s;
+      cursor: pointer;
+    }
+    .theme-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+    }
+    .theme-card:focus-visible {
+      outline: 2px solid #ffd93d;
+      outline-offset: 2px;
+    }
+
+    .theme-preview {
+      padding: 1.5rem;
+      min-height: 220px;
+      position: relative;
+    }
+
+    .theme-info {
+      padding: 1rem 1.5rem;
+      background: rgba(255,255,255,0.03);
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+    .theme-info h3 {
+      font-family: 'Fira Code', monospace;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #888;
+    }
+    .theme-info .subtitle {
+      font-family: 'Fira Code', monospace;
+      font-size: 0.6rem;
+      color: #555;
+      margin-top: 2px;
+    }
+
+    .swatch-row {
+      display: flex;
+      gap: 4px;
+      margin-top: 1rem;
+    }
+    .swatch {
+      width: 20px;
+      height: 20px;
+      border-radius: 3px;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .component-demo {
+      margin-top: 1rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      align-items: center;
+    }
+
+    @media (max-width: 900px) {
+      body { padding: 1rem; }
+      .themes-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header class="page-header">
+    <h1>REVERB256 DESIGN SYSTEM</h1>
+    <p>16 retro gaming themes across 4 franchises. Click any card to explore.</p>
+  </header>
+
+  {franchises.map((f) => (
+    <section class="franchise-section">
+      <div class="franchise-label">{f.label}</div>
+      <div class="themes-grid">
+        {f.themes.map((t) => (
+          <a href={`/themes-preview/${t.id}`} class="theme-card" style="text-decoration: none; color: inherit;">
+            <div class="theme-preview" data-theme={t.id}>
+              <h2 class="retro-heading" style="font-size: var(--heading-size-1); margin-bottom: 0.3rem;">
+                {t.name}
+              </h2>
+              <div class="component-demo">
+                <button class="retro-btn">Go</button>
+                <button class="retro-btn retro-btn--outline">Info</button>
+              </div>
+              <div class="retro-card" style="margin-top: 0.75rem; padding: 0.75rem;">
+                <p style="font-size: 0.75rem; color: var(--text-secondary);">
+                  {t.features[0]} · {t.features[1]}
+                </p>
+              </div>
+              <div class="swatch-row" style="margin-top: 0.75rem;">
+                <div class="swatch" style="background: var(--bg-primary);"></div>
+                <div class="swatch" style="background: var(--bg-elevated);"></div>
+                <div class="swatch" style="background: var(--accent-primary);"></div>
+                <div class="swatch" style="background: var(--accent-secondary);"></div>
+                <div class="swatch" style="background: var(--text-primary);"></div>
+                <div class="swatch" style="background: var(--text-muted);"></div>
+              </div>
+            </div>
+            <div class="theme-info">
+              <h3>{t.name}</h3>
+              <div class="subtitle">{t.subtitle}</div>
+            </div>
+          </a>
+        ))}
+      </div>
+    </section>
+  ))}
+
+  <!-- Shared components preview -->
+  <section style="max-width: 1400px; margin: 3rem auto 0; padding-top: 2rem; border-top: 1px solid #333;">
+    <h2 style="font-family: 'Bebas Neue', sans-serif; font-size: 2rem; letter-spacing: 0.08em; color: #888; margin-bottom: 1.5rem;">
+      SHARED COMPONENTS
+    </h2>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem;">
+      <!-- 88x31 buttons -->
+      <div>
+        <h3 style="font-family: 'Fira Code', monospace; font-size: 0.7rem; color: #666; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.75rem;">
+          88×31 Buttons
+        </h3>
+        <div style="display: flex; flex-wrap: wrap; gap: 4px;">
+          <span class="retro-btn-88x31 retro-btn-88x31--link">Astro</span>
+          <span class="retro-btn-88x31 retro-btn-88x31--link">NixOS</span>
+          <span class="retro-btn-88x31 retro-btn-88x31--link">Rust</span>
+          <span class="retro-btn-88x31 retro-btn-88x31--made-with">Made with ♥</span>
+          <span class="retro-btn-88x31 retro-btn-88x31--valid">Valid HTML</span>
+        </div>
+      </div>
+
+      <!-- Visitor counter -->
+      <div>
+        <h3 style="font-family: 'Fira Code', monospace; font-size: 0.7rem; color: #666; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.75rem;">
+          Visitor Counter
+        </h3>
+        <div class="retro-counter">
+          <div class="retro-counter-label">visitors</div>
+          <div class="retro-counter-digits">
+            <span class="retro-counter-digit">0</span>
+            <span class="retro-counter-digit">4</span>
+            <span class="retro-counter-digit">2</span>
+            <span class="retro-counter-digit">0</span>
+            <span class="retro-counter-digit">6</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Changelog -->
+      <div>
+        <h3 style="font-family: 'Fira Code', monospace; font-size: 0.7rem; color: #666; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.75rem;">
+          Update Log
+        </h3>
+        <div class="retro-changelog">
+          <div class="retro-changelog-header">Changelog</div>
+          <div class="retro-changelog-entry">
+            <span class="retro-changelog-date">May 09</span>
+            <span class="retro-changelog-text">16-theme design system<span class="retro-changelog-badge">new</span></span>
+          </div>
+          <div class="retro-changelog-entry">
+            <span class="retro-changelog-date">May 09</span>
+            <span class="retro-changelog-text">Blog migrated to content collections</span>
+          </div>
+          <div class="retro-changelog-entry">
+            <span class="retro-changelog-date">May 09</span>
+            <span class="retro-changelog-text">XSS fixes + security headers</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Badges -->
+      <div>
+        <h3 style="font-family: 'Fira Code', monospace; font-size: 0.7rem; color: #666; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.75rem;">
+          Badges
+        </h3>
+        <div style="display: flex; flex-wrap: wrap; gap: 8px; align-items: center;">
+          <span class="retro-badge--new">NEW!</span>
+          <span class="retro-badge--beta">BETA</span>
+          <span class="retro-badge--best">BEST VIEWED</span>
+          <span class="retro-badge--level">LV.42</span>
+        </div>
+      </div>
+
+      <!-- Webring -->
+      <div>
+        <h3 style="font-family: 'Fira Code', monospace; font-size: 0.7rem; color: #666; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.75rem;">
+          Webring
+        </h3>
+        <div class="retro-webring">
+          <a href="#">← Prev</a>
+          <span class="retro-webring-name">Homelab Ring</span>
+          <a href="#">Next →</a>
+        </div>
+      </div>
+
+      <!-- Under construction -->
+      <div>
+        <h3 style="font-family: 'Fira Code', monospace; font-size: 0.7rem; color: #666; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.75rem;">
+          Under Construction
+        </h3>
+        <div class="retro-under-construction">
+          <span class="retro-under-construction-text">🚧 UNDER CONSTRUCTION 🚧</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- CRT effects -->
+    <div style="margin-top: 2rem;">
+      <h3 style="font-family: 'Fira Code', monospace; font-size: 0.7rem; color: #666; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.75rem;">
+        CRT Effects
+      </h3>
+      <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+        <div class="retro-crt--scanlines-heavy retro-crt--curved" style="padding: 1rem 2rem; background: #0a0e1a; color: #ffd93d; font-family: 'Fira Code', monospace; font-size: 0.8rem;">
+          Scanlines + Curved
+        </div>
+        <div class="retro-crt--vhs" style="padding: 1rem 2rem; background: #0a0e1a; color: #00ff88; font-family: 'Fira Code', monospace; font-size: 0.8rem;">
+          VHS Glitch
+        </div>
+        <div class="retro-crt--phosphor" style="padding: 1rem 2rem; background: #0a0e1a; color: #00ff88; font-family: 'Fira Code', monospace; font-size: 0.8rem;">
+          Phosphor Tint
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer style="text-align: center; padding: 3rem 0 1rem; color: #444; font-size: 0.75rem;">
+    reverb256 design system · 16 retro gaming themes · 2026
+  </footer>
+</body>
+</html>

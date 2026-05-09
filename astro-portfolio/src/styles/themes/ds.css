@@ -1,0 +1,92 @@
+/* Nintendo DS — Dual-screen layout, light theme */
+
+[data-theme="ds"] {
+  color-scheme: light;
+
+  --bg-primary: #f0f0f0;
+  --bg-elevated: #ffffff;
+  --bg-surface: #e8e8e8;
+  --bg-hover: #d8d8d8;
+
+  --text-primary: #1a1a1a;
+  --text-secondary: #404040;
+  --text-muted: #808080;
+  --text-subtle: #a0a0a0;
+
+  --accent-primary: #c0c0c0;
+  --accent-secondary: #808080;
+  --accent-tertiary: #505050;
+  --accent-success: #4caf50;
+  --accent-error: #c62828;
+  --accent-warning: #f57c00;
+
+  --glass-bg: rgba(255, 255, 255, 0.95);
+  --glass-border: rgba(0, 0, 0, 0.1);
+  --glow-color: transparent;
+
+  --font-display: 'Inter', 'Segoe UI', sans-serif;
+  --font-body: 'Inter', 'Segoe UI', sans-serif;
+  --font-mono: 'Fira Code', monospace;
+  --heading-size-hero: clamp(1.5rem, 3vw, 2rem);
+  --heading-size-1: clamp(1.25rem, 2.5vw, 1.75rem);
+  --heading-size-2: clamp(1rem, 1.8vw, 1.25rem);
+  --letter-spacing-display: 0.02em;
+
+  --radius-theme: 8px;
+  --border-width: 1px;
+  --border-color: rgba(0, 0, 0, 0.1);
+  --retro-scanline-opacity: 0;
+}
+
+[data-theme="ds"] .retro-heading {
+  font-family: var(--font-display); font-weight: 700;
+  color: var(--text-primary);
+}
+
+[data-theme="ds"] .retro-subheading {
+  font-family: var(--font-display); font-weight: 500;
+  color: var(--text-secondary);
+}
+
+[data-theme="ds"] .retro-btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  padding: 0.5rem 1.5rem;
+  font-family: var(--font-display); font-size: 0.85rem;
+  color: white; background: var(--accent-secondary);
+  border: none; border-radius: var(--radius-theme);
+  cursor: pointer; font-weight: 600;
+}
+
+[data-theme="ds"] .retro-btn--outline {
+  background: transparent; color: var(--accent-secondary);
+  border: 1px solid var(--accent-secondary);
+}
+
+[data-theme="ds"] .retro-card {
+  background: var(--glass-bg);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-theme); padding: 1rem;
+}
+
+/* DS dual-screen: top = nav/status, bottom = content */
+[data-theme="ds"] .theme-layout {
+  display: grid; grid-template-rows: auto 1fr; min-height: 100vh;
+}
+
+[data-theme="ds"] .theme-nav {
+  display: flex; flex-wrap: wrap; gap: 8px;
+  padding: 12px; background: var(--bg-elevated);
+  border-bottom: 2px solid var(--border-color);
+}
+
+[data-theme="ds"] .theme-nav-item {
+  padding: 8px 16px; cursor: pointer;
+  border-radius: 6px; background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  font-size: 0.8rem; transition: all 150ms;
+}
+
+[data-theme="ds"] .theme-nav-item--active {
+  background: var(--accent-secondary); color: white;
+  border-color: var(--accent-secondary);
+}

@@ -1,0 +1,253 @@
+---
+// ThemeSwitcher.astro — Global theme picker, bottom-right floating pill
+// Organized by franchise: DDR, IIDX, Nintendo, Computer
+
+const franchises = [
+  {
+    id: "ddr",
+    label: "DDR",
+    themes: [
+      { id: "ddr-3rd", label: "3rd Mix" },
+      { id: "ddr-max", label: "MAX" },
+      { id: "ddr-extreme", label: "Extreme" },
+    ],
+  },
+  {
+    id: "iidx",
+    label: "IIDX",
+    themes: [
+      { id: "bm-5th", label: "5th Mix" },
+      { id: "iidx-7th", label: "7th Style" },
+      { id: "iidx-10th", label: "10th Style" },
+      { id: "iidx-gold", label: "GOLD" },
+      { id: "iidx-pendual", label: "PENDUAL" },
+      { id: "iidx-resident", label: "RESIDENT" },
+    ],
+  },
+  {
+    id: "nintendo",
+    label: "Nintendo",
+    themes: [
+      { id: "n64", label: "N64" },
+      { id: "gamecube", label: "GameCube" },
+      { id: "ds", label: "DS" },
+    ],
+  },
+  {
+    id: "computer",
+    label: "Computer",
+    themes: [
+      { id: "win95", label: "Win95" },
+      { id: "winxp", label: "WinXP" },
+      { id: "dos-games", label: "DOS Games" },
+      { id: "linux-wm", label: "Linux WM" },
+    ],
+  },
+];
+
+const allThemes = franchises.flatMap(f => f.themes);
+---
+
+<div id="theme-switcher" data-theme-switcher>
+  <button id="theme-toggle" aria-label="Change theme" title="Change theme">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="5"/>
+      <line x1="12" y1="1" x2="12" y2="3"/>
+      <line x1="12" y1="21" x2="12" y2="23"/>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+      <line x1="1" y1="12" x2="3" y2="12"/>
+      <line x1="21" y1="12" x2="23" y2="12"/>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+    </svg>
+    <span id="theme-current-label">DDR Extreme</span>
+  </button>
+
+  <div id="theme-panel">
+    {franchises.map(f => (
+      <div class="theme-franchise">
+        <div class="theme-franchise-label">{f.label}</div>
+        <div class="theme-franchise-themes">
+          {f.themes.map(t => (
+            <button
+              class="theme-option"
+              data-theme-id={t.id}
+              data-franchise={f.id}
+            >
+              {t.label}
+            </button>
+          ))}
+        </div>
+      </div>
+    ))}
+  </div>
+</div>
+
+<style>
+  [data-theme-switcher] {
+    position: fixed;
+    bottom: 16px;
+    right: 16px;
+    z-index: 9999;
+    font-family: 'Fira Code', monospace;
+  }
+
+  #theme-toggle {
+    display: flex; align-items: center; gap: 8px;
+    padding: 8px 16px;
+    background: rgba(20, 20, 30, 0.9);
+    color: #e0e0e0;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 24px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 11px;
+    backdrop-filter: blur(12px);
+    transition: all 200ms;
+  }
+
+  #theme-toggle:hover {
+    background: rgba(30, 30, 45, 0.95);
+    border-color: rgba(255, 255, 255, 0.25);
+  }
+
+  #theme-current-label {
+    max-width: 120px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  #theme-panel {
+    display: none;
+    position: absolute;
+    bottom: 48px;
+    right: 0;
+    width: 280px;
+    background: rgba(16, 16, 24, 0.96);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 12px;
+    backdrop-filter: blur(16px);
+    max-height: 70vh;
+    overflow-y: auto;
+  }
+
+  #theme-panel.open {
+    display: block;
+  }
+
+  .theme-franchise {
+    margin-bottom: 12px;
+  }
+
+  .theme-franchise:last-child {
+    margin-bottom: 0;
+  }
+
+  .theme-franchise-label {
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: #888;
+    margin-bottom: 6px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  .theme-franchise-themes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+
+  .theme-option {
+    padding: 5px 10px;
+    font-family: inherit;
+    font-size: 11px;
+    color: #c0c0d0;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 150ms;
+  }
+
+  .theme-option:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+  }
+
+  .theme-option.active {
+    background: rgba(255, 217, 61, 0.15);
+    border-color: rgba(255, 217, 61, 0.4);
+    color: #ffd93d;
+    font-weight: 700;
+  }
+</style>
+
+<script>
+  const themeLabels: Record<string, string> = {
+    "ddr-3rd": "DDR 3rd Mix",
+    "ddr-max": "DDR MAX",
+    "ddr-extreme": "DDR Extreme",
+    "bm-5th": "beatmania 5th",
+    "iidx-7th": "IIDX 7th",
+    "iidx-10th": "IIDX 10th",
+    "iidx-gold": "IIDX GOLD",
+    "iidx-pendual": "IIDX PENDUAL",
+    "iidx-resident": "IIDX RESIDENT",
+    "n64": "N64",
+    "gamecube": "GameCube",
+    "ds": "Nintendo DS",
+    "win95": "Win95",
+    "winxp": "WinXP",
+    "dos-games": "DOS Games",
+    "linux-wm": "Linux WM",
+  };
+
+  const DEFAULT_THEME = "ddr-extreme";
+
+  function setTheme(themeId: string) {
+    document.body.setAttribute("data-theme", themeId);
+    localStorage.setItem("reverb256-theme", themeId);
+
+    const label = document.getElementById("theme-current-label");
+    if (label) label.textContent = themeLabels[themeId] || themeId;
+
+    document.querySelectorAll(".theme-option").forEach(btn => {
+      btn.classList.toggle("active", btn.getAttribute("data-theme-id") === themeId);
+    });
+  }
+
+  // Init
+  const saved = localStorage.getItem("reverb256-theme") || DEFAULT_THEME;
+  setTheme(saved);
+
+  // Toggle panel
+  const toggle = document.getElementById("theme-toggle");
+  const panel = document.getElementById("theme-panel");
+
+  toggle?.addEventListener("click", (e) => {
+    e.stopPropagation();
+    panel?.classList.toggle("open");
+  });
+
+  // Theme buttons
+  document.querySelectorAll(".theme-option").forEach(btn => {
+    btn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const themeId = btn.getAttribute("data-theme-id");
+      if (themeId) setTheme(themeId);
+      panel?.classList.remove("open");
+    });
+  });
+
+  // Close on outside click
+  document.addEventListener("click", () => {
+    panel?.classList.remove("open");
+  });
+
+  panel?.addEventListener("click", (e) => e.stopPropagation());
+</script>

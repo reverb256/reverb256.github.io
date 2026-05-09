@@ -1,0 +1,79 @@
+/* beatmania 5th Mix — 5-key DJ cabinet, vinyl records */
+
+[data-theme="bm-5th"] {
+  --bg-primary: #0a0a0f;
+  --bg-elevated: #12121c;
+  --bg-surface: #1a1a28;
+  --bg-hover: #222234;
+
+  --text-primary: #e0e0e0;
+  --text-secondary: #a0a0c0;
+  --text-muted: #606080;
+  --text-subtle: #383850;
+
+  --accent-primary: #ff6600;
+  --accent-secondary: #cc3300;
+  --accent-tertiary: #ff9900;
+  --accent-success: #00cc66;
+  --accent-error: #cc0000;
+  --accent-warning: #ffcc00;
+
+  --glass-bg: rgba(10, 10, 15, 0.9);
+  --glass-border: rgba(255, 102, 0, 0.15);
+  --glow-color: rgba(255, 102, 0, 0.25);
+
+  --font-display: 'Oswald', 'Impact', sans-serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+  --font-mono: 'Fira Code', monospace;
+  --heading-size-hero: clamp(2rem, 4.5vw, 3.5rem);
+  --heading-size-1: clamp(1.5rem, 3.5vw, 2.5rem);
+  --heading-size-2: clamp(1.1rem, 2vw, 1.5rem);
+  --letter-spacing-display: 0.04em;
+
+  --radius-theme: 2px;
+  --border-width: 1px;
+  --border-color: rgba(255, 102, 0, 0.15);
+  --retro-scanline-opacity: 0.35;
+}
+
+[data-theme="bm-5th"] .retro-heading {
+  font-family: var(--font-display); text-transform: uppercase;
+  letter-spacing: var(--letter-spacing-display); color: var(--accent-primary);
+}
+
+[data-theme="bm-5th"] .retro-subheading {
+  font-family: var(--font-display); text-transform: uppercase;
+  color: var(--text-primary);
+}
+
+[data-theme="bm-5th"] .retro-btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  padding: 0.5rem 1.5rem;
+  font-family: var(--font-display); font-size: 1rem;
+  text-transform: uppercase;
+  color: var(--bg-primary); background: var(--accent-primary);
+  border: 2px solid var(--accent-primary); border-radius: var(--radius-theme);
+  cursor: pointer;
+}
+
+[data-theme="bm-5th"] .retro-btn--outline { background: transparent; color: var(--accent-primary); }
+
+[data-theme="bm-5th"] .retro-card {
+  background: var(--glass-bg); border: var(--border-width) solid var(--border-color);
+  border-radius: var(--radius-theme); padding: 1rem;
+}
+
+/* Record crate layout */
+[data-theme="bm-5th"] .theme-nav {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 8px;
+}
+
+[data-theme="bm-5th"] .theme-nav-item {
+  padding: 0.75rem; cursor: pointer;
+  border: 1px solid var(--border-color); border-radius: 2px;
+  background: var(--bg-elevated); transition: all 150ms;
+}
+
+[data-theme="bm-5th"] .theme-nav-item--active {
+  border-color: var(--accent-primary); background: var(--bg-hover);
+}

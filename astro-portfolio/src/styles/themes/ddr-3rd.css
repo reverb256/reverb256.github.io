@@ -1,0 +1,92 @@
+/* DDR 3rd Mix — Jukebox-style song list, PS1-era neon */
+
+[data-theme="ddr-3rd"] {
+  --bg-primary: #0a0a0a;
+  --bg-elevated: #141420;
+  --bg-surface: #1c1c30;
+  --bg-hover: #25253f;
+
+  --text-primary: #ffffff;
+  --text-secondary: #c0c0d0;
+  --text-muted: #7070a0;
+  --text-subtle: #404068;
+
+  --accent-primary: #00ff88;
+  --accent-secondary: #ff2d78;
+  --accent-tertiary: #00b4d8;
+  --accent-success: #00ff88;
+  --accent-error: #ff4444;
+  --accent-warning: #ffd93d;
+
+  --glass-bg: rgba(14, 14, 20, 0.9);
+  --glass-border: rgba(0, 255, 136, 0.15);
+  --glow-color: rgba(0, 255, 136, 0.3);
+
+  --font-display: 'Anton', 'Impact', sans-serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+  --font-mono: 'Fira Code', monospace;
+  --heading-size-hero: clamp(2rem, 5vw, 3.5rem);
+  --heading-size-1: clamp(1.5rem, 3.5vw, 2.5rem);
+  --heading-size-2: clamp(1.1rem, 2vw, 1.5rem);
+  --letter-spacing-display: 0.05em;
+
+  --radius-theme: 2px;
+  --border-width: 1px;
+  --border-color: rgba(0, 255, 136, 0.2);
+  --retro-scanline-opacity: 0.5;
+}
+
+[data-theme="ddr-3rd"] .retro-heading {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: var(--letter-spacing-display);
+  color: var(--accent-primary);
+  text-shadow: 0 0 10px rgba(0, 255, 136, 0.4);
+}
+
+[data-theme="ddr-3rd"] .retro-subheading {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: var(--letter-spacing-display);
+  color: var(--text-primary);
+}
+
+[data-theme="ddr-3rd"] .retro-btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  padding: 0.5rem 1.5rem;
+  font-family: var(--font-display); font-size: 1rem;
+  text-transform: uppercase; letter-spacing: var(--letter-spacing-display);
+  color: var(--bg-primary); background: var(--accent-primary);
+  border: 2px solid var(--accent-primary); border-radius: var(--radius-theme);
+  cursor: pointer;
+}
+
+[data-theme="ddr-3rd"] .retro-btn--outline {
+  background: transparent; color: var(--accent-primary);
+}
+
+[data-theme="ddr-3rd"] .retro-card {
+  background: var(--glass-bg); border: var(--border-width) solid var(--border-color);
+  border-radius: var(--radius-theme); padding: 1rem;
+}
+
+/* 3rd Mix jukebox layout: vertical scrolling list */
+[data-theme="ddr-3rd"] .theme-nav {
+  display: flex; flex-direction: column; gap: 4px;
+}
+
+[data-theme="ddr-3rd"] .theme-nav-item {
+  display: flex; align-items: center; gap: 12px;
+  padding: 0.6rem 1rem; cursor: pointer;
+  border-left: 3px solid transparent;
+  transition: all 150ms;
+}
+
+[data-theme="ddr-3rd"] .theme-nav-item:hover,
+[data-theme="ddr-3rd"] .theme-nav-item--active {
+  background: var(--bg-hover); border-left-color: var(--accent-primary);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-theme="ddr-3rd"] .theme-nav-item:hover { transform: none; }
+}

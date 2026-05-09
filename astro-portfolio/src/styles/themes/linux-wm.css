@@ -1,0 +1,93 @@
+/* Linux Tiling WM — Gruvbox Dark + i3/bspwm */
+
+[data-theme="linux-wm"] {
+  --bg-primary: #282828;
+  --bg-elevated: #3c3836;
+  --bg-surface: #504945;
+  --bg-hover: #665c54;
+
+  --text-primary: #ebdbb2;
+  --text-secondary: #bdae93;
+  --text-muted: #928374;
+  --text-subtle: #665c54;
+
+  --accent-primary: #689d6a;
+  --accent-secondary: #d65d0e;
+  --accent-success: #98971a;
+  --accent-error: #cc241d;
+  --accent-warning: #d79921;
+  --accent-info: #458588;
+
+  --glass-bg: rgba(40, 40, 40, 0.95);
+  --glass-border: rgba(146, 131, 116, 0.3);
+  --glow-color: transparent;
+
+  --font-display: 'JetBrains Mono', 'Fira Code', monospace;
+  --font-body: 'JetBrains Mono', 'Fira Code', monospace;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+  --heading-size-hero: 18px;
+  --heading-size-1: 15px;
+  --heading-size-2: 14px;
+  --letter-spacing-display: 0em;
+
+  --radius-theme: 0px;
+  --border-width: 2px;
+  --border-color: #665c54;
+  --retro-scanline-opacity: 0.15;
+}
+
+[data-theme="linux-wm"] .retro-heading {
+  font-family: var(--font-display); font-weight: 700;
+  color: var(--text-primary); font-size: var(--heading-size-hero);
+}
+
+[data-theme="linux-wm"] .retro-subheading {
+  font-family: var(--font-display); font-weight: 500;
+  color: var(--text-secondary); font-size: var(--heading-size-1);
+}
+
+[data-theme="linux-wm"] .retro-btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  padding: 2px 12px;
+  font-family: var(--font-display); font-size: 13px;
+  color: var(--bg-primary); background: var(--accent-primary);
+  border: none; border-radius: 0;
+  cursor: pointer;
+}
+
+[data-theme="linux-wm"] .retro-btn--outline {
+  background: transparent; color: var(--accent-primary);
+  border: 1px solid var(--accent-primary);
+}
+
+[data-theme="linux-wm"] .retro-card {
+  background: var(--glass-bg);
+  border: 2px solid var(--accent-primary);
+  border-radius: 0; padding: 0.5rem;
+}
+
+/* Tiling grid layout */
+[data-theme="linux-wm"] .theme-layout {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 8px;
+  min-height: 100vh;
+  padding: 8px;
+}
+
+[data-theme="linux-wm"] .theme-nav {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 8px;
+}
+
+[data-theme="linux-wm"] .theme-nav-item {
+  padding: 8px; cursor: pointer;
+  border: 2px solid var(--border-color);
+  background: var(--bg-elevated);
+  font-size: 13px; transition: border-color 100ms;
+}
+
+[data-theme="linux-wm"] .theme-nav-item--active {
+  border-color: var(--accent-primary);
+}

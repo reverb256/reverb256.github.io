@@ -38,11 +38,64 @@ export default {
           850: "#172033",
           950: "#0a0f18",
         },
+        // Retro gaming palettes (mapped to theme tokens)
+        retro: {
+          // DDR neon
+          "ddr-yellow": "#ffd93d",
+          "ddr-pink": "#ff2d78",
+          "ddr-blue": "#00b4d8",
+          "ddr-green": "#00ff88",
+          // IIDX difficulty
+          "iidx-beginner": "#00c853",
+          "iidx-normal": "#2196f3",
+          "iidx-hyper": "#ffeb3b",
+          "iidx-another": "#ff1744",
+          // N64 controller buttons
+          "n64-blue": "#3333FF",
+          "n64-green": "#45D043",
+          "n64-red": "#F86039",
+          "n64-yellow": "#E9CD35",
+          "n64-cyan": "#17D6E8",
+          "n64-purple": "#B97DF2",
+          // GameCube
+          "gc-indigo": "#4A3A92",
+          "gc-spice": "#E8621C",
+          // SNES
+          "snes-purple": "#A25CC9",
+          "snes-gray": "#B7B7B7",
+          "snes-blue": "#3A88E4",
+          // Dreamcast
+          "dc-orange": "#E8621C",
+          "dc-blue": "#0072CE",
+          "dc-cream": "#F5E6C8",
+          // Win95
+          "win-teal": "#008080",
+          "win-navy": "#000080",
+          "win-silver": "#C0C0C0",
+          // Gruvbox (Linux tiling WM)
+          gruvbox: {
+            bg: "#282828",
+            fg: "#ebdbb2",
+            red: "#cc241d",
+            green: "#98971a",
+            yellow: "#d79921",
+            blue: "#458588",
+            purple: "#b16286",
+            aqua: "#689d6a",
+            orange: "#d65d0e",
+          },
+        },
       },
       fontFamily: {
         sans: ["Inter", "system-ui", "sans-serif"],
         display: ["Bebas Neue", "Inter", "sans-serif"],
         mono: ["Fira Code", "monospace"],
+        // Retro gaming fonts
+        "retro-condensed": ["Anton", "Impact", "sans-serif"],
+        "retro-geometric": ["Orbitron", "Exo 2", "sans-serif"],
+        "retro-pixel": ["Press Start 2P", "monospace"],
+        "retro-terminal": ["VT323", "Fira Code", "monospace"],
+        "retro-gothic": ["Oswald", "Bank Gothic", "Impact", "sans-serif"],
       },
       animation: {
         "fade-up": "fadeUp 0.6s ease-out forwards",

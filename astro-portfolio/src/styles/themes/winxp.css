@@ -1,0 +1,101 @@
+/* WinXP — Luna blue, Bliss gradient, taskbar */
+
+[data-theme="winxp"] {
+  color-scheme: light;
+
+  --bg-primary: #3168d5;
+  --bg-elevated: #ffffff;
+  --bg-surface: #ece9d8;
+  --bg-hover: #d6d2c2;
+
+  --text-primary: #000000;
+  --text-secondary: #1a1a1a;
+  --text-muted: #808080;
+  --text-subtle: #a0a0a0;
+
+  --accent-primary: #0058e6;
+  --accent-secondary: #0054e3;
+  --accent-tertiary: #3168d5;
+  --accent-success: #008000;
+  --accent-error: #c62828;
+  --accent-warning: #f57c00;
+
+  --glass-bg: #ffffff;
+  --glass-border: rgba(0, 0, 0, 0.1);
+  --glow-color: transparent;
+
+  --font-display: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  --font-body: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  --font-mono: 'Fira Code', 'Courier New', monospace;
+  --heading-size-hero: 18px;
+  --heading-size-1: 14px;
+  --heading-size-2: 13px;
+  --letter-spacing-display: 0em;
+
+  --radius-theme: 4px;
+  --border-width: 1px;
+  --border-color: rgba(0, 0, 0, 0.15);
+  --retro-scanline-opacity: 0;
+
+  --xp-start-green: #3c9a30;
+  --xp-title-blue: #0054e3;
+  --xp-title-gradient: linear-gradient(180deg, #0997ff 0%, #0053ee 8%, #0050ee 40%, #0046cc 88%, #0040c0 93%, #003ba7 95%, #00349e 100%);
+}
+
+[data-theme="winxp"] .retro-heading {
+  font-family: var(--font-display); font-weight: 700;
+  color: var(--text-primary);
+}
+
+[data-theme="winxp"] .retro-subheading {
+  font-family: var(--font-display); font-weight: 500;
+  color: var(--text-secondary);
+}
+
+[data-theme="winxp"] .retro-btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  padding: 2px 12px;
+  font-family: var(--font-display); font-size: 11px;
+  color: var(--text-primary); background: #ece9d8;
+  border: 1px solid #003c74; border-radius: 3px;
+  cursor: pointer;
+  box-shadow: inset 1px 1px 0 #fff, inset -1px -1px 0 #808080;
+}
+
+[data-theme="winxp"] .retro-btn--outline {
+  background: transparent; box-shadow: none;
+}
+
+[data-theme="winxp"] .retro-card {
+  background: var(--glass-bg);
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 6px 6px 0 0; padding: 0;
+  overflow: hidden;
+}
+
+/* XP window chrome */
+[data-theme="winxp"] .retro-card::before {
+  content: ''; display: block;
+  height: 24px; padding: 2px 6px;
+  background: var(--xp-title-gradient);
+}
+
+/* XP taskbar at bottom */
+[data-theme="winxp"] .theme-nav {
+  display: flex; align-items: center; gap: 4px;
+  padding: 2px 4px;
+  background: var(--xp-title-gradient);
+  border-top: 1px solid #0054e3;
+}
+
+[data-theme="winxp"] .theme-nav-item {
+  padding: 2px 8px; cursor: pointer;
+  font-family: var(--font-display); font-size: 11px;
+  color: white; background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 2px; transition: all 100ms;
+}
+
+[data-theme="winxp"] .theme-nav-item--active {
+  background: rgba(255, 255, 255, 0.25);
+}
