@@ -1,8 +1,7 @@
 ---
-// Layout.astro - Declarative base layout with GSAP + SEO + 16 retro themes
+// Layout.astro - Declarative base layout with GSAP + SEO
 
 import Header from "../components/Header.astro";
-import ThemeSwitcher from "../components/ThemeSwitcher.astro";
 
 interface Props {
   title: string;
@@ -17,28 +16,22 @@ const {
   description = "Software developer portfolio | Reverb256 - Building with Rust, TypeScript, and NixOS",
   image = "/og-image.png",
   canonical,
-  type = "website",
+  type = "website"
 } = Astro.props;
 
+// Generate full title
 const fullTitle = `${title} | Reverb256`;
+
+// Generate canonical URL if not provided
 const canonicalURL = canonical || new URL(Astro.url.pathname, Astro.site).href;
+
+// Open Graph image URL (absolute)
 const ogImage = new URL(image, Astro.site).href;
 ---
 
 <!doctype html>
 <html lang="en">
   <head>
-    <!-- Inline theme init to prevent flash — runs before any CSS paints -->
-    <script is:inline>
-      (function() {
-        var saved = localStorage.getItem('reverb256-theme') || 'ddr-extreme';
-        document.documentElement.setAttribute('data-theme', saved);
-        // Mark body with theme too once it exists
-        document.addEventListener('DOMContentLoaded', function() {
-          document.body.setAttribute('data-theme', saved);
-        });
-      })();
-    </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
@@ -48,8 +41,9 @@ const ogImage = new URL(image, Astro.site).href;
     <!-- Request dynamic-range hint for HDR detection -->
     <meta http-equiv="Accept-CH" content="Sec-CH-Prefers-Reduced-Motion" />
 
-    <!-- Support both light and dark themes (Win95, WinXP, DS are light) -->
-    <meta name="color-scheme" content="dark light" />
+    <!-- Critical for color consistency: declare color space support -->
+    <meta name="color-scheme" content="dark" />
+    <meta name="supported-color-schemes" content="dark" />
 
     <meta name="description" content={description} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -81,7 +75,7 @@ const ogImage = new URL(image, Astro.site).href;
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
     <!-- Font stylesheets with display=swap for CLS -->
-    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Exo+2:wght@400;500;600;700&family=Fira+Code:wght@400;500&family=Inter:wght@400;500;600;700&family=Orbitron:wght@400;500;600;700&family=Oswald:wght@400;500;600;700&family=Press+Start+2P&family=VT323&family=JetBrains+Mono:wght@400;500;700&subset=latin&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Fira+Code:wght@400;500&family=Inter:wght@400;500;600;700&subset=latin&display=swap" rel="stylesheet" />
 
     <title>{fullTitle}</title>
 
@@ -126,7 +120,7 @@ const ogImage = new URL(image, Astro.site).href;
       }
     })}></script>
   </head>
-  <body style="min-height: 100vh; margin: 0; padding: 0; color: var(--text-secondary, #c8cee0); font-family: var(--font-body, system-ui, sans-serif); overflow-x: hidden; background: var(--bg-primary, #060d0a);">
+  <body style="min-height: 100vh; margin: 0; padding: 0; color: var(--text-secondary); font-family: system-ui, -apple-system, sans-serif; overflow-x: hidden;">
     <!-- Background gradient - using CSS variables for color space awareness -->
     <div id="bg-gradient" style="position: fixed; inset: 0; background: linear-gradient(to bottom right, var(--bg-primary) 0%, var(--bg-primary) 60%, color(display-p3 0.04 0.06 0.12) 85%, color(display-p3 0.08 0.18 0.32) 100%); z-index: -20;"></div>
 
@@ -376,31 +370,10 @@ const ogImage = new URL(image, Astro.site).href;
         });
       }
     </script>
-
-    <ThemeSwitcher />
   </body>
 </html>
 
 <style is:global>
   @import "../styles/global.css";
   @import "../styles/animations.css";
-  @import "../styles/tokens-retro.css";
-  /* 16 retro themes — organized by franchise */
-  @import "../styles/themes/ddr-3rd.css";
-  @import "../styles/themes/ddr-max.css";
-  @import "../styles/themes/ddr-extreme.css";
-  @import "../styles/themes/bm-5th.css";
-  @import "../styles/themes/iidx-7th.css";
-  @import "../styles/themes/iidx-10th.css";
-  @import "../styles/themes/iidx-gold.css";
-  @import "../styles/themes/iidx-pendual.css";
-  @import "../styles/themes/iidx-resident.css";
-  @import "../styles/themes/n64.css";
-  @import "../styles/themes/gamecube.css";
-  @import "../styles/themes/ds.css";
-  @import "../styles/themes/win95.css";
-  @import "../styles/themes/winxp.css";
-  @import "../styles/themes/dos-games.css";
-  @import "../styles/themes/linux-wm.css";
-  @import "../styles/components-retro.css";
 </style>
