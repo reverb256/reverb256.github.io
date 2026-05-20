@@ -32,3 +32,9 @@ coverage/
 *.tmp
 *.temp
 .pwmcp-profiles/
+
+# Playwright report data (regenerable)
+playwright-report/data/
+
+# Nix build result symlinks
+result

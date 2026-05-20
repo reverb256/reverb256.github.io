@@ -1,77 +1,42 @@
+# Thin wrapper — delegates to the real flake in astro-portfolio/
+# Use: nix develop ./astro-portfolio  (or just cd astro-portfolio && nix develop)
 {
-  description = "Reverb256 Portfolio - Static site built with Astro, GSAP, and Tailwind";
+  description = "Reverb256 Portfolio — root wrapper (see astro-portfolio/flake.nix)";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    flake-utils.url = "github:numtide/flake-utils";
+    flake-parts.url = "github:hercules-ci/flake-parts";
   };
 
-  outputs = { self, nixpkgs, flake-utils }:
-    flake-utils.lib.eachDefaultSystem (system:
-      let
-        pkgs = nixpkgs.legacyPackages.${system};
-        
-        nodejs = pkgs.nodejs_20;
-        
-        buildTools = with pkgs; [
-          nodejs
-          nodePackages.npm
-        ];
-        
-        devTools = with pkgs; [
-          nodePackages.typescript
-          nodePackages.eslint
-          git
-          jq
-          fd
-          ripgrep
-          bat
-          eza
-        ];
-        
-      in {
-        devShells.default = pkgs.mkShell {
-          name = "reverb256-portfolio";
-          
-          buildInputs = buildTools ++ devTools;
-          
-          shellHook = ''
-            cd astro-portfolio
-            export PATH="$PWD/node_modules/.bin:$PATH"
-            
-            echo ""
-            echo "╔════════════════════════════════════════════╗"
-            echo "║  Reverb256 Portfolio (Astro)               ║"
-            echo "╠════════════════════════════════════════════╣"
-            printf "║  Node: %-35s║\n" "$(node --version)"
-            echo "╚════════════════════════════════════════════╝"
-            echo ""
-            echo "Commands:"
-            echo "  npm run dev      - Start dev server"
-            echo "  npm run build    - Build for production"
-            echo "  npm run preview  - Preview build"
-            echo "  npm run test     - Run Playwright tests"
-            echo ""
-          '';
+  outputs = inputs@{ self, nixpkgs, flake-parts }:
+    flake-parts.lib.mkFlake { inherit inputs; } {
+      systems = [ "x86_64-linux" "aarch64-linux" "x86_64-darwin" "aarch64-darwin" ];
+
+      perSystem = { config, self', inputs', pkgs, system, ... }:
+        let
+          nodejs = pkgs.nodejs_22;
+
+        in {
+          devShells.default = pkgs.mkShell {
+            name = "reverb256-portfolio";
+
+            buildInputs = [
+              nodejs
+              pkgs.git
+              pkgs.gh
+              pkgs.fd
+              pkgs.ripgrep
+            ];
+
+            shellHook = ''
+              echo ""
+              echo "Root shell — cd astro-portfolio for the full dev environment"
+              echo "  cd astro-portfolio && nix develop"
+              echo ""
+            '';
+          };
+
+          formatter = pkgs.nixfmt-classic;
         };
-        
-        apps.build = {
-          type = "app";
-          program = toString (pkgs.writeShellScript "build" ''
-            cd ${self}/astro-portfolio
-            npm ci --prefer-offline --no-audit
-            npm run build
-            echo "Built to dist/"
-          '');
-        };
-        
-        apps.preview = {
-          type = "app";
-          program = toString (pkgs.writeShellScript "preview" ''
-            cd ${self}/astro-portfolio
-            npm run preview
-          '');
-        };
-      }
-    );
+    };
 }

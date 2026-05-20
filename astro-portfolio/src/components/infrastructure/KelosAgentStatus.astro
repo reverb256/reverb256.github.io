@@ -1,0 +1,133 @@
+---
+// KelosAgentStatus.astro - Component to display Kelos/kagent monitoring status
+---
+
+<div class="glass-card">
+  <h3 class="font-bold text-[var(--base06)] mb-4">Agent Monitoring</h3>
+  
+  <div class="space-y-3">
+    <!-- Kelos Controller Status -->
+    <div class="flex items-center justify-between p-3 bg-[var(--base02)] rounded">
+      <div class="flex items-center gap-3">
+        <div class="w-2 h-2 rounded-full bg-[var(--base0B)] animate-pulse" aria-hidden="true"></div>
+        <span class="text-[var(--base0D)] font-medium">Kelos Controller</span>
+      </div>
+      <span class="px-2 py-0.5 text-[var(--base04)] rounded bg-[var(--base01)]">Online</span>
+    </div>
+    
+    <!-- Monitored Repositories -->
+    <div>
+      <p class="text-[var(--base05)] text-[10px] mb-2">Monitored Repositories:</p>
+      <div class="space-y-1">
+        <div class="flex items-center gap-2 p-2 bg-[var(--base01)] rounded">
+          <span class="w-1 h-1 rounded-full bg-[var(--base09)]"></span>
+          <span class="text-[var(--base06)]">ai-inference-gateway</span>
+        </div>
+        <div class="flex items-center gap-2 p-2 bg-[var(--base01)] rounded">
+          <span class="w-1 h-1 rounded-full bg-[var(--base09)]"></span>
+          <span class="text-[var(--base06)]">maplespike</span>
+        </div>
+        <div class="flex items-center gap-2 p-2 bg-[var(--base01)] rounded">
+          <span class="w-1 h-1 rounded-full bg-[var(--base09)]"></span>
+          <span class="text-[var(--base06)]">nixos-config</span>
+        </div>
+        <div class="flex items-center gap-2 p-2 bg-[var(--base01)] rounded">
+          <span class="w-1 h-1 rounded-full bg-[var(--base09)]"></span>
+          <span class="text-[var(--base06)]">compute-market</span>
+        </div>
+        <div class="flex items-center gap-2 p-2 bg-[var(--base01)] rounded">
+          <span class="w-1 h-1 rounded-full bg-[var(--base09)]"></span>
+          <span class="text-[var(--base06)]">mcp-registry</span>
+        </div>
+        <div class="flex items-center gap-2 p-2 bg-[var(--base01)] rounded">
+          <span class="w-1 h-1 rounded-full bg-[var(--base09)]"></span>
+          <span class="text-[var(--base06)]">knowledge-fabric</span>
+        </div>
+        <div class="flex items-center gap-2 p-2 bg-[var(--base01)] rounded">
+          <span class="w-1 h-1 rounded-full bg-[var(--base09)]"></span>
+          <span class="text-[var(--base06)]">astral-key</span>
+        </div>
+        <div class="flex items-center gap-2 p-2 bg-[var(--base01)] rounded">
+          <span class="w-1 h-1 rounded-full bg-[var(--base09)]"></span>
+          <span class="text-[var(--base06)]">searxng-cluster</span>
+        </div>
+        <div class="flex items-center gap-2 p-2 bg-[var(--base01)] rounded">
+          <span class="w-1 h-1 rounded-full bg-[var(--base09)]"></span>
+          <span class="text-[var(--base06)]">vllm-turboquant</span>
+        </div>
+        <div class="flex items-center gap-2 p-2 bg-[var(--base01)] rounded">
+          <span class="w-1 h-1 rounded-full bg-[var(--base09)]"></span>
+          <span class="text-[var(--base06)]">llama-cpp-turboquant</span>
+        </div>
+        <div class="flex items-center gap-2 p-2 bg-[var(--base01)] rounded">
+          <span class="w-1 h-1 rounded-full bg-[var(--base09)]"></span>
+          <span class="text-[var(--base06)]">caddy-ingress</span>
+        </div>
+        <div class="flex items-center gap-2 p-2 bg-[var(--base01)] rounded">
+          <span class="w-1 h-1 rounded-full bg-[var(--base09)]"></span>
+          <span class="text-[var(--base06)]">gpu-proxy</span>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Active Tasks -->
+    <div class="border-t pt-3">
+      <p class="text-[var(--base05)] text-[10px] mb-2">Active Tasks:</p>
+      <div id="kelos-tasks" class="space-y-1 text-[var(--base04)] text-[10px]">
+        <p class="italic">Loading task status...</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script is:inline>
+  // Fetch Kelos task status from the gateway
+  async function updateKelosStatus() {
+    try {
+      // In a real implementation, this would fetch from Kelos API
+      // For now, we'll simulate with some sample data
+      const taskContainer = document.getElementById('kelos-tasks');
+      
+      // Simulate fetching active tasks
+      const sampleTasks = [
+        { repo: 'maplespike', status: 'running', description: 'Updating knowledge pipeline' },
+        { repo: 'ai-inference-gateway', status: 'completed', description: 'Model routing optimization' },
+        { repo: 'nixos-config', status: 'pending', description: 'Cluster security audit' },
+        { repo: 'compute-market', status: 'running', description: 'GPU workload balancing' }
+      ];
+      
+      // Clear loading state
+      taskContainer.innerHTML = '';
+      
+      // Add tasks
+      sampleTasks.forEach(task => {
+        const taskEl = document.createElement('div');
+        taskEl.className = 'flex items-center justify-between p-2 bg-[var(--base02)] rounded';
+        
+        // Status dot color
+        let statusColor = 'var(--base08)'; // default to error/warning
+        if (task.status === 'running') statusColor = 'var(--base0B)'; // green
+        else if (task.status === 'completed') statusColor = 'var(--base0D)'; // blue
+        else if (task.status === 'pending') statusColor = 'var(--base09)'; // orange
+        
+        taskEl.innerHTML = `
+          <div class="flex items-center gap-2 flex-1">
+            <div class="w-1 h-1 rounded-full bg-[${statusColor}]" aria-hidden="true"></div>
+            <span class="text-[var(--base06)] font-medium">${task.repo}</span>
+          </div>
+          <span class="text-[var(--base04)] text-[9px]">${task.status}</span>
+        `;
+        
+        taskContainer.appendChild(taskEl);
+      });
+      
+    } catch (error) {
+      console.error('Failed to fetch Kelos status:', error);
+      document.getElementById('kelos-tasks').innerHTML = '<p class="text-[var(--base08)]">Error loading task status</p>';
+    }
+  }
+  
+  // Initial load and periodic updates
+  updateKelosStatus();
+  setInterval(updateKelosStatus, 15000); // Update every 15 seconds
+</script>

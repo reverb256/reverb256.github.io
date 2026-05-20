@@ -4,6 +4,7 @@ import HeroCluster from '../../components/infrastructure/HeroCluster.astro';
 import GlassCard from '../../components/infrastructure/GlassCard.astro';
 import Timeline from '../../components/infrastructure/Timeline.astro';
 import CodeExplorer from '../../components/infrastructure/CodeExplorer.astro';
+import KelosAgentStatus from '../../components/infrastructure/KelosAgentStatus.astro';
 import { CLUSTER_DATA } from '../../lib/infrastructure-data';
 ---
 
@@ -171,6 +172,9 @@ import { CLUSTER_DATA } from '../../lib/infrastructure-data';
           </GlassCard>
           <GlassCard title="Observability">
             Centralized logging with Promtail, metrics collection with Prometheus, visualization in Grafana. Alertmanager for incident response.
+          </GlassCard>
+          <GlassCard title="Agent Monitoring">
+            <KelosAgentStatus />
           </GlassCard>
         </div>
       </div>
@@ -349,7 +353,7 @@ import { CLUSTER_DATA } from '../../lib/infrastructure-data';
     }
 
     try {
-      # Knowledge Fabric status (would need its own API)
+      // Knowledge Fabric status (would need its own API)
       document.getElementById('knowledge-status').innerHTML = `
         <span class="status-dot status-healthy"></span>
         <span>Active</span>
@@ -365,7 +369,7 @@ import { CLUSTER_DATA } from '../../lib/infrastructure-data';
     }
 
     try {
-      # MCP Servers status
+      // MCP Servers status
       const mcpResponse = await fetch('https://gateway.reverb256.ca/mcp/servers', { timeout: 5000 });
       if (mcpResponse.ok) {
         const mcpData = await mcpResponse.json();
