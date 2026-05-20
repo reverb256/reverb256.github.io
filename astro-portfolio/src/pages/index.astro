@@ -31,12 +31,18 @@ const projects = {
     { title: "hair@home", repo: null, desc: "Hugo static site", status: "live", icon: "💇", span: "1x1", tech: ["Hugo", "SCSS"], metric: "Client" },
   ],
   personal: [
-    { title: "Frostbite Gazette", repo: "Frostbite-Gazette", desc: "AI-curated Canadian journalism", status: "active", icon: "🍁", span: "2x2", tech: ["Astro", "Cloudflare", "Groq AI"], metric: "Active" },
-    { title: "Astral Key", repo: "astral-key", desc: "Web3 auth microservice", status: "active", icon: "🔑", span: "1x1", tech: ["Rust", "SQLx", "Axum"], metric: "Active" },
+    { title: "Knowledge Fabric", repo: "knowledge-fabric", desc: "Qdrant vector search with RRF fusion & wiki compilation", status: "active", icon: "🧠", span: "2x2", tech: ["TypeScript", "Qdrant", "NixOS"], metric: "Active" },
+    { title: "Astral Key", repo: "astral-key", desc: "Web3/FIDO2/Passkey auth microservice", status: "active", icon: "🔑", span: "1x1", tech: ["Rust", "Axum", "PostgreSQL", "Redis"], metric: "Active" },
     { title: "Synapse", repo: "synapse", desc: "Local-first AI command center", status: "active", icon: "⚡", span: "2x1", tech: ["Node.js", "Tauri", "WebSocket"], metric: "Active" },
+    { title: "MapleSpike", repo: "maplespike", desc: "Canada's sovereign AI gov data pipeline (supersedes CivInt CA)", status: "active", icon: "🍁", span: "2x2", tech: ["TypeScript", "React", "NixOS"], metric: "Active" },
+    { title: "Frostbite Gazette", repo: "Frostbite-Gazette", desc: "AI-curated Canadian journalism", status: "active", icon: "🍁", span: "1x1", tech: ["Astro", "Cloudflare", "Groq AI"], metric: "Active" },
   ],
   infra: [
-    { title: "Infrastructure", repo: null, desc: "4-host NixOS cluster with AI monitoring", status: "live", icon: "🖥️", span: "2x2", tech: ["NixOS", "Colmena", "K8s", "AI"], metric: "Flagship", link: "/infrastructure" },
+    { title: "NixOS Cluster", repo: "nixos-config", desc: "4-host NixOS cluster with GitOps, VR gaming, mining, AI inference", status: "live", icon: "🖥️", span: "2x2", tech: ["NixOS", "Colmena", "K8s", "Tailscale"], metric: "Flagship", link: "/infrastructure" },
+    { title: "Compute Market", repo: "compute-market", desc: "GPU time-slicing market for burst AI inference workloads", status: "active", icon: "💰", span: "1x1", tech: ["NixOS", "Python", "Prometheus"], metric: "Infra" },
+    { title: "MCP Registry", repo: "mcp-registry", desc: "Declarative MCP server management as NixOS module", status: "active", icon: "🔌", span: "1x1", tech: ["NixOS", "JSON", "MCP"], metric: "Infra" },
+    { title: "Caddy Ingress", repo: "caddy-ingress", desc: "Custom Caddy build + NixOS module + container image", status: "active", icon: "🌐", span: "1x1", tech: ["Go", "NixOS", "Docker"], metric: "Infra" },
+    { title: "GPU Proxy", repo: "gpu-proxy", desc: "C++ stratum mining proxy v2.0 with SSL & pool management", status: "active", icon: "⛏️", span: "1x1", tech: ["C++", "Boost", "SSL"], metric: "Infra" },
   ],
   meta: [
     { title: "This Portfolio", repo: null, desc: "Astro + GSAP + Terminal", status: "live", icon: "🌐", span: "1x1", tech: ["Astro", "GSAP"], metric: "reverb256.ca" },
@@ -50,12 +56,12 @@ const categoryColors = {
   meta: "var(--base05)",      // gray
 };
 
-const skills = ["TypeScript", "React", "Rust", "Node.js", "NixOS", "Astro", "Tailwind", "Python", "Cloudflare Workers", "Docker", "Kubernetes", "MCP"];
+const skills = ["TypeScript", "React", "Rust", "Node.js", "NixOS", "Astro", "Tailwind", "Python", "FastAPI", "FastMCP", "Qdrant", "Axum", "Tauri", "Docker", "Kubernetes", "K3s", "MCP", "CUDA", "ROCm", "Prometheus", "Grafana", "Redis", "PostgreSQL", "GSAP", "Cloudflare", "GitHub Actions", "Vaultwarden", "Colmena", "Tailscale"];
 ---
 
 <Layout
   title="Reverb256"
-  description="Software developer portfolio showcasing projects in Rust, TypeScript, and NixOS. Building privacy-first AI tools, contributing to open source, and learning in public."
+  description="Software developer portfolio showcasing AI infrastructure, autonomous agents, and NixOS cluster management. Building Canada's sovereign AI stack with inference gateway, knowledge fabric, and government data pipelines."
 >
     <!-- Hero with Terminal -->
     <section id="hero" class="min-h-screen px-6" aria-labelledby="hero-heading">
@@ -78,7 +84,7 @@ const skills = ["TypeScript", "React", "Rust", "Node.js", "NixOS", "Astro", "Tai
             <a href="#contact" class="btn-outline">Get in Touch</a>
           </div>
           <div class="flex gap-6 pt-4 text-sm">
-            <div><span class="text-2xl font-bold text-[var(--base09)]">7+</span><br><span class="text-[var(--base04)]">Projects Shipped</span></div>
+            <div><span class="text-2xl font-bold text-[var(--base09)]">14</span><br><span class="text-[var(--base04)]">Projects Shipped</span></div>
             <div><span class="text-2xl font-bold text-[var(--base09)]">4</span><br><span class="text-[var(--base04)]">Host NixOS Cluster</span></div>
             <div><span class="text-2xl font-bold text-[var(--base09)]">Rust</span><br><span class="text-[var(--base04)]">→ TypeScript → Python</span></div>
           </div>
@@ -228,7 +234,7 @@ const skills = ["TypeScript", "React", "Rust", "Node.js", "NixOS", "Astro", "Tai
             Fully committed to <span class="text-[var(--base09)]">NixOS</span> for system configuration. Built a <span class="text-[var(--base0D)]">4-host mining cluster</span> with Colmena deployment, currently migrating to Kubernetes. Developing production apps with <span class="text-[var(--base09)]">Rust microservices</span>, <span class="text-[var(--base0D)]">React frontends</span>, and <span class="text-[var(--base09)]">AI integration</span>.
           </p>
           <p class="text-sm text-[var(--base05)] leading-relaxed mt-3">
-            <strong>Current focus:</strong> Building privacy-first AI tools, Web3 authentication systems, and local-first applications. Always learning through AI-assisted development.
+            <strong>Current focus:</strong> Building Canada's sovereign AI stack — inference gateway, knowledge fabric, and government data pipelines. Homelab infrastructure with NixOS at the core.
           </p>
         </article>
         <article class="glass p-6">
@@ -270,7 +276,47 @@ const skills = ["TypeScript", "React", "Rust", "Node.js", "NixOS", "Astro", "Tai
     </div>
   </section>
 
-  <!-- Footer -->
+  
+  <!-- AI Chat Section -->
+  <section id="ai-chat" class="px-6 py-12" aria-labelledby="ai-chat-heading">
+    <div class="max-w-6xl mx-auto">
+      <div class="beat-indicator mb-6" aria-hidden="true"></div>
+      <h2 id="ai-chat-heading" class="text-2xl font-bold mb-6 text-[var(--base06)]">// AI Assistant</h2>
+      <div class="glass p-6">
+        <div id="chat-messages" class="chat-messages space-y-4 mb-6 min-h-[300px]" role="log" aria-live="polite">
+          <!-- Chat messages will be injected here -->
+          <div class="chat-message AI">
+            <div class="flex items-start gap-3">
+              <div class="avatar AI">🤖</div>
+              <div class="message-content">
+                <p class="text-[var(--base05)]">Hello! I'm your AI assistant powered by the local inference gateway. Ask me about the infrastructure, projects, or anything else!</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="flex gap-3">
+          <input
+            type="text"
+            id="chat-input"
+            class="flex-grow px-4 py-2 glass border border-[var(--base03)] rounded-lg text-[var(--base06)] focus:outline-none focus:ring-2 focus:ring-[var(--base0D)]"
+            placeholder="Ask me about the infrastructure, AI gateway, or projects..."
+            autocomplete="off"
+          />
+          <button
+            id="chat-send"
+            class="btn-accent px-6 py-2"
+          >
+            Send
+          </button>
+        </div>
+        <div class="mt-4 text-xs text-[var(--base04)] text-center">
+          Powered by <a href="https://github.com/reverb256/ai-inference-gateway" class="text-[var(--base0D)] hover:underline">AI Inference Gateway</a> • <span class="text-[var(--base05)]">Local & Private</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<!-- Footer -->
   <footer class="px-6 py-4 border-t border-[var(--base02)]">
     <div class="max-w-6xl mx-auto flex items-center justify-between text-[10px] text-[var(--base04)]">
       <span>© 2026 Reverb256</span>
@@ -535,6 +581,120 @@ Purpose: Knowledge repository`);
     output.appendChild(bootLine3);
     
     output.scrollTop = output.scrollHeight;
+  }, 500);
+
+  
+  // AI Chat Functionality
+  const chatMessages = document.getElementById('chat-messages');
+  const chatInput = document.getElementById('chat-input');
+  const chatSend = document.getElementById('chat-send');
+
+  function addMessage(content, isUser = false) {
+    const messageDiv = document.createElement('div');
+    messageDiv.className = `chat-message ${isUser ? 'USER' : 'AI'}`;
+    messageDiv.innerHTML = `
+      <div class="flex items-start gap-3">
+        <div class="avatar ${isUser ? 'USER' : 'AI'}">${isUser ? '👤' : '🤖'}</div>
+        <div class="message-content">
+          <p class="text-[var(--${isUser ? 'base07' : 'base05'})]">${content}</p>
+        </div>
+      </div>
+    `;
+    chatMessages.appendChild(messageDiv);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+  }
+
+  async function sendMessage() {
+    const message = chatInput.value.trim();
+    if (!message) return;
+
+    // Add user message
+    addMessage(message, true);
+    chatInput.value = '';
+
+    // Show typing indicator
+    const typingDiv = document.createElement('div');
+    typingDiv.className = 'chat-message AI typing';
+    typingDiv.innerHTML = `
+      <div class="flex items-start gap-3">
+        <div class="avatar AI">🤖</div>
+        <div class="message-content">
+          <p class="text-[var(--base05)]">Thinking...</p>
+        </div>
+      </div>
+    `;
+    chatMessages.appendChild(typingDiv);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+
+    // Static FAQ responses for when gateway is offline
+    const staticFAQ = {
+      'infrastructure': 'The cluster has 4 NixOS hosts (Zephyr, Nexus, Forge, Sentry) with 78 cores, 126GB RAM, 8 GPUs, and 8.4TB storage. K8s runs 60+ pods across AI inference, mining, monitoring, and Akash provider workloads.',
+      'projects': 'Active projects: NixOS Cluster, Knowledge Fabric (Qdrant RAG), MCP Registry, Compute Market, MapleSpike (Canada AI), Astral Key (Rust auth), Frostbite Gazette, and more. Check the projects section above!',
+      'skills': 'Core stack: TypeScript, React, Rust, Python, NixOS, Astro, FastAPI, MCP, Kubernetes, CUDA/ROCm. Full list in the About section.',
+      'cluster': '4-host NixOS cluster with Colmena deployment. Zephyr (control-plane, 2x GPU), Nexus (gateway + storage, 1x GPU), Forge (GPU-compute, 4x GPU), Sentry (monitoring + ROCm, 1x GPU).',
+      'gateway': 'AI Inference Gateway provides OpenAI-compatible API with circuit breakers, RAG, MCP brokerage, and GPU scheduling. Currently being scoped for public access.',
+      'contact': 'Email: contact@reverb256.dev. Based in Winnipeg, Canada. Open to remote work, junior roles, and interesting collaborations.',
+      'default': 'I\'m a portfolio AI assistant! Try asking about: infrastructure, cluster, projects, skills, gateway, or contact. Or browse the site for the full picture.'
+    };
+
+    function getStaticResponse(query) {
+      const lower = query.toLowerCase();
+      for (const [key, response] of Object.entries(staticFAQ)) {
+        if (lower.includes(key)) return response;
+      }
+      return staticFAQ.default;
+    }
+
+    try {
+      // Try scoped gateway endpoint
+      const response = await fetch('https://gateway.reverb256.ca/api/public/v1/chat/completions', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          model: "auto",
+          messages: [
+            {
+              role: "system",
+              content: "You are a helpful AI assistant for the Reverb256 portfolio. You have knowledge about the NixOS cluster, AI infrastructure, projects, and can provide concise, helpful answers."
+            },
+            { role: "user", content: message }
+          ],
+          temperature: 0.7,
+          max_tokens: 500
+        }),
+        signal: AbortSignal.timeout(5000)
+      });
+
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+      const data = await response.json();
+      const aiResponse = data.choices?.[0]?.message?.content || "Sorry, I couldn't generate a response.";
+
+      typingDiv.remove();
+      addMessage(aiResponse, false);
+    } catch (error) {
+      // Gateway offline - fallback to static FAQ mode
+      typingDiv.remove();
+      
+      addMessage(
+        '🤖 *AI Gateway offline — showing static FAQ*\n\n' + getStaticResponse(message),
+        false
+      );
+      console.warn('Chat: gateway unreachable, using static fallback');
+    }
+  }
+
+  // Event listeners
+  chatSend.addEventListener('click', sendMessage);
+  chatInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+      sendMessage();
+    }
+  });
+
+  // Focus input on load
+  setTimeout(() => {
+    chatInput.focus();
   }, 500);
 </script>
 

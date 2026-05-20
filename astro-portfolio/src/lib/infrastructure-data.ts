@@ -2,7 +2,7 @@
  * Infrastructure Cluster Data
  *
  * Source: /etc/nixos STATUS.md, kubectl get nodes, akash status
- * Last verified: 2025-03-21
+ * Last verified: 2026-05-19
  */
 
 // ============================================================================
@@ -46,7 +46,7 @@ export const CLUSTER_DATA = {
       role: 'control-plane',
       specs: {
         cpu: '32 cores',
-        ram: '32GB',
+        ram: '31GB',
         gpus: ['RTX 3090 (24GB)', 'RTX 3060 Ti (8GB)']
       },
       services: ['etcd', 'kube-apiserver', 'kube-scheduler', 'kube-controller-manager', 'ingress-nginx', 'nfs-server', 'n8n', 'grafana', 'prometheus'],
@@ -54,13 +54,13 @@ export const CLUSTER_DATA = {
     },
     {
       name: 'nexus',
-      role: 'storage',
+      role: 'primary-server+gateway',
       specs: {
         cpu: '24 cores',
         ram: '48GB',
         gpus: ['RTX 3060 Ti (8GB)']
       },
-      services: ['etcd', 'nfs-server', 'postgres-n8n', 'postgres-glitchtip'],
+      services: ['etcd', 'nfs-server', 'postgres-n8n', 'postgres-glitchtip', 'ai-inference-gateway', 'qdrant', 'maplespike', 'redis'],
       ip: '10.1.1.120'
     },
     {
@@ -76,10 +76,10 @@ export const CLUSTER_DATA = {
     },
     {
       name: 'sentry',
-      role: 'monitoring',
+      role: 'monitoring+rocm-inference',
       specs: {
         cpu: '16 cores',
-        ram: '27GB',
+        ram: '31GB',
         gpus: ['RX 5600 XT (4GB)']
       },
       services: ['etcd', 'prometheus', 'alertmanager', 'promtail'],
@@ -89,7 +89,7 @@ export const CLUSTER_DATA = {
 
   stats: {
     totalCores: 78,
-    totalRAM: '123GB',
+    totalRAM: '126GB',
     totalGPUs: 8,
     totalStorage: '8.4TB',
     podCount: 60,
@@ -170,6 +170,42 @@ export const CLUSTER_DATA = {
       title: 'Production Cluster Live',
       icon: '🚀',
       description: '60+ pods running across 4 hosts. AI inference, mining, monitoring, and Akash provider fully operational'
+    },
+    {
+      date: 'April 1, 2026',
+      title: 'Blog Content Collections',
+      description: 'Migrated blog to Astro Content Collections. Type-safe content management with automated OG image generation.'
+    },
+    {
+      date: 'April 16, 2026',
+      title: 'Infrastructure Extraction',
+      description: 'Extracted MCP Registry and Knowledge Fabric into standalone NixOS projects with flake.nix, NixOS modules, and CI pipelines.'
+    },
+    {
+      date: 'April 17, 2026',
+      title: 'Gateway V2.1',
+      description: 'Connection pooling, response caching, K8s embed-server integration, and OCI container image builds for the AI inference gateway.'
+    },
+    {
+      date: 'April 23, 2026',
+      title: 'Code Quality Automation',
+      description: 'Standardized pre-commit hooks (statix, deadnix, lint) across all infrastructure projects. Automated code quality enforcement.'
+    },
+    {
+      date: 'May 9, 2026',
+      title: 'Portfolio Design V2',
+      description: '16-theme retro gaming design system with Base24-compliant semantic tokens, theme-aware components across the entire portfolio.'
+    },
+    {
+      date: 'May 18, 2026',
+      title: 'Semantic Token Redesign',
+      description: 'Theme architecture streamlined. Removed theme preview system, migrated to pure semantic tokens for maintainability.'
+    },
+    {
+      date: 'May 19, 2026',
+      title: 'Integration Roadmap Complete',
+      icon: '🚀',
+      description: 'Cross-codebase integration roadmap covering MCP ecosystem, knowledge pipeline, GPU federation, and unified auth across 12 repositories.'
     }
   ],
 

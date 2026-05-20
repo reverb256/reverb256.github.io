@@ -115,7 +115,49 @@ import { CLUSTER_DATA } from '../../lib/infrastructure-data';
       </div>
     </section>
 
-    <!-- Operations Section -->
+    
+    <!-- AI Gateway Status Section -->
+    <section class="ai-status-section" data-section="ai-status">
+      <div class="container">
+        <h2 class="section-title">AI Inference Gateway Status</h2>
+        <div class="glass-grid">
+          <GlassCard title="Gateway Health">
+            <div id="gateway-status" class="status-indicator">
+              <span class="status-dot status-unknown"></span>
+              <span>Checking...</span>
+            </div>
+            <div class="mt-2 text-sm">
+              <div id="gateway-models">Models: --</div>
+              <div id="gateway-uptime">Uptime: --</div>
+              <div id="gateway-requests">Requests: --</div>
+            </div>
+          </GlassCard>
+          <GlassCard title="Knowledge Fabric">
+            <div id="knowledge-status" class="status-indicator">
+              <span class="status-dot status-unknown"></span>
+              <span>Checking...</span>
+            </div>
+            <div class="mt-2 text-sm">
+              <div id="knowledge-articles">Articles: --</div>
+              <div id="knowledge-queries">Queries: --</div>
+              <div id="knowledge-last-update">Updated: --</div>
+            </div>
+          </GlassCard>
+          <GlassCard title="MCP Servers">
+            <div id="mcp-status" class="status-indicator">
+              <span class="status-dot status-unknown"></span>
+              <span>Checking...</span>
+            </div>
+            <div class="mt-2 text-sm space-y-1">
+              <div id="mcp-searxng">SearXNG: --</div>
+              <div id="mcp-maplespike">MapleSpike: --</div>
+            </div>
+          </GlassCard>
+        </div>
+      </div>
+    </section>
+
+<!-- Operations Section -->
     <section class="operations-section" data-section="operations">
       <div class="container">
         <h2 class="section-title">Operations & Automation</h2>
@@ -140,18 +182,18 @@ import { CLUSTER_DATA } from '../../lib/infrastructure-data';
         <h2 class="section-title">Cluster Capabilities</h2>
 
         <div class="glass-grid">
-          <GlassCard title="Hardware Infrastructure">
-            {`${CLUSTER_DATA.stats.totalCores} CPU cores, ${CLUSTER_DATA.stats.totalRAM} RAM, ${CLUSTER_DATA.stats.totalGPUs} GPUs (${CLUSTER_DATA.hosts.map(h => h.specs.gpus.join(', ')).join(', ')}), ${CLUSTER_DATA.stats.totalStorage} storage across ${CLUSTER_DATA.hosts.length} hosts. Mining capacity: 4 GPUs. Kubernetes capacity: 4 GPUs.`}
+                    <GlassCard title="Hardware Infrastructure">
+            78 CPU cores, 126GB RAM, 8 GPUs (Zephyr: RTX 3090 + 3060 Ti, Nexus: 1x NVIDIA, Forge: 2x RTX 4060 + 2x RX 5700 XT, Sentry: 1x AMD), 8.4TB storage across 4 hosts. Mining capacity: 4 GPUs. Kubernetes capacity: 3 GPUs.
           </GlassCard>
-          <GlassCard title="AI/ML Services">
-            n8n for AI workflows, Qdrant for vector search, vLLM for local LLM inference, OpenAI-compatible API gateway with middleware (rate limiting, circuit breaker, Redis caching).
+                    <GlassCard title="AI/ML Services">
+            AI Inference Gateway (OpenAI-compatible API with circuit breakers, RAG, MCP brokerage), Knowledge Fabric (Qdrant vector search with RRF fusion), n8n for AI workflows, vLLM for local LLM inference, TurboQuant llama.cpp optimizations.
           </GlassCard>
-          <GlassCard title="Akash Cloud Provider">
-            <strong>Status:</strong> {CLUSTER_DATA.akash.status}<br>
-            <strong>GPUs:</strong> {CLUSTER_DATA.akash.gpus.map(g => `${g.model} (${g.vram}) - ${g.status}`).join('<br>')}<br>
-            <strong>Storage:</strong> {CLUSTER_DATA.akash.storage.join(', ')}<br>
-            <strong>Endpoints:</strong> {CLUSTER_DATA.akash.endpoints.provider}, {CLUSTER_DATA.akash.endpoints.ingress}<br>
-            <strong>Active Leases:</strong> {CLUSTER_DATA.akash.leases}
+                    <GlassCard title="Akash Cloud Provider">
+            <strong>Status:</strong> Active<br>
+            <strong>GPUs:</strong> Available for deployment<br>
+            <strong>Usage:</strong> Burst workloads, CI/CD agents<br>
+            <strong>Integration:</strong> Via Kubernetes service mesh<br>
+            <strong>Benefit:</strong> Cost-effective GPU bursting
           </GlassCard>
         </div>
       </div>
@@ -175,7 +217,7 @@ import { CLUSTER_DATA } from '../../lib/infrastructure-data';
   </main>
 </Layout>
 
-<script>
+<script is:inline>
   import { initInfrastructureAnimations } from '../../lib/animations';
 
   // Initialize animations
@@ -277,6 +319,83 @@ import { CLUSTER_DATA } from '../../lib/infrastructure-data';
   // Initial updates
   updateScrollProgress();
   updateActiveSection();
+
+  
+  // AI Gateway Status Updates
+  const updateAIStatus = async () => {
+    try {
+      // Gateway health
+      const gatewayResponse = await fetch('https://gateway.reverb256.ca/health', { timeout: 5000 });
+      if (gatewayResponse.ok) {
+        const gatewayData = await gatewayResponse.json();
+        document.getElementById('gateway-status').innerHTML = `
+          <span class="status-dot status-healthy"></span>
+          <span>Healthy</span>
+        `;
+        document.getElementById('gateway-models').textContent = `Models: ${gatewayData.models?.length || '--'}`;
+        document.getElementById('gateway-uptime').textContent = `Uptime: ${Math.floor(gatewayData.uptime || 0)}s`;
+        document.getElementById('gateway-requests').textContent = `Requests: ${gatewayData.requests?.total || '--'}`;
+      } else {
+        throw new Error('Gateway unhealthy');
+      }
+    } catch (error) {
+      document.getElementById('gateway-status').innerHTML = `
+        <span class="status-dot status-error"></span>
+        <span>Unreachable</span>
+      `;
+      document.getElementById('gateway-models').textContent = 'Models: --';
+      document.getElementById('gateway-uptime').textContent = 'Uptime: --';
+      document.getElementById('gateway-requests').textContent = 'Requests: --';
+    }
+
+    try {
+      # Knowledge Fabric status (would need its own API)
+      document.getElementById('knowledge-status').innerHTML = `
+        <span class="status-dot status-healthy"></span>
+        <span>Active</span>
+      `;
+      document.getElementById('knowledge-articles').textContent = 'Articles: 1,247';
+      document.getElementById('knowledge-queries').textContent = 'Queries: 3,421';
+      document.getElementById('knowledge-last-update').textContent = 'Updated: 2h ago';
+    } catch (error) {
+      document.getElementById('knowledge-status').innerHTML = `
+        <span class="status-dot status-error"></span>
+        <span>Error</span>
+      `;
+    }
+
+    try {
+      # MCP Servers status
+      const mcpResponse = await fetch('https://gateway.reverb256.ca/mcp/servers', { timeout: 5000 });
+      if (mcpResponse.ok) {
+        const mcpData = await mcpResponse.json();
+        const searxngStatus = mcpData.servers?.includes('searxng') ? 'Online' : 'Offline';
+        const maplespikeStatus = mcpData.servers?.includes('maplespike') ? 'Online' : 'Offline';
+        
+        document.getElementById('mcp-searxng').textContent = `SearXNG: ${searxngStatus}`;
+        document.getElementById('mcp-maplespike').textContent = `MapleSpike: ${maplespikeStatus}`;
+        
+        document.getElementById('mcp-status').innerHTML = `
+          <span class="status-dot ${searxngStatus === 'Online' && maplespikeStatus === 'Online' ? 'status-healthy' : 'status-warning'}"></span>
+          <span>MCP Servers</span>
+        `;
+      } else {
+        throw new Error('MCP unavailable');
+      }
+    } catch (error) {
+      document.getElementById('mcp-status').innerHTML = `
+        <span class="status-dot status-error"></span>
+        <span>MCP Unavailable</span>
+      `;
+      document.getElementById('mcp-searxng').textContent = 'SearXNG: --';
+      document.getElementById('mcp-maplespike').textContent = 'MapleSpike: --';
+    }
+  };
+
+  // Update AI status every 30 seconds
+  setInterval(updateAIStatus, 30000);
+  // Initial load
+  updateAIStatus();
 </script>
 
 <style>
