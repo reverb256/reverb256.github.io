@@ -2,7 +2,7 @@
 
 **Version:** 1.0.0
 **Purpose:** Reusable design system for portfolio and business websites
-**Target:** Static sites deployed to GitHub Pages, built with React + Tailwind
+**Target:** Static sites deployed to GitHub Pages, built with **Astro 6 + Tailwind 4** (GSAP for animation)
 
 ---
 
@@ -27,6 +27,8 @@
 | "Consciousness Engineer, Reality Architect" | "Developer, Problem Solver" |
 
 **Rule:** Remove mystical/philosophical language. Be direct. Be humble.
+
+> ⚠️ The file-structure and color-token sections below describe the *aspirational* target. The actual deployable (`astro-portfolio/`) ships only Astro+GSAP+Tailwind right now and uses Base24 semantic aliases (`--base00`..`--base0F`) rather than the `brand-primary`-style variables listed in "Color System." Update this doc when those tokens land.
 
 ---
 

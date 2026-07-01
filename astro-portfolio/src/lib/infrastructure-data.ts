@@ -1,8 +1,10 @@
 /**
  * Infrastructure Cluster Data
  *
- * Source: /etc/nixos STATUS.md, kubectl get nodes, akash status
- * Last verified: 2026-05-19
+ * Source of truth: see refresh script. The "Last verified" comment on
+ * copies of this file has rotted before; treat every numeric claim in
+ * here as suspect until you re-query the live cluster. See
+ * scripts/refresh-cluster-data.sh before each portfolio release.
  */
 
 // ============================================================================
@@ -24,7 +26,7 @@ export interface Host {
 export interface GPU {
   model: string;
   vram: string;
-  status: 'mining' | 'available' | 'k8s' | 'akash';
+  status: 'mining' | 'available' | 'k8s';  // 'akash' removed 2026-07-01 — not deployed
   node: string;
 }
 
@@ -71,7 +73,7 @@ export const CLUSTER_DATA = {
         ram: '16GB',
         gpus: ['RTX 4060 (8GB)', 'RTX 4060 (8GB)', 'RX 5700 XT (8GB)', 'RX 5700 XT (8GB)']
       },
-      services: ['lolminer-nvidia', 'lolminer-amd', 'akash-provider'],
+      services: ['lolminer-nvidia', 'lolminer-amd'],  // akash-provider dropped 2026-07-01 — not deployed
       ip: '10.1.1.130'
     },
     {
@@ -88,30 +90,16 @@ export const CLUSTER_DATA = {
   ],
 
   stats: {
+    // Refreshed: 2026-07-01 via scripts/refresh-cluster-data.sh — re-run before each portfolio release.
     totalCores: 78,
-    totalRAM: '126GB',
-    totalGPUs: 8,
-    totalStorage: '8.4TB',
-    podCount: 60,
-    k8sVersion: 'v1.35.2'
+    totalRAM: '124GB',
+    totalGPUs: 3,
+    totalStorage: 'TODO: df -h /nfs',
+    podCount: 37,
+    k8sVersion: 'v1.36.1+k3s1'
   },
 
-  akash: {
-    gpus: [
-      { model: 'RTX 4060', vram: '8GB', status: 'available', node: 'forge' },
-      { model: 'RTX 4060', vram: '8GB', status: 'available', node: 'forge' },
-      { model: 'RTX 3060 Ti', vram: '8GB', status: 'available', node: 'nexus' },
-      { model: 'RTX 3090', vram: '24GB', status: 'available', node: 'zephyr' },
-      { model: 'RTX 3060 Ti', vram: '8GB', status: 'available', node: 'zephyr' }
-    ],
-    leases: 0,
-    storage: ['beta2 (HDD)', 'beta3 (NVMe)', 'ram'],
-    endpoints: {
-      provider: 'provider.reverb256.ca',
-      ingress: '*.ingress.provider.reverb256.ca'
-    },
-    status: 'Active Provider - Ready for Bids'
-  },
+  // akash: not deployed as of 2026-07-01 — block removed. Restore only if/when re-deploying.
 
   timeline: [
     {
@@ -161,15 +149,12 @@ export const CLUSTER_DATA = {
       description: 'Stateless services (GlitchTip web/worker, SearXNG, n8n), GPU workloads (llama.cpp)'
     },
     {
-      date: 'March 20, 2026',
-      title: 'K8s Phase 6-7: Monitoring & Akash',
-      description: 'Prometheus + Grafana monitoring, Akash provider with 5 GPUs, audited & ready'
+      date: 'March 20, 2026',        title: 'K8s Phase 6-7: Monitoring [AKASH section deprecated 2026-07-01]',        description: 'Prometheus + Grafana monitoring [AKASH provider section deprecated 2026-07-01]'
     },
     {
       date: 'March 21, 2026',
       title: 'Production Cluster Live',
-      icon: '🚀',
-      description: '60+ pods running across 4 hosts. AI inference, mining, monitoring, and Akash provider fully operational'
+      icon: '🚀',        description: '60+ pods running across 4 hosts. AI inference, mining, monitoring [AKASH provider section deprecated 2026-07-01]'
     },
     {
       date: 'April 1, 2026',
@@ -220,13 +205,7 @@ export const CLUSTER_DATA = {
       { name: 'redis', namespace: 'ai-inference', status: 'running' },
       { name: 'postgres-n8n', namespace: 'ai-inference', status: 'running' }
     ],
-    akash: [
-      { name: 'akash-provider', namespace: 'akash-services', status: 'running' },
-      { name: 'cloudflared', namespace: 'akash-services', status: 'running' },
-      { name: 'operator-hostname', namespace: 'akash-services', status: 'running' },
-      { name: 'operator-inventory', namespace: 'akash-services', status: 'running' },
-      { name: 'akash-node-1', namespace: 'akash-services', status: 'running' }
-    ],
+    // akash: not deployed as of 2026-07-01 — services block removed.
     monitoring: [
       { name: 'prometheus', namespace: 'ai-inference', status: 'running' },
       { name: 'grafana', namespace: 'monitoring', status: 'running' },
