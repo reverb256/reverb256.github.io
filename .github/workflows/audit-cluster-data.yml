@@ -1,0 +1,32 @@
+# GitHub Actions gate: run astro-portfolio/scripts/audit-cluster-data.sh on every
+# PR + push that touches the script, the refresh script, or the data file
+# itself. Fails the build when audit-cluster-data.sh exits 1 (i.e. when
+# infrastructure-data.ts contains claimed-but-unverified data).
+
+name: Audit cluster data
+
+on:
+  pull_request:
+    paths:
+      - 'astro-portfolio/src/lib/infrastructure-data.ts'
+      - 'astro-portfolio/scripts/audit-cluster-data.sh'
+      - 'astro-portfolio/scripts/refresh-cluster-data.sh'
+  push:
+    branches: [main]
+    paths:
+      - 'astro-portfolio/src/lib/infrastructure-data.ts'
+      - 'astro-portfolio/scripts/audit-cluster-data.sh'
+      - 'astro-portfolio/scripts/refresh-cluster-data.sh'
+
+jobs:
+  audit:
+    name: audit-cluster-data
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Run audit
+        run: |
+          chmod +x astro-portfolio/scripts/audit-cluster-data.sh
+          bash astro-portfolio/scripts/audit-cluster-data.sh
