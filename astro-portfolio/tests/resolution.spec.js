@@ -35,7 +35,7 @@ test.describe('Portfolio Resolution Tests', () => {
 
       // All project cards visible
       const projectCards = page.locator('.bento-item');
-      await expect(projectCards).toHaveCount(8);
+      await expect(projectCards).toHaveCount(10);
 
       // Check navigation is accessible
       const nav = page.locator('nav');

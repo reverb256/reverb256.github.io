@@ -1,0 +1,74 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout title="Kernel Panic — 404" description="Page not found. Kernel panic.">
+  <main class="min-h-screen px-6 flex items-center justify-center">
+    <div class="max-w-3xl w-full font-mono text-sm leading-relaxed" style="color: var(--base05);">
+      <div class="mb-6" style="color: var(--base08); font-weight: bold;">
+        Kernel panic — not syncing: Page not found
+      </div>
+
+      <div class="mb-4">
+        <span style="color: var(--base05);">CPU:</span> 0 PID: 1337 Comm: visitor Tainted: G        W
+      </div>
+
+      <div class="mb-4">
+        <span style="color: var(--base05);">Hardware name:</span> reverb256.dev Cluster / Zephyr, BIOS 26.05
+      </div>
+
+      <div class="mb-4">
+        <span style="color: var(--base05);">Call Trace:</span><br />
+        <span class="ml-4">&lt;TASK&gt;</span><br />
+        <span class="ml-4"> ? show_regs+0x6e/0x80</span><br />
+        <span class="ml-4"> ? panic+0x101/0x2e0</span><br />
+        <span class="ml-4"> ? nixos_build+0x42/0x60</span><br />
+        <span class="ml-4"> ? route_page+0x2a/0x40</span><br />
+        <span class="ml-4"> ? handle_path+0x1c/0x30</span><br />
+        <span class="ml-4"> ? astro_router+0x15/0x20</span><br />
+        <span class="ml-4"> ? resolve_404+0x00/0x00</span><br />
+        <span class="ml-4">&lt;/TASK&gt;</span>
+      </div>
+
+      <div class="mb-4">
+        <span style="color: var(--base05);">Code:</span> Unable to find route at requested path
+      </div>
+
+      <div class="mb-6 p-4" style="background: var(--base01); border: 1px solid var(--border-default); color: var(--base04); font-size: 10px;">
+        <div>—-[ PAGE FAULT ]—-[ 404 NOT FOUND ]—[ 0xdeadbeef ]—</div>
+        <div class="mt-1">RIP: 0xffffffffc0245404  RSP: 0xffffc9000000  RFLAGS: 00010246</div>
+        <div class="mt-1">RAX: 0000000000000000  RBX: ffff88813b8d0000  RCX: 0000000000000000</div>
+        <div class="mt-1">RDX: 0000000000000000  RSI: 0000000000000000  RDI: 0000000000000000</div>
+        <div class="mt-1">RBP: ffff88813b8d0000  R08: 0000000000000000  R09: 0000000000000000</div>
+        <div class="mt-1">R10: 0000000000000000  R11: 0000000000000000  R12: 0000000000000000</div>
+        <div class="mt-1">R13: 0000000000000000  R14: 0000000000000000  R15: 0000000000000000</div>
+        <div class="mt-2" style="color: var(--base08);">CR2: 0x0000000000000194 (page not mapped)</div>
+      </div>
+
+      <div class="mb-6" style="color: var(--base0A);">
+        [ KERNEL PANIC: The page you were looking for does not exist. ]
+      </div>
+
+      <div class="mb-6 flex gap-4">
+        <a href="/" class="btn-accent">
+          <span class="font-mono text-xs mr-2 opacity-70">$</span>
+          systemctl reboot
+        </a>
+        <a href="javascript:history.back()" class="btn-outline">
+          <span class="font-mono text-xs mr-2 opacity-70">$</span>
+          journalctl -x (go back)
+        </a>
+      </div>
+
+      <div class="text-[10px]" style="color: var(--base04);">
+        Uptime: 3h 24m | Load: 1.58 | This incident will be reported.
+      </div>
+    </div>
+  </main>
+</Layout>
+
+<style>
+  @media (prefers-reduced-motion: reduce) {
+    /* Static is fine */
+  }
+</style>

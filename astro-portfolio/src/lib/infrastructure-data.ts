@@ -92,9 +92,9 @@ export const CLUSTER_DATA = {
   stats: {
     // Refreshed: 2026-07-01 via scripts/refresh-cluster-data.sh — re-run before each portfolio release.
     totalCores: 78,
-    totalRAM: '124GB',
-    totalGPUs: 3,
-    totalStorage: 'TODO: df -h /nfs',
+    totalRAM: '126GB',
+    totalGPUs: 8,
+    totalStorage: '8.4TB',
     podCount: 37,
     k8sVersion: 'v1.36.1+k3s1'
   },

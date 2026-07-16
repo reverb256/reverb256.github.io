@@ -35,15 +35,9 @@ const ogImage = new URL(image, Astro.site).href;
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- Client Hints for display capability detection -->
-    <!-- Request color-gamut hint for wide color space detection (P3, Rec2020) -->
-    <meta http-equiv="Accept-CH" content="Sec-CH-Prefers-Color-Scheme" />
-    <!-- Request dynamic-range hint for HDR detection -->
-    <meta http-equiv="Accept-CH" content="Sec-CH-Prefers-Reduced-Motion" />
 
     <!-- Critical for color consistency: declare color space support -->
     <meta name="color-scheme" content="dark" />
-    <meta name="supported-color-schemes" content="dark" />
 
     <meta name="description" content={description} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -84,7 +78,7 @@ const ogImage = new URL(image, Astro.site).href;
       "@context": "https://schema.org",
       "@type": "Person",
       "name": "Reverb256",
-      "url": "https://reverb256.ca",
+      "url": "https://reverb256.dev",
       "sameAs": [
         "https://github.com/reverb256"
       ],
@@ -108,25 +102,25 @@ const ogImage = new URL(image, Astro.site).href;
       "@context": "https://schema.org",
       "@type": "WebSite",
       "name": "Reverb256",
-      "url": "https://reverb256.ca/",
+      "url": "https://reverb256.dev/",
       "description": "Personal portfolio and development blog",
       "potentialAction": {
         "@type": "SearchAction",
         "target": {
           "@type": "EntryPoint",
-          "urlTemplate": "https://reverb256.ca/search?q={search_term_string}"
+          "urlTemplate": "https://reverb256.dev/search?q={search_term_string}"
         },
         "query-input": "required name=search_term_string"
       }
     })}></script>
   </head>
   <body style="min-height: 100vh; margin: 0; padding: 0; color: var(--text-secondary); font-family: system-ui, -apple-system, sans-serif; overflow-x: hidden;">
-    <!-- Background gradient - using CSS variables for color space awareness -->
-    <div id="bg-gradient" style="position: fixed; inset: 0; background: linear-gradient(to bottom right, var(--bg-primary) 0%, var(--bg-primary) 60%, color(display-p3 0.04 0.06 0.12) 85%, color(display-p3 0.08 0.18 0.32) 100%); z-index: -20;"></div>
+    <!-- Background gradient — solid terminal colors, no P3/gamut stretching -->
+    <div id="bg-gradient" style="position: fixed; inset: 0; background: linear-gradient(to bottom right, var(--bg-primary) 0%, var(--base01) 100%); z-index: -20;"></div>
 
-    <!-- Subtle animated glows - using brand colors for consistency -->
-    <div id="glow-1" style="position: fixed; top: -100px; left: 10%; width: 400px; height: 300px; background: radial-gradient(ellipse, color(display-p3 0.45 0.45 0.7 / 0.15) 0%, transparent 70%); filter: blur(40px); z-index: -15; pointer-events: none; will-change: transform;"></div>
-    <div id="glow-2" style="position: fixed; bottom: -50px; right: 5%; width: 300px; height: 250px; background: radial-gradient(ellipse, color(display-p3 0.25 0.6 0.8 / 0.1) 0%, transparent 70%); filter: blur(40px); z-index: -15; pointer-events: none; will-change: transform;"></div>
+    <!-- Subtle animated glows — base24 palette, CSS-native -->
+    <div id="glow-1" style="position: fixed; top: -100px; left: 10%; width: 400px; height: 300px; background: radial-gradient(ellipse, rgba(167, 139, 250, 0.06) 0%, transparent 70%); z-index: -15; pointer-events: none; will-change: transform;"></div>
+    <div id="glow-2" style="position: fixed; bottom: -50px; right: 5%; width: 300px; height: 250px; background: radial-gradient(ellipse, rgba(78, 205, 196, 0.05) 0%, transparent 70%); z-index: -15; pointer-events: none; will-change: transform;"></div>
 
     <!-- Particles canvas -->
     <canvas id="particles" style="position: fixed; inset: 0; z-index: -10; pointer-events: none;"></canvas>
@@ -145,8 +139,6 @@ const ogImage = new URL(image, Astro.site).href;
     &lt;Rust/&gt;
   </div>
 
-    <!-- Cursor glow - using brand accent color for consistency -->
-    <div id="cursor-glow" style="position: fixed; width: 300px; height: 300px; border-radius: 50%; background: radial-gradient(circle, color(display-p3 1 0.65 0.4 / 0.15) 0%, transparent 70%); filter: blur(40px); z-index: 9999; pointer-events: none; opacity: 0;"></div>
 
     <!-- Header Navigation -->
     <Header />
@@ -155,7 +147,368 @@ const ogImage = new URL(image, Astro.site).href;
     <main id="main-content" class="main-content">
       <slot />
     </main>
-    
+
+    <!-- ════════════════════════════════════════════
+         TERMINAL SCRATCHPAD — niri-style scratchpad
+         A floating terminal available on every page.
+         Toggle via the $_ button (bottom-right) or
+         Ctrl+` shortcut.
+         ════════════════════════════════════════════ -->
+
+    <!-- Floating toggle button -->
+    <button
+      id="scratch-toggle"
+      class="fixed bottom-4 right-4 z-[9999] w-10 h-10 flex items-center justify-center text-sm font-bold cursor-pointer select-none"
+      style="background: var(--base01); border: 1px solid var(--border-default); color: var(--base0B); font-family: 'Fira Code', monospace;"
+      aria-label="Toggle terminal scratchpad"
+      title="Toggle scratchpad (Ctrl+`)"
+    >
+      <span class="text-xs leading-none">$_</span>
+    </button>
+
+    <!-- Scratchpad panel -->
+    <div
+      id="scratch-panel"
+      class="fixed bottom-0 right-0 z-[9998] w-full md:w-[500px] transition-transform duration-300"
+      style="background: var(--base00); border: 1px solid var(--border-default); border-bottom: none; font-family: 'Fira Code', 'JetBrains Mono', monospace; transform: translateY(100%); max-height: 60vh;"
+      role="region"
+      aria-label="Terminal scratchpad"
+      aria-hidden="true"
+    >
+      <!-- Titlebar — draggable feel, shows context -->
+      <div class="flex items-center justify-between px-3 py-1.5" style="background: var(--base01); border-bottom: 1px solid var(--border-default); cursor: grab;">
+        <span class="font-mono text-[10px] text-[var(--base04)]">scratchpad ▸ j_kro@zephyr</span>
+        <div class="flex gap-1.5">
+          <button id="scratch-minimize" class="w-3.5 h-3.5 flex items-center justify-center text-[7px] border" style="border-color: var(--border-default); color: var(--base04); background: var(--base01);" aria-label="Minimize scratchpad">_</button>
+          <button id="scratch-close" class="w-3.5 h-3.5 flex items-center justify-center text-[7px] border" style="border-color: var(--border-default); color: var(--base08); background: var(--base01);" aria-label="Close scratchpad">✕</button>
+        </div>
+      </div>
+      <!-- Output -->
+      <div
+        id="scratch-output"
+        class="text-xs p-3 overflow-y-auto"
+        style="font-family: inherit; line-height: 1.5; max-height: calc(60vh - 34px); min-height: 120px;"
+        role="log"
+        aria-live="polite"
+      >
+        <div style="color: var(--base05);">Scratchpad ready. Type <span style="color: var(--base0D);">help</span> for commands.</div>
+      </div>
+      <!-- Input -->
+      <div class="flex items-center px-3 py-1.5 border-t" style="border-color: var(--base02); background: rgba(0,0,0,0.3);">
+        <span style="color: var(--base0B); font-size: 11px;" aria-hidden="true">❯</span>
+        <span>&nbsp;</span>
+        <input
+          type="text"
+          id="scratch-input"
+          class="flex-grow bg-transparent border-none outline-none"
+          style="color: var(--base06); font-family: inherit; font-size: 11px; caret-color: var(--base0D);"
+          placeholder="type a command..."
+          autocomplete="off"
+          spellcheck="false"
+          aria-label="Scratchpad command input"
+        />
+      </div>
+    </div>
+
+    <!-- Console Easter Egg -->
+    <script is:inline>
+      // Devtools greeting — only shows when someone opens the console
+      const style = [
+        'color: var(--base0B); font-family: "Fira Code", monospace; font-size: 11px;',
+        'color: var(--base09); font-family: "Fira Code", monospace; font-size: 10px;',
+        'color: var(--base05); font-family: "Fira Code", monospace; font-size: 10px;',
+        'color: var(--base0D); font-family: "Fira Code", monospace; font-size: 10px;',
+        'color: var(--base05); font-family: "Fira Code", monospace; font-size: 10px;',
+        'color: var(--base0B); font-family: "Fira Code", monospace; font-size: 10px;',
+      ];
+      const ascii = [
+        "%c   ▗▄   ▗▄ ▄▖             ",
+        "%c  ▄▄█▄▄▄██▛ ▃              ",
+        "%c    ▟▛    ▜▃▟               ",
+        "%c █      █                   ",
+        "%c  ▷▛▙    ▟▛                  ",
+        "%c  ▟██▀▀▀██▀▀                ",
+        "%c   ▝▀ ▀▘   ▀▘               ",
+      ];
+      const msgs = [];
+      for (let i = 0; i < ascii.length; i++) {
+        msgs.push(ascii[i], style[i % style.length]);
+      }
+      msgs.push("");
+      msgs.push("%c┌─────────────────────────────────────┐");
+      msgs.push("%c│  Welcome, operator.                  │");
+      msgs.push("%c│  This site is served from a 4-host   │");
+      msgs.push("%c│  NixOS cluster in Winnipeg.          │");
+      msgs.push("%c│                                     │");
+      msgs.push("%c│  Type 'help' for available commands. │");
+      msgs.push("%c│  This console is being watched.      │");
+      msgs.push("%c└─────────────────────────────────────┘");
+      
+      msgs.push("", "%c  Zero cloud spend. No compromise.", "");
+      
+      // Apply alternating styles
+      const msgStyles = [
+        "color: var(--base04); font-family: 'Fira Code', monospace; font-size: 11px;",
+        "color: var(--base06); font-family: 'Fira Code', monospace; font-size: 11px;",
+        "color: var(--base05); font-family: 'Fira Code', monospace; font-size: 11px;",
+        "color: var(--base05); font-family: 'Fira Code', monospace; font-size: 11px;",
+        "color: var(--base05); font-family: 'Fira Code', monospace; font-size: 11px;",
+        "color: var(--base0D); font-family: 'Fira Code', monospace; font-size: 11px;",
+        "color: var(--base05); font-family: 'Fira Code', monospace; font-size: 11px;",
+        "color: var(--base04); font-family: 'Fira Code', monospace; font-size: 11px;",
+        "color: var(--base0B); font-family: 'Fira Code', monospace; font-size: 11px; font-style: italic;",
+        "",
+      ];
+      
+      // Hide console greeting initially — show only if console is opened
+      let shown = false;
+      const detectDevTools = () => {
+        if (shown) return;
+        const widthThreshold = window.outerWidth - window.innerWidth > 160;
+        const heightThreshold = window.outerHeight - window.innerHeight > 160;
+        if (widthThreshold || heightThreshold) {
+          shown = true;
+          clearInterval(intervalId);
+          msgs.forEach((m, i) => {
+            if (m.startsWith("%c")) {
+              console.log(m, msgStyles[i] || "color: var(--base05);");
+            } else {
+              console.log(m);
+            }
+          });
+          // Register 'help' command handler
+          (window as any).__consoleHelp = () => {
+            console.log("%cAvailable commands:", "color: var(--base0D); font-weight: bold;");
+            console.log("%c  ╰─► neofetch   — Show system info", "color: var(--base0B);");
+            console.log("%c  ╰─► status     — Cluster status", "color: var(--base0B);");
+            console.log("%c  ╰─► projects   — Active projects", "color: var(--base0B);");
+            console.log("%c  ╰─► clear      — Clear console", "color: var(--base0B);");
+            console.log("%cTip: Try typing neofetch or status in the console.", "color: var(--base05); font-style: italic;");
+          };
+        }
+      };
+      
+      // Check periodically — stops after detection
+      const intervalId = setInterval(detectDevTools, 1000);
+      detectDevTools();
+      
+      // Console command handlers
+      const commands: Record<string, () => void> = {
+        help: () => (window as any).__consoleHelp?.(),
+        neofetch: () => {
+          console.log("%c       ▗▄   ▗▄ ▄▖                  j_kro@reverb256.dev", "color: var(--base0B); font-family: 'Fira Code';");
+          console.log("%c      ▄▄█▄▄▄██▛ ▃                 ----------------------", "color: var(--base09); font-family: 'Fira Code';");
+          console.log("%c        ▟▛    ▜▃▟                  OS: Astro 7.0.9", "color: var(--base05); font-family: 'Fira Code';");
+          console.log("%c     █      █                       Kernel: TypeScript 5.x", "color: var(--base0D); font-family: 'Fira Code';");
+          console.log("%c      ▷▛▙    ▟▛                     Uptime: ~3h (last deploy)", "color: var(--base05); font-family: 'Fira Code';");
+          console.log("%c      ▟██▀▀▀██▀▀                   Shell: Fira Code 1.0", "color: var(--base0B); font-family: 'Fira Code';");
+          console.log("%c       ▝▀ ▀▘   ▀▘                  WM: niri 26.04", "color: var(--base05); font-family: 'Fira Code';");
+          console.log("%c  ● ● ● ● ● ● ● ●                Packages: 53 (public repos)", "color: var(--base06); font-family: 'Fira Code';");
+        },
+        status: () => {
+          console.log("%c● reverb256.service — Portfolio Site", "color: var(--base0B); font-weight: bold;");
+          console.log("%c   Loaded: loaded (/nix/store/.../reverb256.service; enabled)", "color: var(--base05);");
+          console.log("%c   Active: active (running)", "color: var(--base0B);");
+          console.log("%c   Status: \"Serving from Winnipeg. Zero cloud spend.\"", "color: var(--base05);");
+        },
+      };
+      
+      // Intercept console input by overriding the global error handler trick
+      // This makes 'help' work when typed directly in the console
+      (window as any).help = () => commands.help();
+      (window as any).neofetch = () => commands.neofetch();
+      (window as any).status = () => commands.status();
+    </script>
+
+    <!-- ════════════════════════════════════════════
+         SCRATCHPAD TERMINAL — persistent shell
+         ════════════════════════════════════════════ -->
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const toggle = document.getElementById('scratch-toggle');
+        const panel = document.getElementById('scratch-panel');
+        const output = document.getElementById('scratch-output');
+        const input = document.getElementById('scratch-input');
+        const minimizeBtn = document.getElementById('scratch-minimize');
+        const closeBtn = document.getElementById('scratch-close');
+
+        if (!toggle || !panel || !output || !input) return;
+
+        let isOpen = false;
+
+        // ----------------------------------------------------------------
+        // Toggle
+        // ----------------------------------------------------------------
+
+        function open() {
+          isOpen = true;
+          panel.style.transform = 'translateY(0)';
+          panel.setAttribute('aria-hidden', 'false');
+          toggle.style.borderColor = 'var(--accent-niri)';
+          toggle.style.color = 'var(--accent-niri)';
+          setTimeout(() => input.focus(), 150);
+        }
+
+        function close() {
+          isOpen = false;
+          panel.style.transform = 'translateY(100%)';
+          panel.setAttribute('aria-hidden', 'true');
+          toggle.style.borderColor = 'var(--border-default)';
+          toggle.style.color = 'var(--base0B)';
+        }
+
+        function toggleScratch() {
+          if (isOpen) close();
+          else open();
+        }
+
+        toggle.addEventListener('click', toggleScratch);
+        closeBtn?.addEventListener('click', close);
+        minimizeBtn?.addEventListener('click', close);
+
+        // ----------------------------------------------------------------
+        // Keyboard shortcut: Ctrl+`
+        // ----------------------------------------------------------------
+
+        document.addEventListener('keydown', (e) => {
+          if (e.ctrlKey && e.key === '`') {
+            e.preventDefault();
+            toggleScratch();
+          }
+        });
+
+        // Close on Escape when open
+        input.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape' && isOpen) {
+            close();
+            e.preventDefault();
+          }
+        });
+
+        // ----------------------------------------------------------------
+        // Command handlers
+        // ----------------------------------------------------------------
+
+        function print(text, style) {
+          const line = document.createElement('div');
+          line.style.cssText = (style || 'color: var(--base0B);') + ' margin-top: 0.15rem;';
+          line.textContent = text;
+          output.appendChild(line);
+          output.scrollTop = output.scrollHeight;
+        }
+
+        function printFormatted(html) {
+          const line = document.createElement('div');
+          line.style.cssText = 'margin-top: 0.15rem;';
+          line.innerHTML = html;
+          output.appendChild(line);
+          output.scrollTop = output.scrollHeight;
+        }
+
+        function clearOutput() {
+          output.innerHTML = '<div style="color: var(--base05); margin-top: 0;">Scratchpad ready. Type <span style="color: var(--base0D);">help</span> for commands.</div>';
+        }
+
+        async function execScratchCmd(cmd) {
+          const parts = cmd.trim().toLowerCase().split(/\s+/);
+          const command = parts[0];
+          const args = parts.slice(1);
+
+          print(`> ${cmd}`, 'color: var(--base05);');
+          await new Promise(r => setTimeout(r, 50));
+
+          switch (command) {
+            case 'help':
+              printFormatted(`<span style="color: var(--base0D);">COMMANDS:</span><br />
+  <span style="color: var(--base06);">help</span>       &mdash; Show this help<br />
+  <span style="color: var(--base06);">clear</span>      &mdash; Clear terminal<br />
+  <span style="color: var(--base06);">whoami</span>     &mdash; Show user info<br />
+  <span style="color: var(--base06);">neofetch</span>   &mdash; System info<br />
+  <span style="color: var(--base06);">status</span>     &mdash; Cluster status<br />
+  <span style="color: var(--base06);">banner</span>     &mdash; Show NixOS ASCII<br />
+  <span style="color: var(--base06);">date</span>       &mdash; Current date/time<br />
+  <span style="color: var(--base06);">echo</span>       &mdash; Print arguments<br />
+  <span style="color: var(--base06);">close</span>      &mdash; Close scratchpad`);
+              break;
+
+            case 'clear':
+              clearOutput();
+              break;
+
+            case 'close':
+              close();
+              break;
+
+            case 'whoami':
+              printFormatted(`<span style="color: var(--base0D);">USER:</span>  j_kro<br /><span style="color: var(--base05);">HOST:</span>  zephyr.reverb256<br /><span style="color: var(--base05);">ROLE:</span>  operator`);
+              break;
+
+            case 'neofetch':
+              printFormatted(`<span style="color: var(--base0B);">       ▗▄   ▗▄ ▄▖</span><br />
+<span style="color: var(--base09);">      ▄▄▄▄▄▄▄██▛ ▃</span><br />
+<span style="color: var(--base05);">        ▟▛    ▜▃▟</span><br />
+<span style="color: var(--base0D);">      ██      ██</span><br />
+<span style="color: var(--base05);">       ▟▛▙    ▟▛</span><br />
+<span style="color: var(--base0B);">       ▟██▀▀▀██▀▀</span><br />
+<span style="color: var(--base05);">        ▝▀ ▀▘   ▀▘</span><br />
+<span style="color: var(--base06);">  j_kro@zephyr</span><br />
+<span style="color: var(--base04);">  OS: NixOS 26.05 &bull; WM: niri 26.04</span><br />
+<span style="color: var(--base04);">  Kernel: Linux 7.0.9-cachyos</span>`);
+              break;
+
+            case 'status':
+              printFormatted(`<span style="color: var(--base0B);">●</span> <span style="color: var(--base06);">reverb256.service</span><br />
+<span style="color: var(--base05);">   Loaded: loaded</span><br />
+<span style="color: var(--base0B);">   Active: active (running)</span><br />
+<span style="color: var(--base05);">   Status: "Serving from Winnipeg. Zero cloud spend."</span>`);
+              break;
+
+            case 'banner':
+              printFormatted(`<span style="color: var(--base0B);">  ▗▄   ▗▄ ▄▖</span><br />
+<span style="color: var(--base09);"> ▄▄▄▄▄▄▄██▛ ▃</span><br />
+<span style="color: var(--base05);">   ▟▛    ▜▃▟</span><br />
+<span style="color: var(--base0D);"> ██      ██</span><br />
+<span style="color: var(--base05);"> ▟▛▙    ▟▛</span><br />
+<span style="color: var(--base0B);"> ▟██▀▀▀██▀▀</span><br />
+<span style="color: var(--base05);">  ▝▀ ▀▘   ▀▘</span>`);
+              break;
+
+            case 'date':
+              print(new Date().toLocaleString('en-CA', { timeZone: 'America/Winnipeg' }));
+              break;
+
+            case 'echo':
+              print(args.join(' ') || '(empty)');
+              break;
+
+            default:
+              printFormatted(`<span style="color: var(--base08);">scratch: ${command}: command not found</span><br /><span style="color: var(--base05);">Type <span style="color: var(--base0D);">help</span> for available commands.</span>`);
+          }
+        }
+
+        // ----------------------------------------------------------------
+        // Input handler
+        // ----------------------------------------------------------------
+
+        input.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter') {
+            const cmd = input.value.trim();
+            if (cmd) {
+              execScratchCmd(cmd);
+              input.value = '';
+            }
+          }
+        });
+
+        // Focus input when clicking anywhere in the panel
+        panel.addEventListener('click', (e) => {
+          if (e.target === panel || e.target.closest('#scratch-output')) {
+            input.focus();
+          }
+        });
+      });
+    </script>
+
     <!-- GSAP + Particles -->
     <script>
       import gsap from "gsap";
@@ -173,29 +526,10 @@ const ogImage = new URL(image, Astro.site).href;
 
         // Background glows use CSS keyframes (see global.css) for better Firefox support
 
-        // Cursor glow follower
-        const cursorGlow = document.getElementById("cursor-glow");
-        let mouseX = 0, mouseY = 0, glowX = 0, glowY = 0;
 
-        document.addEventListener("mousemove", (e) => {
-          mouseX = e.clientX;
-          mouseY = e.clientY;
-          if (cursorGlow) cursorGlow.style.opacity = "1";
-        });
 
-        document.addEventListener("mouseleave", () => {
-          if (cursorGlow) cursorGlow.style.opacity = "0";
-        });
-
-        function animateCursor() {
-          glowX += (mouseX - glowX - 150) * 0.08;
-          glowY += (mouseY - glowY - 150) * 0.08;
-          if (cursorGlow) {
-            cursorGlow.style.transform = `translate(${glowX}px, ${glowY}px)`;
-          }
-          requestAnimationFrame(animateCursor);
-        }
-        animateCursor();
+        // Mouse position tracking for interactive effects
+        let mouseX = 0, mouseY = 0;
 
         // Particles
         const canvas = document.getElementById("particles") as HTMLCanvasElement;
@@ -248,7 +582,7 @@ const ogImage = new URL(image, Astro.site).href;
         // Interaction tracking for combo system
         let interactionCombo = 0;
 
-        // Track mouse position for radial gradient effects (mouseX, mouseY already declared above)
+        // Track mouse position for interactive effects
         document.addEventListener('mousemove', (e) => {
           mouseX = e.clientX;
           mouseY = e.clientY;
@@ -376,4 +710,75 @@ const ogImage = new URL(image, Astro.site).href;
 <style is:global>
   @import "../styles/global.css";
   @import "../styles/animations.css";
+
+  /* =============================================
+     SCRATCHPAD — niri-style floating terminal
+     ============================================= */
+
+  #scratch-toggle {
+    transition: border-color 200ms var(--ease-default),
+                color 200ms var(--ease-default),
+                background-color 200ms var(--ease-default);
+    z-index: 9999;
+  }
+
+  #scratch-toggle:hover {
+    background: var(--base02) !important;
+    border-color: var(--accent-niri) !important;
+  }
+
+  #scratch-toggle:active {
+    transform: scale(0.95);
+    transition-duration: 50ms;
+  }
+
+  #scratch-panel {
+    transition: transform 300ms cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: transform;
+    box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.4);
+  }
+
+  #scratch-input::placeholder {
+    color: var(--base04);
+  }
+
+  #scratch-output {
+    scrollbar-width: thin;
+    scrollbar-color: var(--base03) transparent;
+  }
+
+  #scratch-output::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  #scratch-output::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  #scratch-output::-webkit-scrollbar-thumb {
+    background: var(--base03);
+    border-radius: 2px;
+  }
+
+  /* Close button hover */
+  #scratch-close:hover {
+    background: var(--base08) !important;
+    color: var(--base00) !important;
+  }
+
+  #scratch-minimize:hover {
+    background: var(--base02) !important;
+    color: var(--base06) !important;
+  }
+
+  /* Reduced motion: instant slide */
+  @media (prefers-reduced-motion: reduce) {
+    #scratch-panel {
+      transition-duration: 0.01ms !important;
+    }
+
+    #scratch-toggle {
+      transition-duration: 0.01ms !important;
+    }
+  }
 </style>

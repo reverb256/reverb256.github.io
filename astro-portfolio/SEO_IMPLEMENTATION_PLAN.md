@@ -1,7 +1,7 @@
 # SEO Implementation Plan
 
 ## Overview
-Comprehensive SEO improvements for reverb256.ca portfolio site.
+Comprehensive SEO improvements for reverb256.dev portfolio site.
 
 **Audit Date:** 2026-03-10
 **Priority Order:** Technical → On-Page → Content → Authority
@@ -27,7 +27,7 @@ import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
-  site: 'https://reverb256.ca',
+  site: 'https://reverb256.dev',
   integrations: [sitemap()],
 });
 ```
@@ -35,7 +35,7 @@ export default defineConfig({
 **Verification:**
 - Build the site: `npm run build`
 - Check `dist/sitemap-index.xml` exists
-- Visit https://reverb256.ca/sitemap-index.xml after deploy
+- Visit https://reverb256.dev/sitemap-index.xml after deploy
 
 ---
 
@@ -55,7 +55,7 @@ export default defineConfig({
 <meta property="og:site_name" content="Reverb256" />
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
-<meta property="og:image" content="https://reverb256.ca/og-image.jpg" />
+<meta property="og:image" content="https://reverb256.dev/og-image.jpg" />
 <meta property="og:url" content={canonicalURL} />
 <meta property="og:locale" content="en_CA" />
 
@@ -63,7 +63,7 @@ export default defineConfig({
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content={title} />
 <meta name="twitter:description" content={description} />
-<meta name="twitter:image" content="https://reverb256.ca/og-image.jpg" />
+<meta name="twitter:image" content="https://reverb256.dev/og-image.jpg" />
 ```
 
 **Update `Layout.astro` frontmatter to accept SEO props:**
@@ -151,7 +151,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site).href;
   "@context": "https://schema.org",
   "@type": "Person",
   "name": "Reverb256",
-  "url": "https://reverb256.ca",
+  "url": "https://reverb256.dev",
   "sameAs": [
     "https://github.com/reverb256",
     "https://twitter.com/reverb256" // if exists
@@ -181,13 +181,13 @@ const canonical = new URL(Astro.url.pathname, Astro.site).href;
   "@context": "https://schema.org",
   "@type": "WebSite",
   "name": "Reverb256",
-  "url": "https://reverb256.ca/",
+  "url": "https://reverb256.dev/",
   "description": "Personal portfolio and development blog",
   "potentialAction": {
     "@type": "SearchAction",
     "target": {
       "@type": "EntryPoint",
-      "urlTemplate": "https://reverb256.ca/search?q={search_term_string}"
+      "urlTemplate": "https://reverb256.dev/search?q={search_term_string}"
     },
     "query-input": "required name=search_term_string"
   }
@@ -253,7 +253,7 @@ User-agent: *
 Allow: /
 
 # Sitemap
-Sitemap: https://reverb256.ca/sitemap-index.xml
+Sitemap: https://reverb256.dev/sitemap-index.xml
 
 # Disallow if any (currently none)
 # Disallow: /private/
@@ -323,7 +323,7 @@ Sitemap: https://reverb256.ca/sitemap-index.xml
 ### 5.1 Submit Sitemap to Google Search Console
 
 1. Go to https://search.google.com/search-console
-2. Add property: `https://reverb256.ca`
+2. Add property: `https://reverb256.dev`
 3. Verify ownership (HTML file or DNS)
 4. Go to **Sitemaps** section
 5. Submit: `sitemap-index.xml`
@@ -345,7 +345,7 @@ Sitemap: https://reverb256.ca/sitemap-index.xml
 ## Implementation Checklist
 
 - [x] Install @astrojs/sitemap
-- [x] Add `site: 'https://reverb256.ca'` to astro.config.mjs
+- [x] Add `site: 'https://reverb256.dev'` to astro.config.mjs
 - [x] Update Layout.astro with SEO props
 - [x] Create OG image (1200×630px) — **SVG + PNG generated**
 - [x] Add canonical tag to Layout.astro
@@ -412,7 +412,7 @@ Sitemap: https://reverb256.ca/sitemap-index.xml
    - Verify workflow completes successfully
 
 3. **Verify live site**
-   - Visit https://reverb256.ca
+   - Visit https://reverb256.dev
    - Check all pages load correctly
    - View page source and verify meta tags
 
@@ -420,22 +420,22 @@ Sitemap: https://reverb256.ca/sitemap-index.xml
 
 #### 1. Test Open Graph Image
 - **Twitter Card Validator:** https://cards-dev.twitter.com/validator
-  - Enter: https://reverb256.ca
+  - Enter: https://reverb256.dev
   - Verify large image card displays correctly
 
 - **LinkedIn Post Inspector:** https://www.linkedin.com/post-inspector/
-  - Enter: https://reverb256.ca
+  - Enter: https://reverb256.dev
   - Verify preview displays
 
 - **Facebook Sharing Debugger:** https://developers.facebook.com/tools/debug/
-  - Enter: https://reverb256.ca
+  - Enter: https://reverb256.dev
   - Verify preview displays
 
 #### 2. Submit Sitemap to Search Engines
 
 **Google Search Console:**
 1. Go to https://search.google.com/search-console
-2. Add property: `https://reverb256.ca`
+2. Add property: `https://reverb256.dev`
 3. Verify ownership (HTML file upload recommended)
 4. Go to **Sitemaps** section
 5. Submit: `sitemap-index.xml`
@@ -445,13 +445,13 @@ Sitemap: https://reverb256.ca/sitemap-index.xml
 1. Go to https://www.bing.com/webmasters
 2. Add site and verify
 3. Go to **Sitemaps** section
-4. Submit: `https://reverb256.ca/sitemap-index.xml`
+4. Submit: `https://reverb256.dev/sitemap-index.xml`
 
 #### 3. Run Performance Audit
 
 **PageSpeed Insights:**
 1. Go to https://pagespeed.web.dev
-2. Enter: https://reverb256.ca
+2. Enter: https://reverb256.dev
 3. Check both Mobile and Desktop scores
 4. Target: LCP < 2.5s, INP < 200ms, CLS < 0.1
 
@@ -502,7 +502,7 @@ Sitemap: https://reverb256.ca/sitemap-index.xml
 
 ### Social Share Preview
 
-When someone shares https://reverb256.ca on:
+When someone shares https://reverb256.dev on:
 - **Twitter/X:** Large card with image, title, description
 - **LinkedIn:** Professional preview with all metadata
 - **Facebook:** Full preview with OG image

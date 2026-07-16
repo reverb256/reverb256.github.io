@@ -1,0 +1,361 @@
+---
+import Layout from "../../layouts/Layout.astro";
+
+const manDate = "2026-07-16";
+const manVersion = "2.56.1";
+---
+
+
+<Layout
+  title="man(1) reverb256"
+  description="Portfolio man page — NAME, SYNOPSIS, DESCRIPTION, PROJECTS, INFRASTRUCTURE, BUGS, SEE ALSO"
+>
+  <div class="max-w-4xl mx-auto px-6 py-16">
+    <!-- ════════════════════════════════════════════
+         PAGE HEADER — Standard man page header
+         ════════════════════════════════════════════ -->
+    <div class="mb-12" data-animate="fade-up">
+      <div class="flex items-center gap-3 mb-4">
+        <span class="font-mono text-[10px] text-[var(--base04)] uppercase tracking-widest">// MANUAL</span>
+        <span class="font-mono text-[10px] text-[var(--base09)]">Section 1</span>
+      </div>
+      <div class="font-mono text-sm leading-relaxed text-[var(--base06)]">
+        REVERB256<span class="text-[var(--base04)]">(</span>1<span class="text-[var(--base04)]">)</span>
+        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+        REVERB256<span class="text-[var(--base04)]">(</span>1<span class="text-[var(--base04)]">)</span>
+      </div>
+      <p class="text-[10px] font-mono text-[var(--base04)] mt-1">
+        <span class="text-[var(--base05)]">NixOS</span> &emsp;{manDate} &emsp;reverb256 &emsp;REVERB256(1)
+      </p>
+    </div>
+
+    <!-- ════════════════════════════════════════════
+         NAME
+         ════════════════════════════════════════════ -->
+    <section class="mb-10" data-animate="fade-up">
+      <h2 class="font-mono text-sm font-bold text-[var(--base07)] mb-2 tracking-wider uppercase">Name</h2>
+      <div class="font-mono text-sm text-[var(--base05)] leading-relaxed pl-8">
+        reverb256 &mdash; a builder&rsquo;s evolution from food service to sovereign Canadian infrastructure
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════
+         SYNOPSIS
+         ════════════════════════════════════════════ -->
+    <section class="mb-10" data-animate="fade-up">
+      <h2 class="font-mono text-sm font-bold text-[var(--base07)] mb-2 tracking-wider uppercase">Synopsis</h2>
+      <div class="font-mono text-sm text-[var(--base05)] leading-relaxed pl-8 space-y-2">
+        <div><span class="text-[var(--base06)]">reverb256</span> <span class="text-[var(--base04)]">[--domain=&lt;url&gt;]</span> <span class="text-[var(--base04)]">[--cluster=&lt;hosts&gt;]</span> <span class="text-[var(--base04)]">[--mission=&lt;flag&gt;]</span></div>
+        <div><span class="text-[var(--base06)]">reverb256</span> <span class="text-[var(--base09)]">--craft</span></div>
+        <div><span class="text-[var(--base06)]">reverb256</span> <span class="text-[var(--base09)]">--infrastructure</span></div>
+        <div><span class="text-[var(--base06)]">reverb256</span> <span class="text-[var(--base09)]">--writing</span></div>
+        <div><span class="text-[var(--base06)]">reverb256</span> <span class="text-[var(--base09)]">--version</span></div>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════
+         DESCRIPTION
+         ════════════════════════════════════════════ -->
+    <section class="mb-10" data-animate="fade-up">
+      <h2 class="font-mono text-sm font-bold text-[var(--base07)] mb-2 tracking-wider uppercase">Description</h2>
+      <div class="font-mono text-sm text-[var(--base05)] leading-relaxed pl-8 space-y-4">
+        <p>
+          <span class="text-[var(--base06)]">reverb256</span> is a software developer portfolio and
+          infrastructure showcase operating from Winnipeg, Canada. It documents a 15-year journey 
+          from food service to sovereign Canadian infrastructure, built on a 4-host NixOS cluster 
+          with zero cloud spend.
+        </p>
+
+        <div class="font-mono text-xs text-[var(--base04)] leading-relaxed space-y-1">
+          <div><span class="text-[var(--base07)]">The project is structured into three acts:</span></div>
+          <div class="ml-4">
+            <span class="text-[var(--base0B)]">ACT I</span>  &mdash; Foundation (1995&ndash;2025)<br />
+            <span class="text-[var(--base09)]">ACT II</span> &mdash; Infrastructure (2025&ndash;2026)<br />
+            <span class="text-[var(--base0D)]">ACT III</span> &mdash; Mission (Now &rarr; Future)
+          </div>
+        </div>
+
+        <p>
+          Core operating system: <span class="text-[var(--base09)]">NixOS 26.05</span> on a 
+          <span class="text-[var(--base0B)]">4-host cluster</span> managed with 
+          <span class="text-[var(--base0D)]">Colmena</span> and
+          <span class="text-[var(--base0D)]">K3s</span>. All deployments declarative,
+          all services self-hosted. No cloud providers. No compromises.
+        </p>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════
+         OPTIONS
+         ════════════════════════════════════════════ -->
+    <section class="mb-10" data-animate="fade-up">
+      <h2 class="font-mono text-sm font-bold text-[var(--base07)] mb-2 tracking-wider uppercase">Options</h2>
+      <div class="font-mono text-sm text-[var(--base05)] leading-relaxed space-y-3">
+        <div class="flex gap-4 pl-8">
+          <div class="w-32 shrink-0 text-[var(--base0D)]"><span class="text-[var(--base09)]">--craft</span></div>
+          <div class="text-[var(--base05)]">Browse all projects &mdash; client work, personal tools, infrastructure, and meta.</div>
+        </div>
+        <div class="flex gap-4 pl-8">
+          <div class="w-32 shrink-0 text-[var(--base0D)]"><span class="text-[var(--base09)]">--infrastructure</span></div>
+          <div class="text-[var(--base05)]">View the full cluster topology &mdash; 4 hosts, 78 cores, 8 GPUs, pod counts.</div>
+        </div>
+        <div class="flex gap-4 pl-8">
+          <div class="w-32 shrink-0 text-[var(--base0D)]"><span class="text-[var(--base09)]">--writing</span></div>
+          <div class="text-[var(--base05)]">Read manifestos, deep dives, and technical writing.</div>
+        </div>
+        <div class="flex gap-4 pl-8">
+          <div class="w-32 shrink-0 text-[var(--base0D)]"><span class="text-[var(--base09)]">--version</span></div>
+          <div class="text-[var(--base05)]">Display build version and deploy timestamp.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════
+         PROJECTS
+         ════════════════════════════════════════════ -->
+    <section class="mb-10" data-animate="fade-up">
+      <h2 class="font-mono text-sm font-bold text-[var(--base07)] mb-2 tracking-wider uppercase">Projects</h2>
+      <div class="font-mono text-sm text-[var(--base05)] leading-relaxed space-y-4">
+        <!-- Client Work -->
+        <div class="pl-8">
+          <div class="text-[var(--base09)] mb-1">Client Work</div>
+          <div class="text-xs space-y-1">
+            <div>
+              <span class="text-[var(--base06)]">Troves &amp; Coves</span>
+              &mdash; Crystal jewelry e-commerce built with React, TypeScript, shadcn/ui
+              <span class="text-[var(--base0B)]">[active]</span>
+            </div>
+            <div>
+              <span class="text-[var(--base06)]">hair@home</span>
+              &mdash; Hugo static site for a home salon business
+              <span class="text-[var(--base0B)]">[live]</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Personal -->
+        <div class="pl-8">
+          <div class="text-[var(--base0D)] mb-1">Personal Projects</div>
+          <div class="text-xs space-y-1">
+            <div>
+              <span class="text-[var(--base06)]">Knowledge Fabric</span>
+              &mdash; Qdrant vector search with RRF fusion &amp; wiki compilation
+              <span class="text-[var(--base0B)]">[active]</span>
+            </div>
+            <div>
+              <span class="text-[var(--base06)]">Astral Key</span>
+              &mdash; Web3/FIDO2/Passkey auth microservice in Rust
+              <span class="text-[var(--base0B)]">[active]</span>
+            </div>
+            <div>
+              <span class="text-[var(--base06)]">Synapse</span>
+              &mdash; Local-first AI command center (Tauri)
+              <span class="text-[var(--base0B)]">[active]</span>
+            </div>
+            <div>
+              <span class="text-[var(--base06)]">MapleSpike / Quill</span>
+              &mdash; Canada&rsquo;s sovereign AI government data pipeline, 208 modules, 166 MCP tools
+              <span class="text-[var(--base0B)]">[active]</span>
+            </div>
+            <div>
+              <span class="text-[var(--base06)]">Frostbite Gazette</span>
+              &mdash; AI-curated Canadian accountability journalism
+              <span class="text-[var(--base0B)]">[active]</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Infrastructure -->
+        <div class="pl-8">
+          <div class="text-[var(--base0B)] mb-1">Infrastructure</div>
+          <div class="text-xs space-y-1">
+            <div>
+              <span class="text-[var(--base06)]">NixOS Cluster</span>
+              &mdash; 4-host cluster with GitOps, VR gaming, mining, AI inference
+              <span class="text-[var(--base0B)]">[flagship]</span>
+            </div>
+            <div>
+              <span class="text-[var(--base06)]">Compute Market</span>
+              &mdash; GPU time-slicing market for burst AI inference
+              <span class="text-[var(--base0B)]">[active]</span>
+            </div>
+            <div>
+              <span class="text-[var(--base06)]">MCP Registry</span>
+              &mdash; Declarative MCP server management as NixOS module
+              <span class="text-[var(--base0B)]">[active]</span>
+            </div>
+            <div>
+              <span class="text-[var(--base06)]">Caddy Ingress</span>
+              &mdash; Custom Caddy build + NixOS module + container image
+              <span class="text-[var(--base0B)]">[active]</span>
+            </div>
+            <div>
+              <span class="text-[var(--base06)]">GPU Proxy</span>
+              &mdash; C++ stratum mining proxy v2.0 with SSL &amp; pool management
+              <span class="text-[var(--base0B)]">[active]</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════
+         INFRASTRUCTURE
+         ════════════════════════════════════════════ -->
+    <section class="mb-10" data-animate="fade-up">
+      <h2 class="font-mono text-sm font-bold text-[var(--base07)] mb-2 tracking-wider uppercase">Infrastructure</h2>
+      <div class="font-mono text-sm text-[var(--base05)] leading-relaxed pl-8 space-y-3">
+        <div class="font-mono text-xs space-y-1">
+          <div><span class="text-[var(--base07)]">Host Topology</span></div>
+          <div class="ml-4">
+            <span class="text-[var(--base06)]">zephyr</span>&emsp;Main workstation &mdash; RTX 3090 + 3060 Ti<br />
+            <span class="text-[var(--base06)]">nexus</span>&emsp;&emsp;AI Inference Gateway<br />
+            <span class="text-[var(--base06)]">forge</span>&emsp;&emsp;GPU compute &mdash; 2x RTX 4060 + 2x RX 5700 XT<br />
+            <span class="text-[var(--base06)]">sentry</span>&emsp;&nbsp; Monitoring &amp; networking
+          </div>
+        </div>
+
+        <div class="font-mono text-xs space-y-1">
+          <div><span class="text-[var(--base07)]">Cluster Stats</span></div>
+          <div class="ml-4">
+            <span class="text-[var(--base0B)]">78</span> cores &bull;
+            <span class="text-[var(--base0B)]">126</span> GB RAM &bull;
+            <span class="text-[var(--base0B)]">8</span> GPUs &bull;
+            <span class="text-[var(--base0B)]">~30</span> pods
+          </div>
+        </div>
+
+        <div class="font-mono text-xs space-y-1">
+          <div><span class="text-[var(--base07)]">Key Services</span></div>
+          <div class="ml-4">
+            K3s orchestration (9-week roadmap)&emsp;
+            <span class="text-[var(--base0B)]">Colmena</span> deployment<br />
+            Caddy reverse proxy with automatic TLS&emsp;
+            <span class="text-[var(--base0D)]">Tailscale</span> mesh VPN<br />
+            AI Inference Gateway &mdash; OpenAI-compatible with circuit breakers and RAG<br />
+            Prometheus + Grafana monitoring stack
+          </div>
+        </div>
+
+        <div class="text-xs text-[var(--base04)] mt-4">
+          See <span class="text-[var(--base0D)]">/infrastructure</span> for full cluster topology and metrics.
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════
+         BUGS
+         ════════════════════════════════════════════ -->
+    <section class="mb-10" data-animate="fade-up">
+      <h2 class="font-mono text-sm font-bold text-[var(--base07)] mb-2 tracking-wider uppercase">Bugs</h2>
+      <div class="font-mono text-sm text-[var(--base05)] leading-relaxed pl-8 space-y-2">
+        <p>
+          This portfolio is built with Astro 7.0.9 and shipped as a static site.
+          There are no runtime dependencies. If you find a bug, it&rsquo;s likely
+          in the build pipeline or the terminal emulator.
+        </p>
+        <p class="text-xs text-[var(--base04)]">
+          Known issues:
+        </p>
+        <ul class="text-xs space-y-1 list-disc ml-4">
+          <li>The interactive terminal is a static simulation &mdash; it does not connect to the live cluster</li>
+          <li>The blog content collection is empty (MDX files exist but are not wired into the content config)</li>
+          <li>The AI Chat section requires a local inference gateway to function &mdash; falls back to static responses</li>
+          <li>Unicode block characters in the NixOS logo require a Nerd Font or fallback to render correctly</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════
+         AUTHOR
+         ════════════════════════════════════════════ -->
+    <section class="mb-10" data-animate="fade-up">
+      <h2 class="font-mono text-sm font-bold text-[var(--base07)] mb-2 tracking-wider uppercase">Author</h2>
+      <div class="font-mono text-sm text-[var(--base05)] leading-relaxed pl-8">
+        <span class="text-[var(--base06)]">reverb256</span>
+        &lt;contact@reverb256.dev&gt;
+        <br />
+        <span class="text-xs text-[var(--base04)]">Winnipeg, Canada &mdash; Open to remote work</span>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════
+         SEE ALSO
+         ════════════════════════════════════════════ -->
+    <section class="mb-10" data-animate="fade-up">
+      <h2 class="font-mono text-sm font-bold text-[var(--base07)] mb-2 tracking-wider uppercase">See Also</h2>
+      <div class="font-mono text-sm text-[var(--base05)] leading-relaxed pl-8 space-y-1">
+        <div>
+          <span class="text-[var(--base0D)]">/craft</span>
+          &mdash; Full project catalog with bento-grid layout
+        </div>
+        <div>
+          <span class="text-[var(--base0D)]">/infrastructure</span>
+          &mdash; Cluster topology, stats, and timeline
+        </div>
+        <div>
+          <span class="text-[var(--base0D)]">/writing</span>
+          &mdash; Manifestos, deep dives, technical writing
+        </div>
+        <div>
+          <span class="text-[var(--base0D)]">/blog</span>
+          &mdash; Blog posts and articles
+        </div>
+        <div>
+          <span class="text-[var(--base0D)]">/now</span>
+          &mdash; Current focus, reading, and projects
+        </div>
+        <div>
+          <span class="text-[var(--base0D)]">/setup</span>
+          &mdash; Dev environment, hardware, software stack
+        </div>
+        <div class="mt-3">
+          <span class="text-[var(--base0D)]">https://github.com/reverb256</span>
+          &mdash; GitHub profile
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════
+         FOOTER — Standard man page footer
+         ════════════════════════════════════════════ -->
+    <div class="mt-16 pt-4 font-mono text-[10px] text-[var(--base04)] leading-relaxed" style="border-top: 1px solid var(--border-default);">
+      <div class="flex justify-between">
+        <span>NixOS &emsp;{manDate} &emsp;reverb256 &emsp;REVERB256(1)</span>
+        <a href="/" class="text-[var(--base0D)] hover:text-[var(--base09)] transition-colors">Back to home</a>
+      </div>
+      <div class="mt-1 text-[var(--base05)]">
+        Version {manVersion} &mdash; Built with Astro 7.0.9, static site generation. Zero cloud spend.
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  /* Man page typography — monospace everywhere, clean terminal look */
+  section h2 {
+    letter-spacing: 0.05em;
+  }
+
+  /* List styling for BUGS section */
+  ul.list-disc li::marker {
+    color: var(--base08);
+  }
+
+  /* Responsive tuning */
+  @media (max-width: 640px) {
+    .pl-8 {
+      padding-left: 1rem;
+    }
+    .flex.justify-between {
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    section h2 {
+      transition: none;
+    }
+  }
+</style>

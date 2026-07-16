@@ -1,26 +1,324 @@
-# Design System — reverb256.github.io
+---
+version: "1.0"
+name: reverb256 Portfolio
+description: Cyberpunk Terminal / Rhythm Game inspired portfolio built with Astro 7, React 19, Tailwind v4, and GSAP. Base24-compliant "Inkwell" dark theme with ember orange accent on deep navy foundation. Static-site generated. 7 pages with bento-grid layout, glass morphism, and scroll-driven animations.
+colors:
+  # Base24 "Inkwell" Palette — Darkest Backgrounds
+  base00: "#0a0c10"
+  base01: "#141820"
+  base02: "#1e2430"
+  base03: "#2a3242"
+  # Foreground
+  base04: "#5a6278"
+  base05: "#8a92a8"
+  base06: "#c8ced8"
+  base07: "#f0f2f8"
+  # Accents
+  base08: "#ff6b6b"
+  base09: "#ff9f5c"
+  base0A: "#ffd93d"
+  base0B: "#4ecdc4"
+  base0C: "#7dd3fc"
+  base0D: "#a78bfa"
+  base0E: "#f472b6"
+  base0F: "#a38d56"
+  # Extended ANSI
+  base10: "#ff8787"
+  base11: "#ffb87a"
+  base12: "#ffe066"
+  base13: "#6ee7de"
+  base14: "#93c5fd"
+  base15: "#c4b5fd"
+  base16: "#f9a8d4"
+  base17: "#d4c4a0"
+  # Ink neutral scale (Tailwind @theme)
+  ink-50: "#faf8fc"
+  ink-100: "#f3eef8"
+  ink-200: "#e8def0"
+  ink-300: "#d4c6e3"
+  ink-400: "#b69cd0"
+  ink-500: "#9975bc"
+  ink-600: "#7e5aa3"
+  ink-700: "#684989"
+  ink-800: "#573f71"
+  ink-900: "#4a365f"
+  ink-950: "#1a1029"
+  # Ember accent scale (Tailwind @theme)
+  ember-50: "#fff8f4"
+  ember-100: "#fff0e6"
+  ember-200: "#ffdfc7"
+  ember-300: "#ffc59a"
+  ember-400: "#ff9f5c"
+  ember-500: "#ff7a2a"
+  ember-600: "#f05c1a"
+  ember-700: "#c94412"
+  ember-800: "#a33814"
+  ember-900: "#863116"
+  ember-950: "#481809"
+  # Semantic aliases
+  bg-primary: "{base00}"
+  bg-elevated: "{base01}"
+  bg-surface: "{base02}"
+  bg-hover: "{base03}"
+  text-primary: "{base07}"
+  text-secondary: "{base06}"
+  text-muted: "{base05}"
+  text-subtle: "{base04}"
+  accent-primary: "{base09}"
+  accent-secondary: "{base0D}"
+  accent-success: "{base0B}"
+  accent-error: "{base08}"
+  glass-bg: "rgba(30, 36, 48, 0.7)"
+  glass-border: "rgba(138, 146, 168, 0.15)"
+  glass-blur: "16px"
+  glow-color: "rgba(255, 159, 92, 0.4)"
+typography:
+  h1:
+    fontFamily: Bebas Neue
+    fontSize: clamp(3rem, 10vw, 8rem)
+    fontWeight: 700
+    lineHeight: 1.2
+    letterSpacing: 0
+    textWrap: balance
+  h2:
+    fontFamily: Bebas Neue
+    fontSize: 2.5rem
+    fontWeight: 700
+    lineHeight: 1.2
+    textWrap: balance
+  h3:
+    fontFamily: Bebas Neue
+    fontSize: 2rem
+    fontWeight: 700
+    lineHeight: 1.2
+    textWrap: balance
+  h4:
+    fontFamily: Bebas Neue
+    fontSize: 1.5rem
+    fontWeight: 700
+    lineHeight: 1.2
+    textWrap: balance
+  body:
+    fontFamily: Inter, system-ui, -apple-system
+    fontSize: 1rem
+    lineHeight: 1.6
+  body-small:
+    fontFamily: Inter, system-ui, -apple-system
+    fontSize: 0.875rem
+    lineHeight: 1.5
+  code:
+    fontFamily: Fira Code
+    fontSize: 0.875rem
+    lineHeight: 1.4
+  nav:
+    fontFamily: Inter, system-ui, -apple-system
+    fontSize: 0.875rem
+    fontWeight: 500
+  stat-value:
+    fontFamily: Bebas Neue
+    fontSize: 2.5rem
+    fontWeight: 700
+    lineHeight: 1.1
+  stat-label:
+    fontFamily: Inter, system-ui, -apple-system
+    fontSize: 0.75rem
+    fontWeight: 600
+rounded:
+  none: 0px
+  sm: 6px
+  md: 10px
+  lg: 16px
+  full: 9999px
+spacing:
+  xs: 4px
+  sm: 8px
+  md: 16px
+  lg: 24px
+  xl: 32px
+  xxl: 64px
+motion:
+  instant: 0ms
+  fast: 150ms
+  normal: 300ms
+  slow: 600ms
+  shimmer-duration: 2000ms
+  ease-out: "cubic-bezier(0.16, 1, 0.3, 1)"
+  ease-spring: "cubic-bezier(0.34, 1.56, 0.64, 1)"
+components:
+  btn-accent:
+    backgroundColor: "{colors.accent-primary}"
+    textColor: "{colors.bg-primary}"
+    fontWeight: 600
+    rounded: "{rounded.full}"
+    padding: 12px 24px
+    display: inline-flex
+    alignItems: center
+    justifyContent: center
+    border: none
+    cursor: pointer
+    transition: "transform {motion.normal} {motion.ease-out}, box-shadow {motion.normal} {motion.ease-out}"
+  btn-accent-hover:
+    transform: "scale(1.05)"
+    boxShadow: "0 0 24px {colors.glow-color}"
+  btn-accent-active:
+    transform: "scale(0.98)"
+  btn-outline:
+    backgroundColor: transparent
+    textColor: "{colors.text-secondary}"
+    rounded: "{rounded.full}"
+    padding: 12px 24px
+    border: "1px solid {colors.text-subtle}"
+    transition: "border-color {motion.normal} {motion.ease-out}, color {motion.normal} {motion.ease-out}, background-color {motion.normal} {motion.ease-out}"
+  btn-outline-hover:
+    borderColor: "{colors.accent-primary}"
+    textColor: "{colors.accent-primary}"
+    backgroundColor: "rgba(255, 159, 92, 0.1)"
+  card:
+    backgroundColor: "{colors.glass-bg}"
+    backdropFilter: "blur({colors.glass-blur})"
+    border: "1px solid {colors.glass-border}"
+    rounded: "{rounded.lg}"
+    transition: "box-shadow {motion.normal} {motion.ease-out}, transform {motion.normal} {motion.ease-out}"
+  card-hover:
+    boxShadow: "0 8px 32px rgba(0, 0, 0, 0.3), 0 0 24px {colors.glow-color}"
+    transform: "translateY(-2px)"
+  bento-item:
+    extends: card
+    padding: 24px
+    position: relative
+    overflow: hidden
+  bento-item-hover:
+    transform: "translateY(-4px)"
+    boxShadow: "0 12px 40px rgba(0, 0, 0, 0.4), 0 0 32px {colors.glow-color}"
+  glass-card:
+    backgroundColor: "{colors.glass-bg}"
+    backdropFilter: "blur({colors.glass-blur})"
+    border: "1px solid {colors.glass-border}"
+    rounded: "{rounded.lg}"
+    transition: "box-shadow {motion.normal} {motion.ease-out}, transform {motion.normal} {motion.ease-out}"
+  glass-card-hover:
+    boxShadow: "0 8px 32px rgba(0, 0, 0, 0.3), 0 0 24px {colors.glow-color}"
+    transform: "translateY(-2px)"
+  input:
+    backgroundColor: "{colors.bg-surface}"
+    border: "1px solid {colors.glass-border}"
+    rounded: "{rounded.md}"
+    padding: 12px 16px
+    textColor: "{colors.text-primary}"
+    transition: "border-color {motion.normal} {motion.ease-out}, box-shadow {motion.normal} {motion.ease-out}"
+  input-focus:
+    borderColor: "{colors.accent-primary}"
+    outline: "none"
+    boxShadow: "0 0 0 3px {colors.glow-color}"
+  nav-link:
+    textColor: "{colors.text-muted}"
+    fontSize: 0.875rem
+    display: flex
+    alignItems: center
+    gap: 0.375rem
+    padding: 0.5rem 0.875rem
+    textDecoration: none
+    rounded: "{rounded.sm}"
+    position: relative
+    transition: "color {motion.normal} {motion.ease-out}"
+  nav-link-hover:
+    textColor: "{colors.accent-primary}"
+  nav-link-active:
+    textColor: "{colors.accent-primary}"
+    after:
+      width: 80%
+      content: "''"
+      position: absolute
+      bottom: 0
+      left: 50%
+      height: 2px
+      background: "linear-gradient(90deg, {colors.accent-primary}, {colors.accent-secondary})"
+      transform: "translateX(-50%)"
+      transition: "width {motion.normal} {motion.ease-out}"
+  badge:
+    rounded: "{rounded.full}"
+    padding: 2px 10px
+    fontSize: 0.75rem
+    fontWeight: 600
+  badge-live:
+    backgroundColor: "rgba(78, 205, 196, 0.15)"
+    textColor: "{base0B}"
+    border: "1px solid rgba(78, 205, 196, 0.3)"
+  badge-active:
+    backgroundColor: "rgba(255, 159, 92, 0.15)"
+    textColor: "{accent-primary}"
+    border: "1px solid rgba(255, 159, 92, 0.3)"
+  stat-card:
+    backgroundColor: "{colors.glass-bg}"
+    backdropFilter: "blur({colors.glass-blur})"
+    border: "1px solid {colors.glass-border}"
+    rounded: "{rounded.lg}"
+    padding: 20px
+    transition: "box-shadow {motion.normal} {motion.ease-out}, transform {motion.normal} {motion.ease-out}"
+  stat-card-hover:
+    boxShadow: "0 8px 32px rgba(0, 0, 0, 0.3)"
+    transform: "translateY(-2px)"
+
+
+## Overview
 
 **Theme:** "Inkwell" — Base24 Compliant Dark Theme
 **Aesthetic:** Cyberpunk Terminal / Rhythm Game Inspired
 **Author:** reverb256
-**Last Updated:** 2026-03-11
+**Last Updated:** 2026-07-14
+
+The design system powers a personal portfolio with a terminal-inspired dark interface, glass morphism components, GSAP scroll-driven animations, and a bento-grid project layout. Built on Astro 7 with static-site generation and Tailwind CSS v4 theming via `@theme` directives.
+
+Every color references the Base24 "Inkwell" palette with ember orange as the primary accent. All components use semantic CSS custom properties — never hardcoded hex values. The system supports Display P3 wide gamut and OKLCH perceptual color for vibrant rendering on capable displays.
 
 ---
 
-## Table of Contents
+## Architecture / Page Layout
 
-1. [Color System](#color-system)
-2. [Typography](#typography)
-3. [Spacing & Layout](#spacing--layout)
-4. [Components](#components)
-5. [Animations](#animations)
-6. [Responsive Breakpoints](#responsive-breakpoints)
-7. [Accessibility](#accessibility)
-8. [File Structure](#file-structure)
+The site serves 7 pages built with Astro's static-site generation:
+
+| # | Route | Page | Description |
+|---|-------|------|-------------|
+| 1 | `/` | Homepage | Terminal intro, bento-grid project showcase, beat indicators |
+| 2 | `/blog/` | Blog listing | Article cards with category badges, pagination |
+| 3 | `/blog/[slug]` | Blog post | Markdown-rendered articles with code blocks |
+| 4 | `/now/` | Now page | Current focus, reading, projects — /now page format |
+| 5 | `/setup/` | Setup page | Dev environment, hardware, software stack |
+| 6 | `/bookmarks/` | Bookmarks | Curated link collection with tag/category grouping |
+| 7 | (404) | Custom 404 | Terminal-themed error page |
+
+### File Structure
+
+```
+astro-portfolio/
+├── src/
+│   ├── components/
+│   │   └── Header.astro          # Persistent navigation
+│   ├── layouts/
+│   │   └── Layout.astro           # Base layout with GSAP
+│   ├── pages/
+│   │   ├── index.astro            # Homepage with terminal
+│   │   ├── blog/
+│   │   │   ├── index.astro        # Blog listing
+│   │   │   └── [slug].astro       # Blog post pages
+│   │   ├── now/index.astro        # /now page
+│   │   ├── setup/index.astro      # /setup page
+│   │   └── bookmarks/index.astro   # /bookmarks page
+│   └── styles/
+│       ├── global.css             # Design tokens, base styles
+│       └── animations.css         # Animation keyframes
+├── public/                        # Static assets
+├── DESIGN.md                      # This file
+└── AGENTS.md                      # Conventions for AI assistants
+```
+
+### Content Padding
+
+Page content uses Tailwind padding utilities (`px-6` / `px-6 md:px-24`) rather than a dedicated class:
 
 ---
 
-## Color System
+## Color System & Tokens
 
 ### Base24 "Inkwell" Palette
 
@@ -48,14 +346,14 @@ The theme uses the Base24 color system with dark mode variant.
 
 | Token | Hex | Meaning |
 |-------|-----|---------|
-| `--base08` | `#ff6b6b` | Red - errors, deletions |
-| `--base09` | `#ff9f5c` | Orange - warnings (primary accent) |
-| `--base0A` | `#ffd93d` | Yellow - highlights |
-| `--base0B` | `#4ecdc4` | Cyan/Green - success |
-| `--base0C` | `#7dd3fc` | Light blue - info |
-| `--base0D` | `#a78bfa` | Purple - secondary accent |
-| `--base0E` | `#f472b6` | Pink - tertiary accent |
-| `--base0F` | `#a38d56` | Brown - deprecated |
+| `--base08` | `#ff6b6b` | Red — errors, deletions |
+| `--base09` | `#ff9f5c` | Orange — warnings (primary accent) |
+| `--base0A` | `#ffd93d` | Yellow — highlights |
+| `--base0B` | `#4ecdc4` | Cyan/Green — success |
+| `--base0C` | `#7dd3fc` | Light blue — info |
+| `--base0D` | `#a78bfa` | Purple — secondary accent |
+| `--base0E` | `#f472b6` | Pink — tertiary accent |
+| `--base0F` | `#a38d56` | Brown — deprecated |
 
 #### Extended ANSI (Base24)
 
@@ -127,6 +425,64 @@ For consistent appearance across displays:
 }
 ```
 
+### Tailwind v4 Custom Colors
+
+The ink (neutral) and ember (accent) custom color scales are declared as CSS `@theme` variables:
+
+```css
+@theme {
+  /* Ink neutral scale */
+  --color-ink-50: #faf8fc;
+  --color-ink-100: #f3eef8;
+  --color-ink-200: #e8def0;
+  --color-ink-300: #d4c6e3;
+  --color-ink-400: #b69cd0;
+  --color-ink-500: #9975bc;
+  --color-ink-600: #7e5aa3;
+  --color-ink-700: #684989;
+  --color-ink-800: #573f71;
+  --color-ink-900: #4a365f;
+  --color-ink-950: #1a1029;
+
+  /* Ember accent scale */
+  --color-ember-50: #fff8f4;
+  --color-ember-100: #fff0e6;
+  --color-ember-200: #ffdfc7;
+  --color-ember-300: #ffc59a;
+  --color-ember-400: #ff9f5c;
+  --color-ember-500: #ff7a2a;
+  --color-ember-600: #f05c1a;
+  --color-ember-700: #c94412;
+  --color-ember-800: #a33814;
+  --color-ember-900: #863116;
+  --color-ember-950: #481809;
+}
+```
+
+These replace the custom colors previously defined in `tailwind.config.mjs` under `theme.extend.colors`.
+
+### Custom Animations via @theme
+
+```css
+@theme {
+  --animate-fade-up: fadeUp 0.6s ease-out forwards;
+  --animate-fade-in: fadeIn 0.4s ease-out forwards;
+  --animate-scale-in: scaleIn 0.5s ease-out forwards;
+  --animate-slide-right: slideRight 0.6s ease-out forwards;
+  --animate-glow-pulse: glowPulse 2s ease-in-out infinite;
+}
+```
+
+### Tailwind Usage
+
+Reference these colors and animations directly in Astro components using Tailwind utility classes:
+
+```html
+<div class="bg-ink-950 text-ember-400 animate-fade-up">
+  Hello, world!
+</div>
+```
+
 ---
 
 ## Typography
@@ -135,9 +491,11 @@ For consistent appearance across displays:
 
 | Usage | Font | Source |
 |-------|------|--------|
-| Headings | `Bebas Neue` | Google Fonts (preloaded) |
+| Headings (h1–h3) | `Bebas Neue` | Google Fonts (preloaded) |
+| Subheadings (h4+) | `Inter`, `system-ui`, `-apple-system` | Inherits body font |
 | Monospace | `Fira Code` | Google Fonts (preloaded) |
 | Body | `Inter`, `system-ui`, `-apple-system` | System fonts |
+| Navigation | `Inter`, `system-ui`, `-apple-system` | Inherits body font |
 
 ### Font Scale
 
@@ -167,60 +525,7 @@ h1, h2, h3, h4, h5, h6 {
 
 ---
 
-## Spacing & Layout
-
-### Spacing Scale (4px base unit)
-
-| Token | Value | Usage |
-|-------|-------|-------|
-| `--space-1` | `0.25rem` (4px) | Tiny gaps |
-| `--space-2` | `0.5rem` (8px) | Small gaps |
-| `--space-3` | `0.75rem` (12px) | Compact padding |
-| `--space-4` | `1rem` (16px) | Standard spacing |
-| `--space-6` | `1.5rem` (24px) | Section padding |
-| `--space-8` | `2rem` (32px) | Large spacing |
-| `--space-12` | `3rem` (48px) | XL spacing |
-| `--space-16` | `4rem` (64px) | XXL spacing |
-
-### Border Radius
-
-| Token | Value | Usage |
-|-------|-------|-------|
-| `--radius-sm` | `6px` | Small elements |
-| `--radius-md` | `10px` | Medium elements |
-| `--radius-lg` | `16px` | Cards, large buttons |
-| `--radius-xl` | `24px` | Hero elements |
-| `--radius-full` | `9999px` | Pills, badges |
-
-### Container Widths
-
-| Breakpoint | Max Width |
-|------------|------------|
-| Mobile | `100%` |
-| Tablet | `768px` |
-| Desktop | `1024px` |
-| Wide | `1280px` |
-| Ultra | `1400px` |
-
-### Content Padding
-
-```css
-.page-padding {
-  padding-left: 1.5rem;
-  padding-right: 1.5rem;
-}
-
-@media (min-width: 768px) {
-  .page-padding {
-    padding-left: 6rem;
-    padding-right: 6rem;
-  }
-}
-```
-
----
-
-## Components
+## Component Catalog
 
 ### Buttons
 
@@ -272,7 +577,7 @@ Secondary button with border styling.
 }
 ```
 
-### Cards
+### Glass Cards
 
 #### Glass Card (`.glass`)
 
@@ -408,7 +713,71 @@ Desktop navigation link with hover underline.
 
 ---
 
-## Animations
+## Component State Matrix
+
+| Component | Hover | Active | Focus | Disabled | Loading |
+|-----------|-------|--------|-------|----------|---------|
+| btn-accent | scale(1.05) + glow | scale(0.98) | — | opacity 0.4 | shimmer |
+| btn-outline | border + bg fill | — | — | opacity 0.4 | — |
+| glass / bento-item | translateY(-2px / -4px) + shadow | — | — | — | — |
+| input | — | — | border + glow ring | opacity 0.5 | — |
+| nav-link | underline 60% | — | — | — | — |
+| badge-live / badge-active | — | — | — | — | — |
+
+---
+
+## Layout
+
+### Spacing Scale (4px base unit)
+
+| Token | Value | Usage |
+|-------|-------|-------|
+| `--space-1` | `0.25rem` (4px) | Tiny gaps |
+| `--space-2` | `0.5rem` (8px) | Small gaps |
+| `--space-3` | `0.75rem` (12px) | Compact padding |
+| `--space-4` | `1rem` (16px) | Standard spacing |
+| `--space-6` | `1.5rem` (24px) | Section padding |
+| `--space-8` | `2rem` (32px) | Large spacing |
+| `--space-12` | `3rem` (48px) | XL spacing |
+| `--space-16` | `4rem` (64px) | XXL spacing |
+
+### Border Radius
+
+| Token | Value | Usage |
+|-------|-------|-------|
+| `--radius-sm` | `6px` | Small elements |
+| `--radius-md` | `10px` | Medium elements |
+| `--radius-lg` | `16px` | Cards, large buttons |
+| `--radius-xl` | `24px` | Hero elements |
+| `--radius-full` | `9999px` | Pills, badges |
+
+### Container Widths
+
+| Breakpoint | Max Width |
+|------------|------------|
+| Mobile | `100%` |
+| Tablet | `768px` |
+| Desktop | `1024px` |
+| Wide | `1280px` |
+| Ultra | `1400px` |
+
+---
+
+## Elevation
+
+Flat design hierarchy. Depth is achieved through background layering (base00 → base01 → base02 → base03) rather than box shadows.
+
+Shadows are reserved for interactive states only:
+- **Glass cards (default):** no shadow — depth from backdrop blur + border
+- **Glass cards (hover):** `0 8px 32px rgba(0,0,0,0.3), 0 0 24px var(--glow-color)`
+- **Bento items (hover):** `0 12px 40px rgba(0,0,0,0.4), 0 0 32px var(--glow-color)`
+- **Buttons (hover):** `0 0 24px var(--glow-color)`
+
+The glow-color (`rgba(255, 159, 92, 0.4)`) provides the ember accent glow that ties elevated states to the brand.
+
+---
+
+## Motion
 
 ### Timing Functions
 
@@ -501,6 +870,26 @@ Celebration animation for interaction milestones.
 }
 ```
 
+### Animation Decision Framework
+
+Before adding any animation, evaluate the frequency:
+
+| Frequency | Decision |
+|-----------|----------|
+| 100+ times/day | No animation. Ever. |
+| Tens of times/day | Remove or drastically reduce |
+| Occasional | Standard animation |
+| Rare / first-time | Can add delight |
+
+### Easing & Timing
+
+- **Enter/exit:** `ease-out` or custom `cubic-bezier(0.16, 1, 0.3, 1)`.
+- **Hover/color:** 300ms `ease`.
+- **Button press:** 150ms `ease-out`.
+- **UI animations stay under 300ms.** Deliberate animations (entrance): 600ms.
+- **Never animate from `scale(0)`.**
+- **Only animate `transform` and `opacity`** for GPU compositing.
+
 ### Reduced Motion
 
 Always respect `prefers-reduced-motion`:
@@ -515,26 +904,6 @@ Always respect `prefers-reduced-motion`:
   }
 }
 ```
-
----
-
-## Responsive Breakpoints
-
-| Breakpoint | Width | Changes |
-|------------|-------|---------|
-| Mobile | `< 480px` | Single column, minimal padding |
-| Small | `480px - 767px` | Still single column, adjusted spacing |
-| Tablet | `768px - 1023px` | Two-column grid, nav adapts |
-| Desktop | `≥ 1024px` | Full layout, desktop navigation |
-| Wide | `≥ 1280px` | Max container width |
-
-### Mobile Navigation
-
-Below 768px:
-- Desktop nav hidden
-- Hamburger menu shown
-- Full-screen mobile menu dropdown
-- GitHub button moves to mobile menu
 
 ---
 
@@ -600,30 +969,70 @@ All text meets WCAG AA standards (4.5:1 for normal text, 3:1 for large text).
 
 ---
 
-## File Structure
+## Responsive
 
+### Breakpoints
+
+| Breakpoint | Width | Changes |
+|------------|-------|---------|
+| Mobile | `< 480px` | Single column, minimal padding |
+| Small | `480px — 767px` | Still single column, adjusted spacing |
+| Tablet | `768px — 1023px` | Two-column grid, nav adapts |
+| Desktop | `≥ 1024px` | Full layout, desktop navigation |
+| Wide | `≥ 1280px` | Max container width |
+
+### Mobile Navigation
+
+Below 768px:
+- Desktop nav hidden
+- Hamburger menu shown
+- Full-screen mobile menu dropdown
+- GitHub button moves to mobile menu
+
+---
+
+## Build Configuration
+
+**Node.js:** v24+ (requires `--max-old-space-size=8192` for Vite 8 memory management)
+
+### Build Command
+
+```bash
+NODE_OPTIONS="--max-old-space-size=8192" npm run build
 ```
-astro-portfolio/
-├── src/
-│   ├── components/
-│   │   └── Header.astro          # Persistent navigation
-│   ├── layouts/
-│   │   └── Layout.astro           # Base layout with GSAP
-│   ├── pages/
-│   │   ├── index.astro            # Homepage with terminal
-│   │   ├── blog/
-│   │   │   ├── index.astro        # Blog listing
-│   │   │   └── [slug].astro       # Blog post pages
-│   │   ├── now/index.astro        # /now page
-│   │   ├── setup/index.astro      # /setup page
-│   │   └── bookmarks/index.astro   # /bookmarks page
-│   └── styles/
-│       ├── global.css             # Design tokens, base styles
-│       └── animations.css         # Animation keyframes
-├── public/                        # Static assets
-├── DESIGN.md                      # This file
-└── AGENTS.md                      # Conventions for AI assistants
+
+This is required due to Vite 8's increased memory usage during production builds. Without this flag, builds may fail with a JavaScript heap out of memory error.
+
+---
+
+## Framework Versions
+
+| Framework | Version | Notes |
+|-----------|---------|-------|
+| Astro | 7.0.9 | Upgraded from 5.18.1 on 2026-07-14 |
+| React | 19.2.7 | |
+| Tailwind CSS | v4.3.2 | Migrated from v3 on 2026-07-14 |
+| GSAP | 3.14.2 | |
+
+### Tailwind v4 Migration Notes
+
+Tailwind CSS v4 uses CSS-based configuration via the `@theme` directive instead of `tailwind.config.mjs`. The `@astrojs/tailwind` integration has been replaced with `@tailwindcss/vite`.
+
+```css
+/* No more tailwind.config.mjs — all configuration is in CSS */
 ```
+
+---
+
+## Agent Prompt Guide
+
+**Context:** reverb256 portfolio — a personal site at `reverb256.ca` built with Astro 7 (static), React 19, Tailwind v4 (`@theme`-based), and GSAP 3.14 for scroll-triggered animations. Design system in `src/styles/global.css` (Base24 Inkwell, semantic aliases) and `src/styles/animations.css`. 7 pages: Home (terminal + bento grid), Blog listing + posts, /now, /setup, /bookmarks.
+
+**Bias:** dark canvas (`#0a0c10`), ember orange accent (`#ff9f5c`) on glass cards with backdrop blur, rhythm-game beat indicators, bento-grid project layout, GSAP ScrollTrigger (fade-up from `top 85%`), Bebas Neue headings, Inter body, Fira Code for mono.
+
+**Reject:** light backgrounds, serif fonts, hex hardcodes (use semantic vars), Framer Motion (GSAP only), `scale(0)` animations, missing ARIA, client-side API calls (static frontmatter), `export default` in `.astro` files, React imports for static content.
+
+**Tailwind:** use `ink-*` (neutral) and `ember-*` (accent) color utilities: `bg-ink-950`, `text-ember-400`, `border-ink-700`. GSAP via `<script>` tags in `.astro` files with `define:vars`. All animations gated behind `@media (prefers-reduced-motion: reduce)`.
 
 ---
 
@@ -632,7 +1041,7 @@ astro-portfolio/
 ### When Adding New Components
 
 1. **Use semantic color variables**, never hardcode hex values
-2. **Follow spacing scale** - use `var(--space-*)` tokens
+2. **Follow spacing scale** — use `var(--space-*)` tokens
 3. **Include reduced motion** support for animations
 4. **Add proper ARIA attributes** for accessibility
 5. **Test in both light/dark** forced color modes
@@ -670,4 +1079,5 @@ gsap.from(element, {
 
 | Date | Changes |
 |------|---------|
+| 2026-07-14 | Astro 7.0.9 upgrade, Tailwind v3→v4 migration (CSS @theme), Framework Versions section, Build Requirements section. Restructured DESIGN.md with YAML frontmatter. |
 | 2026-03-11 | Initial design spec created, color management added, Header component documented |

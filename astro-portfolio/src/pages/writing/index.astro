@@ -1,0 +1,230 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { getCollection } from "astro:content";
+
+// Fetch all non-draft posts
+const allPosts = await getCollection("blog", ({ data }) => !data.draft);
+const posts = allPosts.sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+);
+
+// Categorize posts by voice/tone
+interface WritingSection {
+  label: string;
+  description: string;
+  icon: string;
+  filter: (post: typeof allPosts[number]) => boolean;
+}
+
+const sections: WritingSection[] = [
+  {
+    label: "MANIFESTOS",
+    description: "The philosophy behind the infrastructure.",
+    icon: "✦",
+    filter: (p) => p.data.tags.includes("Privacy") || p.data.tags.includes("Career"),
+  },
+  {
+    label: "INFRASTRUCTURE",
+    description: "NixOS, clusters, and building systems that last.",
+    icon: "☸",
+    filter: (p) => p.data.tags.includes("NixOS") || p.data.tags.includes("Infrastructure") || p.data.tags.includes("Colmena"),
+  },
+  {
+    label: "AI & SOVEREIGNTY",
+    description: "Local models, privacy-first AI, and why it matters.",
+    icon: "🧠",
+    filter: (p) => p.data.tags.includes("AI"),
+  },
+  {
+    label: "TECHNICAL WRITING",
+    description: "Deep dives into architecture and implementation.",
+    icon: "⚙",
+    // Catch-all: any post not matched by an earlier section
+    filter: () => true,
+  },
+];
+
+const featuredPosts = posts.filter(p => p.data.featured);
+const regularPosts = posts.filter(p => !p.data.featured);
+
+// Track which posts have been assigned to a section (dedup across sections)
+const assignedSectionPosts = new Set<string>();
+
+function getSectionPosts(section: typeof sections[number]) {
+  return regularPosts.filter(p => {
+    if (assignedSectionPosts.has(p.id)) return false;
+    if (!section.filter(p)) return false;
+    assignedSectionPosts.add(p.id);
+    return true;
+  });
+}
+---
+
+<Layout
+  title="Writing"
+  description="Manifestos, deep dives, and technical writing about infrastructure, AI sovereignty, and building in public."
+>
+  <div class="max-w-4xl mx-auto px-6 py-16">
+    <!-- ═══════════════════════════
+         HEADER
+         ═══════════════════════════ -->
+    <div data-animate="fade-up">
+      <div class="flex items-center gap-3 mb-2">
+        <span class="font-mono text-[10px] text-[var(--base04)] uppercase tracking-widest">// WRITING</span>
+      </div>
+      <h1 class="text-4xl md:text-5xl font-display font-bold text-[var(--base07)] mb-3">
+        What I've Been<br>
+        <span class="gradient-text">Thinking About</span>
+      </h1>
+      <p class="text-sm text-[var(--base05)] max-w-xl leading-relaxed">
+        Manifestos, deep dives, and technical writing. This is what I build 
+        and why I build it. Some of it is infrastructure. Some of it is 
+        philosophy. All of it is genuine.
+      </p>
+      <div class="flex items-center gap-4 mt-4 text-[11px] font-mono text-[var(--base04)]">
+        <span><span class="text-[var(--base09)]">{posts.length}</span> pieces</span>
+        <span><span class="text-[var(--base09)]">{sections.length}</span> threads</span>
+        <span class="text-[var(--base04)]">Last updated: {posts[0]?.data.date.toLocaleDateString('en-CA', { year: 'numeric', month: 'long' })}</span>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════
+         SECTION INDEX — terminal-style nav
+         ═══════════════════════════ -->
+    <nav class="mt-8 mb-12 flex flex-wrap gap-2" data-animate="fade-up" data-delay="0.1" aria-label="Writing sections">
+      {sections.map(s => (
+        <a href={`#${s.label.toLowerCase().replace(/\s+/g, '-').replace(/&/g, 'and')}`}
+           class="px-3 py-1.5 text-[11px] font-mono transition-colors writing-section-link"
+           style="border: 1px solid var(--border-default); color: var(--base04);"
+        >
+          <span class="mr-1.5">{s.icon}</span>
+          {s.label}
+        </a>
+      ))}
+    </nav>
+
+    <!-- ═══════════════════════════
+         FEATURED — highlighted pieces
+         ═══════════════════════════ -->
+    {featuredPosts.map((post, i) => (
+      <article
+        class="mb-8 p-6 group"
+        style="background: var(--surface-default); border: 1px solid var(--border-default);"
+        data-animate="fade-up"
+        data-delay={String(0.15 + i * 0.08)}
+      >
+        <div class="flex items-center gap-2 mb-4">
+          <span class="px-2 py-0.5 text-[9px] font-mono uppercase tracking-wider"
+                style="background: var(--accent-niri); color: var(--base00);">Featured</span>
+          <span class="text-[10px] font-mono text-[var(--base04)]">{post.data.readTime} min</span>
+        </div>
+        <h2 class="text-2xl font-bold text-[var(--base07)] mb-3">
+          <a href={`/blog/${post.id}`} class="hover:text-[var(--base09)] transition-colors inline-flex items-center gap-2">
+            {post.data.title}
+            <svg class="w-4 h-4 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+            </svg>
+          </a>
+        </h2>
+        <p class="text-sm text-[var(--base05)] leading-relaxed">{post.data.description}</p>
+        <div class="flex items-center justify-between mt-4 pt-4" style="border-top: 1px solid var(--border-default);">
+          <div class="flex gap-2">
+            {post.data.tags.map(tag => (
+              <span class="text-[9px] px-2 py-0.5 font-mono" style="background: var(--surface-hover); color: var(--base04);">
+                #{tag}
+              </span>
+            ))}
+          </div>
+          <a href={`/blog/${post.id}`} class="text-[11px] font-mono text-[var(--accent-niri)] hover:text-[var(--base07)] transition-colors">
+            Read →</a>
+        </div>
+      </article>
+    ))}
+
+    <!-- ═══════════════════════════
+         SECTIONS — categorized by voice
+         ═══════════════════════════ -->
+    {sections.map((section, si) => {
+      const sectionPosts = getSectionPosts(section);
+      if (sectionPosts.length === 0) return null;
+      
+      return (
+        <section
+          id={section.label.toLowerCase().replace(/\s+/g, '-').replace(/&/g, 'and')}
+          class="mb-12"
+          data-animate="fade-up"
+          data-delay={String(0.2 + si * 0.08)}
+        >
+          <!-- Section header -->
+          <div class="flex items-center gap-2 mb-2">
+            <span class="text-sm" aria-hidden="true">{section.icon}</span>
+            <h2 class="text-xs font-mono font-bold text-[var(--base07)] uppercase tracking-widest">
+              {section.label}
+            </h2>
+            <span class="text-[9px] font-mono text-[var(--base04)]">({sectionPosts.length})</span>
+          </div>
+          <p class="text-[11px] text-[var(--base04)] mb-4">{section.description}</p>
+
+          <!-- Posts in this section -->
+          <div class="space-y-2">
+            {sectionPosts.map((post, pi) => (
+              <a
+                href={`/blog/${post.id}`}
+                class="block p-4 transition-colors group"
+                style="background: var(--surface-default); border: 1px solid var(--border-default);"
+              >
+                <div class="flex items-start justify-between gap-4">
+                  <div class="min-w-0 flex-1">
+                    <h3 class="text-sm font-bold text-[var(--base07)] group-hover:text-[var(--accent-niri)] transition-colors">
+                      {post.data.title}
+                    </h3>
+                    <p class="text-xs text-[var(--base05)] mt-1 line-clamp-1">{post.data.description}</p>
+                  </div>
+                  <div class="flex items-center gap-2 shrink-0">
+                    <span class="text-[9px] font-mono text-[var(--base04)]">{post.data.readTime}m</span>
+                    <span class="text-[11px] text-[var(--base04)] opacity-0 group-hover:opacity-100 transition-opacity">→</span>
+                  </div>
+                </div>
+              </a>
+            ))}
+          </div>
+        </section>
+      );
+    })}
+
+    <!-- ═══════════════════════════
+         FOOTER NAV
+         ═══════════════════════════ -->
+    <div class="mt-16 pt-6 text-center" style="border-top: 1px solid var(--border-default);">
+      <a href="/" class="inline-flex items-center gap-2 text-xs font-mono text-[var(--base04)] hover:text-[var(--base09)] transition-colors">
+        <span>←</span> Back to home
+      </a>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .line-clamp-1 {
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  /* Smooth scroll to sections */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Section nav links hover state */
+  .writing-section-link:hover {
+    border-color: var(--accent-niri) !important;
+    color: var(--accent-niri) !important;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+</style>

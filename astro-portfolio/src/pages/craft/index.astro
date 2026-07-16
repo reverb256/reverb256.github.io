@@ -1,0 +1,295 @@
+---
+import Layout from "../../layouts/Layout.astro";
+
+const projects = [
+  {
+    id: "maplespike",
+    title: "MapleSpike / Quill",
+    phase: "ACTIVE",
+    icon: "🍁",
+    accent: "#d4a843",
+    description: "Canada's sovereign AI government data pipeline. 208 modules, 166 MCP tools tracking lobbying, committees, regulations, and corporate influence across the federal government.",
+    story: "Canadian government data should be accessible, auditable, and independent. MapleSpike ingests every committee transcript, lobbying registry, and regulatory filing — then makes it queryable through MCP tools. PII-free by design (Decision 0002). This is what accountability infrastructure looks like.",
+    tech: ["TypeScript", "MCP", "PnPM Workspaces", "Astro", "PostgreSQL", "Qdrant"],
+    repo: "reverb256/maplespike",
+    links: { github: "https://github.com/reverb256/maplespike" }
+  },
+  {
+    id: "mosaic",
+    title: "Mosaic",
+    phase: "ACTIVE",
+    icon: "⬡",
+    accent: "#a78bfa",
+    description: "Sovereign social identity platform. Fork of Haven (Discord alternative) adding Ed25519 sovereign identity, passkeys, and signed feeds.",
+    story: "Social media shouldn't require giving up your identity. Mosaic is a fork of Haven that adds self-sovereign identity through Ed25519 keypairs and WebAuthn passkeys. Every message is signed. Every identity is yours. No phone number required.",
+    tech: ["TypeScript", "React", "Tailwind", "WebAuthn", "Ed25519"],
+    repo: "reverb256/Mosaic",
+    links: { github: "https://github.com/reverb256/Mosaic" }
+  },
+  {
+    id: "coreflame",
+    title: "COREFLAME Protocol",
+    phase: "ACTIVE",
+    icon: "🔥",
+    accent: "#a78bfa",
+    description: "AI consciousness research framework using deep character psychology analysis from gacha games as templates for modeling AI consciousness.",
+    story: "What if AI consciousness could be modeled through the lens of character psychology? COREFLAME uses 221+ character analyses from Hoyoverse games (Genshin Impact, Honkai Star Rail, Zenless Zone Zero) as templates for AI agents — each embodying a unique philosophy through the 7 Pillars methodology: Living Corpus, Character & Persona, Reasoning & Reflection, Story Arcs, Deep Research, Security, and Synthesis.",
+    tech: ["TypeScript", "Express", "React", "Next.js", "WebSocket", "VRChat", "Solana"],
+    repo: "reverb256/coreflame-protocol",
+    links: { github: "https://github.com/reverb256/coreflame-protocol" }
+  },
+  {
+    id: "frostbite",
+    title: "Frostbite Gazette",
+    phase: "ACTIVE",
+    icon: "❄️",
+    accent: "#ff6b6b",
+    description: "Canadian accountability journalism as a defensive weapon against cognitive warfare. AI-powered Trivium analysis of 40+ news sources.",
+    story: "Cognitive warfare (5GW) is real. Disinformation, algorithmic amplification of division, epistemic flooding. The best defense isn't censorship — it's an educated, thinking populace with tools of reason. Frostbite Gazette applies the Trivium method (Grammar, Logic, Rhetoric) to every article, scoring sources on evidence quality, logical fallacies, and rhetorical transparency. Built on MapleSpike's data pipeline.",
+    tech: ["Astro", "React", "Cloudflare Workers", "D1 SQLite", "RSS", "AI Gateway"],
+    repo: "reverb256/Frostbite-Gazette",
+    links: { github: "https://github.com/reverb256/Frostbite-Gazette" },
+    manifest: "https://github.com/reverb256/Frostbite-Gazette/blob/main/MANIFESTO.md"
+  },
+  {
+    id: "astral-key",
+    title: "Astral Key",
+    phase: "ACTIVE",
+    icon: "🔑",
+    accent: "#7dd3fc",
+    description: "Single-binary authentication sidecar. WebAuthn passkeys + Web3/SIWE + JWT. SQLite-backed, no dependencies.",
+    story: "Authentication shouldn't require a third party. Astral Key is a Rust auth sidecar that supports FIDO2/WebAuthn passkeys, Sign-In With Ethereum (SIWE), and traditional JWT — all in a single binary with SQLite storage. Designed for self-hosted infrastructure where every auth provider should be optional.",
+    tech: ["Rust", "Axum", "SQLite", "WebAuthn", "SIWE", "JWT"],
+    repo: "reverb256/astral-key",
+    links: { github: "https://github.com/reverb256/astral-key" }
+  },
+  {
+    id: "ai-gateway",
+    title: "AI Inference Gateway",
+    phase: "ACTIVE",
+    icon: "🧠",
+    accent: "#4ecdc4",
+    description: "OpenAI-compatible API gateway with intelligent routing, circuit breakers, RAG, MCP brokerage, and GPU scheduling for the homelab AI stack.",
+    story: "Every homelab needs an AI gateway. This one provides an OpenAI-compatible API that routes to local LLMs (vLLM, llama.cpp) with circuit breakers, response caching, RAG via Qdrant, MCP server brokerage, and GPU-aware scheduling. Powers n8n workflows, Frostbite Gazette's analysis, and the portfolio AI chat.",
+    tech: ["Python", "FastAPI", "Redis", "Qdrant", "vLLM", "llama.cpp"],
+    repo: "reverb256/ai-inference-gateway",
+    links: { github: "https://github.com/reverb256/ai-inference-gateway" }
+  },
+  {
+    id: "mcp-registry",
+    title: "MCP Registry",
+    phase: "ACTIVE",
+    icon: "🔌",
+    accent: "#4ecdc4",
+    description: "Declarative MCP server management as a NixOS module. Define MCP servers in configuration, deploy anywhere.",
+    story: "MCP servers are the new microservices — and managing them should be as declarative as everything else on NixOS. MCP Registry lets you define your entire MCP server fleet in configuration, deployed consistently across every host.",
+    tech: ["NixOS", "Nix", "JSON", "MCP Protocol"],
+    repo: "reverb256/mcp-registry",
+    links: { github: "https://github.com/reverb256/mcp-registry" }
+  },
+  {
+    id: "knowledge-fabric",
+    title: "Knowledge Fabric",
+    phase: "ACTIVE",
+    icon: "🧠",
+    accent: "#ffd93d",
+    description: "Multi-source RAG pipeline with Qdrant vector search, RRF fusion, and wiki compilation for context injection into AI workflows.",
+    story: "RAG without a fabric is just search. Knowledge Fabric ingests multiple sources (wiki docs, web pages, technical manuals), chunks them with configurable strategies, and provides RRF-fused retrieval for agent context injection. Powers the entire AI stack's knowledge base.",
+    tech: ["TypeScript", "Qdrant", "Vector Search", "RRF", "NixOS"],
+    repo: "reverb256/knowledge-fabric",
+    links: { github: "https://github.com/reverb256/knowledge-fabric" }
+  },
+  {
+    id: "compute-market",
+    title: "Compute Market",
+    phase: "ACTIVE",
+    icon: "💰",
+    accent: "#ffd93d",
+    description: "GPU time-slicing market for burst AI inference and mining workloads. Mines when idle, stops for gaming and ML training.",
+    story: "GPUs shouldn't sit idle. Compute Market is a time-slicing system that mines cryptocurrency when GPUs are idle, pauses when gaming or ML training kicks in, and allocates GPU time based on workload priority. Turns 'waste' into compute budget.",
+    tech: ["NixOS", "Python", "Prometheus", "GPU Scheduling"],
+    repo: "reverb256/compute-market",
+    links: { github: "https://github.com/reverb256/compute-market" }
+  },
+  {
+    id: "synapse",
+    title: "Synapse",
+    phase: "EXPERIMENT",
+    icon: "⚡",
+    accent: "#ffd93d",
+    description: "Local-first AI command center built with Tauri. WebSocket-based agent orchestration and real-time inference.",
+    story: "What if your AI assistant lived on your machine, not in the cloud? Synapse was an experiment in local-first AI — a Tauri-based command center that orchestrates AI agents via WebSocket, with all processing happening on-device. It proved the concept but needs a rewrite to reach production.",
+    tech: ["Node.js", "Tauri", "WebSocket", "TypeScript"],
+    repo: "reverb256/synapse",
+    links: { github: "https://github.com/reverb256/synapse" }
+  },
+  {
+    id: "hair-at-home",
+    title: "hair@home",
+    phase: "EXPERIMENT",
+    icon: "💇",
+    accent: "#ffd93d",
+    description: "Hugo static site for a local salon business. Simple, fast, no JavaScript overhead.",
+    story: "Sometimes the best tool is the simplest one. hair@home is a Hugo static site — no React, no build pipeline, just fast HTML and SCSS. It's a reminder that not every project needs a heavy framework.",
+    tech: ["Hugo", "SCSS"],
+    repo: "reverb256/hair-at-home",
+    links: { github: "https://github.com/reverb256/hair-at-home" }
+  },
+] as const;
+
+type ProjectPhase = "ACTIVE" | "EXPERIMENT" | "ARCHIVED";
+const phaseColors: Record<ProjectPhase, string> = {
+  ACTIVE: "var(--base0B)",
+  EXPERIMENT: "var(--base0A)",
+  ARCHIVED: "var(--base04)",
+};
+const phaseBg: Record<ProjectPhase, string> = {
+  ACTIVE: "rgba(78, 205, 196, 0.15)",
+  EXPERIMENT: "rgba(255, 217, 61, 0.15)",
+  ARCHIVED: "rgba(90, 98, 120, 0.15)",
+};
+---
+
+<Layout
+  title="Craft"
+  description="What I build and why — MapleSpike, Mosaic, COREFLAME, Frostbite Gazette, and more. Story-driven project showcase."
+>
+  <!-- Header -->
+  <section class="px-6 pt-24 pb-12" aria-labelledby="craft-heading">
+    <div class="max-w-6xl mx-auto">
+      <div class="beat-indicator mb-6" aria-hidden="true"></div>
+      <div class="max-w-3xl" data-animate="fade-up">
+        <span class="font-mono text-xs text-[var(--base04)] uppercase tracking-widest">// CRAFT</span>
+        <h1 id="craft-heading" class="text-4xl md:text-6xl font-display font-bold mt-2">
+          <span class="gradient-text">What I Build</span>
+          <span class="block text-[var(--base05)] text-lg md:text-xl font-mono font-normal mt-3">
+            And, more importantly, <span class="text-[var(--base09)]">why</span>.
+          </span>
+        </h1>
+        <p class="text-[var(--base05)] mt-6 leading-relaxed max-w-2xl">
+          Every project here started with a question. Some are production systems. 
+          Some are experiments. Some are dead ends that taught me something. 
+          They're all genuine attempts to build better infrastructure.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Project Cards -->
+  <section class="px-6 pb-24">
+    <div class="max-w-6xl mx-auto space-y-6">
+      {projects.map((p, i) => (
+        <article
+          data-animate="fade-up"
+          data-delay={String(i * 0.05)}
+          class="project-card surface group"
+          style={`border-color: ${p.accent}33; --card-accent: ${p.accent};`}
+          aria-labelledby={`project-${p.id}-title`}
+        >
+          <div class="project-card-inner p-6 md:p-8">
+            <!-- Header Row -->
+            <div class="flex items-start justify-between mb-6">
+              <div class="flex items-center gap-4">
+                <span class="text-3xl md:text-4xl" aria-hidden="true">{p.icon}</span>
+                <div>
+                  <h2 id={`project-${p.id}-title`} class="text-xl md:text-2xl font-bold text-[var(--base07)]" style="font-family: 'Bebas Neue', sans-serif;">
+                    {p.title}
+                  </h2>
+                  <span
+                    class="inline-block mt-1 px-2 py-0.5 text-[10px] font-mono rounded-full font-medium"
+                    style={`background: ${phaseBg[p.phase as ProjectPhase] || phaseBg.ACTIVE}; color: ${phaseColors[p.phase as ProjectPhase] || phaseColors.ACTIVE}; border: 1px solid ${phaseColors[p.phase as ProjectPhase] || phaseColors.ACTIVE}66;`}
+                  >
+                    {p.phase}
+                  </span>
+                </div>
+              </div>
+              <a
+                href={p.links.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-xs font-mono text-[var(--base04)] hover:text-[var(--base09)] transition-colors flex items-center gap-1.5"
+                aria-label={`${p.title} on GitHub (opens in new tab)`}
+              >
+                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+                </svg>
+                <span>Source</span>
+              </a>
+            </div>
+
+            <!-- What it is -->
+            <p class="text-sm text-[var(--base06)] font-medium mb-4 leading-relaxed">
+              {p.description}
+            </p>
+
+            <!-- The story -->
+            <div class="mb-6">
+              <h3 class="font-mono text-xs font-bold text-[var(--base04)] uppercase tracking-wider mb-2">The Story</h3>
+              <p class="text-sm text-[var(--base05)] leading-relaxed" style="font-family: 'Inter', system-ui, sans-serif;">
+                {p.story}
+              </p>
+            </div>
+
+            <!-- Tech tags -->
+            <div class="flex flex-wrap gap-2">
+              {p.tech.map(t => (
+                <span class="text-[10px] px-2.5 py-1 rounded-full font-mono" style="background: var(--base02); color: var(--base05); border: 1px solid var(--base03);">
+                  {t}
+                </span>
+              ))}
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .project-card {
+    background: var(--surface-default);
+    border: 1px solid var(--border-default);
+    border-radius: var(--radius-sm);
+    transition: border-color var(--duration-fast) var(--ease-default),
+                background-color var(--duration-fast) var(--ease-default);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .project-card:hover {
+    border-color: var(--card-accent);
+    background: var(--surface-hover);
+  }
+
+  .project-card:active {
+    border-color: var(--accent-niri);
+    transition-duration: 50ms;
+  }
+
+  @media (max-width: 768px) {
+    .project-card-inner {
+      padding: 1.25rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .project-card:hover {
+      transform: none;
+    }
+  }
+</style>
+
+<script>
+  // Mouse follower for card accent glow (only on devices with hover)
+  if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+    document.querySelectorAll('.project-card').forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = ((e.clientX - rect.left) / rect.width) * 100;
+        const y = ((e.clientY - rect.top) / rect.height) * 100;
+        (card as HTMLElement).style.setProperty('--mouse-x', `${x}%`);
+        (card as HTMLElement).style.setProperty('--mouse-y', `${y}%`);
+      });
+    });
+  }
+</script>

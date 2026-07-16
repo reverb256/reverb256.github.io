@@ -325,7 +325,7 @@ import { CLUSTER_DATA } from '../../lib/infrastructure-data';
   const updateAIStatus = async () => {
     try {
       // Gateway health
-      const gatewayResponse = await fetch('https://gateway.reverb256.ca/health', { timeout: 5000 });
+      const gatewayResponse = await fetch('https://gateway.reverb256.dev/health', { timeout: 5000 });
       if (gatewayResponse.ok) {
         const gatewayData = await gatewayResponse.json();
         document.getElementById('gateway-status').innerHTML = `
@@ -349,7 +349,7 @@ import { CLUSTER_DATA } from '../../lib/infrastructure-data';
     }
 
     try {
-      # Knowledge Fabric status (would need its own API)
+      // Knowledge Fabric status (would need its own API)
       document.getElementById('knowledge-status').innerHTML = `
         <span class="status-dot status-healthy"></span>
         <span>Active</span>
@@ -365,8 +365,8 @@ import { CLUSTER_DATA } from '../../lib/infrastructure-data';
     }
 
     try {
-      # MCP Servers status
-      const mcpResponse = await fetch('https://gateway.reverb256.ca/mcp/servers', { timeout: 5000 });
+      // MCP Servers status
+      const mcpResponse = await fetch('https://gateway.reverb256.dev/mcp/servers', { timeout: 5000 });
       if (mcpResponse.ok) {
         const mcpData = await mcpResponse.json();
         const searxngStatus = mcpData.servers?.includes('searxng') ? 'Online' : 'Offline';
@@ -485,7 +485,7 @@ import { CLUSTER_DATA } from '../../lib/infrastructure-data';
   .infrastructure-page {
     min-height: 100vh;
     background-image:
-      linear-gradient(to bottom right, var(--bg-primary) 0%, var(--bg-primary) 60%, color(display-p3 0.04 0.06 0.12) 85%, color(display-p3 0.08 0.18 0.32) 100%);
+      linear-gradient(to bottom right, var(--bg-primary) 0%, var(--bg-primary) 60%, var(--base01) 85%, var(--base01) 100%);
     background-size: 100% 100%;
     background-attachment: fixed;
     color: var(--text-secondary);
@@ -537,9 +537,9 @@ import { CLUSTER_DATA } from '../../lib/infrastructure-data';
     text-align: center;
     padding: 1.5rem;
     background: rgba(255, 255, 255, 0.05);
-    border-radius: 12px;
+    border-radius: var(--radius-sm);
     border: 1px solid rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
+    /* glassmorphism removed for TUI consistency */
   }
 
   .stat-value {

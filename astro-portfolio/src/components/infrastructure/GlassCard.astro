@@ -1,9 +1,9 @@
 ---
 /**
- * GlassCard.astro - Reusable glass morphism card component
+ * GlassCard.astro - Reusable TUI card component
  *
  * Features:
- * - Glass morphism effect with backdrop blur
+ * - Solid surface card with semantic background
  * - Optional icon display
  * - Hover animation with subtle lift
  * - Styled content (p, ul, li)
@@ -37,21 +37,16 @@ const { title, icon, class: className } = Astro.props;
      ═════════════════════════════════════════════════════════════ */
 
   .glass-card {
-    background: rgba(30, 36, 48, 0.7);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    background: var(--surface-default);
     border: 1px solid rgba(138, 146, 168, 0.15);
-    border-radius: 1rem;
+    border-radius: var(--radius-sm);
     padding: 2rem;
-    transition: transform var(--duration-normal, 300ms) var(--ease-out, cubic-bezier(0.16, 1, 0.3, 1)),
-                box-shadow var(--duration-normal, 300ms) var(--ease-out, cubic-bezier(0.16, 1, 0.3, 1));
+    transition: border-color var(--duration-fast, 150ms) var(--ease-default, ease);
   }
 
   .glass-card:hover {
-    transform: translateY(-4px);
-    box-shadow:
-      0 12px 40px rgba(0, 0, 0, 0.4),
-      0 0 32px var(--glow-color, rgba(255, 159, 92, 0.4));
+    /* no lift on hover — TUI cards are flat */
+    border-color: var(--accent-primary);
   }
 
   /* ═════════════════════════════════════════════════════════════

@@ -86,7 +86,7 @@ const bookmarks = {
     <div class="grid md:grid-cols-2 gap-6">
       {Object.entries(bookmarks).map(([category, data], i) => (
         <div
-          class="glass p-6 hover:shadow-xl transition-all duration-300 group/category"
+          class="surface p-6 hover:shadow-xl transition-all duration-300 group/category"
           data-animate="fade-up"
           data-delay={`${0.1 + i * 0.08}`}
         >
@@ -134,7 +134,7 @@ const bookmarks = {
     </div>
 
     <!-- Pro Tip Card -->
-    <div class="glass p-6 mt-6 relative overflow-hidden" data-animate="fade-up" data-delay="0.6">
+    <div class="surface p-6 mt-6 relative overflow-hidden" data-animate="fade-up" data-delay="0.6">
       <div class="absolute top-0 right-0 w-32 h-32 bg-[var(--base0D)]/5 rounded-full blur-3xl"></div>
       <div class="relative">
         <h2 class="text-lg font-bold text-[var(--base07)] mb-3 flex items-center gap-2">

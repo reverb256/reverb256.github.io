@@ -55,7 +55,7 @@ const tagColors: Record<string, string> = {
     </div>
 
     <!-- Tags Filter with enhanced UI -->
-    <div class="glass p-4 mb-8" data-animate="fade-up" data-delay="0.1">
+    <div class="surface p-4 mb-8" data-animate="fade-up" data-delay="0.1">
       <div class="flex items-center gap-2 mb-3">
         <span class="text-sm text-[var(--base04)]">Filter by topic:</span>
         <span class="ml-auto text-xs text-[var(--base04)]">Click to filter</span>
@@ -78,7 +78,7 @@ const tagColors: Record<string, string> = {
     <!-- Featured Posts -->
     {posts.filter(p => p.data.featured).slice(0, 1).map((post, i) => (
       <article
-        class="glass p-6 mb-6 relative overflow-hidden group hover:shadow-xl transition-all duration-300"
+        class="surface p-6 mb-6 relative overflow-hidden group hover:shadow-xl transition-all duration-300"
         data-animate="fade-up"
         data-delay={`${0.15 + i * 0.05}`}
       >
@@ -125,7 +125,7 @@ const tagColors: Record<string, string> = {
     <div class="space-y-4">
       {posts.filter(p => !p.data.featured).map((post, i) => (
         <article
-          class="glass p-5 hover:shadow-lg transition-all duration-300 group"
+          class="surface p-5 hover:shadow-lg transition-all duration-300 group"
           data-animate="fade-up"
           data-delay={`${0.2 + i * 0.08}`}
         >

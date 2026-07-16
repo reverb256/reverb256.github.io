@@ -1,6 +1,66 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+@theme {
+  --color-ink-50: #faf8fc;
+  --color-ink-100: #f3eef8;
+  --color-ink-200: #e8def0;
+  --color-ink-300: #d4c6e3;
+  --color-ink-400: #b69cd0;
+  --color-ink-500: #9975bc;
+  --color-ink-600: #7e5aa3;
+  --color-ink-700: #684989;
+  --color-ink-800: #573f71;
+  --color-ink-900: #4a365f;
+  --color-ink-950: #1a1029;
+  --color-ember-50: #fff8f4;
+  --color-ember-100: #fff0e6;
+  --color-ember-200: #ffdfc7;
+  --color-ember-300: #ffc59a;
+  --color-ember-400: #ff9f5c;
+  --color-ember-500: #ff7a2a;
+  --color-ember-600: #f05c1a;
+  --color-ember-700: #c94412;
+  --color-ember-800: #a33814;
+  --color-ember-900: #863116;
+  --color-ember-950: #481809;
+  --color-slate-850: #172033;
+  --color-slate-950: #0a0f18;
+  --font-family-sans: Inter, system-ui, sans-serif;
+  --font-family-display: "Bebas Neue", Inter, system-ui, sans-serif;
+  --font-family-mono: "Fira Code", monospace;
+  --animate-fade-up: fadeUp 0.6s ease-out forwards;
+  --animate-fade-in: fadeIn 0.4s ease-out forwards;
+  --animate-scale-in: scaleIn 0.5s ease-out forwards;
+  --animate-slide-right: slideRight 0.6s ease-out forwards;
+  --animate-glow-pulse: glowPulse 2s ease-in-out infinite;
+  --grid-template-columns-bento: repeat(4, 1fr);
+  --grid-auto-rows-bento: minmax(180px, auto);
+}
+
+@keyframes fadeUp {
+  0% { opacity: 0; transform: translateY(30px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+@keyframes scaleIn {
+  0% { opacity: 0; transform: scale(0.9); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes slideRight {
+  0% { opacity: 0; transform: translateX(-30px); }
+  100% { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes glowPulse {
+  0%, 100% { box-shadow: 0 0 20px rgba(255, 122, 42, 0.3); }
+  50% { box-shadow: 0 0 40px rgba(255, 122, 42, 0.6); }
+}
 
 /* ===========================================
    SHADCN/UI DESIGN TOKENS
@@ -62,6 +122,7 @@
     color-scheme: only dark;
   }
 
+  .surface,
   .glass,
   .bento-item,
   .btn-accent,
@@ -140,16 +201,20 @@
   --text-subtle: var(--base04);
   
   /* Brand accents */
-  --accent-primary: var(--base09);    /* Ember orange */
-  --accent-secondary: var(--base0D);  /* Purple */
-  --accent-success: var(--base0B);    /* Teal */
-  --accent-error: var(--base08);      /* Red */
+  --accent-primary: var(--base09);    /* Ember orange — primary brand */
+  --accent-secondary: var(--base0D);  /* Purple — consciousness / COREFLAME */
+  --accent-success: var(--base0B);    /* Teal — success / growth */
+  --accent-error: var(--base08);      /* Red — errors, red team, Frostbite */
+  --accent-niri: #509475;             /* Green — niri compositor focus ring */
+  --accent-cardinal: var(--base08);   /* Cardinal red — Frostbite Gazette's defensive brand */
+  --accent-consciousness: var(--base0D); /* Purple — COREFLAME consciousness */
+  --accent-maple: #d4a843;            /* Gold — MapleSpike Canadian identity */
   
-  /* Special effects */
-  --glass-bg: rgba(30, 36, 48, 0.7);
-  --glass-border: rgba(138, 146, 168, 0.15);
-  --glass-blur: 16px;
-  --glow-color: rgba(255, 159, 92, 0.4);
+  /* Surface colors — solid terminal aesthetic, no glass/blur */
+  --surface-default: var(--base01);   /* Elevated surface, like Alacritty bg */
+  --surface-hover: var(--base02);     /* Surface on hover, like focused terminal */
+  --surface-active: var(--base03);    /* Active surface */
+  --border-default: #2a3242;          /* Terminal border color */
 
   /* ═══════════════════════════════════════
      DESIGN TOKENS
@@ -177,195 +242,23 @@
   --text-5xl: 3rem;
   --text-hero: clamp(3rem, 10vw, 8rem);
   
-  /* Radius */
-  --radius-sm: 6px;
-  --radius-md: 10px;
-  --radius-lg: 16px;
-  --radius-xl: 24px;
-  --radius-full: 9999px;
+  /* Radius — TUI terminals have sharp corners. niri has no CSD. */
+  --radius-sm: 2px;
+  --radius-md: 4px;
+  --radius-lg: 6px;
+  --radius-xl: 8px;
+  --radius-full: 4px;
   
-  /* Timing */
+  /* Timing — Simple, predictable. No spring physics. No bounce. */
+  --ease-default: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
-  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
   --duration-fast: 150ms;
   --duration-normal: 300ms;
   --duration-slow: 600ms;
 }
 
-/* ===========================================
-   DISPLAY P3 WIDE-GAMUT COLORS
-   For displays supporting wider color spaces (Mac, iPhones, etc.)
-   =========================================== */
 
-@media (color-gamut: p3) {
-  :root {
-    /* Display P3 offers ~25% more colors than sRGB
-       Using color() function ensures proper color space handling */
-
-    /* Enhanced accents in P3 space - more vibrant */
-    --base08: color(display-p3 1 0.45 0.45);  /* Red - deeper */
-    --base09: color(display-p3 1 0.65 0.4);   /* Orange - ember */
-    --base0A: color(display-p3 1 0.9 0.35);   /* Yellow - warmer */
-    --base0B: color(display-p3 0.35 0.85 0.82); /* Cyan/green - more vibrant */
-    --base0C: color(display-p3 0.55 0.85 1);   /* Light blue - brighter */
-    --base0D: color(display-p3 0.7 0.6 1);     /* Purple - richer */
-    --base0E: color(display-p3 0.98 0.5 0.75); /* Pink - more saturated */
-    --base0F: color(display-p3 0.68 0.6 0.4);  /* Brown */
-
-    /* P3 Extended ANSI */
-    --base10: color(display-p3 1 0.55 0.55);
-    --base11: color(display-p3 1 0.75 0.5);
-    --base12: color(display-p3 1 0.9 0.45);
-    --base13: color(display-p3 0.45 0.93 0.9);
-    --base14: color(display-p3 0.6 0.8 1);
-    --base15: color(display-p3 0.8 0.75 1);
-    --base16: color(display-p3 0.98 0.68 0.85);
-    --base17: color(display-p3 0.85 0.8 0.65);
-  }
-}
-
-/* ===========================================
-   REC.2020 ULTRA WIDE-GAMUT
-   For HDR/4K displays with rec2020 support
-   =========================================== */
-
-@media (color-gamut: rec2020) {
-  :root {
-    /* Rec.2020 is the widest gamut - used for HDR content
-       These colors will appear even more vibrant on supported displays */
-    --base09: color(rec2020 1 0.6 0.35);
-    --base0D: color(rec2020 0.65 0.55 1);
-    --glow-color: color(rec2020 1 0.6 0.35 / 0.5);
-  }
-}
-
-/* ===========================================
-   HIGH DYNAMIC RANGE (HDR) SUPPORT
-   For displays that can show brighter highlights
-   =========================================== */
-
-@media (dynamic-range: high) {
-  :root {
-    /* On HDR displays, we can use brighter values for glow effects */
-    --glow-color: color(display-p3 1 0.65 0.4 / 0.6);
-  }
-
-  /* Enhanced glow effects for HDR displays */
-  .glass:hover,
-  .bento-item:hover {
-    box-shadow:
-      0 8px 32px rgba(0, 0, 0, 0.4),
-      0 0 40px color(display-p3 1 0.65 0.4),
-      0 0 80px color(display-p3 1 0.65 0.4 / 0.3);
-  }
-
-  .bento-item:hover::after {
-    filter: blur(12px);
-    opacity: 0.7;
-  }
-
-  /* Brighter glow for buttons on HDR */
-  .btn-accent:hover {
-    box-shadow:
-      0 0 30px color(display-p3 1 0.65 0.4),
-      0 0 60px color(display-p3 1 0.65 0.4 / 0.4);
-  }
-}
-
-/* ===========================================
-   OKLCH PERCEPTUALLY UNIFORM COLORS
-   For consistent appearance across different displays
-   OKLCH ensures perceptual uniformity - colors that
-   appear equally different to the human eye
-   =========================================== */
-
-@media (color-gamut: p3) {
-  :root {
-    /* Override key semantic colors with OKLCH in P3
-       L = lightness (0-1), C = chroma (saturation), H = hue (0-360)
-
-       Converting existing palette to OKLCH:
-       - Base09 (ember): ~oklch(0.72 0.18 55)
-       - Base0D (purple): ~oklch(0.68 0.15 290)
-       - Base0B (teal): ~oklch(0.7 0.12 195) */
-
-    /* Brand accents in OKLCH for perceptual consistency */
-    --accent-primary: oklch(0.72 0.18 55);     /* Ember - consistent perceived brightness */
-    --accent-secondary: oklch(0.68 0.15 290);  /* Purple */
-    --accent-success: oklch(0.7 0.12 195);     /* Teal */
-    --accent-error: oklch(0.65 0.2 25);        /* Red */
-
-    /* Glow effect using OKLCH for smoother gradients */
-    --glow-color: oklch(0.72 0.18 55 / 0.5);
-  }
-}
-
-/* ===========================================
-   IMAGE COLOR MANAGEMENT
-   Ensures images render consistently across
-   local file:// and http:// protocols
-   =========================================== */
-
-/* For images, ensure color profile is respected */
-img,
-video,
-picture,
-svg {
-  color-rendering: optimizeQuality;  /* Better color accuracy */
-  image-rendering: auto;              /* Browser handles interpolation */
-}
-
-/* Force sRGB for images without color profiles */
-@supports (color: color(srgb 0 0 0)) {
-  img:not([style*="color-profile"]),
-  picture img {
-    /* Hint to browser that images are in sRGB space */
-    color: color(srgb 1 1 1);  /* Force sRGB color space */
-  }
-}
-
-/* PNG optimization for better color consistency */
-img[src$=".png"] {
-  image-rendering: -webkit-optimize-contrast;
-  image-rendering: crisp-edges;
-}
-
-/* JPEG natural rendering */
-img[src$=".jpg"],
-img[src$=".jpeg"] {
-  image-rendering: auto;
-}
-
-/* SVG color profile handling */
-svg {
-  color-rendering: optimizeQuality;
-  shape-rendering: geometricPrecision;
-}
-
-/* ===========================================
-   COLOR CONSISTENCY UTILITIES
-   Helper classes for consistent color rendering
-   =========================================== */
-
-/* Force GPU compositing for smoother color blending */
-@layer components {
-  .color-smooth {
-    will-change: background-color, color, border-color;
-    transform: translateZ(0);  /* Force GPU layer */
-  }
-
-  /* Ensure text rendering consistency */
-  .text-sharp {
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-rendering: optimizeLegibility;
-  }
-
-  /* For gradient elements, ensure smooth interpolation */
-  .gradient-smooth {
-    background-interpolation: smooth;
-  }
-}
 
 /* ===========================================
    BASE LAYER
@@ -403,9 +296,9 @@ svg {
     text-wrap: balance;
   }
 
-  /* Focus visible styles for keyboard navigation */
+  /* Focus visible styles — niri-style focus ring (2px solid green) */
   *:focus-visible {
-    outline: 2px solid var(--accent-primary);
+    outline: 2px solid var(--accent-niri);
     outline-offset: 2px;
   }
 
@@ -457,93 +350,150 @@ svg {
    =========================================== */
 
 @layer components {
-  /* Glass card */
+  /* ═══════════════════════════════════════════
+     TERMINAL CARD — TUI aesthetic, solid bg, sharp border
+     Inspired by Alacritty terminal windows and
+     tiling WM frames. No blur, no glass, no glow.
+     ═══════════════════════════════════════════ */
+  .terminal-card {
+    position: relative;
+    background: var(--surface-default);
+    border: 1px solid var(--border-default);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    transition: border-color var(--duration-fast) var(--ease-default),
+                background-color var(--duration-fast) var(--ease-default);
+  }
+  
+  .terminal-card:hover {
+    border-color: var(--base03);
+    background: var(--surface-hover);
+  }
+  
+  .terminal-card:active {
+    border-color: var(--accent-niri);
+    transition-duration: 80ms;
+  }
+  
+  /* .surface — TUI card container (replaces .glass) */
+  .surface {
+    position: relative;
+    background: var(--surface-default);
+    border: 1px solid var(--border-default);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    transition: border-color var(--duration-fast) var(--ease-default),
+                background-color var(--duration-fast) var(--ease-default);
+  }
+  
+  .surface:hover {
+    border-color: var(--base03);
+    background: var(--surface-hover);
+  }
+  
+  /* .glass alias — backward compat, same as .surface */
   .glass {
-    background: var(--glass-bg);
-    backdrop-filter: blur(var(--glass-blur));
-    -webkit-backdrop-filter: blur(var(--glass-blur));
-    border: 1px solid var(--glass-border);
-    border-radius: var(--radius-lg);
+    position: relative;
+    background: var(--surface-default);
+    border: 1px solid var(--border-default);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    transition: border-color var(--duration-fast) var(--ease-default),
+                background-color var(--duration-fast) var(--ease-default);
   }
   
   .glass:hover {
-    box-shadow: 
-      0 8px 32px rgba(0, 0, 0, 0.3),
-      0 0 24px var(--glow-color);
-    transform: translateY(-2px);
-    transition: transform var(--duration-normal) var(--ease-out),
-                box-shadow var(--duration-normal) var(--ease-out);
+    border-color: var(--base03);
+    background: var(--surface-hover);
   }
   
-  /* Bento grid item */
+  /* Bento grid item — solid bg, sharp border, niri-style focus on hover */
   .bento-item {
-    composes: glass;
-    padding: var(--space-6);
     position: relative;
+    background: var(--surface-default);
+    border: 1px solid var(--border-default);
+    border-radius: var(--radius-sm);
     overflow: hidden;
-    transition: transform var(--duration-normal) var(--ease-out),
-                box-shadow var(--duration-normal) var(--ease-out);
+    padding: var(--space-6);
+    transition: border-color var(--duration-fast) var(--ease-default),
+                background-color var(--duration-fast) var(--ease-default);
   }
   
   .bento-item:hover {
-    transform: translateY(-4px);
-    box-shadow: 
-      0 12px 40px rgba(0, 0, 0, 0.4),
-      0 0 32px var(--glow-color);
+    border-color: var(--accent-niri);
+    background: var(--surface-hover);
   }
   
-  /* Accent button */
+  .bento-item:active {
+    border-color: var(--accent-primary);
+    transition-duration: 80ms;
+  }
+  
+  /* Accent button — sharp corners, no glow, solid terminal feel */
   .btn-accent {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: var(--space-3) var(--space-6);
+    padding: 0.5rem 1.25rem;
     background: var(--accent-primary);
     color: var(--bg-primary);
     font-weight: 600;
-    border-radius: var(--radius-full);
+    font-size: 0.875rem;
+    font-family: 'Fira Code', monospace;
+    border-radius: var(--radius-sm);
     border: none;
     cursor: pointer;
-    transition: transform var(--duration-fast) var(--ease-spring),
-                box-shadow var(--duration-normal) var(--ease-out),
-                background-color var(--duration-fast) var(--ease-out);
     text-decoration: none;
+    -webkit-user-select: none;
+    user-select: none;
+    transition: background-color var(--duration-fast) var(--ease-default);
   }
 
   .btn-accent:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 24px var(--glow-color);
+    background: var(--base12);
   }
 
   .btn-accent:active {
-    transform: scale(0.98);
+    background: var(--base09);
+    transition-duration: 50ms;
   }
 
-  /* Outline button */
+  /* Outline button — terminal border style, sharp corners */
   .btn-outline {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: var(--space-3) var(--space-6);
+    padding: 0.5rem 1.25rem;
     background: transparent;
     color: var(--text-secondary);
-    border: 1px solid var(--text-subtle);
-    border-radius: var(--radius-full);
+    font-size: 0.875rem;
+    font-family: 'Fira Code', monospace;
+    border: 1px solid var(--border-default);
+    border-radius: var(--radius-sm);
     cursor: pointer;
-    transition: border-color var(--duration-fast),
-                color var(--duration-fast),
-                background-color var(--duration-fast) var(--ease-out);
     text-decoration: none;
+    transition: border-color var(--duration-fast) var(--ease-default),
+                color var(--duration-fast) var(--ease-default),
+                background-color var(--duration-fast) var(--ease-default);
   }
 
   .btn-outline:hover {
-    border-color: var(--accent-primary);
-    color: var(--accent-primary);
-    background-color: rgba(255, 159, 92, 0.1);
+    border-color: var(--accent-niri);
+    color: var(--accent-niri);
+    background: var(--surface-hover);
   }
 
   .btn-outline:active {
-    transform: scale(0.98);
+    border-color: var(--accent-primary);
+    background: rgba(255, 159, 92, 0.1);
+  }
+  
+  /* Press feedback for all interactive TUI elements */
+  .btn-accent:active,
+  .btn-outline:active,
+  .bento-item:active {
+    transform: scale(0.97);
+    transition-duration: 50ms;
   }
   
   /* Gradient text */
@@ -597,31 +547,6 @@ svg {
    BACKGROUND ANIMATIONS - Cross-browser CSS keyframes
    =========================================== */
 
-@keyframes glow-float-1 {
-  0%, 100% {
-    transform: translate(0, 0);
-  }
-  50% {
-    transform: translate(100px, 50px);
-  }
-}
-
-@keyframes glow-float-2 {
-  0%, 100% {
-    transform: translate(0, 0);
-  }
-  50% {
-    transform: translate(-80px, -40px);
-  }
-}
-
-#glow-1 {
-  animation: glow-float-1 25s ease-in-out infinite;
-}
-
-#glow-2 {
-  animation: glow-float-2 30s ease-in-out infinite;
-}
 
 /* ===========================================
    REDUCED MOTION
@@ -641,14 +566,15 @@ svg {
   }
 
   #glow-1,
-  #glow-2,
-  #glow-3 {
+  #glow-2 {
     animation: none;
   }
 }
 
 /* ===========================================
-   CRT SCANLINE OVERLAY
+   TERMINAL OVERLAY — Subtle scanline texture
+   Much lighter than CRT effect. Just enough to
+   hint at a monitor without being distracting.
    =========================================== */
 
 .crt-overlay {
@@ -656,37 +582,59 @@ svg {
   inset: 0;
   background: repeating-linear-gradient(
     0deg,
-    rgba(0, 0, 0, 0.03) 0px,
+    rgba(0, 0, 0, 0.02) 0px,
     transparent 1px,
     transparent 2px,
     transparent 3px
   );
   pointer-events: none;
   z-index: 9999;
-  opacity: 0.6;
-}
-
-/* Subtle screen curvature effect */
-.crt-overlay::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(
-    ellipse at center,
-    transparent 0%,
-    rgba(0, 0, 0, 0.1) 100%
-  );
-  pointer-events: none;
+  opacity: 0.3;
 }
 
 /* ===========================================
    DRAMATIC TYPOGRAPHIC SCALE
    =========================================== */
 
+/* ═══════════════════════════════════════════════════
+   TUI TYPOGRAPHY
+   — Monospace as accent (terminal-native)
+   — Minimal letter-spacing variation (TUI aesthetic)
+   — Scale driven by utility, not drama
+   ═══════════════════════════════════════════════════ */
+
+h1, .text-display {
+  line-height: 1.05;
+  font-weight: 700;
+}
+
+h2 {
+  line-height: 1.1;
+  font-weight: 700;
+}
+
+h3 {
+  line-height: 1.2;
+  font-weight: 600;
+}
+
+h4, h5, h6 {
+  line-height: 1.3;
+  font-weight: 600;
+}
+
+p, .text-body {
+  line-height: 1.6;
+}
+
+code, .font-mono {
+  line-height: 1.4;
+}
+
 #hero-heading {
   font-size: clamp(2.5rem, 6vw, 5rem) !important;
   letter-spacing: -0.02em;
-  line-height: 1.1;
+  line-height: 1.05;
   font-weight: 700;
 }
 
@@ -694,7 +642,7 @@ svg {
 #about-heading,
 #contact-heading {
   font-size: clamp(1.5rem, 3vw, 2.5rem) !important;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.015em;
   font-weight: 600;
 }
 
@@ -740,47 +688,6 @@ svg {
 
   .bento-item:nth-child(5) {
     grid-column: span 2;
-  }
-}
-
-/* ===========================================
-   GLOWING BORDER ANIMATIONS
-   =========================================== */
-
-.bento-item::after {
-  content: '';
-  position: absolute;
-  inset: -2px;
-  border-radius: inherit;
-  background: linear-gradient(
-    45deg,
-    var(--base09),
-    var(--base0D),
-    var(--base0B),
-    var(--base09)
-  );
-  background-size: 400% 400%;
-  z-index: -1;
-  opacity: 0;
-  transition: opacity 0.3s;
-  filter: blur(8px);
-  animation: none;
-}
-
-.bento-item:hover::after {
-  opacity: 0.5;
-  animation: border-rotate 3s linear infinite;
-}
-
-@keyframes border-rotate {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
   }
 }
 
