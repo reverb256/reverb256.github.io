@@ -149,12 +149,15 @@ export const CLUSTER_DATA = {
       description: 'Stateless services (GlitchTip web/worker, SearXNG, n8n), GPU workloads (llama.cpp)'
     },
     {
-      date: 'March 20, 2026',        title: 'K8s Phase 6-7: Monitoring [AKASH section deprecated 2026-07-01]',        description: 'Prometheus + Grafana monitoring [AKASH provider section deprecated 2026-07-01]'
+      date: 'March 20, 2026',
+      title: 'K8s Phase 6-7: Monitoring Stack Complete',
+      description: 'Prometheus + Grafana monitoring deployed for cluster-wide observability.'
     },
     {
       date: 'March 21, 2026',
       title: 'Production Cluster Live',
-      icon: '🚀',        description: '60+ pods running across 4 hosts. AI inference, mining, monitoring [AKASH provider section deprecated 2026-07-01]'
+      icon: '🚀',
+      description: '60+ pods running across 4 hosts. AI inference, mining, and monitoring workloads in production.'
     },
     {
       date: 'April 1, 2026',

@@ -1,14 +1,14 @@
 # Interactive Infrastructure Journey - Design Document
 
 **Date:** 2026-03-21
-**Status:** Approved
+**Status:** Historical Reference ⚠️
 **Author:** Claude (with reverb256)
+
+> **⚠️ 2026-07-28 Update:** This design doc predates the removal of the Akash provider (decommissioned 2026-07-01). All Akash references below are deprecated. The cluster no longer runs an Akash provider. Keeping this doc for historical context — do not use as a source of truth for current infrastructure.
 
 ## Overview
 
-Create a high-impact, scroll-telling experience showcasing the 4-host NixOS cluster with AI-powered monitoring and privacy-first local inference. The page tells the complete story from Windows elimination through NixOS mastery to production Kubernetes cluster with Akash provider.
-
-## Goals
+Create a high-impact, scroll-telling experience showcasing the 4-host NixOS cluster with AI-powered monitoring and privacy-first local inference. The page tells the complete story from Windows elimination through NixOS mastery to production Kubernetes cluster.
 
 1. **Technical Innovation** - Showcase NFS-based config sync, profile system, custom modules
 2. **Operational Excellence** - Demonstrate automation, monitoring, K8s migration

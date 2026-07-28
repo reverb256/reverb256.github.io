@@ -1,5 +1,7 @@
 # Interactive Infrastructure Journey Implementation Plan
 
+> **⚠️ 2026-07-28 Update:** This implementation plan is historical reference. It predates the removal of the Akash provider (decommissioned 2026-07-01). All Akash references below are deprecated. Do not treat the Akash-related code snippets as current. The data structure has since been updated — see `astro-portfolio/src/lib/infrastructure-data.ts` for the current state.
+
 > **For Claude:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to implement this plan task-by-task.
 
 **Goal:** Create a high-impact, scroll-telling experience showcasing the 4-host NixOS cluster with 3D visualization, GSAP animations, timeline, and interactive code explorer.
