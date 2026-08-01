@@ -1,0 +1,44 @@
+# Weekly git health check for reverb256.github.io
+name: "Weekly git health"
+on:
+  schedule:
+    - cron: "0 8 * * 1"
+  workflow_dispatch:
+
+jobs:
+  health:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: "Check status"
+        run: |
+          echo "## Git Health Report" >> $GITHUB_STEP_SUMMARY
+          echo "**Latest:** $(git log --oneline -1)" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+
+          echo "### Stale branches (merged to main)" >> $GITHUB_STEP_SUMMARY
+          STALE=$(git branch -r --merged origin/main | grep -v "origin/main\|origin/HEAD" || true)
+          if [ -n "$STALE" ]; then
+            echo "$STALE" | while read b; do echo "- $b" >> $GITHUB_STEP_SUMMARY; done
+          else
+            echo "No stale branches found ✅" >> $GITHUB_STEP_SUMMARY
+          fi
+          echo "" >> $GITHUB_STEP_SUMMARY
+
+          echo "### LFS / large files" >> $GITHUB_STEP_SUMMARY
+          LARGE=$(git ls-files | xargs -I{} du -h {} 2>/dev/null | sort -rh | head -5 || true)
+          if [ -n "$LARGE" ]; then
+            echo "```" >> $GITHUB_STEP_SUMMARY
+            echo "$LARGE" >> $GITHUB_STEP_SUMMARY
+            echo "```" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "No large files detected ✅" >> $GITHUB_STEP_SUMMARY
+          fi
+          echo "" >> $GITHUB_STEP_SUMMARY
+
+          echo "### Recent tag" >> $GITHUB_STEP_SUMMARY
+          TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "none")
+          echo "Latest tag: **$TAG**" >> $GITHUB_STEP_SUMMARY
