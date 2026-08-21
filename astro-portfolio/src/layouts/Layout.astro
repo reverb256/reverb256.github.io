@@ -277,7 +277,7 @@ const ogImage = new URL(image, Astro.site).href;
             }
           });
           // Register 'help' command handler
-          (window as any).__consoleHelp = () => {
+          window.__consoleHelp = () => {
             console.log("%cAvailable commands:", "color: var(--base0D); font-weight: bold;");
             console.log("%c  ╰─► neofetch   — Show system info", "color: var(--base0B);");
             console.log("%c  ╰─► status     — Cluster status", "color: var(--base0B);");
@@ -293,8 +293,8 @@ const ogImage = new URL(image, Astro.site).href;
       detectDevTools();
       
       // Console command handlers
-      const commands: Record<string, () => void> = {
-        help: () => (window as any).__consoleHelp?.(),
+      const commands = {
+        help: () => window.__consoleHelp?.(),
         neofetch: () => {
           console.log("%c       ▗▄   ▗▄ ▄▖                  j_kro@reverb256.dev", "color: var(--base0B); font-family: 'Fira Code';");
           console.log("%c      ▄▄█▄▄▄██▛ ▃                 ----------------------", "color: var(--base09); font-family: 'Fira Code';");
@@ -313,11 +313,10 @@ const ogImage = new URL(image, Astro.site).href;
         },
       };
       
-      // Intercept console input by overriding the global error handler trick
-      // This makes 'help' work when typed directly in the console
-      (window as any).help = () => commands.help();
-      (window as any).neofetch = () => commands.neofetch();
-      (window as any).status = () => commands.status();
+      // Register global handlers so they work when typed in devtools console
+      window.help = () => commands.help();
+      window.neofetch = () => commands.neofetch();
+      window.status = () => commands.status();
     </script>
 
     <!-- ════════════════════════════════════════════

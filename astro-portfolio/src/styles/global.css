@@ -246,8 +246,8 @@
   --radius-sm: 2px;
   --radius-md: 4px;
   --radius-lg: 6px;
-  --radius-xl: 8px;
-  --radius-full: 4px;
+  --radius-xl: 8px;    --radius-full: 4px;
+    --radius-terminal: 0;
   
   /* Timing — Simple, predictable. No spring physics. No bounce. */
   --ease-default: cubic-bezier(0.16, 1, 0.3, 1);
@@ -300,13 +300,21 @@
   *:focus-visible {
     outline: 2px solid var(--accent-niri);
     outline-offset: 2px;
-  }
-
-  /* Touch action optimization */
+  }    /* Touch action optimization */
   a,
   button,
   .bento-item {
     touch-action: manipulation;
+  }
+
+  /* Smooth entrance for stat numbers — subtle counter-like feel */
+  .stat-number {
+    font-variant-numeric: tabular-nums;
+    transition: color var(--duration-normal) var(--ease-out);
+  }
+  
+  .stat-number:hover {
+    color: var(--base0B);
   }
 
   /* Smooth scrolling with keyboard support */
@@ -401,7 +409,7 @@
     transition: border-color var(--duration-fast) var(--ease-default),
                 background-color var(--duration-fast) var(--ease-default);
   }
-  
+
   .glass:hover {
     border-color: var(--base03);
     background: var(--surface-hover);
@@ -446,7 +454,8 @@
     text-decoration: none;
     -webkit-user-select: none;
     user-select: none;
-    transition: background-color var(--duration-fast) var(--ease-default);
+    transition: background-color var(--duration-fast) var(--ease-default),
+                transform 160ms var(--ease-out);
   }
 
   .btn-accent:hover {
@@ -474,7 +483,8 @@
     text-decoration: none;
     transition: border-color var(--duration-fast) var(--ease-default),
                 color var(--duration-fast) var(--ease-default),
-                background-color var(--duration-fast) var(--ease-default);
+                background-color var(--duration-fast) var(--ease-default),
+                transform 160ms var(--ease-out);
   }
 
   .btn-outline:hover {
@@ -504,9 +514,10 @@
     background-clip: text;
   }
   
-  /* Animated underline */
+  /* Animated underline — progressive disclosure */
   .link-underline {
     position: relative;
+    text-decoration: none;
   }
   
   .link-underline::after {
@@ -516,8 +527,9 @@
     left: 0;
     width: 0;
     height: 2px;
-    background: var(--accent-primary);
-    transition: width var(--duration-normal) var(--ease-out);
+    background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+    transition: width 250ms var(--ease-out);
+    transform-origin: left;
   }
   
   .link-underline:hover::after {
@@ -589,7 +601,7 @@
   );
   pointer-events: none;
   z-index: 9999;
-  opacity: 0.3;
+  opacity: 0.15;
 }
 
 /* ===========================================
@@ -647,6 +659,42 @@ code, .font-mono {
 }
 
 /* ===========================================
+   SECTION TRANSITIONS — Connector lines between
+   narrative phases for visual wayfinding
+   =========================================== */
+
+.phase-connector {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0;
+  opacity: 0.3;
+  transition: opacity var(--duration-normal) var(--ease-out);
+}
+
+.phase-connector::before,
+.phase-connector::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--base04), transparent);
+}
+
+.phase-connector:hover {
+  opacity: 0.7;
+}
+
+.phase-connector-dot {
+  width: 4px;
+  height: 4px;
+  background: var(--base04);
+  transform: rotate(45deg);
+  flex-shrink: 0;
+}
+
+/* ===========================================
    ASYMMETRIC PROJECT GRID
    =========================================== */
 
@@ -692,22 +740,26 @@ code, .font-mono {
 }
 
 /* ===========================================
-   DIAGONAL SECTION DIVIDERS
+   SECTION DIVIDERS — Terminal pulse markers
+   Each section gets a subtle beat indicator that
+   pulses on scroll reveal. 2px solid gradient, no hack.
    =========================================== */
 
 .beat-indicator {
-  height: 4px !important;
+  width: 100%;
+  height: 2px;
   background: linear-gradient(
-    135deg,
+    90deg,
     transparent 0%,
-    var(--base09) 25%,
+    var(--base09) 15%,
     var(--base0D) 50%,
-    var(--base0B) 75%,
+    var(--base0B) 85%,
     transparent 100%
-  ) !important;
-  transform: scaleY(2) !important;
+  );
+  opacity: 0.4;
+  transition: opacity var(--duration-normal) var(--ease-out);
 }
 
-.beat-indicator::after {
-  display: none; /* Replace with CSS gradient */
+.beat-indicator:hover {
+  opacity: 0.8;
 }

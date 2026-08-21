@@ -117,20 +117,20 @@ const skills = ["TypeScript", "React", "Rust", "Node.js", "NixOS", "Astro", "Tai
           </div>
           
           <div class="flex gap-8 pt-4">
-            <div>
-              <span class="text-3xl font-bold font-display text-[var(--base09)]">53</span><br>
+            <div class="group">
+              <span class="stat-number text-3xl font-bold font-display text-[var(--base09)]">53</span><br>
               <span class="text-[10px] text-[var(--base04)] font-mono uppercase tracking-wider">Public repos</span>
             </div>
-            <div>
-              <span class="text-3xl font-bold font-display text-[var(--base09)]">4</span><br>
+            <div class="group">
+              <span class="stat-number text-3xl font-bold font-display text-[var(--base09)]">4</span><br>
               <span class="text-[10px] text-[var(--base04)] font-mono uppercase tracking-wider">NixOS hosts</span>
             </div>
-            <div>
-              <span class="text-3xl font-bold font-display text-[var(--base09)]">8</span><br>
+            <div class="group">
+              <span class="stat-number text-3xl font-bold font-display text-[var(--base09)]">8</span><br>
               <span class="text-[10px] text-[var(--base04)] font-mono uppercase tracking-wider">GPUs</span>
             </div>
-            <div>
-              <span class="text-3xl font-bold font-display text-[var(--base0B)]">$0</span><br>
+            <div class="group">
+              <span class="stat-number text-3xl font-bold font-display text-[var(--base0B)]">$0</span><br>
               <span class="text-[10px] text-[var(--base04)] font-mono uppercase tracking-wider">Cloud spend</span>
             </div>
           </div>
@@ -250,6 +250,13 @@ const skills = ["TypeScript", "React", "Rust", "Node.js", "NixOS", "Astro", "Tai
           </div>
         </div>
 
+        <!-- Connector between Phase 1 and Phase 2 -->
+        <div class="phase-connector" data-animate="fade-up" aria-hidden="true">
+          <span class="phase-connector-dot"></span>
+          <span class="text-[10px] font-mono text-[var(--base04)] uppercase tracking-wider">then</span>
+          <span class="phase-connector-dot"></span>
+        </div>
+
         <!-- Phase 2: Infrastructure -->
         <div class="grid md:grid-cols-5 gap-8 items-start" data-animate="fade-up">
           <div class="md:col-span-2">
@@ -299,6 +306,13 @@ const skills = ["TypeScript", "React", "Rust", "Node.js", "NixOS", "Astro", "Tai
               </div>
             </div>
           </div>
+        </div>
+
+        <!-- Connector between Phase 2 and Phase 3 -->
+        <div class="phase-connector" data-animate="fade-up" aria-hidden="true">
+          <span class="phase-connector-dot"></span>
+          <span class="text-[10px] font-mono text-[var(--base04)] uppercase tracking-wider">now</span>
+          <span class="phase-connector-dot"></span>
         </div>
 
         <!-- Phase 3: Mission -->

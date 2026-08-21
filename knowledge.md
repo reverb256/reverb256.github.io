@@ -2,22 +2,22 @@
 
 ## What is this?
 
-Personal portfolio for **reverb256.ca** — a cyberpunk terminal / rhythm-game-inspired site. Built with **Astro 7** (static), **React 19**, **Tailwind CSS v4**, and **GSAP 3.14** for scroll-triggered animations. Base24 "Inkwell" dark theme with ember orange (`#ff9f5c`) accent on deep navy background (`#0a0c10`).
+Personal portfolio for **reverb256.dev** — a Linux/TUI terminal-inspired site. Built with **Astro 7** (static), **React 19**, **Tailwind CSS v4**, and **GSAP 3.14** for scroll-triggered animations. Base24 "Inkwell" dark theme with ember orange (`#ff9f5c`) accent on deep navy background (`#0a0c10`).
 
-**Key aesthetic:** Glass morphism cards, bento-grid project layout, CRT scanlines, floating particles, terminal-style interactive homepage.
+**Key aesthetic:** Solid terminal cards (`.surface` class), TUI-style sharp borders (`--radius-sm: 2px`), interactive terminal with gesture physics, NixOS ASCII art, systemd-style footer. No glass, no blur, no glow. Pure terminal.
 
 ---
 
 ## Where key code lives
 
 - **Root website dir:** `astro-portfolio/`
-- **Pages:** `astro-portfolio/src/pages/` — `index.astro` (home + terminal), `blog/`, `blog/[slug]`, `infrastructure/`, `now/`, `setup/`, `bookmarks/`, `components/`
+- **Pages:** `astro-portfolio/src/pages/` — `index.astro` (home + terminal), `blog/`, `blog/[slug]`, `infrastructure/`, `now/`, `setup/`, `bookmarks/`, **`man/`** (Unix man page), **`writing/`** (narrative voice), **`craft/`** (phase-tagged projects), **`404.astro`** (kernel panic)
 - **Components:** `astro-portfolio/src/components/` — `Header.astro` + infrastructure sub-components + shadcn/ui-style components in `ui/`
-- **Layout:** `astro-portfolio/src/layouts/Layout.astro` — GSAP ScrollTrigger, particles canvas, cursor glow
+- **Layout:** `astro-portfolio/src/layouts/Layout.astro` — GSAP ScrollTrigger, particles canvas, console easter egg, global scratchpad terminal
 - **Styles:**
-  - `global.css` — Tailwind v4 `@theme`, Base24 color tokens, semantic aliases, glass/bento/button classes, Display P3 / Rec.2020 wide gamut
-  - `animations.css` — Rhythm-game micro-interactions (combo, beat indicators, terminal feedback)
-- **Content (blog):** `astro-portfolio/src/content/blog/` — MDX files
+  - `global.css` — Tailwind v4 `@theme`, Base24 color tokens, semantic aliases, `.surface`/`glass`/`bento-item`/button classes
+  - `animations.css` — Terminal micro-interactions (beat indicators, scroll feedback)
+- **Content (blog):** `astro-portfolio/src/content/blog/` — Markdown (`.md`) files (converted from `.mdx`)
 - **Data:** `astro-portfolio/src/lib/infrastructure-data.ts` (infrastructure page data)
 - **Tests:** `astro-portfolio/tests/` — Playwright cross-browser tests
 - **CI/CD:** `.github/workflows/deploy.yml` — deploys to GitHub Pages on push to `main`
@@ -53,7 +53,7 @@ Tailwind CSS v4 is configured entirely via CSS `@theme` directives in `global.cs
 
 - **Neutral:** `ink-50` through `ink-950`
 - **Accent:** `ember-50` through `ember-950` (primary accent: `ember-400 = #ff9f5c`)
-- **Animations:** `animate-fade-up`, `animate-fade-in`, `animate-scale-in`, `animate-slide-right`, `animate-glow-pulse`
+- **Animations:** `animate-fade-up`, `animate-fade-in`, `animate-scale-in`, `animate-slide-right`
 - **Use:** `bg-ink-950`, `text-ember-400`, `border-ink-700`
 
 Tailwind v4 integration is via `@tailwindcss/vite` plugin in `astro.config.mjs`.
@@ -61,10 +61,19 @@ Tailwind v4 integration is via `@tailwindcss/vite` plugin in `astro.config.mjs`.
 ### Color system
 
 - **Always use semantic CSS variables** — never hardcoded hex values
-- Semantic aliases: `--bg-primary`, `--text-primary`, `--accent-primary` (ember orange), `--glass-bg`, `--glow-color`
+- Semantic aliases: `--bg-primary` (`#0a0c10`), `--text-primary` (`#f0f2f8`), `--accent-primary` (ember orange `#ff9f5c`), `--accent-niri` (green `#509475`), `--surface-default` (`#141820`), `--border-default` (`#2a3242`)
 - Base24 palette: `--base00` through `--base0F` (darkest bg → accents)
-- Display P3 and Rec.2020 wide-gamut overrides in `@media (color-gamut: p3)` and `@media (color-gamut: rec2020)`
-- OKLCH perceptual color overrides under `@media (color-gamut: p3)`
+- **No wide-gamut/Display P3/Rec.2020** — all colors are solid hex/rgba values
+- **No OKLCH/OKLAB** perceptual color overrides
+- **No `--glow-color`** or `--glass-bg` variables (removed in TUI purge)
+- **All surfaces are solid** — no `backdrop-filter`, no `blur()`, no glassmorphism. TUI aesthetic uses flat backgrounds with 1px solid borders.
+
+### Surface classes
+
+- **`.surface`** — Preferred TUI card container. Solid `--surface-default` background, `--radius-sm` (2px) corners. Replaces `.glass`.
+- **`.glass`** — Backward-compatible alias for `.surface`. Same styling. Will be removed in a future cleanup.
+- **`.bento-item`** — Bento grid project card. Solid surface, niri-style green focus on hover.
+- **`.terminal-card`** — Terminal-style card with `--surface-default` bg, hover state.
 
 ### Astro 7 specifics
 
@@ -81,6 +90,7 @@ Tailwind v4 integration is via `@tailwindcss/vite` plugin in `astro.config.mjs`.
 - **Node.js v24+ required** with `--max-old-space-size=8192` for Vite 8 memory — already in `package.json` build script
 - **OG images:** generated via `scripts/generate-og-image.cjs` using sharp — called during CI
 - **No `@astrojs/tailwind` integration** — replaced with `@tailwindcss/vite` in Tailwind v4 migration
+- **Blog content:** Uses `.md` files (not `.mdx`). `@astrojs/mdx` is not installed due to npm registry date constraints. The content config glob (`**/*.{md,mdx}`) handles both formats.
 
 ### Animation rules
 
@@ -90,9 +100,29 @@ Tailwind v4 integration is via `@tailwindcss/vite` plugin in `astro.config.mjs`.
 - Only animate `transform` and `opacity` (GPU compositing)
 - Never animate from `scale(0)`
 - All animations gated behind `@media (prefers-reduced-motion: reduce)`
+- Terminal interactions use spring physics (rubber-banding, momentum projection) — these are also gated behind reduced motion
+
+### Terminal gesture interactions
+
+The homepage terminal supports Apple Design-style physics for a fluid feel:
+- **Drag to resize:** Bottom-right handle with 40×40px touch target and `::after` pseudo-element for extended tap area
+- **Rubber-banding:** Progressive resistance at min/max bounds
+- **Momentum projection:** Flick velocity projects to resting position
+- **Spring settle:** Critically-damped spring via `requestAnimationFrame`, fully interruptible
+- **Flick-to-minimize/maximize:** Downward/upward flicks (>600px/s) snap terminal
+- **Touch-optimized:** `touch-action: none` on draggable surfaces, controls always visible on touch devices
+
+### Global scratchpad terminal
+
+A persistent terminal available on every page:
+- Floating `$_` button (bottom-right), slides up from bottom
+- Ctrl+` to toggle, Escape to close
+- Commands: help, clear, whoami, neofetch, status, banner, date, echo
+- XSS-safe: user input via `textContent`, trusted display via `innerHTML`
 
 ### Accessibility
 
 - Skip link, `aria-current="page"`, `aria-expanded`/`aria-controls` for mobile nav
 - WCAG AA color contrast (4.5:1 normal text, 3:1 large text)
 - `forced-colors: active` media query support
+- Terminal interactions respect `prefers-reduced-motion` (spring → instant snap)
