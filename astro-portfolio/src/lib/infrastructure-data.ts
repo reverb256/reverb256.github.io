@@ -121,7 +121,7 @@ export const CLUSTER_DATA = {
     {
       date: 'March 2, 2026',
       title: 'NixOS Initial Commit',
-      description: 'First NixOS configuration. Single host (zephyr) with basic desktop + gaming'
+      description: 'First NixOS configuration. Single host (zephyr) with basic desktop + gaming.'
     },
     {
       date: 'March 3, 2026',
@@ -167,7 +167,7 @@ export const CLUSTER_DATA = {
     {
       date: 'April 16, 2026',
       title: 'Infrastructure Extraction',
-      description: 'Extracted MCP Registry and Knowledge Fabric into standalone NixOS projects with flake.nix, NixOS modules, and CI pipelines.'
+      description: 'Extracted MCP Registry, Knowledge Fabric, and AI gateway into standalone declarative projects with reproducible config and CI pipelines.'
     },
     {
       date: 'April 17, 2026',
@@ -194,6 +194,12 @@ export const CLUSTER_DATA = {
       title: 'Integration Roadmap Complete',
       icon: '🚀',
       description: 'Cross-codebase integration roadmap covering MCP ecosystem, knowledge pipeline, GPU federation, and unified auth across 12 repositories.'
+    },
+    {
+      date: 'Aug 2026',
+      title: 'ReverbOS / Omarchy Pivot',
+      icon: '🐚',
+      description: 'Full-stack migration off NixOS to an owned Omarchy-based OS across all hosts. Home-manager layer, declarative profiles, AI-first tooling. Sovereign infra future-proofing.'
     }
   ],
 

@@ -11,18 +11,18 @@ const setup = {
       { label: "GPU", value: "RTX 3090 + RTX 3060 Ti", icon: "🎮" },
       { label: "RAM", value: "64GB DDR4", icon: "💾" },
       { label: "Storage", value: "2TB NVMe + 4TB HDD", icon: "📁" },
-      { label: "OS", value: "NixOS 26.05 (unstable)", icon: "🐧" }
+      { label: "OS", value: "Omarchy 26.05 (unstable)", icon: "🐧" }
     ]
   },
   software: {
-    os: { label: "OS", value: "NixOS with Flakes + Colmena", icon: "🐧" },
+    os: { label: "OS", value: "Omarchy with Flakes + Omarchy scripts", icon: "🐧" },
     editor: { label: "Editor", value: "Claude Code with Serena semantic tools", icon: "✨" },
     terminal: { label: "Shell", value: "Fish shell with custom functions", icon: "🐟" },
     browser: { label: "Browser", value: "Firefox with privacy extensions", icon: "🦊" },
     communication: { label: "Communication", value: "Discord, GitHub", icon: "💬" }
   },
   philosophy: [
-    { principle: "Declarative", icon: "📜", desc: "NixOS configuration as source of truth", color: "var(--base0D)" },
+    { principle: "Declarative", icon: "📜", desc: "Omarchy configuration as source of truth", color: "var(--base0D)" },
     { principle: "Reproducible", icon: "🔄", desc: "Same config = same system, every time", color: "var(--base09)" },
     { principle: "Documented", icon: "📚", desc: "Comprehensive AGENTS.md for all AI assistants", color: "var(--base0E)" },
     { principle: "Local-First", icon: "🏠", desc: "Self-hosted AI, minimal cloud dependencies", color: "var(--base0B)" },
@@ -31,7 +31,7 @@ const setup = {
   dotfiles: "https://github.com/reverb256",
   learning: [
     { item: "Kubernetes migration", progress: 40, icon: "☸️" },
-    { item: "Advanced NixOS modules", progress: 60, icon: "🔧" },
+    { item: "Advanced Omarchy modules", progress: 60, icon: "🔧" },
     { item: "MCP server ecosystem", progress: 75, icon: "🔌" },
     { item: "AI agent orchestration", progress: 80, icon: "🤖" }
   ]
@@ -41,7 +41,7 @@ const setup = {
 
 <Layout
   title="Setup"
-  description="Tour of my development environment: 4-host NixOS cluster, GPU workstations, local AI stack, and the tools I use daily for software development."
+  description="Tour of my development environment: 4-host Omarchy cluster, GPU workstations, local AI stack, and the tools I use daily for software development."
 >
   <div class="max-w-4xl mx-auto px-6 py-16">
     <!-- Header -->
@@ -156,14 +156,14 @@ const setup = {
           Infrastructure
         </h2>
         <p class="text-sm text-[var(--base05)] mb-4">
-          The 4-host NixOS mining cluster with AI-powered monitoring:
+          The 4-host Omarchy mining cluster with AI-powered monitoring:
         </p>
         <ul class="text-sm text-[var(--base04)] space-y-2 mb-6">
           <li class="flex items-center gap-2">
             <svg class="w-4 h-4 text-[var(--base0B)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
             </svg>
-            Multi-host Colmena deployment
+            Multi-host Omarchy scripts deployment
           </li>
           <li class="flex items-center gap-2">
             <svg class="w-4 h-4 text-[var(--base0B)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -205,7 +205,7 @@ const setup = {
           Configuration
         </h2>
         <p class="text-sm text-[var(--base05)] mb-4">
-          Full NixOS configuration available on GitHub. Includes:
+          Full Omarchy configuration available on GitHub. Includes:
         </p>
         <ul class="text-sm text-[var(--base04)] space-y-2 mb-6">
           <li class="flex items-center gap-2">
@@ -218,7 +218,7 @@ const setup = {
             <svg class="w-4 h-4 text-[var(--base0B)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
             </svg>
-            Colmena multi-host deployment
+            Omarchy scripts multi-host deployment
           </li>
           <li class="flex items-center gap-2">
             <svg class="w-4 h-4 text-[var(--base0B)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">

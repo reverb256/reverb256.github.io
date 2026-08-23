@@ -5,21 +5,21 @@ import { CLUSTER_DATA } from "../lib/infrastructure-data";
 // Deep terminal database
 const db = {
   subjects: [
-    { id: "JOURNEY_001", title: "MY JOURNEY", category: "PERSONAL", classification: "PUBLIC", content: ["15 years in food service - learned work ethic, teamwork, customer service", "20 years curious about computers - tinkering, researching, learning", "6 months full-time Linux user - NixOS convert", "Pivoted to web dev through AI-assisted learning", "Building skills every day, open to opportunities", "Philosophy: Never too late to change paths"], related: ["PERSONAL", "CAREER"] },
+    { id: "JOURNEY_001", title: "MY JOURNEY", category: "PERSONAL", classification: "PUBLIC", content: ["15 years in food service - learned work ethic, teamwork, customer service", "20 years curious about computers - tinkering, researching, learning", "Full-time Linux user since Sept 2025 - building ReverbOS, my own OS", "Pivoted to web dev and AI infrastructure through self-teaching", "Building skills every day, open to opportunities", "Philosophy: Never too late to change paths"], related: ["PERSONAL", "CAREER"] },
     { id: "HYVRS_001", title: "HOYOVERSE", category: "INSPIRATION", classification: "PUBLIC", content: ["Chinese game developer known for Genshin Impact, Honkai Star Rail, Zenless Zone Zero.", "Key design principles:", "• Non-intrusive UI with progressive disclosure", "• Anticipatory animation sequencing", "• Secondary motion polish (particles, glows)", "• Character-first special moves", "• Dynamic tooltip reveals", "Reference: UI/UX patterns studied for portfolio redesign."], related: ["GAME_DESIGN", "ANIMATION", "UI_UX"] },
-    { id: "PHIL_042", title: "PHILOSOPHY", category: "KNOWLEDGE", classification: "INTERNAL", content: ["EXISTENTIALISM: Freedom through code creation", "DETERMINISM: NixOS declarative systems", "DIALECTICS: Iterative development cycles", "PHENOMENOLOGY: User experience as lived reality", "STOICISM: Embracing technical constraints", "TRANSHUMANISM: Human-AI symbiosis", "Application: Design decisions grounded in first principles."], related: ["DESIGN_PHILOSOPHY", "DEVELOPMENT"] },
+    { id: "PHIL_042", title: "PHILOSOPHY", category: "KNOWLEDGE", classification: "INTERNAL", content: ["EXISTENTIALISM: Freedom through code creation", "DETERMINISM: Owned declarative systems (ReverbOS)", "DIALECTICS: Iterative development cycles", "PHENOMENOLOGY: User experience as lived reality", "STOICISM: Embracing technical constraints", "TRANSHUMANISM: Human-AI symbiosis", "Application: Design decisions grounded in first principles."], related: ["DESIGN_PHILOSOPHY", "DEVELOPMENT"] },
     { id: "VRCH_107", title: "VRCHAT", category: "INSPIRATION", classification: "RESTRICTED", content: ["Social VR platform observations:", "• Avatar expression as identity projection", "• Spatial audio design for immersion", "• World-building with Unity SDK", "• Community-driven content creation", "• Performance optimization for VR", "Note: Explored avatar creation pipeline."], related: ["3D_GRAPHICS", "UNITY", "SOCIAL_DESIGN"] },
-    { id: "NIX_999", title: "NIXOS PHILOSOPHY", category: "TECHNOLOGY", classification: "TOP SECRET", content: ["DECLARATIVE CONFIGURATION MANIFESTO", "Core tenets:", "1. Reproducibility over convenience", "2. Atomic upgrades and rollbacks", "3. Declarative system configuration", "4. Reliable package management", "5. Multi-environment support", "Current deployment: Full workstation", "Learning curve: Steep but worth it", "Switched: 6 months ago"], related: ["DEVOPS", "DECLARATIVE_SYSTEMS"] },
+    { id: "NIX_999", title: "REVERBOS MANIFESTO", category: "TECHNOLOGY", classification: "TOP SECRET", content: ["OWNED OPERATING SYSTEM MANIFESTO", "Core tenets:", "1. Reproducibility over convenience", "2. Atomic upgrades and rollbacks", "3. Declarative system configuration", "4. Own every layer - no rented package ecosystem", "5. Sovereign, auditable, zero external dependency", "Current deployment: Full cluster - zephyr, nexus, forge, sentry", "Journey: NixOS proved the model; ReverbOS owns the result"], related: ["DEVOPS", "DECLARATIVE_SYSTEMS", "SOVEREIGNTY"] },
     { id: "ANIM_033", title: "ANIME", category: "INSPIRATION", classification: "PUBLIC", content: ["GHOST IN THE SHELL: Transhumanism, tech philosophy", "EVANGELION: Psychological depth, mecha aesthetics", "COWBOY BEBOP: Style, music, episodic narrative", "STEINS;GATE: Time manipulation, cause/effect", "PSYCHO-PASS: Surveillance society themes", "Serial Experiments LAIN: Internet consciousness", "Applied: Dark color schemes, cyberpunk aesthetics"], related: ["VISUAL_DESIGN", "STORYTELLING"] },
     { id: "GAME_256", title: "GAMING HISTORY", category: "PERSONAL", classification: "PUBLIC", content: ["1998: Fallout - Choice & consequence", "2000: Deus Ex - Immersive sim design", "2004: WoW - Social systems, progression", "2011: Dark Souls - Environmental storytelling", "2017: BOTW - Emergent gameplay", "2020: Genshin - Gacha + open world", "2023: BG3 - CRPG renaissance", "Total hours: [CLASSIFIED]"], related: ["GAME_DESIGN", "STORYTELLING"] },
-    { id: "TECH_001", title: "STACK", category: "TECHNOLOGY", classification: "INTERNAL", content: ["LANGUAGES: TypeScript, Go, Python, Rust", "FRONTEND: React, Astro, Tailwind, GSAP", "BACKEND: Node.js, Express, FastAPI", "DATABASE: PostgreSQL, Redis, SQLite", "INFRA: NixOS, Docker, Kubernetes", "AI/ML: OpenAI, Anthropic, Local LLMs"], related: ["PROGRAMMING", "INFRASTRUCTURE"] },
+    { id: "TECH_001", title: "STACK", category: "TECHNOLOGY", classification: "INTERNAL", content: ["LANGUAGES: TypeScript, Go, Python, Rust", "FRONTEND: React, Astro, Tailwind, GSAP", "BACKEND: Node.js, Express, FastAPI", "DATABASE: PostgreSQL, Redis, SQLite", "INFRA: Omarchy/ReverbOS, Docker, Kubernetes", "AI/ML: MCP, Local LLMs, Self-hosted inference, Qdrant"], related: ["PROGRAMMING", "INFRASTRUCTURE"] },
     { id: "TERM_GLOS", title: "GLOSSARY", category: "REFERENCE", classification: "PUBLIC", content: ["DECK: Development workstation", "ICE: Security measures / firewalls", "RUN: Active development session", "CHROME: User interface elements", "DARK: Undocumented features", "WAREZ: Open source tools", "GRID: Network / internet", "MEATSPACE: Physical reality", "WIZARD: Expert programmer"], related: ["TERMINOLOGY"] },
     { id: "CYBR_2077", title: "CYBERPUNK", category: "INSPIRATION", classification: "RESTRICTED", content: ["High tech, low life aesthetic", "Neuromancer - William Gibson", "Snow Crash - Neal Stephenson", "Blade Runner - Visual language", "Akira - Neo-Tokyo aesthetics", "Applied: Neon accents, dark themes, terminal UIs"], related: ["VISUAL_DESIGN", "ANIME"] },
     { id: "AI_001", title: "AI INTEGRATION", category: "TECHNOLOGY", classification: "TOP SECRET", content: ["ACTIVE SYSTEMS:", "• Claude (Anthropic) - Primary coding assistant", "• GPT-4 - Research and analysis", "• Local LLMs - Privacy-sensitive tasks", "• OpenCode - Terminal-based AI TUI", "Philosophy: AI as force multiplier, not replacement"], related: ["DEVELOPMENT", "PHILOSOPHY"] },
     { id: "MUSC_420", title: "MUSIC", category: "PERSONAL", classification: "PUBLIC", content: ["Coding soundtracks:", "• Synthwave (Perturbator, Carpenter Brut)", "• Lo-fi hip hop (focus sessions)", "• Electronic (Daft Punk, Justice)", "• Post-rock (Explosions in the Sky)", "• J-Pop/Rock (Anime OPs)"], related: ["PERSONAL"] },
     { id: "SEC_101", title: "SECURITY", category: "TECHNOLOGY", classification: "RESTRICTED", content: ["OPSEC Practices:", "• Full disk encryption (LUKS)", "• GPG for commits and emails", "• Hardware security keys (YubiKey)", "• Network isolation (VLANs)", "• Regular security audits"], related: ["DEVOPS", "INFRASTRUCTURE"] },
-    { id: "CLUSTER_001", title: "NIXOS CLUSTER", category: "TECHNOLOGY", classification: "TOP SECRET", content: ["4-HOST MINING INFRASTRUCTURE:", "• Zephyr: RTX 3090 + 3060 Ti (main workstation)", "• Nexus: 1x NVIDIA (downstairs)", "• Forge: 2x RTX 4060 + 2x RX 5700 XT", "• Sentry: 1x AMD", "Colmena multi-host deployment system", "Kubernetes migration in progress (9-week roadmap)", "Comprehensive documentation system with agent automation"], related: ["DEVOPS", "INFRASTRUCTURE", "NIX_999"] },
-    { id: "PROJ_001", title: "RECENT PROJECTS", category: "KNOWLEDGE", classification: "PUBLIC", content: ["CLIENT WORK:", "• Troves & Coves - React e-commerce with shadcn/ui", "• hair@home - Hugo static site", "", "PERSONAL PROJECTS:", "• Frostbite Gazette - AI-curated Canadian journalism", "• Astral Key - Rust Web3 authentication microservice", "• Synapse - Local-first AI command center (Tauri)", "", "INFRASTRUCTURE:", "• 4-host NixOS mining cluster with AI monitoring", "All projects feature strict TypeScript, comprehensive documentation", "Production deployments on Cloudflare Workers, GitHub Pages"], related: ["DEVELOPMENT", "TECH_001"] },
+    { id: "CLUSTER_001", title: "REVERBOS CLUSTER", category: "TECHNOLOGY", classification: "TOP SECRET", content: ["4-HOST OWNED INFRASTRUCTURE:", "• Zephyr: RTX 3090 + 3060 Ti (main workstation)", "• Nexus: 1x NVIDIA (downstairs)", "• Forge: 2x RTX 4060 + 2x RX 5700 XT", "• Sentry: 1x AMD", "ReverbOS declarative deployment across every host", "Kubernetes orchestration in production", "Comprehensive documentation system with agent automation"], related: ["DEVOPS", "INFRASTRUCTURE", "NIX_999"] },
+    { id: "PROJ_001", title: "RECENT PROJECTS", category: "KNOWLEDGE", classification: "PUBLIC", content: ["CLIENT WORK:", "• Troves & Coves - React e-commerce with shadcn/ui", "• Local Cleaning Service - service business site", "", "PERSONAL PROJECTS:", "• Frostbite Gazette - AI-curated accountability journalism", "• Astral Key - Rust Web3/FIDO2 authentication microservice", "• COREFLAME Protocol - consciousness-driven development", "", "INFRASTRUCTURE:", "• ReverbOS - owned Omarchy-based OS across 4 hosts", "All projects feature strict TypeScript, comprehensive documentation", "Production deployments on Cloudflare Workers, Pages"], related: ["DEVELOPMENT", "TECH_001"] },
     { id: "MCP_001", title: "MCP INTEGRATION", category: "TECHNOLOGY", classification: "INTERNAL", content: ["Model Context Protocol servers:", "• Pinecone - Vector database operations", "• Context7 - Live documentation lookup", "• Stripe - Payment integration", "• Web Reader - URL content extraction", "Philosophy: Composable AI tooling via stdio JSON-RPC"], related: ["DEVELOPMENT", "AI_001"] },
   ],
   categories: ["INSPIRATION", "KNOWLEDGE", "TECHNOLOGY", "PERSONAL", "REFERENCE"],
@@ -32,21 +32,21 @@ const projects = {
     { title: "hair@home", repo: null, desc: "Hugo static site", status: "experiment", icon: "💇", span: "1x1", tech: ["Hugo", "SCSS"], metric: "Experiment" },
   ],
   personal: [
-    { title: "Knowledge Fabric", repo: "knowledge-fabric", desc: "Qdrant vector search with RRF fusion & wiki compilation", status: "active", icon: "🧠", span: "2x2", tech: ["TypeScript", "Qdrant", "NixOS"], metric: "Active" },
+    { title: "Knowledge Fabric", repo: "knowledge-fabric", desc: "Qdrant vector search with RRF fusion & wiki compilation", status: "active", icon: "🧠", span: "2x2", tech: ["TypeScript", "Qdrant", "Omarchy"], metric: "Active" },
     { title: "Astral Key", repo: "astral-key", desc: "Web3/FIDO2/Passkey auth microservice", status: "active", icon: "🔑", span: "1x1", tech: ["Rust", "Axum", "PostgreSQL", "Redis"], metric: "Active" },
     { title: "Synapse", repo: "synapse", desc: "Local-first AI command center", status: "experiment", icon: "⚡", span: "2x1", tech: ["Node.js", "Tauri", "WebSocket"], metric: "Experiment" },
     { title: "MapleSpike", repo: null, desc: "Canada's sovereign AI gov data pipeline — PII-free by design (Decision 0002)", status: "active", icon: "🍁", span: "2x2", tech: ["TypeScript", "Astro", "pnpm packages"], metric: "Active" },
     { title: "Frostbite Gazette", repo: "Frostbite-Gazette", desc: "AI-curated Canadian journalism", status: "active", icon: "🍁", span: "1x1", tech: ["Astro", "Cloudflare", "Groq AI"], metric: "Active" },
   ],
   infra: [
-    { title: "NixOS Cluster", repo: "nixos-config", desc: "4-host NixOS cluster with GitOps, VR gaming, mining, AI inference", status: "live", icon: "🖥️", span: "2x2", tech: ["NixOS", "Colmena", "K8s", "Tailscale"], metric: "Flagship", link: "/infrastructure" },
-    { title: "Compute Market", repo: "compute-market", desc: "GPU time-slicing market for burst AI inference workloads", status: "active", icon: "💰", span: "1x1", tech: ["NixOS", "Python", "Prometheus"], metric: "Infra" },
-    { title: "MCP Registry", repo: "mcp-registry", desc: "Declarative MCP server management as NixOS module", status: "active", icon: "🔌", span: "1x1", tech: ["NixOS", "JSON", "MCP"], metric: "Infra" },
-    { title: "Caddy Ingress", repo: "caddy-ingress", desc: "Custom Caddy build + NixOS module + container image", status: "active", icon: "🌐", span: "1x1", tech: ["Go", "NixOS", "Docker"], metric: "Infra" },
+    { title: "ReverbOS Cluster", repo: "nixos-config", desc: "4-host owned cluster — GitOps, VR gaming, mining, AI inference", status: "live", icon: "🖥️", span: "2x2", tech: ["Omarchy", "ReverbOS", "K8s", "Tailscale"], metric: "Flagship", link: "/infrastructure" },
+    { title: "Compute Market", repo: "compute-market", desc: "GPU time-slicing market for burst AI inference workloads", status: "active", icon: "💰", span: "1x1", tech: ["Omarchy", "Python", "Prometheus"], metric: "Infra" },
+    { title: "MCP Registry", repo: "mcp-registry", desc: "Declarative MCP server management, deployed across every host", status: "active", icon: "🔌", span: "1x1", tech: ["Omarchy", "JSON", "MCP"], metric: "Infra" },
+    { title: "Caddy Ingress", repo: "caddy-ingress", desc: "Custom Caddy build + declarative OS module + container image", status: "active", icon: "🌐", span: "1x1", tech: ["Go", "Omarchy", "Docker"], metric: "Infra" },
     { title: "GPU Proxy", repo: "gpu-proxy", desc: "C++ stratum mining proxy v2.0 with SSL & pool management", status: "active", icon: "⛏️", span: "1x1", tech: ["C++", "Boost", "SSL"], metric: "Infra" },
   ],
   meta: [
-    { title: "This Portfolio", repo: null, desc: "Astro + GSAP + Terminal", status: "live", icon: "🌐", span: "1x1", tech: ["Astro", "GSAP"], metric: "reverb256.dev" },
+    { title: "This Portfolio", repo: null, desc: "Astro + GSAP + Terminal", status: "live", icon: "🌐", span: "1x1", tech: ["Astro", "GSAP"], metric: "reverb256.ca" },
   ],
 };
 
@@ -57,12 +57,12 @@ const categoryColors = {
   meta: "var(--base05)",      // gray
 };
 
-const skills = ["TypeScript", "React", "Rust", "Node.js", "NixOS", "Astro", "Tailwind", "Python", "FastAPI", "FastMCP", "Qdrant", "Axum", "Tauri", "Docker", "Kubernetes", "K3s", "MCP", "CUDA", "ROCm", "Prometheus", "Grafana", "Redis", "PostgreSQL", "GSAP", "Cloudflare", "GitHub Actions", "Vaultwarden", "Colmena", "Tailscale"];
+const skills = ["TypeScript", "React", "Rust", "Node.js", "Omarchy", "Astro", "Tailwind", "Python", "FastAPI", "FastMCP", "Qdrant", "Axum", "Tauri", "Docker", "Kubernetes", "K3s", "MCP", "CUDA", "ROCm", "Prometheus", "Grafana", "Redis", "PostgreSQL", "GSAP", "Cloudflare", "GitHub Actions", "Vaultwarden", "ReverbOS", "Tailscale"];
 ---
 
 <Layout
   title="Reverb256"
-  description="Software developer portfolio showcasing AI infrastructure, autonomous agents, and NixOS cluster management. Building Canada's sovereign AI stack with inference gateway, knowledge fabric, and government data pipelines."
+  description="AI Systems Orchestrator & Private Infrastructure Architect. Self-hosted LLM + agent + infrastructure stacks clients own. Reverb256 — building sovereign, auditable AI infrastructure from Winnipeg on an owned Omarchy cluster."
 >
     <!-- ═══════════════════════════════════════════════════
          HERO — Terminal + The Hook
@@ -95,12 +95,12 @@ const skills = ["TypeScript", "React", "Rust", "Node.js", "NixOS", "Astro", "Tai
             <span class="block text-lg md:text-xl font-mono text-[var(--base05)] font-normal mt-3 leading-relaxed" style="font-family: 'Fira Code', monospace;">
               <span class="text-[var(--base09)]">15 years</span> in food service.
               <span class="text-[var(--base0D)]">20 years</span> curious about computers.<br>
-              Now I build <span class="text-[var(--base09)]">sovereign infrastructure</span>.
+              Now I build <span class="text-[var(--base09)]">sovereign AI infrastructure</span>.
             </span>
           </h1>
           
           <p class="text-base text-[var(--base05)] max-w-lg leading-relaxed">
-            4 NixOS hosts. 8 GPUs. Zero cloud spend. 
+            4 owned hosts on a self-built Omarchy OS. 8 GPUs. Zero cloud spend. 
             Canadian government data pipelines. AI consciousness research. 
             Accountability journalism. All self-hosted from Winnipeg.
           </p>
@@ -123,7 +123,7 @@ const skills = ["TypeScript", "React", "Rust", "Node.js", "NixOS", "Astro", "Tai
             </div>
             <div class="group">
               <span class="stat-number text-3xl font-bold font-display text-[var(--base09)]">4</span><br>
-              <span class="text-[10px] text-[var(--base04)] font-mono uppercase tracking-wider">NixOS hosts</span>
+              <span class="text-[10px] text-[var(--base04)] font-mono uppercase tracking-wider">Owned hosts</span>
             </div>
             <div class="group">
               <span class="stat-number text-3xl font-bold font-display text-[var(--base09)]">8</span><br>
@@ -244,7 +244,7 @@ const skills = ["TypeScript", "React", "Rust", "Node.js", "NixOS", "Astro", "Tai
               <span class="text-2xl mt-1">⛏️</span>
               <div>
                 <h4 class="font-mono text-sm font-bold text-[var(--base09)]">Crypto Mining → GPU Farm</h4>
-                <p class="text-xs text-[var(--base05)] mt-1">The GPUs that started as mining rigs became the foundation of a NixOS cluster. Every tool serves a purpose.</p>
+                <p class="text-xs text-[var(--base05)] mt-1">The GPUs that started as mining rigs became the foundation of an owned cluster. Every tool serves a purpose.</p>
               </div>
             </div>
           </div>
@@ -267,7 +267,8 @@ const skills = ["TypeScript", "React", "Rust", "Node.js", "NixOS", "Astro", "Tai
               </div>
               <h3 class="text-3xl font-display font-bold text-[var(--base07)]">Infrastructure</h3>
               <p class="text-sm text-[var(--base05)] mt-4 leading-relaxed">
-                Killed Windows. Went full NixOS. 4 hosts, Colmena deployment, K3s cluster. 
+                Killed Windows. Went full Linux. 4 hosts, declarative deployment, K3s cluster. 
+                Now pivoting to ReverbOS — an owned Omarchy-based OS replacing NixOS on every host. 
                 AI Inference Gateway, Knowledge Fabric, MCP Registry, Compute Market. 
                 Every service self-hosted. Zero cloud spend.
               </p>
@@ -280,22 +281,22 @@ const skills = ["TypeScript", "React", "Rust", "Node.js", "NixOS", "Astro", "Tai
             <div class="surface p-6 flex items-start gap-4">
               <span class="text-2xl mt-1">🐧</span>
               <div>
-                <h4 class="font-mono text-sm font-bold text-[var(--base06)]">Omarchy → CachyOS → NixOS</h4>
-                <p class="text-xs text-[var(--base05)] mt-1">The distro-hopping journey that ended at declarative configuration. Reproducible systems. Atomic upgrades. Never looking back.</p>
+                <h4 class="font-mono text-sm font-bold text-[var(--base06)]">Omarchy → CachyOS → NixOS → ReverbOS</h4>
+                <p class="text-xs text-[var(--base05)] mt-1">The distro-hopping journey taught me what I value: reproducibility, atomicity, and — above all — ownership. NixOS proved the declarative model; now I'm building ReverbOS on Omarchy so I control every layer instead of renting a package ecosystem.</p>
               </div>
             </div>
             <div class="surface p-6 flex items-start gap-4">
               <span class="text-2xl mt-1">🖥️</span>
               <div>
                 <h4 class="font-mono text-sm font-bold text-[var(--base06)]">4-Host Cluster</h4>
-                <p class="text-xs text-[var(--base05)] mt-1">Zephyr (desktop), Nexus (gateway), Forge (GPU compute), Sentry (monitoring). Colmena-deployed NixOS. K3s orchestration.</p>
+                <p class="text-xs text-[var(--base05)] mt-1">Zephyr (desktop), Nexus (gateway), Forge (GPU compute), Sentry (control-plane / inference). Declarative deployment, migrating to owned ReverbOS on every host. K3s orchestration.</p>
               </div>
             </div>
             <div class="surface p-6 flex items-start gap-4">
               <span class="text-2xl mt-1">🔌</span>
               <div>
                 <h4 class="font-mono text-sm font-bold text-[var(--base06)]">MCP Ecosystem</h4>
-                <p class="text-xs text-[var(--base05)] mt-1">Declarative MCP server management as NixOS modules. Knowledge Fabric with Qdrant vector search. Custom GPU proxy in C++.</p>
+                <p class="text-xs text-[var(--base05)] mt-1">Declarative MCP server management, deployed consistently across every host. Knowledge Fabric with Qdrant vector search. Custom GPU proxy in C++. Owned tooling, no rented registries.</p>
               </div>
             </div>
             <div class="surface p-6 flex items-start gap-4" style="border-color: var(--base09);">
@@ -530,10 +531,10 @@ const skills = ["TypeScript", "React", "Rust", "Node.js", "NixOS", "Astro", "Tai
             Spent <span class="text-[var(--base09)]">15 years in food service</span> learning the value of hard work, teamwork, and showing up every day. Meanwhile, always curious about computers — <span class="text-[var(--base0D)]">20 years of tinkering, researching, and dabbling with Linux</span> on the side.
           </p>
           <p class="text-sm text-[var(--base05)] leading-relaxed mt-3">
-            Fully committed to <span class="text-[var(--base09)]">NixOS</span> for system configuration. Built a <span class="text-[var(--base0D)]">4-host mining cluster</span> with Colmena deployment, currently migrating to Kubernetes. Developing production apps with <span class="text-[var(--base09)]">Rust microservices</span>, <span class="text-[var(--base0D)]">React frontends</span>, and <span class="text-[var(--base09)]">AI integration</span>.
+            Built a <span class="text-[var(--base0D)]">4-host cluster</span> of owned hardware with K3s orchestration, now migrating every host to <span class="text-[var(--base09)]">ReverbOS</span> — my own Omarchy-based operating system, replacing NixOS so I control every layer. Developing production apps with <span class="text-[var(--base09)]">Rust microservices</span>, <span class="text-[var(--base0D)]">React/Astro frontends</span>, and <span class="text-[var(--base09)]">self-hosted AI</span>.
           </p>
           <p class="text-sm text-[var(--base05)] leading-relaxed mt-3">
-            <strong>Current focus:</strong> Building Canada's sovereign AI stack — inference gateway, knowledge fabric, and government data pipelines. Homelab infrastructure with NixOS at the core.
+            <strong>Current focus:</strong> Designing, deploying, and operating <span class="text-[var(--base09)]">self-hosted LLM + agent + infrastructure stacks clients own</span> — AI Systems Orchestration. Government data pipelines, knowledge fabric, MCP tooling, accountability journalism. No hyperscaler dependency, full auditability.
           </p>
         </article>
         <article class="surface p-6">
@@ -544,10 +545,10 @@ const skills = ["TypeScript", "React", "Rust", "Node.js", "NixOS", "Astro", "Tai
           <h3 class="text-sm font-bold text-[var(--base07)] mb-4 mt-6">Tech Stack</h3>
           <div class="flex flex-wrap gap-2" role="list" aria-label="Technologies">{skills.map(s => <span role="listitem" class="text-xs px-3 py-1 bg-[var(--base02)] rounded text-[var(--base06)] hover:text-[var(--base09)] transition-colors cursor-default hover:scale-105 transform">{s}</span>)}</div>
           <div class="mt-4 pt-4 border-t border-[var(--base02)] text-xs text-[var(--base05)] space-y-1">
-            <div>OS: NixOS (4-host cluster + Colmena)</div>
-            <div>Method: AI-assisted development (Claude Code)</div>
-            <div>Infrastructure: Kubernetes migration in progress</div>
-            <div>Tools: Semantic code editing with Serena</div>
+            <div>OS: ReverbOS — owned Omarchy-based (4-host cluster)</div>
+            <div>Method: AI-assisted development (agentic pipelines I architect)</div>
+            <div>Orchestration: K3s / Kubernetes</div>
+            <div>AI: Self-hosted LLM gateway, MCP tooling, knowledge fabric</div>
           </div>
         </article>
       </div>
@@ -561,9 +562,9 @@ const skills = ["TypeScript", "React", "Rust", "Node.js", "NixOS", "Astro", "Tai
       <h2 id="contact-heading" class="text-2xl font-bold mb-6 text-[var(--base06)]">// Contact</h2>
       <div class="surface p-6 flex flex-wrap items-center justify-between gap-4">
         <div>
-          <p class="text-sm text-[var(--base05)] mb-4">Open to junior roles, internships, or just chatting about tech. Let's connect!</p>
+          <p class="text-sm text-[var(--base05)] mb-4">Helping businesses deploy and operate self-hosted AI + infrastructure they own. Open to consulting, fractional work, and remote roles. Let's talk.</p>
           <div class="flex gap-3">
-            <a href="mailto:contact@reverb256.dev" class="btn-accent text-sm">Email</a>
+            <a href="mailto:j_kroeker@reverb256.ca" class="btn-accent text-sm">Email</a>
             <a href="https://github.com/reverb256" target="_blank" rel="noopener noreferrer" class="btn-outline text-sm">GitHub</a>
           </div>
         </div>
@@ -740,7 +741,7 @@ import DOMPurify from 'dompurify';
   <span style="color: var(--base06);">search [q]</span> - Search database
   <span style="color: var(--base06);">clear</span>     - Clear terminal
   <span style="color: var(--base06);">projects</span>  - Recent projects summary
-  <span style="color: var(--base06);">cluster</span>   - NixOS cluster info
+  <span style="color: var(--base06);">cluster</span>   - ReverbOS cluster info
   <span style="color: var(--base06);">glossary</span>  - Tech glossary
   <span style="color: var(--base06);">matrix</span>    - Easter egg
   <span style="color: var(--base06);">about</span>     - About system`);
@@ -760,7 +761,7 @@ import DOMPurify from 'dompurify';
         print(`<span style="color: var(--base0D);">USER: r256</span>
 <span style="color: var(--base05);">Role: Administrator</span>
 <span style="color: var(--base05);">Clearance: TOP SECRET</span>
-<span style="color: var(--base0B);">System: NixOS/Zephyr</span>`);
+<span style="color: var(--base0B);">System: Omarchy/ReverbOS · zephyr</span>`);
         break;
 
       case 'read':
@@ -942,12 +943,12 @@ Purpose: Knowledge repository`);
 
     // Static FAQ responses for when gateway is offline
     const staticFAQ = {
-      'infrastructure': 'The cluster has 4 NixOS hosts (Zephyr, Nexus, Forge, Sentry) with 78 cores, 126GB RAM, 8 GPUs, and 8.4TB storage. K8s runs 60+ pods across AI inference, mining, and monitoring workloads.',
-      'projects': 'Active projects: NixOS Cluster, Knowledge Fabric (Qdrant RAG), MCP Registry, Compute Market, MapleSpike (Canada AI), Astral Key (Rust auth), Frostbite Gazette, and more. Check the projects section above!',
-      'skills': 'Core stack: TypeScript, React, Rust, Python, NixOS, Astro, FastAPI, MCP, Kubernetes, CUDA/ROCm. Full list in the About section.',
-      'cluster': '4-host NixOS cluster with Colmena deployment. Zephyr (control-plane, 2x GPU), Nexus (gateway + storage, 1x GPU), Forge (GPU-compute, 4x GPU), Sentry (monitoring + ROCm, 1x GPU).',
-      'gateway': 'AI Inference Gateway provides OpenAI-compatible API with circuit breakers, RAG, MCP brokerage, and GPU scheduling. Currently being scoped for public access.',
-      'contact': 'Email: contact@reverb256.dev. Based in Winnipeg, Canada. Open to remote work, junior roles, and interesting collaborations.',
+      'infrastructure': '4 owned hosts (Zephyr, Nexus, Forge, Sentry) running ReverbOS, an Omarchy-based OS migrating off NixOS. 78 cores, 126GB RAM, 8 GPUs, 8.4TB storage. K3s runs 60+ pods across AI inference, mining, and monitoring workloads.',
+      'projects': 'Active projects: ReverbOS (owned OS), Knowledge Fabric (Qdrant RAG), MCP Registry, Compute Market, MapleSpike (Canada AI), Astral Key (Rust auth), Frostbite Gazette, and more. Check the projects section above!',
+      'skills': 'Core stack: TypeScript, React, Rust, Python, Astro, FastAPI, MCP, Kubernetes, CUDA/ROCm, plus self-hosted AI orchestration. Full list in the About section.',
+      'cluster': '4-host cluster owned and operated end-to-end. Zephyr (desktop, 2x GPU), Nexus (gateway + storage, 1x GPU), Forge (GPU-compute, 4x GPU), Sentry (control-plane + ROCm, 1x GPU). Migrating to ReverbOS.',
+      'gateway': 'AI Inference Gateway provides OpenAI-compatible API with circuit breakers, RAG, MCP brokerage, and GPU scheduling. Self-hosted, no hyperscaler dependency.',
+      'contact': 'Email: j_kroeker@reverb256.ca. Based in Winnipeg, Canada. Open to consulting, fractional work, and remote roles helping companies own their AI stack.',
       'default': 'I\'m a portfolio AI assistant! Try asking about: infrastructure, cluster, projects, skills, gateway, or contact. Or browse the site for the full picture.'
     };
 
@@ -969,7 +970,7 @@ Purpose: Knowledge repository`);
           messages: [
             {
               role: "system",
-              content: "You are a helpful AI assistant for the Reverb256 portfolio. You have knowledge about the NixOS cluster, AI infrastructure, projects, and can provide concise, helpful answers."
+              content: "You are a helpful AI assistant for the Reverb256 portfolio. You have knowledge about the owned Omarchy-based ReverbOS cluster, sovereign AI infrastructure, projects, and can provide concise, helpful answers."
             },
             { role: "user", content: message }
           ],

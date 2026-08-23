@@ -68,10 +68,10 @@ import { CLUSTER_DATA } from '../../lib/infrastructure-data';
 
         <div class="glass-grid">
           <GlassCard title="The Challenge">
-            Managing 4 NixOS hosts, 8 GPUs across mining and Kubernetes workloads, with centralized configuration and monitoring.
+            Managing 4 Omarchy hosts, 8 GPUs across mining and Kubernetes workloads, with centralized configuration and monitoring.
           </GlassCard>
           <GlassCard title="The Solution">
-            A custom NixOS framework with profile-based config management, NFS synchronization, and Kubernetes service mesh for unified cluster operations.
+            A custom Omarchy framework with profile-based config management, NFS synchronization, and Kubernetes service mesh for unified cluster operations.
           </GlassCard>
         </div>
 
@@ -103,12 +103,12 @@ import { CLUSTER_DATA } from '../../lib/infrastructure-data';
 
         <div class="glass-grid">
           <GlassCard title="NFS Config Sync">
-            NixOS configurations stored on NFS share. Changes to /etc/nixos propagate to all hosts via auto-mount, enabling single-source-of-truth cluster management.
+            Omarchy configurations stored on NFS share. Changes to /etc/nixos propagate to all hosts via auto-mount, enabling single-source-of-truth cluster management.
           </GlassCard>
           <GlassCard title="Profile System">
             50+ Justfile commands organized by profile (desktop, gaming, k8s, mining). Run 'just desktop' to rebuild desktop environment, 'just k8s' to manage cluster, 'just mining' to control GPU workloads.
           </GlassCard>
-          <GlassCard title="Custom NixOS Modules">
+          <GlassCard title="Custom Omarchy Modules">
             Local flake with reusable modules: mining.bash (GPU management), llm.nix (vLLM integration), cluster.nix (K8s setup). Composable infrastructure as code.
           </GlassCard>
         </div>
@@ -164,7 +164,7 @@ import { CLUSTER_DATA } from '../../lib/infrastructure-data';
 
         <div class="glass-grid">
           <GlassCard title="Automated Deployments">
-            NixOS rebuilds trigger automatic service restarts. Kubernetes deployments via GitOps-style manifests. Mining operations auto-restart on GPU availability.
+            Omarchy rebuilds trigger automatic service restarts. Kubernetes deployments via GitOps-style manifests. Mining operations auto-restart on GPU availability.
           </GlassCard>
           <GlassCard title="Service Mesh">
             Flannel CNI for pod networking, CoreDNS for service discovery, statefulsets for databases. Prometheus + Grafana for monitoring and alerting.

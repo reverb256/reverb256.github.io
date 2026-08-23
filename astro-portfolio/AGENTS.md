@@ -8,7 +8,7 @@
 
 ## OVERVIEW
 
-Personal portfolio with a Linux/TUI terminal aesthetic — solid surface cards, sharp 2px borders, NixOS ASCII art, interactive terminal with gesture physics, systemd-style footer. No glass, no blur, no glow. Built with Astro 7, React 19, Tailwind CSS v4 (`@theme`-based), and GSAP 3.14 for scroll-triggered animations. Base24 "Inkwell" dark theme, ember orange accent (`#ff9f5c`) on deep navy (`#0a0c10`).
+Personal portfolio with a Linux/TUI terminal aesthetic — solid surface cards, sharp 2px borders, Omarchy ASCII art, interactive terminal with gesture physics, systemd-style footer. No glass, no blur, no glow. Built with Astro 7, React 19, Tailwind CSS v4 (`@theme`-based), and GSAP 3.14 for scroll-triggered animations. Base24 "Inkwell" dark theme, ember orange accent (`#ff9f5c`) on deep navy (`#0a0c10`).
 
 ---
 
@@ -24,7 +24,7 @@ astro-portfolio/
 │   │   ├── bookmarks/        # Curated links
 │   │   ├── components/       # UI component showcase
 │   │   ├── craft/            # Story-driven project showcase (w/ phases)
-│   │   ├── infrastructure/   # NixOS cluster deep-dive
+│   │   ├── infrastructure/   # Omarchy cluster deep-dive
 │   │   ├── man/              # Unix man page format
 │   │   ├── now/              # Current focus page
 │   │   ├── setup/            # Dev environment
