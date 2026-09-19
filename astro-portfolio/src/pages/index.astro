@@ -267,8 +267,8 @@ const skills = ["TypeScript", "React", "Rust", "Node.js", "Omarchy", "Astro", "T
               </div>
               <h3 class="text-3xl font-display font-bold text-[var(--base07)]">Infrastructure</h3>
               <p class="text-sm text-[var(--base05)] mt-4 leading-relaxed">
-                Killed Windows. Went full Linux. 4 hosts, declarative deployment, K3s cluster. 
-                Now pivoting to ReverbOS — an owned Omarchy-based OS replacing NixOS on every host. 
+                Killed Windows. Went full Linux. 4 hosts, K3s cluster. 
+                All hosts now run ReverbOS — an owned Omarchy-based OS that replaced NixOS. 
                 AI Inference Gateway, Knowledge Fabric, MCP Registry, Compute Market. 
                 Every service self-hosted. Zero cloud spend.
               </p>
@@ -289,7 +289,7 @@ const skills = ["TypeScript", "React", "Rust", "Node.js", "Omarchy", "Astro", "T
               <span class="text-2xl mt-1">🖥️</span>
               <div>
                 <h4 class="font-mono text-sm font-bold text-[var(--base06)]">4-Host Cluster</h4>
-                <p class="text-xs text-[var(--base05)] mt-1">Zephyr (desktop), Nexus (gateway), Forge (GPU compute), Sentry (control-plane / inference). Declarative deployment, migrating to owned ReverbOS on every host. K3s orchestration.</p>
+                <p class="text-xs text-[var(--base05)] mt-1">Zephyr (desktop), Nexus (gateway), Forge (GPU compute), Sentry (control-plane / inference). Every host runs owned ReverbOS. K3s orchestration.</p>
               </div>
             </div>
             <div class="surface p-6 flex items-start gap-4">
@@ -531,7 +531,7 @@ const skills = ["TypeScript", "React", "Rust", "Node.js", "Omarchy", "Astro", "T
             Spent <span class="text-[var(--base09)]">15 years in food service</span> learning the value of hard work, teamwork, and showing up every day. Meanwhile, always curious about computers — <span class="text-[var(--base0D)]">20 years of tinkering, researching, and dabbling with Linux</span> on the side.
           </p>
           <p class="text-sm text-[var(--base05)] leading-relaxed mt-3">
-            Built a <span class="text-[var(--base0D)]">4-host cluster</span> of owned hardware with K3s orchestration, now migrating every host to <span class="text-[var(--base09)]">ReverbOS</span> — my own Omarchy-based operating system, replacing NixOS so I control every layer. Developing production apps with <span class="text-[var(--base09)]">Rust microservices</span>, <span class="text-[var(--base0D)]">React/Astro frontends</span>, and <span class="text-[var(--base09)]">self-hosted AI</span>.
+            Built a <span class="text-[var(--base0D)]">4-host cluster</span> of owned hardware with K3s orchestration, now running <span class="text-[var(--base09)]">ReverbOS</span> on every host — my own Omarchy-based operating system that replaced NixOS, so I control every layer. Developing production apps with <span class="text-[var(--base09)]">Rust microservices</span>, <span class="text-[var(--base0D)]">React/Astro frontends</span>, and <span class="text-[var(--base09)]">self-hosted AI</span>.
           </p>
           <p class="text-sm text-[var(--base05)] leading-relaxed mt-3">
             <strong>Current focus:</strong> Designing, deploying, and operating <span class="text-[var(--base09)]">self-hosted LLM + agent + infrastructure stacks clients own</span> — AI Systems Orchestration. Government data pipelines, knowledge fabric, MCP tooling, accountability journalism. No hyperscaler dependency, full auditability.
@@ -943,10 +943,10 @@ Purpose: Knowledge repository`);
 
     // Static FAQ responses for when gateway is offline
     const staticFAQ = {
-      'infrastructure': '4 owned hosts (Zephyr, Nexus, Forge, Sentry) running ReverbOS, an Omarchy-based OS migrating off NixOS. 78 cores, 126GB RAM, 8 GPUs, 8.4TB storage. K3s runs 60+ pods across AI inference, mining, and monitoring workloads.',
+      'infrastructure': '4 owned hosts (Zephyr, Nexus, Forge, Sentry) running ReverbOS, an Omarchy-based OS migrated off NixOS. 78 cores, 125GB RAM, 7 GPUs, 8.4TB storage. K3s runs 100+ pods across AI inference, mining, and monitoring workloads.',
       'projects': 'Active projects: ReverbOS (owned OS), Knowledge Fabric (Qdrant RAG), MCP Registry, Compute Market, MapleSpike (Canada AI), Astral Key (Rust auth), Frostbite Gazette, and more. Check the projects section above!',
       'skills': 'Core stack: TypeScript, React, Rust, Python, Astro, FastAPI, MCP, Kubernetes, CUDA/ROCm, plus self-hosted AI orchestration. Full list in the About section.',
-      'cluster': '4-host cluster owned and operated end-to-end. Zephyr (desktop, 2x GPU), Nexus (gateway + storage, 1x GPU), Forge (GPU-compute, 4x GPU), Sentry (control-plane + ROCm, 1x GPU). Migrating to ReverbOS.',
+      'cluster': '4-host cluster owned and operated end-to-end. Zephyr (desktop, 2x GPU), Nexus (gateway + storage, 1x GPU), Forge (GPU-compute, 3x GPU), Sentry (control-plane + ROCm, 1x GPU). Running ReverbOS.',
       'gateway': 'AI Inference Gateway provides OpenAI-compatible API with circuit breakers, RAG, MCP brokerage, and GPU scheduling. Self-hosted, no hyperscaler dependency.',
       'contact': 'Email: j_kroeker@reverb256.ca. Based in Winnipeg, Canada. Open to consulting, fractional work, and remote roles helping companies own their AI stack.',
       'default': 'I\'m a portfolio AI assistant! Try asking about: infrastructure, cluster, projects, skills, gateway, or contact. Or browse the site for the full picture.'

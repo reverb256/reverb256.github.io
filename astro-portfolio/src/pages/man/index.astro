@@ -1,7 +1,7 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 
-const manDate = "2026-07-16";
+const manDate = "2026-09-19";
 const manVersion = "2.56.1";
 ---
 
@@ -25,7 +25,7 @@ const manVersion = "2.56.1";
         REVERB256<span class="text-[var(--base04)]">(</span>1<span class="text-[var(--base04)]">)</span>
       </div>
       <p class="text-[10px] font-mono text-[var(--base04)] mt-1">
-        <span class="text-[var(--base05)]">NixOS</span> &emsp;{manDate} &emsp;reverb256 &emsp;REVERB256(1)
+        <span class="text-[var(--base05)]">ReverbOS</span> &emsp;{manDate} &emsp;reverb256 &emsp;REVERB256(1)
       </p>
     </div>
 
@@ -62,7 +62,7 @@ const manVersion = "2.56.1";
         <p>
           <span class="text-[var(--base06)]">reverb256</span> is a software developer portfolio and
           infrastructure showcase operating from Winnipeg, Canada. It documents a 15-year journey 
-          from food service to sovereign Canadian infrastructure, built on a 4-host NixOS cluster 
+          from food service to sovereign Canadian infrastructure, built on a 4-host Omarchy cluster 
           with zero cloud spend.
         </p>
 
@@ -76,7 +76,7 @@ const manVersion = "2.56.1";
         </div>
 
         <p>
-          Core operating system: <span class="text-[var(--base09)]">NixOS 26.05</span> on a 
+          Core operating system: <span class="text-[var(--base09)]">ReverbOS</span> (Arch-based) on a 
           <span class="text-[var(--base0B)]">4-host cluster</span> managed with 
           <span class="text-[var(--base0D)]">Colmena</span> and
           <span class="text-[var(--base0D)]">K3s</span>. All deployments declarative,
@@ -97,7 +97,7 @@ const manVersion = "2.56.1";
         </div>
         <div class="flex gap-4 pl-8">
           <div class="w-32 shrink-0 text-[var(--base0D)]"><span class="text-[var(--base09)]">--infrastructure</span></div>
-          <div class="text-[var(--base05)]">View the full cluster topology &mdash; 4 hosts, 78 cores, 8 GPUs, pod counts.</div>
+          <div class="text-[var(--base05)]">View the full cluster topology &mdash; 4 hosts, 78 cores, 7 GPUs, pod counts.</div>
         </div>
         <div class="flex gap-4 pl-8">
           <div class="w-32 shrink-0 text-[var(--base0D)]"><span class="text-[var(--base09)]">--writing</span></div>
@@ -170,7 +170,7 @@ const manVersion = "2.56.1";
           <div class="text-[var(--base0B)] mb-1">Infrastructure</div>
           <div class="text-xs space-y-1">
             <div>
-              <span class="text-[var(--base06)]">NixOS Cluster</span>
+              <span class="text-[var(--base06)]">ReverbOS Cluster</span>
               &mdash; 4-host cluster with GitOps, VR gaming, mining, AI inference
               <span class="text-[var(--base0B)]">[flagship]</span>
             </div>
@@ -181,12 +181,12 @@ const manVersion = "2.56.1";
             </div>
             <div>
               <span class="text-[var(--base06)]">MCP Registry</span>
-              &mdash; Declarative MCP server management as NixOS module
+              &mdash; Declarative MCP server management, deployed across every host
               <span class="text-[var(--base0B)]">[active]</span>
             </div>
             <div>
               <span class="text-[var(--base06)]">Caddy Ingress</span>
-              &mdash; Custom Caddy build + NixOS module + container image
+              &mdash; Custom Caddy build + declarative OS module + container image
               <span class="text-[var(--base0B)]">[active]</span>
             </div>
             <div>
@@ -210,7 +210,7 @@ const manVersion = "2.56.1";
           <div class="ml-4">
             <span class="text-[var(--base06)]">zephyr</span>&emsp;Main workstation &mdash; RTX 3090 + 3060 Ti<br />
             <span class="text-[var(--base06)]">nexus</span>&emsp;&emsp;AI Inference Gateway<br />
-            <span class="text-[var(--base06)]">forge</span>&emsp;&emsp;GPU compute &mdash; 2x RTX 4060 + 2x RX 5700 XT<br />
+            <span class="text-[var(--base06)]">forge</span>&emsp;&emsp;GPU compute &mdash; 2x RTX 4060 + RX 5700 XT<br />
             <span class="text-[var(--base06)]">sentry</span>&emsp;&nbsp; Monitoring &amp; networking
           </div>
         </div>
@@ -219,21 +219,21 @@ const manVersion = "2.56.1";
           <div><span class="text-[var(--base07)]">Cluster Stats</span></div>
           <div class="ml-4">
             <span class="text-[var(--base0B)]">78</span> cores &bull;
-            <span class="text-[var(--base0B)]">126</span> GB RAM &bull;
-            <span class="text-[var(--base0B)]">8</span> GPUs &bull;
-            <span class="text-[var(--base0B)]">~30</span> pods
+            <span class="text-[var(--base0B)]">125</span> GB RAM &bull;
+            <span class="text-[var(--base0B)]">7</span> GPUs &bull;
+            <span class="text-[var(--base0B)]">119</span> pods
           </div>
         </div>
 
         <div class="font-mono text-xs space-y-1">
           <div><span class="text-[var(--base07)]">Key Services</span></div>
           <div class="ml-4">
-            K3s orchestration (9-week roadmap)&emsp;
-            <span class="text-[var(--base0B)]">Colmena</span> deployment<br />
-            Caddy reverse proxy with automatic TLS&emsp;
+            K3s orchestration &bull;
+            <span class="text-[var(--base0B)]">ArgoCD</span> GitOps<br />
+            Cloudflare tunnels &bull; nginx rev-proxy&emsp;
             <span class="text-[var(--base0D)]">Tailscale</span> mesh VPN<br />
             AI Inference Gateway &mdash; OpenAI-compatible with circuit breakers and RAG<br />
-            Prometheus + Grafana monitoring stack
+            VictoriaMetrics + Grafana monitoring stack
           </div>
         </div>
 
@@ -259,9 +259,8 @@ const manVersion = "2.56.1";
         </p>
         <ul class="text-xs space-y-1 list-disc ml-4">
           <li>The interactive terminal is a static simulation &mdash; it does not connect to the live cluster</li>
-          <li>The blog content collection is empty (MDX files exist but are not wired into the content config)</li>
           <li>The AI Chat section requires a local inference gateway to function &mdash; falls back to static responses</li>
-          <li>Unicode block characters in the NixOS logo require a Nerd Font or fallback to render correctly</li>
+          <li>Unicode block characters in the terminal logo require a Nerd Font or fallback to render correctly</li>
         </ul>
       </div>
     </section>
@@ -321,7 +320,7 @@ const manVersion = "2.56.1";
          ════════════════════════════════════════════ -->
     <div class="mt-16 pt-4 font-mono text-[10px] text-[var(--base04)] leading-relaxed" style="border-top: 1px solid var(--border-default);">
       <div class="flex justify-between">
-        <span>NixOS &emsp;{manDate} &emsp;reverb256 &emsp;REVERB256(1)</span>
+        <span>ReverbOS &emsp;{manDate} &emsp;reverb256 &emsp;REVERB256(1)</span>
         <a href="/" class="text-[var(--base0D)] hover:text-[var(--base09)] transition-colors">Back to home</a>
       </div>
       <div class="mt-1 text-[var(--base05)]">

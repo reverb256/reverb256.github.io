@@ -1,9 +1,9 @@
 /**
  * Infrastructure Cluster Data
  *
- * Source of truth: see refresh script. The "Last verified" comment on
- * copies of this file has rotted before; treat every numeric claim in
- * here as suspect until you re-query the live cluster. See
+ * Last verified: 2026-09-19 (live audit: nproc, meminfo, lspci, kubectl).
+ * Source of truth: see refresh script. Treat every numeric claim in here
+ * as suspect until you re-query the live cluster. See
  * scripts/refresh-cluster-data.sh before each portfolio release.
  */
 
@@ -45,13 +45,13 @@ export const CLUSTER_DATA = {
   hosts: [
     {
       name: 'zephyr',
-      role: 'control-plane',
+      role: 'workstation',
       specs: {
         cpu: '32 cores',
         ram: '31GB',
         gpus: ['RTX 3090 (24GB)', 'RTX 3060 Ti (8GB)']
       },
-      services: ['etcd', 'kube-apiserver', 'kube-scheduler', 'kube-controller-manager', 'ingress-nginx', 'nfs-server', 'n8n', 'grafana', 'prometheus'],
+      services: ['nginx', 'ollama', 'peakminer-3090', 'peakminer-3060ti', 'tailscale'],
       ip: '10.1.1.110'
     },
     {
@@ -71,9 +71,9 @@ export const CLUSTER_DATA = {
       specs: {
         cpu: '6 cores',
         ram: '16GB',
-        gpus: ['RTX 4060 (8GB)', 'RTX 4060 (8GB)', 'RX 5700 XT (8GB)', 'RX 5700 XT (8GB)']
+        gpus: ['RTX 4060 (8GB)', 'RTX 4060 (8GB)', 'RX 5700 XT (8GB)']
       },
-      services: ['lolminer-nvidia', 'lolminer-amd'],  // akash-provider dropped 2026-07-01 — not deployed
+      services: ['peakminer-forge-4060-0', 'peakminer-forge-4060-1'],  // akash-provider dropped 2026-07-01 — not deployed
       ip: '10.1.1.130'
     },
     {
@@ -90,13 +90,13 @@ export const CLUSTER_DATA = {
   ],
 
   stats: {
-    // Refreshed: 2026-07-01 via scripts/refresh-cluster-data.sh — re-run before each portfolio release.
+    // Refreshed: 2026-09-19 via live audit from zephyr — re-run scripts/refresh-cluster-data.sh before each portfolio release.
     totalCores: 78,
-    totalRAM: '126GB',
-    totalGPUs: 8,
+    totalRAM: '125GB',
+    totalGPUs: 7,
     totalStorage: '8.4TB',
-    podCount: 37,
-    k8sVersion: 'v1.36.1+k3s1'
+    podCount: 119,
+    k8sVersion: 'v1.37.0+k3s1'
   },
 
   // akash: not deployed as of 2026-07-01 — block removed. Restore only if/when re-deploying.
@@ -200,33 +200,41 @@ export const CLUSTER_DATA = {
       title: 'ReverbOS / Omarchy Pivot',
       icon: '🐚',
       description: 'Full-stack migration off NixOS to an owned Omarchy-based OS across all hosts. Home-manager layer, declarative profiles, AI-first tooling. Sovereign infra future-proofing.'
+    },
+    {
+      date: 'September 2026',
+      title: 'Migration Complete',
+      icon: '✅',
+      description: 'All four hosts fully migrated off NixOS to Arch-based Omarchy — K3s, AI inference, mining, and monitoring carried over.'
+    },
+    {
+      date: 'September 2026',
+      title: 'Fleet Telemetry Desk',
+      icon: '🖥️',
+      description: 'Infomarchy desk deployed to every host (fix merged upstream) — live AI sessions, mining, and system health across the fleet.'
     }
   ],
 
   services: {
+    // ai-inference namespace retired (2026) — AI workloads now run per-host and in voice-models/media.
     ai: [
-      { name: 'n8n', namespace: 'ai-inference', status: 'running' },
-      { name: 'qdrant', namespace: 'ai-inference', status: 'running' },
-      { name: 'vllm-inference', namespace: 'ai-inference', status: 'running' },
-      { name: 'llama-cpp-qwen', namespace: 'ai-inference', status: 'running' },
-      { name: 'sglang-inference', namespace: 'ai-inference', status: 'running' },
-      { name: 'mlflow', namespace: 'ai-inference', status: 'running' },
-      { name: 'redis', namespace: 'ai-inference', status: 'running' },
-      { name: 'postgres-n8n', namespace: 'ai-inference', status: 'running' }
+      { name: 'voice-models', namespace: 'voice-models', status: 'running' },
+      { name: 'ollama', namespace: 'zephyr (native)', status: 'running' }
     ],
     // akash: not deployed as of 2026-07-01 — services block removed.
     monitoring: [
-      { name: 'prometheus', namespace: 'ai-inference', status: 'running' },
-      { name: 'grafana', namespace: 'monitoring', status: 'running' },
-      { name: 'alertmanager', namespace: 'monitoring', status: 'running' }
+      { name: 'vmsingle (VictoriaMetrics)', namespace: 'monitoring', status: 'running' },
+      { name: 'vmstack-grafana', namespace: 'monitoring', status: 'running' },
+      { name: 'vmalert', namespace: 'monitoring', status: 'running' },
+      { name: 'node-exporter', namespace: 'monitoring', status: 'running' }
     ],
+    // Mining consolidated to native peakminer (systemd) — no k8s mining pods.
     mining: [
-      { name: 'gpu-miner-zephyr', namespace: 'mining', status: 'running' },
-      { name: 'xmrig-zephyr', namespace: 'mining', status: 'running' },
-      { name: 'gpu-miner-nexus', namespace: 'mining', status: 'running' },
-      { name: 'xmrig-nexus', namespace: 'mining', status: 'running' },
-      { name: 'gpu-miner-forge-nvidia-0', namespace: 'mining', status: 'running' },
-      { name: 'gpu-miner-forge-nvidia-1', namespace: 'mining', status: 'running' }
+      { name: 'peakminer-3090', namespace: 'zephyr/systemd', status: 'running' },
+      { name: 'peakminer-3060ti', namespace: 'zephyr/systemd', status: 'running' },
+      { name: 'peakminer-nexus-3060ti', namespace: 'nexus/systemd', status: 'running' },
+      { name: 'peakminer-forge-4060-0', namespace: 'forge/systemd', status: 'running' },
+      { name: 'peakminer-forge-4060-1', namespace: 'forge/systemd', status: 'running' }
     ]
   }
 };

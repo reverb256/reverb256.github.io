@@ -68,7 +68,7 @@ import { CLUSTER_DATA } from '../../lib/infrastructure-data';
 
         <div class="glass-grid">
           <GlassCard title="The Challenge">
-            Managing 4 Omarchy hosts, 8 GPUs across mining and Kubernetes workloads, with centralized configuration and monitoring.
+            Managing 4 Omarchy hosts, 7 GPUs across mining and Kubernetes workloads, with centralized configuration and monitoring.
           </GlassCard>
           <GlassCard title="The Solution">
             A custom Omarchy framework with profile-based config management, NFS synchronization, and Kubernetes service mesh for unified cluster operations.
@@ -103,7 +103,7 @@ import { CLUSTER_DATA } from '../../lib/infrastructure-data';
 
         <div class="glass-grid">
           <GlassCard title="NFS Config Sync">
-            Omarchy configurations stored on NFS share. Changes to /etc/nixos propagate to all hosts via auto-mount, enabling single-source-of-truth cluster management.
+            Omarchy configurations stored on a shared NFS export. Changes propagate to all hosts via auto-mount, enabling single-source-of-truth cluster management.
           </GlassCard>
           <GlassCard title="Profile System">
             50+ Justfile commands organized by profile (desktop, gaming, k8s, mining). Run 'just desktop' to rebuild desktop environment, 'just k8s' to manage cluster, 'just mining' to control GPU workloads.
@@ -183,7 +183,7 @@ import { CLUSTER_DATA } from '../../lib/infrastructure-data';
 
         <div class="glass-grid">
                     <GlassCard title="Hardware Infrastructure">
-            78 CPU cores, 126GB RAM, 8 GPUs (Zephyr: RTX 3090 + 3060 Ti, Nexus: 1x NVIDIA, Forge: 2x RTX 4060 + 2x RX 5700 XT, Sentry: 1x AMD), 8.4TB storage across 4 hosts. Mining capacity: 4 GPUs. Kubernetes capacity: 3 GPUs.
+            78 CPU cores, 125GB RAM, 7 GPUs (Zephyr: RTX 3090 + RTX 3060 Ti, Nexus: RTX 3060 Ti, Forge: 2x RTX 4060 + RX 5700 XT, Sentry: 1x AMD), 8.4TB storage across 4 hosts. Mining runs native on 5 GPUs; the K3s cluster runs 119 pods.
           </GlassCard>
                     <GlassCard title="AI/ML Services">
             AI Inference Gateway (OpenAI-compatible API with circuit breakers, RAG, MCP brokerage), Knowledge Fabric (Qdrant vector search with RRF fusion), n8n for AI workflows, vLLM for local LLM inference, TurboQuant llama.cpp optimizations.
