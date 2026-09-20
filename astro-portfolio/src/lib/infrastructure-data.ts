@@ -51,7 +51,7 @@ export const CLUSTER_DATA = {
         ram: '31GB',
         gpus: ['RTX 3090 (24GB)', 'RTX 3060 Ti (8GB)']
       },
-      services: ['nginx', 'ollama', 'peakminer-3090', 'peakminer-3060ti', 'tailscale'],
+      services: ['nginx', 'ollama', 'comfyui', 'peakminer-3090', 'peakminer-3060ti', 'tailscale'],
       ip: '10.1.1.110'
     },
     {
@@ -62,7 +62,7 @@ export const CLUSTER_DATA = {
         ram: '48GB',
         gpus: ['RTX 3060 Ti (8GB)']
       },
-      services: ['etcd', 'nfs-server', 'postgres-n8n', 'postgres-glitchtip', 'ai-inference-gateway', 'qdrant', 'maplespike', 'redis'],
+      services: ['etcd', 'ollama', 'memlawb', 'tailscale'],
       ip: '10.1.1.120'
     },
     {
@@ -84,7 +84,7 @@ export const CLUSTER_DATA = {
         ram: '31GB',
         gpus: ['RX 5600 XT (4GB)']
       },
-      services: ['etcd', 'prometheus', 'alertmanager', 'promtail'],
+      services: ['etcd', 'nfs-server', 'vmagent (VictoriaMetrics)'],
       ip: '10.1.1.140'
     }
   ],
@@ -94,7 +94,7 @@ export const CLUSTER_DATA = {
     totalCores: 78,
     totalRAM: '125GB',
     totalGPUs: 7,
-    totalStorage: '8.4TB',
+    totalStorage: '9.5TB',
     podCount: 119,
     k8sVersion: 'v1.37.0+k3s1'
   },

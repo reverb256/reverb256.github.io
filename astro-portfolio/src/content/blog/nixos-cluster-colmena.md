@@ -6,6 +6,8 @@ tags: ["NixOS", "Infrastructure", "Colmena"]
 readTime: 10
 ---
 
+> **Update (Sept 2026):** The fleet has since migrated from NixOS to Arch-based Omarchy (ReverbOS). The multi-host lessons below still hold — see the [infrastructure page](/infrastructure) for the current stack.
+
 ## The Setup
 
 Four machines. Different hardware. Different workloads. One declarative configuration to rule them all.

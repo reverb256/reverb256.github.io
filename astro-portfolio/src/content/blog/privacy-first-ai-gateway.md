@@ -7,6 +7,8 @@ featured: true
 readTime: 8
 ---
 
+> **Update (Sept 2026):** The fleet has since migrated from NixOS to Arch-based Omarchy, and the gateway has given way to a leaner local stack (Ollama on the RTX 3090 + MCP tooling). The privacy-first architecture below still applies.
+
 ## Why Local AI Matters
 
 Every time you send a prompt to a cloud API, you're trusting a third party with your data. For most tasks that's fine. But when you're working with proprietary code, sensitive infrastructure configs, or personal notes, the calculus changes.

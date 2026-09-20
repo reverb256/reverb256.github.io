@@ -1,16 +1,14 @@
 # Cloudflare Pages Deployment — reverb256 portfolio
 #
-# Builds the Astro portfolio in astro-portfolio/ and publishes it to
-# Cloudflare Pages, served at reverb256.ca via a custom domain.
+# Builds the Astro portfolio in astro-portfolio/ and publishes it to the
+# Cloudflare Pages project `reverb256`, serving https://reverb256.ca.
 #
-# Requires these GitHub Actions secrets:
-#   CLOUDFLARE_API_TOKEN  — token with "Account:Cloudflare Pages:Edit" + zone write
+# Requires these GitHub Actions secrets (set 2026-09-19):
+#   CLOUDFLARE_API_TOKEN  — scoped token: Pages Write + Pages Read + Zone Read
 #   CLOUDFLARE_ACCOUNT_ID — Cloudflare account ID
 #   GITHUB_TOKEN          — auto-provided by GitHub, do NOT add
 #
-# Note: this runs alongside the existing Deploy to GitHub Pages workflow.
-# Once Cloudflare Pages is live and reverb256.ca is re-pointed, disable the
-# GitHub Pages workflow (deploy.yml) to avoid double deploy. See README.
+# GitHub Pages (deploy.yml) is retired — this is the only deploy path.
 
 name: Deploy to Cloudflare Pages
 
@@ -38,21 +36,15 @@ jobs:
 
       - name: Install dependencies
         working-directory: astro-portfolio
-        run: bun install
+        run: bun install --frozen-lockfile
 
       - name: Build static site
         working-directory: astro-portfolio
         run: bun run build
 
-      - name: Copy CNAME for custom domain
-        run: cp CNAME astro-portfolio/dist/CNAME
-
       - name: Publish to Cloudflare Pages
-        uses: cloudflare/pages-action@v1
+        uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          projectName: reverb256-portfolio
-          directory: astro-portfolio/dist
-          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
-          wranglerVersion: '3'
+          command: pages deploy astro-portfolio/dist --project-name=reverb256 --branch=main

@@ -183,15 +183,15 @@ import { CLUSTER_DATA } from '../../lib/infrastructure-data';
 
         <div class="glass-grid">
                     <GlassCard title="Hardware Infrastructure">
-            78 CPU cores, 125GB RAM, 7 GPUs (Zephyr: RTX 3090 + RTX 3060 Ti, Nexus: RTX 3060 Ti, Forge: 2x RTX 4060 + RX 5700 XT, Sentry: 1x AMD), 8.4TB storage across 4 hosts. Mining runs native on 5 GPUs; the K3s cluster runs 119 pods.
+            78 CPU cores, 125GB RAM, 7 GPUs (Zephyr: RTX 3090 + RTX 3060 Ti, Nexus: RTX 3060 Ti, Forge: 2x RTX 4060 + RX 5700 XT, Sentry: 1x AMD), 9.5TB storage across 4 hosts. Mining runs native on 5 GPUs; the K3s cluster runs 119 pods.
           </GlassCard>
                     <GlassCard title="AI/ML Services">
-            AI Inference Gateway (OpenAI-compatible API with circuit breakers, RAG, MCP brokerage), Knowledge Fabric (Qdrant vector search with RRF fusion), n8n for AI workflows, vLLM for local LLM inference, TurboQuant llama.cpp optimizations.
+            Local LLM inference with Ollama on Zephyr (RTX 3090) and Nexus; voice stack (voice-models + Chatterbox TTS) on K3s; MCP server fleet (arr, Jellyfin, qBittorrent, Quill) wiring agents into every service. No hyperscaler dependency.
           </GlassCard>
                     <GlassCard title="Observability Stack">
-            <strong>Metrics:</strong> Prometheus + Grafana<br>
-            <strong>Logs:</strong> Promtail + Loki<br>
-            <strong>Alerting:</strong> Alertmanager with Slack integration<br>
+            <strong>Metrics:</strong> VictoriaMetrics + Grafana<br>
+            <strong>Logs:</strong> journald + pod logs<br>
+            <strong>Alerting:</strong> vmalert rule evaluation<br>
             <strong>Dashboards:</strong> GPU utilization, cluster health, service SLOs
           </GlassCard>
         </div>

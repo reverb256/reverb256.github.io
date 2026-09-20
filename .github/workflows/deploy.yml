@@ -1,9 +1,7 @@
 name: Deploy to GitHub Pages
 
 on:
-  push:
-    branches: [main]
-  workflow_dispatch:
+  workflow_dispatch:  # retired 2026-09-19 — Cloudflare Pages (cloudflare-pages.yml) is the live deploy
 
 permissions:
   contents: read

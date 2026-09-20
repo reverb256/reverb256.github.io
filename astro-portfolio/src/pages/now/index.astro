@@ -2,26 +2,28 @@
 import Layout from "../../layouts/Layout.astro";
 
 const now = {
-  updated: "2026-03-10",
+  updated: "2026-09-19",
   location: "Winnipeg, Canada",
   status: "Open to opportunities",
   focus: [
     { category: "Building", icon: "🔨", color: "var(--base09)", items: [
+      "ReverbOS - owned Omarchy-based OS now running every host in the fleet",
+      "MapleSpike - sovereign Canadian AI data pipeline (Quill portal + workers)",
       "Frostbite Gazette - AI-curated Canadian journalism platform",
       "Troves & Coves - Crystal jewelry e-commerce with React + shadcn/ui",
       "Astral Key - Rust Web3 authentication microservice",
       "Synapse - Local-first AI command center with Tauri"
     ]},
     { category: "Learning", icon: "📚", color: "var(--base0D)", items: [
-      "Kubernetes cluster migration for 4-host Omarchy setup",
+      "Operating a 4-host K3s homelab on Omarchy (ArgoCD GitOps, 100+ pods)",
       "Advanced Rust patterns (SQLx, Axum, WebAuthn)",
       "MCP server development and integration",
-      "AI agent orchestration with pi-agent-core"
+      "AI agent orchestration with Hermes profiles"
     ]},
     { category: "Infrastructure", icon: "🖥️", color: "var(--base0E)", items: [
-      "Maintaining 4-host Omarchy mining cluster (Zephyr, Nexus, Forge, Sentry)",
-      "Omarchy scripts multi-host deployment system",
-      "Local LLM stack with privacy-first AI gateway",
+      "Operating a 4-host Omarchy fleet (Zephyr, Nexus, Forge, Sentry)",
+      "Fleet telemetry with the Infomarchy desk on every host",
+      "Local LLM stack (Ollama on RTX 3090, voice models on K3s)",
       "Comprehensive documentation system for agents"
     ]},
     { category: "Exploring", icon: "🔭", color: "var(--base0F)", items: [
@@ -51,7 +53,7 @@ const now = {
 
 <Layout
   title="Now"
-  description="Current status and focus areas. What I'm building, learning, and exploring right now. Updated March 2026. Open to remote opportunities."
+  description="Current status and focus areas. What I'm building, learning, and exploring right now. Updated September 2026. Open to remote opportunities."
 >
   <div class="max-w-3xl mx-auto px-6 py-16">
     <!-- Header with animated status -->
