@@ -47,8 +47,10 @@ if [[ "$QUICK" -eq 1 ]]; then
   [[ $FAIL -eq 0 ]] || exit 1; exit 0
 fi
 
-echo "== sites.reverb256.dev (site-agency publish surface) =="
+echo "== sites.reverb256.dev (site-agency publish surface — k3s via ArgoCD) =="
 check "sites root" "200" "$(code https://sites.reverb256.dev/)"
+check "sites served by k3s" "sites-k8s" "$(curl -sI -m 15 https://sites.reverb256.dev/ | tr -d '\r' | awk -F': ' 'tolower($1)=="x-served-by"{print $2}')"
+check "preview noindex" "noindex" "$(curl -sI -m 15 https://sites.reverb256.dev/preview/none/ | tr -d '\r' | grep -i '^x-robots-tag' | grep -o noindex || true)"
 
 echo "== k3s-served =="
 check "haven health" "200" "$(code https://haven.reverb256.dev/api/health)"
