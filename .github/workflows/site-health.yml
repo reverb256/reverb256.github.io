@@ -1,0 +1,41 @@
+name: Site health
+
+# Live regression checks for the public surface (see scripts/verify-domains.sh).
+# Every incident becomes a check here: sites.* "Site not found", apex back on
+# GitHub IPs, redirect/HTTPS regressions, canonical drift.
+
+on:
+  schedule:
+    - cron: '17 */6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify public domains
+        id: verify
+        continue-on-error: true
+        run: bash scripts/verify-domains.sh
+      - name: Track status issue
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -uo pipefail
+          TITLE="site-health: public domains check"
+          NUM=$(gh issue list --state open --search "site-health in:title" --json number --jq '.[0].number // empty')
+          if [[ "${{ steps.verify.outcome }}" != "success" ]]; then
+            BODY="Site health check FAILED. Run: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID at $(date -u +%FT%TZ)"
+            if [[ -n "$NUM" ]]; then gh issue comment "$NUM" --body "$BODY"; else gh issue create --title "$TITLE" --body "$BODY"; fi
+          elif [[ -n "$NUM" ]]; then
+            gh issue close "$NUM" --comment "All public-domain checks passing again ($(date -u +%FT%TZ))."
+          fi
+      - name: Fail if unhealthy
+        if: steps.verify.outcome != 'success'
+        run: exit 1

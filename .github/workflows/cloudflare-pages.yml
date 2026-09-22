@@ -48,3 +48,13 @@ jobs:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           command: pages deploy astro-portfolio/dist --project-name=reverb256 --branch=main
+
+      # Regression gate: the live surface must pass the quick domain checks
+      # (canonical, redirects, HTTPS). See scripts/verify-domains.sh.
+      - name: Verify live deployment
+        run: |
+          for i in 1 2 3 4; do
+            if bash scripts/verify-domains.sh --quick; then exit 0; fi
+            echo "retry in 30s..."; sleep 30
+          done
+          exit 1

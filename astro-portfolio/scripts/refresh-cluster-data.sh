@@ -36,13 +36,12 @@ ram_gb="$(kubectl get nodes -o json | jq '
    | tonumber
    | ./1048576]
   | add | floor')"
-# Count nodes advertising at least one non-zero nvidia/amd/gpu resource.
-gpus="$(kubectl get nodes -o json | jq -r '
-  [.items[] | .status.capacity
-   | to_entries[]
-   | select(.key | test("nvidia|amd|gpu"; "i"))
-   | select((.value // "0") | test("[1-9]"))]
-  | length // 0')"
+# Physical GPUs are maintained by hand: k3s does not advertise them as node
+# resources, and counting advertised resources under-reports (2026-09-22: it
+# emitted "1" while the fleet runs 7). Update when hardware changes:
+# zephyr 2 (RTX 3090, RTX 3060 Ti) | nexus 1 (RTX 3060 Ti)
+# forge 3 (2x RTX 4060, RX 5700 XT) | sentry 1 (RX 5600 XT)
+gpus="7"
 pods="$(kubectl get pods -A --no-headers 2>/dev/null | wc -l | tr -d ' ')"
 k8s_ver="$(kubectl version -o json 2>/dev/null | jq -r '.serverVersion.gitVersion // "unknown"')"
 
