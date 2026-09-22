@@ -2,7 +2,7 @@
 import Layout from "../../layouts/Layout.astro";
 
 const now = {
-  updated: "2026-09-19",
+  updated: "2026-09-22",
   location: "Winnipeg, Canada",
   status: "Open to opportunities",
   focus: [
@@ -15,13 +15,13 @@ const now = {
       "Synapse - Local-first AI command center with Tauri"
     ]},
     { category: "Learning", icon: "📚", color: "var(--base0D)", items: [
-      "Operating a 4-host K3s homelab on Omarchy (ArgoCD GitOps, 100+ pods)",
+      "Operating a 5-node K3s homelab on Omarchy (ArgoCD GitOps, ~160 pods)",
       "Advanced Rust patterns (SQLx, Axum, WebAuthn)",
       "MCP server development and integration",
       "AI agent orchestration with Hermes profiles"
     ]},
     { category: "Infrastructure", icon: "🖥️", color: "var(--base0E)", items: [
-      "Operating a 4-host Omarchy fleet (Zephyr, Nexus, Forge, Sentry)",
+      "Operating an owned Omarchy fleet — Zephyr, Nexus, Forge, Sentry (+ a Windows/WSL2 node)",
       "Fleet telemetry with the Infomarchy desk on every host",
       "Local LLM stack (Ollama on RTX 3090, voice models on K3s)",
       "Comprehensive documentation system for agents"
@@ -45,7 +45,7 @@ const now = {
   ],
   metrics: [
     { label: "Active Projects", value: "7+", color: "var(--base09)", max: 10 },
-    { label: "Hosts in Cluster", value: "4", color: "var(--base09)", max: 8 },
+    { label: "Hosts in Cluster", value: "5", color: "var(--base09)", max: 8 },
     { label: "Into Dev Journey", value: "~2yr", color: "var(--base0D)", max: 100 }
   ]
 };

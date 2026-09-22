@@ -68,10 +68,10 @@ import { CLUSTER_DATA } from '../../lib/infrastructure-data';
 
         <div class="glass-grid">
           <GlassCard title="The Challenge">
-            Managing 4 Omarchy hosts, 7 GPUs across mining and Kubernetes workloads, with centralized configuration and monitoring.
+            Managing a 5-node Kubernetes cluster and 7 GPUs across mining, media, and AI workloads — with everything delivered from git and monitored centrally.
           </GlassCard>
           <GlassCard title="The Solution">
-            A custom Omarchy framework with profile-based config management, NFS synchronization, and Kubernetes service mesh for unified cluster operations.
+            An owned Omarchy fleet (Reverb-OS) plus ArgoCD GitOps for every cluster stack — one source of truth, no drift, no cloud spend.
           </GlassCard>
         </div>
 
@@ -102,55 +102,41 @@ import { CLUSTER_DATA } from '../../lib/infrastructure-data';
         <h2 class="section-title">Infrastructure Innovation</h2>
 
         <div class="glass-grid">
-          <GlassCard title="NFS Config Sync">
-            Omarchy configurations stored on a shared NFS export. Changes propagate to all hosts via auto-mount, enabling single-source-of-truth cluster management.
+          <GlassCard title="Git-Sourced Fleet">
+            Host config lives in git (Reverb-OS: Omarchy + Home Manager). The live host is never the source of truth — changes ship from the repo, not from SSH.
           </GlassCard>
-          <GlassCard title="Profile System">
-            50+ Justfile commands organized by profile (desktop, gaming, k8s, mining). Run 'just desktop' to rebuild desktop environment, 'just k8s' to manage cluster, 'just mining' to control GPU workloads.
+          <GlassCard title="Just-Driven Ops">
+            One justfile per domain: just check, build, switch, deploy, health. The supported update path for the Omarchy fleet — and the fastest way back to a known-good state.
           </GlassCard>
-          <GlassCard title="Custom Omarchy Modules">
-            Local flake with reusable modules: mining.bash (GPU management), llm.nix (vLLM integration), cluster.nix (K8s setup). Composable infrastructure as code.
+          <GlassCard title="GitOps for Kubernetes">
+            ArgoCD app-of-apps reconciles every cluster stack from git — media, Quill/MapleSpike, mining, Haven, and trading. Changes land by commit; rollbacks are git reverts.
           </GlassCard>
         </div>
       </div>
     </section>
 
     
-    <!-- AI Gateway Status Section -->
+    <!-- Cluster Status Section -->
     <section class="ai-status-section" data-section="ai-status">
       <div class="container">
-        <h2 class="section-title">AI Inference Gateway Status</h2>
+        <h2 class="section-title">Cluster Status</h2>
         <div class="glass-grid">
-          <GlassCard title="Gateway Health">
-            <div id="gateway-status" class="status-indicator">
-              <span class="status-dot status-unknown"></span>
-              <span>Checking...</span>
-            </div>
-            <div class="mt-2 text-sm">
-              <div id="gateway-models">Models: --</div>
-              <div id="gateway-uptime">Uptime: --</div>
-              <div id="gateway-requests">Requests: --</div>
-            </div>
-          </GlassCard>
-          <GlassCard title="Knowledge Fabric">
-            <div id="knowledge-status" class="status-indicator">
-              <span class="status-dot status-unknown"></span>
-              <span>Checking...</span>
-            </div>
-            <div class="mt-2 text-sm">
-              <div id="knowledge-articles">Articles: --</div>
-              <div id="knowledge-queries">Queries: --</div>
-              <div id="knowledge-last-update">Updated: --</div>
-            </div>
-          </GlassCard>
-          <GlassCard title="MCP Servers">
-            <div id="mcp-status" class="status-indicator">
-              <span class="status-dot status-unknown"></span>
-              <span>Checking...</span>
-            </div>
+          <GlassCard title="Kubernetes">
             <div class="mt-2 text-sm space-y-1">
-              <div id="mcp-searxng">SearXNG: --</div>
-              <div id="mcp-maplespike">MapleSpike: --</div>
+              <div>5 nodes &bull; 25 namespaces &bull; ~160 pods</div>
+              <div>Every stack reconciled by ArgoCD — media, Quill, mining, Haven, trading.</div>
+            </div>
+          </GlassCard>
+          <GlassCard title="AI Stack">
+            <div class="mt-2 text-sm space-y-1">
+              <div>Ollama on Zephyr (RTX 3090) and Nexus</div>
+              <div>Voice models + TTS on K3s; MCP server fleet wiring agents into every service.</div>
+            </div>
+          </GlassCard>
+          <GlassCard title="Observability">
+            <div class="mt-2 text-sm space-y-1">
+              <div>VictoriaMetrics + Grafana + vmalert</div>
+              <div>GPU utilization, cluster health, and service SLO dashboards.</div>
             </div>
           </GlassCard>
         </div>
@@ -164,13 +150,13 @@ import { CLUSTER_DATA } from '../../lib/infrastructure-data';
 
         <div class="glass-grid">
           <GlassCard title="Automated Deployments">
-            Omarchy rebuilds trigger automatic service restarts. Kubernetes deployments via GitOps-style manifests. Mining operations auto-restart on GPU availability.
+            Every stack ships from git: commit, ArgoCD sync, rollout. Miner restarts are a git-native change, and workloads auto-restart on GPU availability.
           </GlassCard>
           <GlassCard title="Service Mesh">
-            Flannel CNI for pod networking, CoreDNS for service discovery, statefulsets for databases. Prometheus + Grafana for monitoring and alerting.
+            Calico CNI for pod networking, CoreDNS for service discovery, Longhorn for replicated storage. VictoriaMetrics + Grafana for monitoring and alerting.
           </GlassCard>
           <GlassCard title="Observability">
-            Centralized logging with Promtail, metrics collection with Prometheus, visualization in Grafana. Alertmanager for incident response.
+            Metrics with VictoriaMetrics (vmagent + vmsingle), dashboards in Grafana, alerting with vmalert. Logs via journald and pod logs.
           </GlassCard>
         </div>
       </div>
@@ -183,7 +169,7 @@ import { CLUSTER_DATA } from '../../lib/infrastructure-data';
 
         <div class="glass-grid">
                     <GlassCard title="Hardware Infrastructure">
-            78 CPU cores, 125GB RAM, 7 GPUs (Zephyr: RTX 3090 + RTX 3060 Ti, Nexus: RTX 3060 Ti, Forge: 2x RTX 4060 + RX 5700 XT, Sentry: 1x AMD), 9.5TB storage across 4 hosts. Mining runs native on 5 GPUs; the K3s cluster runs 119 pods.
+            102 CPU cores, 140GB RAM, 7 GPUs (Zephyr: RTX 3090 + RTX 3060 Ti, Nexus: RTX 3060 Ti, Forge: 2x RTX 4060 + RX 5700 XT, Sentry: 1x AMD), 9.5TB storage. Mining runs as orchestrated K3s workloads across 5 GPUs; the cluster serves ~160 pods across 25 namespaces.
           </GlassCard>
                     <GlassCard title="AI/ML Services">
             Local LLM inference with Ollama on Zephyr (RTX 3090) and Nexus; voice stack (voice-models + Chatterbox TTS) on K3s; MCP server fleet (arr, Jellyfin, qBittorrent, Quill) wiring agents into every service. No hyperscaler dependency.
@@ -320,81 +306,7 @@ import { CLUSTER_DATA } from '../../lib/infrastructure-data';
   updateActiveSection();
 
   
-  // AI Gateway Status Updates
-  const updateAIStatus = async () => {
-    try {
-      // Gateway health
-      const gatewayResponse = await fetch('https://gateway.reverb256.dev/health', { timeout: 5000 });
-      if (gatewayResponse.ok) {
-        const gatewayData = await gatewayResponse.json();
-        document.getElementById('gateway-status').innerHTML = `
-          <span class="status-dot status-healthy"></span>
-          <span>Healthy</span>
-        `;
-        document.getElementById('gateway-models').textContent = `Models: ${gatewayData.models?.length || '--'}`;
-        document.getElementById('gateway-uptime').textContent = `Uptime: ${Math.floor(gatewayData.uptime || 0)}s`;
-        document.getElementById('gateway-requests').textContent = `Requests: ${gatewayData.requests?.total || '--'}`;
-      } else {
-        throw new Error('Gateway unhealthy');
-      }
-    } catch (error) {
-      document.getElementById('gateway-status').innerHTML = `
-        <span class="status-dot status-error"></span>
-        <span>Unreachable</span>
-      `;
-      document.getElementById('gateway-models').textContent = 'Models: --';
-      document.getElementById('gateway-uptime').textContent = 'Uptime: --';
-      document.getElementById('gateway-requests').textContent = 'Requests: --';
-    }
-
-    try {
-      // Knowledge Fabric status (would need its own API)
-      document.getElementById('knowledge-status').innerHTML = `
-        <span class="status-dot status-healthy"></span>
-        <span>Active</span>
-      `;
-      document.getElementById('knowledge-articles').textContent = 'Articles: 1,247';
-      document.getElementById('knowledge-queries').textContent = 'Queries: 3,421';
-      document.getElementById('knowledge-last-update').textContent = 'Updated: 2h ago';
-    } catch (error) {
-      document.getElementById('knowledge-status').innerHTML = `
-        <span class="status-dot status-error"></span>
-        <span>Error</span>
-      `;
-    }
-
-    try {
-      // MCP Servers status
-      const mcpResponse = await fetch('https://gateway.reverb256.dev/mcp/servers', { timeout: 5000 });
-      if (mcpResponse.ok) {
-        const mcpData = await mcpResponse.json();
-        const searxngStatus = mcpData.servers?.includes('searxng') ? 'Online' : 'Offline';
-        const maplespikeStatus = mcpData.servers?.includes('maplespike') ? 'Online' : 'Offline';
-        
-        document.getElementById('mcp-searxng').textContent = `SearXNG: ${searxngStatus}`;
-        document.getElementById('mcp-maplespike').textContent = `MapleSpike: ${maplespikeStatus}`;
-        
-        document.getElementById('mcp-status').innerHTML = `
-          <span class="status-dot ${searxngStatus === 'Online' && maplespikeStatus === 'Online' ? 'status-healthy' : 'status-warning'}"></span>
-          <span>MCP Servers</span>
-        `;
-      } else {
-        throw new Error('MCP unavailable');
-      }
-    } catch (error) {
-      document.getElementById('mcp-status').innerHTML = `
-        <span class="status-dot status-error"></span>
-        <span>MCP Unavailable</span>
-      `;
-      document.getElementById('mcp-searxng').textContent = 'SearXNG: --';
-      document.getElementById('mcp-maplespike').textContent = 'MapleSpike: --';
-    }
-  };
-
-  // Update AI status every 30 seconds
-  setInterval(updateAIStatus, 30000);
-  // Initial load
-  updateAIStatus();
+  // Cluster status cards are static — the site no longer polls a public gateway.
 </script>
 
 <style>

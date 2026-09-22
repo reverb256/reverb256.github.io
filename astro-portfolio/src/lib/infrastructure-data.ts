@@ -1,7 +1,7 @@
 /**
  * Infrastructure Cluster Data
  *
- * Last verified: 2026-09-19 (live audit: nproc, meminfo, lspci, kubectl).
+ * Last verified: 2026-09-22 (live audit: kubectl node/pod inventory, host nproc/free).
  * Source of truth: see refresh script. Treat every numeric claim in here
  * as suspect until you re-query the live cluster. See
  * scripts/refresh-cluster-data.sh before each portfolio release.
@@ -45,24 +45,25 @@ export const CLUSTER_DATA = {
   hosts: [
     {
       name: 'zephyr',
-      role: 'workstation',
+      role: 'workstation + k3s agent',
       specs: {
         cpu: '32 cores',
         ram: '31GB',
         gpus: ['RTX 3090 (24GB)', 'RTX 3060 Ti (8GB)']
       },
-      services: ['nginx', 'ollama', 'comfyui', 'peakminer-3090', 'peakminer-3060ti', 'tailscale'],
+      // Miners moved from systemd natives to k3s pods (2026-09-21).
+      services: ['k3s agent', 'ollama', 'comfyui', 'tailscale'],
       ip: '10.1.1.110'
     },
     {
       name: 'nexus',
-      role: 'primary-server+gateway',
+      role: 'primary-server + builder',
       specs: {
         cpu: '24 cores',
         ram: '48GB',
         gpus: ['RTX 3060 Ti (8GB)']
       },
-      services: ['etcd', 'ollama', 'memlawb', 'tailscale'],
+      services: ['etcd', 'k3s control plane', 'ollama', 'memlawb', 'tailscale'],
       ip: '10.1.1.120'
     },
     {
@@ -73,29 +74,42 @@ export const CLUSTER_DATA = {
         ram: '16GB',
         gpus: ['RTX 4060 (8GB)', 'RTX 4060 (8GB)', 'RX 5700 XT (8GB)']
       },
-      services: ['peakminer-forge-4060-0', 'peakminer-forge-4060-1'],  // akash-provider dropped 2026-07-01 — not deployed
+      // akash-provider dropped 2026-07-01; miners run as k3s pods.
+      services: ['etcd', 'k3s control plane'],
       ip: '10.1.1.130'
     },
     {
       name: 'sentry',
-      role: 'monitoring+rocm-inference',
+      role: 'control-plane + automation',
       specs: {
         cpu: '16 cores',
         ram: '31GB',
         gpus: ['RX 5600 XT (4GB)']
       },
-      services: ['etcd', 'nfs-server', 'vmagent (VictoriaMetrics)'],
+      services: ['etcd', 'k3s control plane', 'GitHub Actions runner'],
       ip: '10.1.1.140'
+    },
+    {
+      name: 'krash3',
+      role: 'windows + wsl2 compute',
+      specs: {
+        cpu: '12 cores (Ryzen 9 5900X)',
+        ram: '32GB',
+        gpus: []
+      },
+      services: ['k3s agent (WSL2)'],
+      ip: '10.1.1.150'
     }
   ],
 
   stats: {
-    // Refreshed: 2026-09-19 via live audit from zephyr — re-run scripts/refresh-cluster-data.sh before each portfolio release.
-    totalCores: 78,
-    totalRAM: '125GB',
+    // Refreshed: 2026-09-22 via live audit from zephyr — re-run scripts/refresh-cluster-data.sh before each portfolio release.
+    // totalGPUs is maintained by hand (k3s does not advertise GPUs as node resources).
+    totalCores: 102,
+    totalRAM: '140GB',
     totalGPUs: 7,
     totalStorage: '9.5TB',
-    podCount: 119,
+    podCount: 158,
     k8sVersion: 'v1.37.0+k3s1'
   },
 
@@ -205,13 +219,31 @@ export const CLUSTER_DATA = {
       date: 'September 2026',
       title: 'Migration Complete',
       icon: '✅',
-      description: 'All four hosts fully migrated off NixOS to Arch-based Omarchy — K3s, AI inference, mining, and monitoring carried over.'
+      description: 'Every host migrated off NixOS to Arch-based Omarchy — K3s, AI inference, mining, and monitoring carried over without breakage.'
     },
     {
       date: 'September 2026',
       title: 'Fleet Telemetry Desk',
       icon: '🖥️',
       description: 'Infomarchy desk deployed to every host (fix merged upstream) — live AI sessions, mining, and system health across the fleet.'
+    },
+    {
+      date: 'September 2026',
+      title: 'GitOps Everywhere',
+      icon: '🔁',
+      description: 'Every cluster stack moved under ArgoCD app-of-apps management — media, Quill/MapleSpike, Haven, and trading deploy from git. No kubectl, no drift.'
+    },
+    {
+      date: 'September 21, 2026',
+      title: 'Mining Joins the Cluster',
+      icon: '⛏️',
+      description: 'All five GPU rigs migrated from native systemd services to K3s pods managed by ArgoCD (mining-helm). Zephyr joined as an agent to serve its two GPUs — rollback is one git revert.'
+    },
+    {
+      date: 'September 2026',
+      title: 'Self-Hosted, Full Stack',
+      icon: '🌐',
+      description: 'Community server (Haven) live at haven.reverb256.dev with a full Discord mirror; an autonomous agent fleet runs daily operations.'
     }
   ],
 
@@ -219,7 +251,7 @@ export const CLUSTER_DATA = {
     // ai-inference namespace retired (2026) — AI workloads now run per-host and in voice-models/media.
     ai: [
       { name: 'voice-models', namespace: 'voice-models', status: 'running' },
-      { name: 'ollama', namespace: 'zephyr (native)', status: 'running' }
+      { name: 'ollama', namespace: 'zephyr + nexus (native)', status: 'running' }
     ],
     // akash: not deployed as of 2026-07-01 — services block removed.
     monitoring: [
@@ -228,13 +260,13 @@ export const CLUSTER_DATA = {
       { name: 'vmalert', namespace: 'monitoring', status: 'running' },
       { name: 'node-exporter', namespace: 'monitoring', status: 'running' }
     ],
-    // Mining consolidated to native peakminer (systemd) — no k8s mining pods.
+    // All mining runs as ArgoCD-managed K3s pods (namespace: mining) — systemd natives retired 2026-09-21.
     mining: [
-      { name: 'peakminer-3090', namespace: 'zephyr/systemd', status: 'running' },
-      { name: 'peakminer-3060ti', namespace: 'zephyr/systemd', status: 'running' },
-      { name: 'peakminer-nexus-3060ti', namespace: 'nexus/systemd', status: 'running' },
-      { name: 'peakminer-forge-4060-0', namespace: 'forge/systemd', status: 'running' },
-      { name: 'peakminer-forge-4060-1', namespace: 'forge/systemd', status: 'running' }
+      { name: 'peakminer-zephyr-3090', namespace: 'mining (k3s)', status: 'running' },
+      { name: 'peakminer-zephyr-3060ti', namespace: 'mining (k3s)', status: 'running' },
+      { name: 'peakminer-nexus-3060ti', namespace: 'mining (k3s)', status: 'running' },
+      { name: 'peakminer-forge-4060-0', namespace: 'mining (k3s)', status: 'running' },
+      { name: 'peakminer-forge-4060-1', namespace: 'mining (k3s)', status: 'running' }
     ]
   }
 };
