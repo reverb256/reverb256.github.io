@@ -8,7 +8,7 @@ import { resolve } from "node:path";
 // https://astro.build/config
 export default defineConfig({
   output: "static",
-  site: "https://reverb256.ca",
+  site: "https://reverb256.dev",
 
   // Preserve old whitespace behavior (Astro 7 changed default from HTML-aware to JSX rules)
   compressHTML: true,

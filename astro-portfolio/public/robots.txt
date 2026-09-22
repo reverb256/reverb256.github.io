@@ -1,7 +1,7 @@
-# robots.txt for reverb256.ca
+# robots.txt for reverb256.dev
 
 User-agent: *
 Allow: /
 
 # Sitemap location
-Sitemap: https://reverb256.ca/sitemap-index.xml
+Sitemap: https://reverb256.dev/sitemap-index.xml

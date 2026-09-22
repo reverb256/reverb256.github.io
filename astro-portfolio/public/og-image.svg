@@ -54,7 +54,7 @@
     <text x="25" y="80" font-family="'Fira Code', 'JetBrains Mono', monospace" font-size="16" fill="#6ee7de">❯ npm run dev</text>
 
     <text x="25" y="120" font-family="'Fira Code', 'JetBrains Mono', monospace" font-size="14" fill="#8b949e">
-      <tspan x="25" dy="0">  reverb256.ca</tspan>
+      <tspan x="25" dy="0">  reverb256.dev</tspan>
       <tspan x="25" dy="25">  ✓ 9 pages built</tspan>
       <tspan x="25" dy="25">  ✓ sitemap generated</tspan>
       <tspan x="25" dy="25">  ✓ Local server: 3000</tspan>
@@ -110,7 +110,7 @@
     </g>
 
     <!-- URL -->
-    <text x="0" y="310" font-family="'Fira Code', monospace" font-size="18" fill="#6ee7de">reverb256.ca</text>
+    <text x="0" y="310" font-family="'Fira Code', monospace" font-size="18" fill="#6ee7de">reverb256.dev</text>
   </g>
 
   <!-- Bottom accent line -->
