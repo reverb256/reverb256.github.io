@@ -1,7 +1,7 @@
 import { test } from '@playwright/test';
 
 test('Live site Firefox check', async ({ page }) => {
-  await page.goto('https://reverb256.github.io/', { waitUntil: 'networkidle' });
+  await page.goto('https://reverb256.dev/', { waitUntil: 'networkidle' });
   
   const check = await page.evaluate(() => {
     const root = document.documentElement;

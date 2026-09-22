@@ -639,8 +639,10 @@ const skills = ["TypeScript", "React", "Rust", "Node.js", "Omarchy", "Astro", "T
   </footer>
 </Layout>
 
-<script define:vars={{ db }}>
+<script is:inline define:vars={{ db }}>window.__R256_DB__ = db;</script>
+<script>
 import DOMPurify from 'dompurify';
+  const db = window.__R256_DB__;
   // ====== TERMINAL MODE STATE ======
   const output = document.getElementById('term-output');
   const input = document.getElementById('term-input');
