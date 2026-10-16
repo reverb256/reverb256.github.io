@@ -6,6 +6,21 @@
     flake-utils.url = "github:numtide/flake-utils";
   };
 
+  # flake.lock IS committed (added 2026-10-16). Without it every evaluation of
+  # this flake resolved nixos-unstable HEAD, so this shell and the
+  # astro-portfolio one drifted apart on their own: on 2026-10-16 this one
+  # floated to rev 55bfb4d (bun-1.4.2, nodejs-24.21.0) while
+  # astro-portfolio/flake.lock was pinned to b5aa0fb (bun-1.3.13,
+  # nodejs-24.16.0). Two dev shells in one repo must not build with two
+  # toolchains by accident.
+  #
+  # Policy:
+  #   - refresh with `nix flake update` (or `nix flake update nixpkgs`) here and
+  #     in astro-portfolio/, and commit both flake.lock files together;
+  #   - keep the two nixpkgs revs equal: scripts/check-nix-flake-pins.sh fails a
+  #     PR when they differ, and .github/workflows/nix-flake-check.yml runs
+  #     `nix flake check --no-build` on both flakes.
+
   outputs = { self, nixpkgs, flake-utils }:
     flake-utils.lib.eachDefaultSystem (system:
       let

@@ -65,6 +65,6 @@ find . -name "*.ts"   # Find files by pattern
 ## Important Notes
 
 - **Bun is required** - not npm (faster, compatible)
-- **Playwright 1.57.0** - pinned for NixOS browser compatibility
+- **Playwright 1.63.0** - exact pin: the devShell's browsers come from nixpkgs (`playwright-driver`), and the runner version must equal it (see `knowledge.md` -> NixOS development)
 - **Tests require preview mode** - not dev server
 - **Port 4321** - dev/preview server default

@@ -5,6 +5,13 @@ node_modules/
 dist/
 dist-static/
 
+# Nix build output symlinks (`nix build` / `nix develop` drop these next to the
+# flake). Two of them were committed by accident (root `result` -> a nixpkgs
+# hello, astro-portfolio/result -> a playwright-browsers store path); they point
+# into /nix/store and are meaningless on any other machine.
+result
+result-*
+
 # Environment
 .env
 .env.*

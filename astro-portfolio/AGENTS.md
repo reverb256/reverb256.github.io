@@ -102,3 +102,32 @@ border: 1px solid var(--border-default);
 - NO Framer Motion (GSAP is the animation library)
 - NO glassmorphism (`backdrop-filter`, `blur()`) — use solid `.surface` cards
 - NO Apple-style shadows — use 1px solid `var(--border-default)` instead
+
+---
+
+## NIX DEV SHELL AND PLAYWRIGHT
+
+`flake.nix` here is the app devShell; the repo root has a second, smaller one.
+Both `flake.lock` files are committed and must pin the same `nixpkgs` revision
+(`nix flake update` in both, in one change).
+
+Playwright has one rule, and the flake enforces it: **`@playwright/test` in
+`package.json` must be exactly the `playwright-driver` version of the pinned
+nixpkgs.** `PLAYWRIGHT_BROWSERS_PATH` points at browser trees that nixpkgs builds
+itself; they are the only Playwright browsers that run on NixOS
+(https://wiki.nixos.org/wiki/Playwright), and Playwright picks a browser by the
+revision compiled into its own version, so any other version fails with
+"Executable doesn't exist at .../chromium-<rev>". The flake asserts the two
+versions are equal, so `nix develop` and `nix flake check` report the mismatch
+with the fix commands instead of failing at test time.
+
+Current pin (2026-10-16): nixpkgs rev `55bfb4d` -> `playwright-driver` 1.63.0,
+`chromium-1243`, matching `"@playwright/test": "1.63.0"` in `package.json` and
+`bun.lock`. The devShell installs Chromium only (`chromium`,
+`chromium-headless-shell`, `ffmpeg`) because the projects in
+`playwright.config.ts` are Chromium-only; uncomment `withFirefox` / `withWebkit`
+in `flake.nix` if you enable the firefox/webkit projects. The old full set was
+~2.2 GB, and the fact that the shell was never instantiated is what let the
+version drift go unnoticed — see `scripts/check-nix-flake-pins.sh` and
+`.github/workflows/nix-flake-check.yml`, which guard both, and the "Nix dev
+shells" section of the root `README.md`.

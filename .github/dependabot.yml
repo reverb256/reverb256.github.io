@@ -44,6 +44,17 @@ updates:
         patterns:
           - "react"
           - "react-dom"
+    # @playwright/test is pinned to an exact version that must equal the
+    # playwright-driver in the flake's locked nixpkgs: the devShell's browsers are
+    # built by nixpkgs, are the only ones that run on NixOS, and Playwright
+    # resolves a browser by the revision of its own version
+    # (astro-portfolio/flake.nix asserts the two are equal;
+    # scripts/check-nix-flake-pins.sh and the "Nix flakes" workflow enforce it).
+    # A bump here alone would make `bunx playwright test` inside `nix develop`
+    # fail with "Executable doesn't exist". Bump it together with the nixpkgs pin
+    # instead; see the "Playwright" section of the README.
+    ignore:
+      - dependency-name: "@playwright/test"
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
