@@ -1,0 +1,75 @@
+# Evaluate both Nix flakes, without building anything.
+#
+# Incidents this closes (kanban t_3fa65a83 / issue #79, 2026-10-16): nothing in
+# CI evaluated either flake, so two hard breakages only surfaced when a human ran
+# nix by hand:
+#   - `nodePackages` was removed from nixpkgs (it throws since 2026-03-03) and
+#     nodejs_20 became EOL/insecure, which made both devShells unevaluable; and
+#   - the astro-portfolio devShell exported browsers from a nixpkgs whose
+#     playwright-driver (1.60.0 -> chromium-1223) no longer matched the
+#     @playwright/test in bun.lock (1.64.0 -> chromium-1248), so
+#     `bunx playwright test` could not find its browsers.
+# The Playwright half is now an evaluation-time assertion inside
+# astro-portfolio/flake.nix (the version declared in package.json against the
+# version nixpkgs ships), so this job fails when the two drift. The offline half
+# (both flake.lock files committed, same nixpkgs pin, exact Playwright pin,
+# package.json and bun.lock agreeing) runs in scripts/check-nix-flake-pins.sh,
+# as a step of the already-required "Deploy gate" job.
+#
+# `--no-build` only evaluates the flake outputs: no browser, node or bun
+# download, a couple of minutes on a cold nixpkgs fetch.
+#
+# Not a required check: the required "Deploy gate (...)" check in
+# pr-validation.yml carries the cheap offline guard, so branch protection needs
+# no change. Add this job to the required list once it has a green track record.
+name: Nix flakes
+
+on:
+  pull_request:
+    paths:
+      - 'flake.nix'
+      - 'flake.lock'
+      - 'astro-portfolio/flake.nix'
+      - 'astro-portfolio/flake.lock'
+      - 'astro-portfolio/package.json'
+      - 'astro-portfolio/bun.lock'
+      - 'scripts/check-nix-flake-pins.sh'
+      - '.github/workflows/nix-flake-check.yml'
+  push:
+    branches: [ main ]
+    paths:
+      - 'flake.nix'
+      - 'flake.lock'
+      - 'astro-portfolio/flake.nix'
+      - 'astro-portfolio/flake.lock'
+      - 'astro-portfolio/package.json'
+      - 'astro-portfolio/bun.lock'
+      - 'scripts/check-nix-flake-pins.sh'
+      - '.github/workflows/nix-flake-check.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  flake-check:
+    name: "nix flake check --no-build (both flakes)"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      # Same reason the repo pins everything else: the evaluator decides whether
+      # the shells still instantiate.
+      - name: Install Nix
+        uses: cachix/install-nix-action@v31
+        with:
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+
+      - name: Repo root flake
+        run: nix flake check --no-build
+
+      - name: astro-portfolio flake
+        working-directory: astro-portfolio
+        run: nix flake check --no-build

@@ -37,6 +37,13 @@ All commands are run from the root of the project, from a terminal:
 | `bun run preview`         | Preview your build locally, before deploying     |
 | `bun run astro ...`       | Run CLI commands like `astro add`, `astro check` |
 | `bun run astro -- --help` | Get help using the Astro CLI                     |
+| `bunx playwright test`    | Run the Playwright tests (Chromium projects)     |
+
+> `flake.nix` here is the Nix devShell (`nix develop`). Its Playwright browsers
+> come from nixpkgs, so `@playwright/test` in `package.json` is pinned to the
+> exact `playwright-driver` version of the flake's nixpkgs; the flake fails to
+> evaluate if the two drift. See the "Nix dev shells" section of the root
+> `README.md`.
 
 ## 👀 Want to learn more?
 

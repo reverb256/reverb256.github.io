@@ -46,7 +46,9 @@ All commands run from `astro-portfolio/`:
 
 ### NixOS development
 
-Project has a **`flake.nix`** / **`flake.lock`** for NixOS dev shells. Run `nix develop` from `astro-portfolio/` to enter.
+Project has a **`flake.nix`** / **`flake.lock`** for NixOS dev shells. Run `nix develop` from `astro-portfolio/` to enter. The repo root has a second flake; both locks are committed and must pin the same `nixpkgs` revision (`nix flake update` in each, in one change — `scripts/check-nix-flake-pins.sh` fails a PR when they differ).
+
+**Playwright is owned by nixpkgs.** `PLAYWRIGHT_BROWSERS_PATH` points at browser trees that nixpkgs builds, and those are the only Playwright browsers that run on NixOS (https://wiki.nixos.org/wiki/Playwright). Playwright resolves a browser by the revision compiled into its own version, so `@playwright/test` in `astro-portfolio/package.json` is pinned to an exact version and `astro-portfolio/flake.nix` asserts it equals the locked nixpkgs' `playwright-driver`; a mismatch fails `nix develop` and `nix flake check` instead of surfacing later as "Executable doesn't exist at .../chromium-<rev>". Current pin (2026-10-16): nixpkgs `55bfb4d` -> `playwright-driver` 1.63.0 (`chromium-1243`), `"@playwright/test": "1.63.0"`. Nothing in CI evaluated either flake until then; `.github/workflows/nix-flake-check.yml` now runs `nix flake check --no-build` on both.
 
 ### Tailwind v4 (no tailwind.config.mjs!)
 

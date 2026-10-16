@@ -1,5 +1,8 @@
 # build output
 dist/
+# nix build output symlinks (`nix build` drops result -> /nix/store/...)
+result
+result-*
 # generated types
 .astro/
 

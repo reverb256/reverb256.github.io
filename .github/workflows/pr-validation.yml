@@ -106,6 +106,13 @@ jobs:
       - name: "Dev entry points use bun (no npm commands)"
         run: bash scripts/check-bun-entry-points.sh
 
+      # Guard for the Nix side of the same class: both flake.lock files committed
+      # and pinning the same nixpkgs, the exact @playwright/test pin, package.json
+      # and bun.lock agreeing, and the devShell still exporting the nixpkgs
+      # browsers. Cheap, offline, no nix needed. See kanban t_3fa65a83 / issue #79.
+      - name: "Nix flake pins in step (locks, Playwright pin)"
+        run: bash scripts/check-nix-flake-pins.sh
+
       # Same bun as the deploy. The gate must not drift from the thing it gates.
       - name: "Setup Bun"
         uses: oven-sh/setup-bun@v2

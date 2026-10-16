@@ -20,7 +20,7 @@
 - **Tailwind 3.4** - Utility-first CSS framework
 
 ### Testing
-- **Playwright 1.57.0** - E2E testing (pinned for NixOS browser compatibility)
+- **Playwright 1.63.0** - pinned to an exact version because the devShell's browsers come from nixpkgs (`playwright-driver`), and the two must match for NixOS; see `knowledge.md` -> NixOS development
 - Tests run against `bun run preview` (production build)
 
 ## Project Structure
