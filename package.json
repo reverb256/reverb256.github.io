@@ -1,7 +1,7 @@
 {
   "dependencies": {
     "@astrojs/react": "^5.0.0",
-    "@astrojs/sitemap": "^3.7.1",
+    "@astrojs/sitemap": "^3.7.4",
     "@astrojs/tailwind": "^6.0.2",
     "@radix-ui/react-slot": "^1.2.4",
     "astro": "^6.0.4",
