@@ -30,14 +30,15 @@ All commands run from `astro-portfolio/`:
 
 | Command | Description |
 |---------|-------------|
-| `npm run dev` | Start dev server |
-| `npm run build` | Production build (requires `node --max-old-space-size=8192` — already configured in `package.json` scripts) |
-| `npm run preview` | Preview production build |
-| `npm run test` | Run all Playwright tests |
-| `npm run test:chromium` | Chromium only |
-| `npm run test:firefox` | Firefox only |
-| `npm run test:webkit` | Webkit only |
-| `npm run generate:og-image` | Generate OG images |
+| `bun install --frozen-lockfile` | Install dependencies from `bun.lock` |
+| `bun run dev` | Start dev server |
+| `bun run build` | Production build (requires `node --max-old-space-size=8192` — already configured in `package.json` scripts) |
+| `bun run preview` | Preview production build |
+| `bun run test` | Run all Playwright tests |
+| `bun run test:chromium` | Chromium only |
+| `bun run test:firefox` | Firefox only |
+| `bun run test:webkit` | Webkit only |
+| `bun run generate:og-image` | Generate OG images |
 
 ---
 

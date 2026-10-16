@@ -1041,7 +1041,7 @@ Page content uses Tailwind padding utilities (`px-6` / `px-6 md:px-24`) rather t
 | Tool | Version | Notes |
 |------|---------|-------|
 | Node.js | v24+ | Vite 8 memory management requires `--max-old-space-size=8192` |
-| npm | 10+ | Bundled with Node |
+| Bun | 1.4+ | Only supported installer — `bun.lock`; npm lockfile removed 2026-10-16 |
 | Astro | 7.0.9 | Static output |
 | Tailwind CSS | 4.3.2 | CSS-based config (`@theme`), no `tailwind.config.mjs` |
 | GSAP | 3.14.2 | ScrollTrigger plugin |
@@ -1050,11 +1050,11 @@ Page content uses Tailwind padding utilities (`px-6` / `px-6 md:px-24`) rather t
 ### 11.2 Commands
 
 ```bash
-npm run dev                     # Start dev server (localhost)
-npm run build                   # Production build (--max-old-space-size=8192)
-npm run preview                 # Preview production build
-npm run test                    # Playwright end-to-end tests
-npm run generate:og-image       # Generate OG image assets
+bun run dev                     # Start dev server (localhost)
+bun run build                   # Production build (--max-old-space-size=8192)
+bun run preview                 # Preview production build
+bun run test                    # Playwright end-to-end tests
+bun run generate:og-image       # Generate OG image assets
 ```
 
 ### 11.3 Astro Configuration (Key Settings)

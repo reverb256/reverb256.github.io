@@ -17,7 +17,7 @@ Comprehensive SEO improvements for reverb256.dev portfolio site.
 **Effort:** 5 minutes
 
 ```bash
-npx astro add sitemap
+bunx astro add sitemap
 ```
 
 Then update `astro.config.mjs`:
@@ -33,7 +33,7 @@ export default defineConfig({
 ```
 
 **Verification:**
-- Build the site: `npm run build`
+- Build the site: `bun run build`
 - Check `dist/sitemap-index.xml` exists
 - Visit https://reverb256.dev/sitemap-index.xml after deploy
 
@@ -389,7 +389,7 @@ Sitemap: https://reverb256.dev/sitemap-index.xml
 
 ### Pre-Deploy Verification ✅
 
-- [x] Build succeeds locally (`npm run build`)
+- [x] Build succeeds locally (`bun run build`)
 - [x] Sitemap generated at `dist/sitemap-index.xml`
 - [x] All 9 pages built successfully
 - [x] OG image (PNG) included in dist/

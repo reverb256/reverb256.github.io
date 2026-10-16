@@ -98,6 +98,14 @@ jobs:
       - name: "Checkout"
         uses: actions/checkout@v7
 
+      # Guard for the class the commit that added this job did not finish: after
+      # the deploy moved to bun and astro-portfolio/package-lock.json was deleted
+      # (2026-10-16), both Nix flakes and the developer docs still told people to
+      # install with the npm client. Cheap, offline, no install needed.
+      # See scripts/check-bun-entry-points.sh and kanban t_70ced502.
+      - name: "Dev entry points use bun (no npm commands)"
+        run: bash scripts/check-bun-entry-points.sh
+
       # Same bun as the deploy. The gate must not drift from the thing it gates.
       - name: "Setup Bun"
         uses: oven-sh/setup-bun@v2

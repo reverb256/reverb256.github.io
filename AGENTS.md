@@ -27,12 +27,16 @@ See `astro-portfolio/AGENTS.md` for full documentation.
 
 ```bash
 cd astro-portfolio
-npm run dev      # Start dev server
-npm run build    # Build for production
-npm run preview  # Preview build
-npm run test     # Run Playwright tests
+bun install --frozen-lockfile   # bun.lock is the only lockfile
+bun run dev      # Start dev server
+bun run build    # Build for production
+bun run preview  # Preview build
+bun run test     # Run Playwright tests
 ```
 
 ## Deployment
 
-Pushes to `main` trigger automatic deployment to GitHub Pages via `.github/workflows/deploy.yml`.
+Pushes to `main` deploy to Cloudflare Pages via
+`.github/workflows/cloudflare-pages.yml` (`bun install --frozen-lockfile` then
+`bun run build`). GitHub Pages (`.github/workflows/deploy.yml`) is retired; it
+only runs on `workflow_dispatch`.

@@ -11,16 +11,28 @@
       let
         pkgs = nixpkgs.legacyPackages.${system};
         
-        nodejs = pkgs.nodejs_20;
+        # nodejs_20 is EOL in this nixpkgs revision and refuses to instantiate
+        # ("Package 'nodejs-20.20.2' is marked as insecure"), so `nix flake check`
+        # failed here too. The repo targets Node 24+ (DESIGN.md 11.1).
+        nodejs = pkgs.nodejs;
         
+        # bun is the only supported installer. astro-portfolio/bun.lock is the
+        # lockfile the Cloudflare deploy installs (bun install --frozen-lockfile);
+        # the npm lockfile was deleted with the 2026-10-16 installer change, so
+        # anything here that called the npm client was already dead.
+        # scripts/check-bun-entry-points.sh fails a PR if npm comes back.
+        #
+        # nodePackages was removed from nixpkgs (2026-03-03) and now throws, so the
+        # old nodePackages.typescript / nodePackages.eslint names made this shell
+        # unevaluable. Both are top-level attributes today.
         buildTools = with pkgs; [
           nodejs
-          nodePackages.npm
+          bun
         ];
         
         devTools = with pkgs; [
-          nodePackages.typescript
-          nodePackages.eslint
+          typescript
+          eslint
           git
           jq
           fd
@@ -44,13 +56,14 @@
             echo "║  Reverb256 Portfolio (Astro)               ║"
             echo "╠════════════════════════════════════════════╣"
             printf "║  Node: %-35s║\n" "$(node --version)"
+            printf "║  Bun:  %-35s║\n" "$(bun --version)"
             echo "╚════════════════════════════════════════════╝"
             echo ""
             echo "Commands:"
-            echo "  npm run dev      - Start dev server"
-            echo "  npm run build    - Build for production"
-            echo "  npm run preview  - Preview build"
-            echo "  npm run test     - Run Playwright tests"
+            echo "  bun run dev      - Start dev server"
+            echo "  bun run build    - Build for production"
+            echo "  bun run preview  - Preview build"
+            echo "  bun run test     - Run Playwright tests"
             echo ""
           '';
         };
@@ -59,8 +72,8 @@
           type = "app";
           program = toString (pkgs.writeShellScript "build" ''
             cd ${self}/astro-portfolio
-            npm ci --prefer-offline --no-audit
-            npm run build
+            bun install --frozen-lockfile
+            bun run build
             echo "Built to dist/"
           '');
         };
@@ -69,7 +82,7 @@
           type = "app";
           program = toString (pkgs.writeShellScript "preview" ''
             cd ${self}/astro-portfolio
-            npm run preview
+            bun run preview
           '');
         };
       }
