@@ -75,3 +75,59 @@ jobs:
           echo "| Issue linked | ✅ Checked |" >> $GITHUB_STEP_SUMMARY
           echo "| Conventional title | ✅ Checked |" >> $GITHUB_STEP_SUMMARY
           echo "| Target branch | ✅ Checked |" >> $GITHUB_STEP_SUMMARY
+          echo "| Lockfile + build | See the 'Deploy gate' job |" >> $GITHUB_STEP_SUMMARY
+
+  # Deploy gate — runs the install and the build that the live deploy runs
+  # (.github/workflows/cloudflare-pages.yml), so a lockfile desync or a broken
+  # dependency pair fails on the PR instead of on main after the merge.
+  #
+  # Incident this closes (2026-10-16): dependabot npm-ecosystem PRs (#48
+  # dompurify, #57 sharp) updated astro-portfolio/package.json but not
+  # astro-portfolio/bun.lock. Every merge left bun.lock stale, and the deploy
+  # died in "Install dependencies" with "lockfile had changes, but lockfile is
+  # frozen" (deploy runs 38941683439, 38944611911). PR validation never ran an
+  # install, so nothing caught it before main.
+  #
+  # The build step catches the second half of the same class: merging the react
+  # bump (#62) without the react-dom bump (#69) failed the deploy with
+  # "Incompatible React versions" (deploy run 38945749843).
+  deploy-gate:
+    name: "Deploy gate (bun frozen lockfile + build)"
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v7
+
+      # Same bun as the deploy. The gate must not drift from the thing it gates.
+      - name: "Setup Bun"
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: "Install dependencies (bun install --frozen-lockfile)"
+        working-directory: astro-portfolio
+        run: |
+          if bun install --frozen-lockfile; then
+            echo "✅ astro-portfolio/bun.lock matches astro-portfolio/package.json"
+            exit 0
+          fi
+          echo "::error title=Stale bun.lock::astro-portfolio/bun.lock does not match astro-portfolio/package.json. Run 'cd astro-portfolio && bun install' and commit the updated bun.lock with your change."
+          {
+            echo "## ❌ Deploy gate: astro-portfolio/bun.lock is out of sync"
+            echo ""
+            echo 'The deploy installs with `bun install --frozen-lockfile` in `astro-portfolio/`, so `package.json` and `bun.lock` must move together.'
+            echo ""
+            echo "Fix:"
+            echo ""
+            echo '```sh'
+            echo "cd astro-portfolio && bun install"
+            echo "git add astro-portfolio/bun.lock"
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+          exit 1
+
+      # Same build the deploy runs. Fails on dependency pairs that install fine
+      # but cannot build together (react without react-dom, for example).
+      - name: "Build static site (bun run build)"
+        working-directory: astro-portfolio
+        run: bun run build

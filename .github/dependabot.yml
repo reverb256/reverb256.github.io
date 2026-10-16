@@ -13,14 +13,37 @@ updates:
   # The deployed app: the Cloudflare Pages workflow builds astro-portfolio/ with
   # `bun install --frozen-lockfile`, so astro-portfolio/bun.lock is the lockfile
   # that must move with every dependency change. Without this entry the subdir
-  # only ever got npm-shaped security PRs (e.g. #48/#57), which updated
-  # package-lock.json, left bun.lock stale, and hard-failed the deploy with
-  # "lockfile had changes, but lockfile is frozen" (run 38941683439, 2026-10-16).
+  # only ever got npm-shaped PRs (e.g. #48/#57), which updated package-lock.json,
+  # left bun.lock stale, and hard-failed the deploy with "lockfile had changes,
+  # but lockfile is frozen" (run 38941683439, 2026-10-16).
+  #
+  # astro-portfolio/package-lock.json was deleted in the same change (2026-10-16,
+  # #72). The npm-shaped PRs were Dependabot *security* updates, which the
+  # dependency graph drives from the npm manifest — no `updates:` entry can turn
+  # them off. Without that manifest Dependabot's npm_and_yarn updater refuses the
+  # directory ("This project has a `bun.lock` file but no `package-lock.json` ...
+  # Dependabot's `npm_and_yarn` ecosystem cannot update `bun.lock`"), so no npm
+  # PR can be produced for astro-portfolio again. The npm lockfile was stale
+  # anyway: `npm ci` failed on main with EUSAGE (gsap 3.14.2 vs ^3.15.0, lenis
+  # 1.3.18 vs ^1.3.26, @playwright/test 1.61.1 vs ^1.64.0).
+  #
+  # Any future desync still fails the "Deploy gate (bun frozen lockfile + build)"
+  # check in pr-validation.yml, and main requires that check.
   - package-ecosystem: "bun"
     directory: "/astro-portfolio"
     schedule:
       interval: "daily"
     open-pull-requests-limit: 10
+    # react and react-dom become two PRs unless they are grouped, and a
+    # half-merged pair fails the deploy: react 19.3.0 (#62) merged without
+    # react-dom 19.3.0 (#69) produced "Incompatible React versions: The \"react\"
+    # and \"react-dom\" packages must have the exact same version" (deploy run
+    # 38945749843). One grouped PR cannot be half-merged.
+    groups:
+      react-and-react-dom:
+        patterns:
+          - "react"
+          - "react-dom"
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
