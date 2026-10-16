@@ -18,9 +18,15 @@ jobs:
         with:
           fetch-depth: 0
 
+      # PR-supplied values reach the shell through env:, never inlined into the
+      # script text. Inlining (BODY="${{ ... }}") executes every line of a
+      # multi-line body as a command: dependabot bodies carry "@dependabot
+      # rebase" lines, so this job exited 127 on every dependabot PR, and a body
+      # containing $(...) would run arbitrary commands with these tokens.
       - name: "Branch naming convention"
+        env:
+          BRANCH: ${{ github.head_ref }}
         run: |
-          BRANCH="${{ github.head_ref }}"
           if [[ "$BRANCH" =~ ^(issue|feat|fix|chore|ci|docs|dependabot)/[a-z0-9._-]+$ ]] || [[ "$BRANCH" =~ ^(issue|feat|fix|chore|ci|docs)-[0-9]+ ]]; then
             echo "✅ Branch name: $BRANCH"
           else
@@ -29,26 +35,29 @@ jobs:
           fi
 
       - name: "Linked issue check"
+        env:
+          BODY: ${{ github.event.pull_request.body }}
         run: |
-          BODY="${{ github.event.pull_request.body }}"
-          if echo "$BODY" | grep -qiE "(Closes|Fixes|Resolves|Related to) #[0-9]+"; then
+          if printf '%s' "$BODY" | grep -qiE "(Closes|Fixes|Resolves|Related to) #[0-9]+"; then
             echo "✅ PR references an issue"
           else
             echo "::warning::PR body should contain 'Closes #NNN' or 'Related to #NNN'"
           fi
 
       - name: "Conventional commit title"
+        env:
+          TITLE: ${{ github.event.pull_request.title }}
         run: |
-          TITLE="${{ github.event.pull_request.title }}"
-          if echo "$TITLE" | grep -qiE "^(feat|fix|chore|refactor|docs|test|ci)(\\([a-z]+\\))?="; then
+          if printf '%s' "$TITLE" | grep -qiE "^(feat|fix|chore|refactor|docs|test|ci)(\([a-z]+\))?!?:"; then
             echo "✅ Title follows conventional commits"
           else
             echo "::warning::PR title should start with type: e.g. 'ci: add workflow (#23)'"
           fi
 
       - name: "Target branch check"
+        env:
+          BASE: ${{ github.base_ref }}
         run: |
-          BASE="${{ github.base_ref }}"
           if [ "$BASE" = "main" ]; then
             echo "✅ PR targets $BASE"
           else
