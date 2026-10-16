@@ -1,15 +1,20 @@
 version: 2
-# Checked-in so Dependabot runs the correct ecosystem for this repo: the lockfile
-# is bun.lock (text), and Dependabot supports `package-ecosystem: bun`.
+# Checked-in so Dependabot runs the correct ecosystem for this repo: the only
+# lockfile is astro-portfolio/bun.lock (text), and Dependabot supports
+# `package-ecosystem: bun`.
 # Symptom this fixes (2026-10-15): every Dependabot PR conflicted and could not be
 # rebased — "Dependabot could not run Bun to update your dependencies due to a
 # configuration error" — because the repo-level config did not drive Bun.
 updates:
-  - package-ecosystem: "bun"
-    directory: "/"
-    schedule:
-      interval: "daily"
-    open-pull-requests-limit: 10
+  # There was a second bun entry here for "/" until 2026-10-16. The repo root had
+  # its own package.json + bun.lock (astro ^6.0.4 / @playwright/test ^1.64.0)
+  # while astro-portfolio/ had astro ^7.0.9 / @playwright/test 1.63.0 (exact,
+  # pinned to the flake's nixpkgs playwright-driver), and nothing installed the
+  # root tree — the Cloudflare deploy, the "Deploy gate" check and the flake all
+  # run in astro-portfolio/. Keeping the entry alive kept dependabot opening
+  # root-tree PRs (e.g. #65 "bump astro from 6.0.4 to 7.3.8") for a dead tree.
+  # /package.json and /bun.lock were deleted with this entry (kanban t_978d7ec2);
+  # scripts/check-single-source.sh fails a PR that adds one back.
   # The deployed app: the Cloudflare Pages workflow builds astro-portfolio/ with
   # `bun install --frozen-lockfile`, so astro-portfolio/bun.lock is the lockfile
   # that must move with every dependency change. Without this entry the subdir

@@ -42,7 +42,7 @@ All commands are run from the root of the project, from a terminal:
 > `flake.nix` here is the Nix devShell (`nix develop`). Its Playwright browsers
 > come from nixpkgs, so `@playwright/test` in `package.json` is pinned to the
 > exact `playwright-driver` version of the flake's nixpkgs; the flake fails to
-> evaluate if the two drift. See the "Nix dev shells" section of the root
+> evaluate if the two drift. See the "Nix dev shell" section of the root
 > `README.md`.
 
 ## 👀 Want to learn more?

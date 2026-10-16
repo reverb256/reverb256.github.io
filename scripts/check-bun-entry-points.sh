@@ -27,7 +27,7 @@ set -euo pipefail
 
 cd "$(cd "$(dirname "$0")/.." && pwd)"
 
-# The two flakes plus every doc that hands out commands to a developer.
+# Every *.nix file plus every doc that hands out commands to a developer.
 mapfile -t files < <(
   git ls-files '*.nix'
   printf '%s\n' \

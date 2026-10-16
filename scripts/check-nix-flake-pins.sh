@@ -1,33 +1,34 @@
 #!/usr/bin/env bash
 #
-# The two Nix flakes in this repo must stay in step with each other and with the
-# JavaScript Playwright runner.
+# The one Nix flake in this repo must stay in step with the JavaScript Playwright
+# runner.
 #
-# Incidents this closes (kanban t_3fa65a83, issue #79, 2026-10-16):
-#   1. Browser/runner drift. astro-portfolio/flake.nix exported
+# Incidents this closes:
+#   1. Browser/runner drift (kanban t_3fa65a83, issue #79, 2026-10-16).
+#      astro-portfolio/flake.nix exported
 #      PLAYWRIGHT_BROWSERS_PATH=${pkgs.playwright-driver.browsers} from its
 #      locked nixpkgs (rev b5aa0fb -> playwright-driver 1.60.0, chromium-1223)
 #      while astro-portfolio/package.json / bun.lock installed
 #      @playwright/test 1.64.0, which looks for chromium-1248. `bunx playwright
 #      test` inside `nix develop` cannot find its browsers that way.
-#   2. Unpinned root flake. flake.nix had no flake.lock in git, so every
-#      evaluation resolved nixos-unstable HEAD (rev 55bfb4d, bun-1.4.2,
-#      nodejs-24.21.0) while the astro-portfolio flake was pinned to b5aa0fb
-#      (bun-1.3.13, nodejs-24.16.0): two dev shells, two toolchains, and the
-#      root one changed under us on any day.
+#   2. Duplicate root flake (kanban t_978d7ec2, 2026-10-16). The repo also had
+#      flake.nix + flake.lock at the root, hand-repeating this devShell. They are
+#      gone: this shell is a strict superset of that one, and a nested flake
+#      cannot `follows` a sibling directory, so two copies could only drift.
+#      scripts/check-single-source.sh fails a PR that adds one back.
 #
 # What it enforces, offline (no nix needed):
-#   1. both flake.lock files exist and are tracked by git;
-#   2. both pin the same nixpkgs revision, so the repo has one toolchain;
-#   3. "@playwright/test" in astro-portfolio/package.json is an exact version,
+#   1. astro-portfolio/flake.lock exists and is tracked by git, so the devShell
+#      cannot resolve nixos-unstable HEAD on one machine and a pin on another;
+#   2. "@playwright/test" in astro-portfolio/package.json is an exact version,
 #      not a range: nixpkgs owns the Playwright version, and
 #      astro-portfolio/flake.nix refuses to evaluate when the two disagree;
-#   4. that exact version is the one astro-portfolio/bun.lock resolves, so a
+#   3. that exact version is the one astro-portfolio/bun.lock resolves, so a
 #      package.json bump cannot land without the lockfile;
-#   5. astro-portfolio/flake.nix still exports PLAYWRIGHT_BROWSERS_PATH from the
+#   4. astro-portfolio/flake.nix still exports PLAYWRIGHT_BROWSERS_PATH from the
 #      nixpkgs browsers (the wiring that makes `bunx playwright test` work).
 #
-# The evaluation-time half of check 3 lives in astro-portfolio/flake.nix and is
+# The evaluation-time half of check 2 lives in astro-portfolio/flake.nix and is
 # exercised by .github/workflows/nix-flake-check.yml
 # (`nix flake check --no-build`).
 #
@@ -44,30 +45,22 @@ fail() {
   status=1
 }
 
-# --- 1/2. both locks exist, are tracked, and pin the same nixpkgs ------------
-for lock in flake.lock astro-portfolio/flake.lock; do
-  if [ ! -f "$lock" ]; then
-    fail "$lock" "$lock is missing — run 'nix flake lock' in its directory and commit it"
-    continue
-  fi
-  if ! git ls-files --error-unmatch "$lock" >/dev/null 2>&1; then
-    fail "$lock" "$lock is not tracked by git — an uncommitted lock is an unpinned flake"
-  fi
-done
-
-if [ -f flake.lock ] && [ -f astro-portfolio/flake.lock ]; then
-  root_rev=$(jq -r '.nodes.nixpkgs.locked.rev // empty' flake.lock)
-  astro_rev=$(jq -r '.nodes.nixpkgs.locked.rev // empty' astro-portfolio/flake.lock)
-  if [ -z "$root_rev" ] || [ -z "$astro_rev" ]; then
-    fail "flake.lock" "could not read .nodes.nixpkgs.locked.rev from one of the lock files"
-  elif [ "$root_rev" != "$astro_rev" ]; then
-    fail "flake.lock" "nixpkgs pin differs between the two flakes: root=$root_rev astro-portfolio=$astro_rev. Update both locks together (nix flake update in each) and commit both."
+# --- 1. the lock exists, is tracked, and is readable -------------------------
+lock=astro-portfolio/flake.lock
+if [ ! -f "$lock" ]; then
+  fail "$lock" "$lock is missing — run 'nix flake lock' in astro-portfolio/ and commit it"
+elif ! git ls-files --error-unmatch "$lock" >/dev/null 2>&1; then
+  fail "$lock" "$lock is not tracked by git — an uncommitted lock is an unpinned flake"
+else
+  nixpkgs_rev=$(jq -r '.nodes.nixpkgs.locked.rev // empty' "$lock")
+  if [ -z "$nixpkgs_rev" ]; then
+    fail "$lock" "could not read .nodes.nixpkgs.locked.rev from $lock"
   else
-    echo "OK: both flakes pin nixpkgs $root_rev"
+    echo "OK: $lock is committed, nixpkgs $(printf '%s' "$nixpkgs_rev" | cut -c1-7)"
   fi
 fi
 
-# --- 3. the Playwright version is an exact pin -------------------------------
+# --- 2. the Playwright version is an exact pin -------------------------------
 pkg=astro-portfolio/package.json
 declared=$(jq -r '.devDependencies["@playwright/test"] // empty' "$pkg")
 if [ -z "$declared" ]; then
@@ -78,7 +71,7 @@ else
   echo "OK: @playwright/test is pinned to $declared"
 fi
 
-# --- 4. package.json and bun.lock agree on that version ----------------------
+# --- 3. package.json and bun.lock agree on that version ----------------------
 if [ -n "$declared" ]; then
   if grep -qF "@playwright/test@$declared" astro-portfolio/bun.lock; then
     echo "OK: astro-portfolio/bun.lock resolves @playwright/test $declared"
@@ -87,7 +80,7 @@ if [ -n "$declared" ]; then
   fi
 fi
 
-# --- 5. the devShell still wires the nixpkgs browsers into the environment ----
+# --- 4. the devShell still wires the nixpkgs browsers into the environment ----
 if grep -qF 'export PLAYWRIGHT_BROWSERS_PATH=${playwrightBrowsers}' astro-portfolio/flake.nix; then
   echo "OK: astro-portfolio/flake.nix exports PLAYWRIGHT_BROWSERS_PATH"
 else
@@ -102,8 +95,8 @@ fi
 cat <<'EOF'
 
 Fix:
-  nix flake update            # inside the repo root, and inside astro-portfolio/
-  git add flake.lock astro-portfolio/flake.lock
+  cd astro-portfolio && nix flake update     # moves astro-portfolio/flake.lock
+  git add astro-portfolio/flake.lock
   # then, if nixpkgs moved its playwright-driver:
   #   set "@playwright/test" in astro-portfolio/package.json to the exact version
   #   that this nixpkgs ships (nix eval --raw --expr
