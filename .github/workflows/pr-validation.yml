@@ -106,12 +106,19 @@ jobs:
       - name: "Dev entry points use bun (no npm commands)"
         run: bash scripts/check-bun-entry-points.sh
 
-      # Guard for the Nix side of the same class: both flake.lock files committed
-      # and pinning the same nixpkgs, the exact @playwright/test pin, package.json
-      # and bun.lock agreeing, and the devShell still exporting the nixpkgs
-      # browsers. Cheap, offline, no nix needed. See kanban t_3fa65a83 / issue #79.
-      - name: "Nix flake pins in step (locks, Playwright pin)"
+      # Guard for the Nix side of the same class: astro-portfolio/flake.lock
+      # committed, the exact @playwright/test pin, package.json and bun.lock
+      # agreeing, and the devShell still exporting the nixpkgs browsers. Cheap,
+      # offline, no nix needed. See kanban t_3fa65a83 / issue #79.
+      - name: "Nix flake pins in step (lock, Playwright pin)"
         run: bash scripts/check-nix-flake-pins.sh
+
+      # Guard for the duplicates that change left behind (kanban t_978d7ec2): a
+      # root package.json/bun.lock/flake.nix that nothing installed, the
+      # dependabot entry that kept opening PRs for that tree (#65), and a workflow
+      # below the repo root that GitHub Actions can never run. Cheap, offline.
+      - name: "One manifest, one flake, workflows at the root"
+        run: bash scripts/check-single-source.sh
 
       # Same bun as the deploy. The gate must not drift from the thing it gates.
       - name: "Setup Bun"

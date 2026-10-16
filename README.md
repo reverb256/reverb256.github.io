@@ -30,28 +30,39 @@ was deleted on 2026-10-16 because its npm lockfile no longer matched the tree.
 `scripts/check-bun-entry-points.sh` fails a PR that points a dev entry point back
 at the npm client.
 
-## Nix dev shells
+## Nix dev shell
 
-There are two flakes, and both `flake.lock` files are committed:
-
-- `flake.nix` (repo root) — bun + node, then `cd astro-portfolio`;
-- `astro-portfolio/flake.nix` — the full app shell: bun, node, the Playwright
-  browsers, `gh`, `watchexec`.
-
-Refresh the two together, in one change:
+There is one flake — `astro-portfolio/flake.nix`, with its `flake.lock`
+committed. Enter it from the app directory:
 
 ```bash
-nix flake update            # repo root
 cd astro-portfolio
-nix flake update
+nix develop
 ```
 
-Both locks must pin the same `nixpkgs` revision: one repo must not build with two
-toolchains. `scripts/check-nix-flake-pins.sh` runs as a step of the required
-"Deploy gate" check and fails a PR when they differ, when a lock is untracked, or
-when `package.json` and `bun.lock` disagree.
-`.github/workflows/nix-flake-check.yml` additionally runs
-`nix flake check --no-build` on both flakes.
+Move the pin and commit the lock in one change:
+
+```bash
+cd astro-portfolio
+nix flake update
+git add astro-portfolio/flake.lock
+```
+
+There were two flakes until 2026-10-16, and the root one was a hand-copy of this
+shell's toolchain (nodejs, bun, typescript, eslint, git, jq, fd, ripgrep, bat,
+eza, then `cd astro-portfolio`) with a re-run of the same build in its `apps`.
+The two drifted apart twice: the root had no lock at all until that day, and it
+resolved nixpkgs `55bfb4d` (bun 1.4.2, nodejs 24.21.0) while `astro-portfolio`
+was pinned to `b5aa0fb` (bun 1.3.13, nodejs 24.16.0). A nested flake cannot
+`follows` a sibling directory, so a copy at the root can only drift again — and
+it carries none of the Playwright browsers. `scripts/check-single-source.sh`
+fails a PR that adds a root manifest, lock or flake back.
+
+`scripts/check-nix-flake-pins.sh` runs as a step of the required "Deploy gate"
+check and fails a PR when the lock is untracked or unreadable, when
+`@playwright/test` is not an exact version, or when `package.json` and `bun.lock`
+disagree. `.github/workflows/nix-flake-check.yml` additionally runs
+`nix flake check --no-build` on the flake.
 
 ### Playwright is owned by nixpkgs
 
