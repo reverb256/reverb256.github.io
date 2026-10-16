@@ -1,0 +1,16 @@
+version: 2
+# Checked-in so Dependabot runs the correct ecosystem for this repo: the lockfile
+# is bun.lock (text), and Dependabot supports `package-ecosystem: bun`.
+# Symptom this fixes (2026-10-15): every Dependabot PR conflicted and could not be
+# rebased — "Dependabot could not run Bun to update your dependencies due to a
+# configuration error" — because the repo-level config did not drive Bun.
+updates:
+  - package-ecosystem: "bun"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    open-pull-requests-limit: 10
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
