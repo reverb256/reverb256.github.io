@@ -32,7 +32,7 @@ This project uses **Bun** instead of npm:
 ```bash
 bun install           # Install dependencies
 bun add <package>     # Add dependency
-bun run <script>      # Run npm script
+bun run <script>      # Run package script
 ```
 
 ## Git Commands

@@ -21,7 +21,7 @@
 
 ### Testing
 - **Playwright 1.57.0** - E2E testing (pinned for NixOS browser compatibility)
-- Tests run against `npm run preview` (production build)
+- Tests run against `bun run preview` (production build)
 
 ## Project Structure
 

@@ -10,18 +10,25 @@ cd astro-portfolio
 # Enter NixOS dev environment (optional)
 nix develop
 
-# Install dependencies
-npm ci
+# Install dependencies (bun.lock is the only lockfile — there is no npm lockfile)
+bun install --frozen-lockfile
 
 # Start dev server
-npm run dev
+bun run dev
 
 # Build for production
-npm run build
+bun run build
 
 # Preview production build
-npm run preview
+bun run preview
 ```
+
+bun is the only supported installer. The Cloudflare Pages deploy runs
+`bun install --frozen-lockfile` and `bun run build`
+(`.github/workflows/cloudflare-pages.yml`), and `astro-portfolio/package-lock.json`
+was deleted on 2026-10-16 because its npm lockfile no longer matched the tree.
+`scripts/check-bun-entry-points.sh` fails a PR that points a dev entry point back
+at the npm client.
 
 ## Tech Stack
 

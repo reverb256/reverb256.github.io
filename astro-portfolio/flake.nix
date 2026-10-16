@@ -10,14 +10,18 @@
     flake-utils.lib.eachDefaultSystem (system:
       let
         pkgs = nixpkgs.legacyPackages.${system};
-        nodejs = pkgs.nodejs_20;
+        # nodejs_20 is EOL in this nixpkgs revision and refuses to instantiate
+        # ("Package 'nodejs-20.20.2' is marked as insecure"), which is the third
+        # reason `nix flake check` failed on this flake. The repo targets Node 24+
+        # (DESIGN.md 11.1), so the default `nodejs` attribute is the right pin.
+        nodejs = pkgs.nodejs;
         
         # Playwright browsers from nixpkgs (version 1.57.0)
         playwrightBrowsers = pkgs.playwright-driver.browsers;
         
         # Declarative Node.js environment
         nodeEnv = {
-          buildInputs = [ nodejs pkgs.nodePackages.npm ];
+          buildInputs = [ nodejs pkgs.bun ];
           shellHook = ''
             export PATH="$PWD/node_modules/.bin:$PATH"
             export NODE_ENV=development
@@ -25,16 +29,25 @@
         };
         
         # Shared development tools
+        # bun is the only supported installer: bun.lock is the lockfile the
+        # Cloudflare deploy installs (bun install --frozen-lockfile) and the npm
+        # lockfile was deleted with the 2026-10-16 installer change, so every
+        # command below that called the npm client was already dead.
+        # scripts/check-bun-entry-points.sh fails a PR if npm comes back.
+        #
+        # nodePackages was removed from nixpkgs (2026-03-03) and now throws, which
+        # is why this shell stopped evaluating; the tools below are the top-level
+        # attributes that replaced it. ts-node has no top-level package any more
+        # and nothing in this repo used it.
         devTools = with pkgs; [
           # Core
           nodejs
-          nodePackages.npm
-          nodePackages.typescript
-          nodePackages.ts-node
-          
+          bun
+          typescript
+
           # Linting & Formatting
-          nodePackages.eslint
-          nodePackages.prettier
+          eslint
+          prettier
           
           # Browser Testing (Playwright - use @playwright/test@1.57.0 in package.json!)
           playwright-driver.browsers
@@ -74,15 +87,15 @@
               echo "║  Reverb256 Portfolio (Astro)               ║"
               echo "╠════════════════════════════════════════════╣"
               printf "║  Node: %-35s║\n" "$(node --version)"
-              printf "║  NPM:  %-35s║\n" "$(npm --version)"
+              printf "║  Bun:  %-35s║\n" "$(bun --version)"
               echo "║  Playwright: 1.57.0 (NixOS)                ║"
               echo "╚════════════════════════════════════════════╝"
               echo ""
               echo "Commands:"
-              echo "  npm run dev          - Start dev server (localhost:4321)"
-              echo "  npm run build        - Build for production"
-              echo "  npm run preview      - Preview production build"
-              echo "  npx playwright test  - Run Playwright tests (all browsers)"
+              echo "  bun run dev          - Start dev server (localhost:4321)"
+              echo "  bun run build        - Build for production"
+              echo "  bun run preview      - Preview production build"
+              echo "  bunx playwright test - Run Playwright tests (all browsers)"
               echo ""
               echo "Playwright browsers: $PLAYWRIGHT_BROWSERS_PATH"
               echo ""
@@ -99,7 +112,7 @@
             type = "app";
             program = toString (pkgs.writeShellScript "dev" ''
               cd ${self}
-              npm run dev
+              bun run dev
             '');
           };
           
@@ -107,8 +120,8 @@
             type = "app";
             program = toString (pkgs.writeShellScript "build" ''
               cd ${self}
-              npm ci --prefer-offline --no-audit
-              npm run build
+              bun install --frozen-lockfile
+              bun run build
               echo "Built to dist/"
             '');
           };
@@ -120,7 +133,7 @@
               cd ${self}
               export PLAYWRIGHT_BROWSERS_PATH=${playwrightBrowsers}
               export PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS=true
-              npx playwright test
+              bunx playwright test
             '');
           };
           
@@ -129,8 +142,8 @@
             type = "app";
             program = toString (pkgs.writeShellScript "install" ''
               cd ${self}
-              npm ci --prefer-offline --no-audit
-              echo "Dependencies installed"
+              bun install --frozen-lockfile
+              echo "Dependencies installed from bun.lock (frozen)"
             '');
           };
         };

@@ -998,7 +998,7 @@ Below 768px:
 ### Build Command
 
 ```bash
-NODE_OPTIONS="--max-old-space-size=8192" npm run build
+NODE_OPTIONS="--max-old-space-size=8192" bun run build
 ```
 
 This is required due to Vite 8's increased memory usage during production builds. Without this flag, builds may fail with a JavaScript heap out of memory error.

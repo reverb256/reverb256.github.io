@@ -8,7 +8,7 @@
  *   node scripts/convert-og-image.js
  *
  * Requirements (install one):
- *   Option 1: npm install -g sharp
+ *   Option 1: bun add -D sharp
  *   Option 2: Use online tool: https://cloudconvert.com/svg-to-png
  *   Option 3: Open SVG in browser, screenshot at 1200x630
  */
@@ -33,7 +33,7 @@ console.log('📁 Target PNG:', pngPath);
 console.log('\n📋 To convert, choose one option:\n');
 
 console.log('Option 1: Using sharp (recommended)');
-console.log('  npm install sharp');
+console.log('  bun add -D sharp');
 console.log('  Then run: node scripts/convert-og-image-with-sharp.js\n');
 
 console.log('Option 2: Using ImageMagick');
